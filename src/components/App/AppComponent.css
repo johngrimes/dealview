@@ -1,0 +1,18 @@
+@import "./styles/pure.css";
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  padding: 2em 3em;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+.control-group {
+  margin-bottom: 1em;
+}
+
+.form input[type="text"] {
+  width: 300px;
+}
