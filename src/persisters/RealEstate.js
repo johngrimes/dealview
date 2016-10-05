@@ -2,13 +2,15 @@
 
 type Values = { [key: string]: string }
 
-export function save(values: Values): Promise<Values> {
+// Takes a set of values, and returns the ID of the new record.
+export function save(values: Values): Promise<string> {
   const valuesCopy = Object.assign({}, values)
   return window.db.realEstate
     .put(valuesCopy)
 }
 
-export function update(values: Values): Promise<string> {
+// Takes an object with an id, and returns the number of modified objects.
+export function update(values: Values): Promise<number> {
   const valuesCopy = Object.assign({}, values)
   return window.db.realEstate
     .where('id')
@@ -16,6 +18,7 @@ export function update(values: Values): Promise<string> {
     .modify(valuesCopy)
 }
 
+// Takes an ID, and returns the values of the matching record.
 export function load(id: string): Promise<Values> {
   return window.db.realEstate
     .where('id')
