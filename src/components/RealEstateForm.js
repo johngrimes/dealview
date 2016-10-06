@@ -8,7 +8,6 @@ import type { AsyncValidateFunction, OnSubmitFunction } from 'redux-form'
 import InputField from './InputField.js'
 import AddressField from './AddressField.js'
 import * as Validations from '../utils/FormValidation.js'
-import type { Errors } from '../utils/FormValidation.js'
 import { saveRealEstate } from '../actions/RealEstateActions.js'
 
 const RealEstateForm = (props: { handleSubmit: Function }) => {

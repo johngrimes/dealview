@@ -1,21 +1,17 @@
 // @flow
 
-//
-// Validates a set of fields, using a supplied validator function.
-//
-export type Values = { [key: string]: string }
-export type Errors = { [key: string]: string }
+type Values = { [key: string]: string }
+type Errors = { [key: string]: string }
 type Fields = Array<string>
 type ValidatorFunction = (value: string) => boolean
 
+//
+// Validates a set of fields, using a supplied validator function.
+//
 const validate = (values: Values, errors: Errors, fields: Fields,
                   validator: ValidatorFunction, message: string) => {
   const updatedErrors = Object.assign({}, errors)
   fields.forEach(f => {
-    console.log('f', f)
-    console.log('values[f]', values[f])
-    console.log('typeof values[f]', typeof values[f])
-    console.log('validator', validator)
     if (typeof values[f] === 'undefined') return
     if (!validator(values[f])) {
       if (typeof updatedErrors[f] === 'undefined') updatedErrors[f] = []
