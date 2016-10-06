@@ -7,7 +7,7 @@ import type { AsyncValidateFunction, OnSubmitFunction } from 'redux-form'
 
 import InputField from './InputField.js'
 import AddressField from './AddressField.js'
-import Validations from '../utils/FormValidation.js'
+import * as Validations from '../utils/FormValidation.js'
 import type { Errors } from '../utils/FormValidation.js'
 import { saveRealEstate } from '../actions/RealEstateActions.js'
 
@@ -38,10 +38,18 @@ const RealEstateForm = (props: { handleSubmit: Function }) => {
 }
 
 const asyncValidate: AsyncValidateFunction = values =>
+  // eslint-disable-next-line max-statements
   new Promise((resolve, reject) => {
-    let errors: Errors = {}
+    let errors = {}
+
     errors = Validations.required(values, errors, ['name'])
-    errors = Validations.minLength(values, errors, ['name'], 3)
+    errors = Validations.minLength(values, errors,
+               [ 'name', 'address1', 'address2', 'address3', 'locality' ], 3)
+    errors = Validations.maxLength(values, errors,
+               [ 'name', 'address1', 'address2', 'address3', 'locality' ], 100)
+    errors = Validations.isLength(values, errors, ['postcode'], 4)
+    console.log('errors', errors)
+
     if (Object.keys(errors).length > 0) reject(errors)
     else resolve()
   })
@@ -51,7 +59,8 @@ const onSubmit: OnSubmitFunction = (values, dispatch) =>
 
 export default reduxForm({
   form: 'realEstate',
-  asyncBlurFields: ['name'],
+  asyncBlurFields: [ 'name', 'address1', 'address2', 'address3', 'locality',
+                     'postcode' ],
   asyncValidate,
   onSubmit
 })(RealEstateForm)
