@@ -47,7 +47,6 @@ const asyncValidate: AsyncValidateFunction = values =>
     errors = Validations.maxLength(values, errors,
                [ 'name', 'address1', 'address2', 'address3', 'locality' ], 100)
     errors = Validations.isLength(values, errors, ['postcode'], 4)
-    console.log('errors', errors)
 
     if (Object.keys(errors).length > 0) reject(errors)
     else resolve()
