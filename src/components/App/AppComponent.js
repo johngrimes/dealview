@@ -1,13 +1,16 @@
 // @flow
 
 import React from 'react'
-import RealEstateForm from '../RealEstateForm'
+import type { Children } from 'react'
 
 import './AppComponent.css'
 
-const AppComponent = () =>
-  <div>
-    <RealEstateForm />
-  </div>
+const AppComponent = (props: { children: Children }) => {
+  const { children } = props
+
+  return (
+    <div>{children}</div>
+  )
+}
 
 export default AppComponent

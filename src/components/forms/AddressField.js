@@ -3,8 +3,8 @@
 import React, { Component } from 'react'
 import { Field } from 'redux-form'
 
-import InputField from '../components/InputField.js'
-import SelectField from '../components/SelectField.js'
+import InputField from './InputField.js'
+import SelectField from './SelectField.js'
 
 type Subfields = { address1: string, address2: string, address3: string,
                    locality: string, state: string, postcode: string }

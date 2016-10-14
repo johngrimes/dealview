@@ -5,11 +5,11 @@ import { connect } from 'react-redux'
 import { reduxForm, getFormValues, Field } from 'redux-form'
 import type { AsyncValidateFunction, OnSubmitFunction } from 'redux-form'
 
-import InputField from './InputField.js'
-import AddressField from './AddressField.js'
-import TextAreaField from './TextAreaField.js'
-import * as Validations from '../utils/FormValidation.js'
-import { saveRealEstate } from '../actions/RealEstateActions.js'
+import InputField from '../../forms/InputField.js'
+import AddressField from '../../forms/AddressField.js'
+import TextAreaField from '../../forms/TextAreaField.js'
+import * as Validations from '../../../utils/FormValidation.js'
+import { saveRealEstate } from '../../../actions/RealEstateActions.js'
 
 const RealEstateForm = (props: { handleSubmit: Function }) => {
   const { handleSubmit } = props,
