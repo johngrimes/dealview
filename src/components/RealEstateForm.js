@@ -7,6 +7,7 @@ import type { AsyncValidateFunction, OnSubmitFunction } from 'redux-form'
 
 import InputField from './InputField.js'
 import AddressField from './AddressField.js'
+import TextAreaField from './TextAreaField.js'
 import * as Validations from '../utils/FormValidation.js'
 import { saveRealEstate } from '../actions/RealEstateActions.js'
 
@@ -28,6 +29,7 @@ const RealEstateForm = (props: { handleSubmit: Function }) => {
         <Field name="name" type="text" label="Name" component={InputField}/>
         <Field name="address" meta={{ subfields: addressFields }}
                component={AddressField}/>
+        <Field name="notes" label="Notes" component={TextAreaField}/>
 
         <button type="submit"
                 className="button button-primary foo bar">Save</button>
@@ -58,7 +60,7 @@ const onSubmit: OnSubmitFunction = (values, dispatch) =>
 export default reduxForm({
   form: 'realEstate',
   asyncBlurFields: [ 'name', 'address1', 'address2', 'address3', 'locality',
-                     'postcode' ],
+                     'postcode', 'notes' ],
   asyncValidate,
   onSubmit
 })(RealEstateForm)

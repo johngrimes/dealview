@@ -6,8 +6,6 @@ import { Field } from 'redux-form'
 import InputField from '../components/InputField.js'
 import SelectField from '../components/SelectField.js'
 
-import './AddressField.css'
-
 type Subfields = { address1: string, address2: string, address3: string,
                    locality: string, state: string, postcode: string }
 

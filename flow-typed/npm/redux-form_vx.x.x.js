@@ -10,7 +10,7 @@ declare module 'redux-form' {
 
   declare type MetaProps = { active: boolean, autofilled: boolean,
                              asyncValidating: boolean, dirty: boolean,
-                             dispatch: Function, error: string,
+                             dispatch: Function, error: Array<string>,
                              invalid: boolean, pristine: boolean,
                              submitting: boolean, touched: boolean,
                              valid: boolean, visited: boolean }

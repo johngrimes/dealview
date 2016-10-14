@@ -10,11 +10,18 @@ const InputField = (props: { input: InputProps, name: string, label: string,
           meta: { touched, error } } = props
   const labelTag = label ? <label htmlFor={name}>{label}</label> : null
 
+  const errorTags = []
+  if (error) {
+    error.forEach((msg, i) =>
+      errorTags.push(<div key={i} className="error">{msg}</div>)
+    )
+  }
+
   return (
     <div>
       {labelTag}
       <input id={name} type={type} placeholder={placeholder} {...input}/>
-      {touched && error && <div className="error">{error}</div>}
+      {error && <div className="errors">{errorTags}</div>}
     </div>
   )
 }
