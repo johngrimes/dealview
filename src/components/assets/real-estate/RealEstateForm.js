@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import type { Dispatch } from 'redux'
 import { reduxForm, getFormValues, Field } from 'redux-form'
 import type { AsyncValidateFunction, OnSubmitFunction } from 'redux-form'
 
@@ -9,10 +11,14 @@ import InputField from '../../forms/InputField.js'
 import AddressField from '../../forms/AddressField.js'
 import TextAreaField from '../../forms/TextAreaField.js'
 import * as Validations from '../../../utils/FormValidation.js'
-import { saveRealEstate } from '../../../actions/RealEstateActions.js'
+import * as RealEstateActions from '../../../actions/RealEstateActions.js'
 
-const RealEstateForm = (props: { handleSubmit: Function }) => {
-  const { handleSubmit } = props,
+import './RealEstateForm.css'
+
+const RealEstateForm = (props: { activePage: string,
+                                 handleSubmit: Function,
+                                 setActiveRealEstatePage: Function }) => {
+  const { activePage, handleSubmit, setActiveRealEstatePage } = props,
         addressFields = {
           address1: 'address1',
           address2: 'address2',
@@ -24,19 +30,43 @@ const RealEstateForm = (props: { handleSubmit: Function }) => {
 
   return (
     <form className="form form-stacked" onSubmit={handleSubmit}>
-      <fieldset>
+      <fieldset className={formPageClass('general', activePage)}>
+        <h2>General Details</h2>
         <Field name="id" type="hidden" component={InputField}/>
         <Field name="name" type="text" label="Name" component={InputField}/>
         <Field name="address" meta={{ subfields: addressFields }}
                component={AddressField}/>
         <Field name="notes" label="Notes" component={TextAreaField}/>
 
+        <button type="button"
+                onClick={() => setActiveRealEstatePage('value')}
+                className="button button-primary">Next</button>
+      </fieldset>
+      <fieldset className={formPageClass('value', activePage)}>
+        <h2>Value</h2>
+
+        <button type="button"
+                onClick={() => setActiveRealEstatePage('general')}
+                className="button">Previous</button>
+        <button type="button"
+                onClick={() => setActiveRealEstatePage('mortgage')}
+                className="button button-primary">Next</button>
+      </fieldset>
+      <fieldset className={formPageClass('mortgage', activePage)}>
+        <h2>Mortgage</h2>
+
+        <button type="button"
+                onClick={() => setActiveRealEstatePage('value')}
+                className="button">Previous</button>
         <button type="submit"
-                className="button button-primary foo bar">Save</button>
+                className="button button-primary">Submit</button>
       </fieldset>
     </form>
   )
 }
+
+const formPageClass = (pageName: string, activePage: string): string =>
+  pageName + (activePage === pageName ? '' : ' form-page-inactive')
 
 const asyncValidate: AsyncValidateFunction = values =>
   // eslint-disable-next-line max-statements
@@ -55,7 +85,15 @@ const asyncValidate: AsyncValidateFunction = values =>
   })
 
 const onSubmit: OnSubmitFunction = (values, dispatch) =>
-  dispatch(saveRealEstate(values))
+  dispatch(RealEstateActions.saveRealEstate(values))
+
+const mapStateToProps = (state: Object) => ({
+  activePage: state.form.realEstate.activePage
+})
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(RealEstateActions, dispatch)
+const ConnectedRealEstateForm =
+  connect(mapStateToProps, mapDispatchToProps)(RealEstateForm)
 
 export default reduxForm({
   form: 'realEstate',
@@ -63,4 +101,4 @@ export default reduxForm({
                      'postcode', 'notes' ],
   asyncValidate,
   onSubmit
-})(RealEstateForm)
+})(ConnectedRealEstateForm)

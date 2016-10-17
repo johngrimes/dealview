@@ -41,3 +41,8 @@ export const updateRealEstate = (values: Values): Action => ({
   type: 'UPDATE_REAL_ESTATE',
   values
 })
+
+export const setActiveRealEstatePage = (page: string): Action => ({
+  type: 'SET_ACTIVE_REAL_ESTATE_PAGE',
+  page
+})

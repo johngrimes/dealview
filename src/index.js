@@ -28,7 +28,9 @@ window.db.version(1).stores({
 })
 window.db.open().catch(error => console.log(error))
 
-const store: Store = configureStore({})
+const store: Store = configureStore({
+  form: { realEstate: { activePage: 'general' } }
+})
 
 ReactDOM.render(
   <Provider store={store}>
