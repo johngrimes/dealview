@@ -9,7 +9,24 @@ const AppComponent = (props: { children: Children }) => {
   const { children } = props
 
   return (
-    <div>{children}</div>
+    <div>
+      <header className="primary-menu menu menu-horizontal">
+        <a className="logo menu-heading menu-link" href="/">DealView</a>
+        <ul className="primary-nav menu-list">
+          <li className="menu-item">
+            <a className="menu-link" href="/portfolio">Portfolio</a>
+          </li>
+          <li className="menu-item">
+            <a className="menu-link" href="/cash-flow">Cash Flow</a>
+          </li>
+          <li className="menu-item">
+            <a className="menu-link" href="/scenarios">Scenarios</a>
+          </li>
+        </ul>
+        <div className="user-menu"></div>
+      </header>
+      <div className="main">{children}</div>
+    </div>
   )
 }
 

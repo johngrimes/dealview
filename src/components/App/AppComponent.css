@@ -2,7 +2,27 @@
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
-  padding: 2em 3em;
+}
+
+.primary-menu {
+	background-color: #666;
+}
+
+.primary-menu .menu-link {
+	color: #eee;
+	font-weight: 300;
+}
+
+.primary-menu .menu-heading.menu-link {
+	font-weight: inherit;
+}
+
+.primary-menu .menu-link:hover {
+	background-color: #888;
+}
+
+.main {
+	padding: 1em;
 }
 
 h1 {
