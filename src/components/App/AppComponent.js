@@ -10,22 +10,22 @@ const AppComponent = (props: { children: Children }) => {
 
   return (
     <div>
-      <header className="primary-menu menu menu-horizontal">
-        <a className="logo menu-heading menu-link" href="/">DealView</a>
-        <ul className="primary-nav menu-list">
-          <li className="menu-item">
-            <a className="menu-link" href="/portfolio">Portfolio</a>
+      <header className='primary-menu menu menu-horizontal'>
+        <a className='logo menu-heading menu-link' href='/'>DealView</a>
+        <ul className='primary-nav menu-list'>
+          <li className='menu-item'>
+            <a className='menu-link' href='/portfolio'>Portfolio</a>
           </li>
-          <li className="menu-item">
-            <a className="menu-link" href="/cash-flow">Cash Flow</a>
+          <li className='menu-item'>
+            <a className='menu-link' href='/cash-flow'>Cash Flow</a>
           </li>
-          <li className="menu-item">
-            <a className="menu-link" href="/scenarios">Scenarios</a>
+          <li className='menu-item'>
+            <a className='menu-link' href='/scenarios'>Scenarios</a>
           </li>
         </ul>
-        <div className="user-menu"></div>
+        <div className='user-menu' />
       </header>
-      <div className="main">{children}</div>
+      <div className='main'>{children}</div>
     </div>
   )
 }

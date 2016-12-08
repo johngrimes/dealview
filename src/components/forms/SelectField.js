@@ -12,9 +12,9 @@ const SelectField = (props: { input: InputProps, name: string, label: string,
     <div>
       {labelTag}
       <select id={name} {...input}>
-        <option value="QLD">QLD</option>
+        <option value='QLD'>QLD</option>
       </select>
-      {touched && error && <div className="error">{error}</div>}
+      {touched && error && <div className='error'>{error}</div>}
     </div>
   )
 }

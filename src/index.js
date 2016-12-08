@@ -15,8 +15,7 @@ import Scenarios from './components/Scenarios.js'
 import ListAssets from './components/assets/ListAssets.js'
 import CreateAsset from './components/assets/CreateAsset.js'
 import ShowAsset from './components/assets/ShowAsset.js'
-import CreateRealEstate from
-         './components/assets/real-estate/CreateRealEstate.js'
+import CreateRealEstate from './components/assets/real-estate/CreateRealEstate.js'
 import ShowRealEstate from './components/assets/real-estate/ShowRealEstate.js'
 import EditRealEstate from './components/assets/real-estate/EditRealEstate.js'
 import ListLiabilities from './components/liabilities/ListLiabilities.js'
@@ -35,26 +34,22 @@ const store: Store = configureStore({
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={AppComponent}>
-        <Redirect from="/" to="portfolio"/>
-        <Route name="portfolio" path="portfolio" component={Portfolio}>
-          <Route name="listAssets" path="assets" component={ListAssets}>
-            <Route name="createAsset" path="new" component={CreateAsset}/>
-            <Route name="showAsset" path=":id" component={ShowAsset}/>
-            <Route path="real-estate">
-              <Route name="createRealEstate" path="new"
-                     component={CreateRealEstate}/>
-              <Route name="showRealEstate" path=":id"
-                     component={ShowRealEstate}/>
-              <Route name="editRealEstate" path=":id/edit"
-                     component={EditRealEstate}/>
+      <Route path='/' component={AppComponent}>
+        <Redirect from='/' to='portfolio' />
+        <Route name='portfolio' path='portfolio' component={Portfolio}>
+          <Route name='listAssets' path='assets' component={ListAssets}>
+            <Route name='createAsset' path='new' component={CreateAsset} />
+            <Route name='showAsset' path=':id' component={ShowAsset} />
+            <Route path='real-estate'>
+              <Route name='createRealEstate' path='new' component={CreateRealEstate} />
+              <Route name='showRealEstate' path=':id' component={ShowRealEstate} />
+              <Route name='editRealEstate' path=':id/edit' component={EditRealEstate} />
             </Route>
           </Route>
-          <Route name="listLiabilities" path="liabilities"
-                 component={ListLiabilities}/>
+          <Route name='listLiabilities' path='liabilities' component={ListLiabilities} />
         </Route>
-        <Route name="cashFlow" path="cash-flow" component={CashFlow}/>
-        <Route name="scenarios" path="scenarios" component={Scenarios}/>
+        <Route name='cashFlow' path='cash-flow' component={CashFlow} />
+        <Route name='scenarios' path='scenarios' component={Scenarios} />
       </Route>
     </Router>
   </Provider>,

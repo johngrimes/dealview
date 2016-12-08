@@ -4,17 +4,33 @@ import React from 'react'
 import type { Children } from 'react'
 
 import RealEstateForm from './RealEstateForm.js'
+import Breadcrumbs from '../../Breadcrumbs/Breadcrumbs.js'
+import type { Breadcrumb, Route } from '../../Breadcrumbs/Breadcrumbs.js'
 
-const CreateRealEstate = (props: { children: Children }) => {
-  const { children } = props
+type Props = {
+  breadcrumbs: Array<Breadcrumb>,
+  routes: Array<Route>,
+  children: Children
+}
 
-  return (
-    <div className="create-real-estate">
-      <h1>Create Real Estate</h1>
-      <RealEstateForm/>
-      {children}
-    </div>
-  )
+class CreateRealEstate extends React.Component {
+  props: Props
+
+  static breadcrumb(): Breadcrumb {
+    return {
+      display: 'New Real Estate Asset',
+      path: 'real-estate/new'
+    }
+  }
+
+  render() {
+    return (
+      <div className='create-real-estate'>
+        <Breadcrumbs routes={this.props.routes} />
+        <RealEstateForm />
+      </div>
+    )
+  }
 }
 
 export default CreateRealEstate

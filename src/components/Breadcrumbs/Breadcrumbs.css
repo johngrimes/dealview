@@ -1,0 +1,30 @@
+.breadcrumbs-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 8px 16px;
+  background-color: #eee;
+}
+
+.breadcrumbs-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.breadcrumbs-item::after {
+  margin-left: 5px;
+  content: "\2192";
+}
+
+.breadcrumbs-item:last-child::after {
+  margin: 0;
+  content: "";
+}
+
+.breadcrumbs-link {
+  color: black;
+  text-decoration: none;
+}
+
+.breadcrumbs-link:hover {
+  text-decoration: underline;
+}

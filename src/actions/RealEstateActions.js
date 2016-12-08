@@ -5,8 +5,7 @@ import * as RealEstate from '../persisters/RealEstate.js'
 
 type Values = { [key: string]: string }
 
-export const saveRealEstate = (values: Values): Function =>
-                              (dispatch: Dispatch): void => {
+export const saveRealEstate = (values: Values): Function => (dispatch: Dispatch): void => {
   if (values.id) {
     RealEstate.update(values)
       // The update function will return either 0 or 1, depending on whether
@@ -24,8 +23,7 @@ export const saveRealEstate = (values: Values): Function =>
   dispatch({ type: 'SAVE_REAL_ESTATE', values })
 }
 
-export const loadRealEstate = (id: string): Function =>
-                              (dispatch: Dispatch): void => {
+export const loadRealEstate = (id: string): Function => (dispatch: Dispatch): void => {
   RealEstate.load(id)
     .then(result => dispatch(updateRealEstate(result)))
     .catch(error => dispatch(errorOccurred(error)))

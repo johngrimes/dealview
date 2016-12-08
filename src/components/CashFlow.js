@@ -7,7 +7,7 @@ const CashFlow = (props: { children: Children }) => {
   const { children } = props
 
   return (
-    <div className="cash-flow">
+    <div className='cash-flow'>
       <h1>Cash Flow</h1>
       {children}
     </div>

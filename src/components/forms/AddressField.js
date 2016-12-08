@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react'
+import React from 'react'
 import { Field } from 'redux-form'
 
 import InputField from './InputField.js'
@@ -16,20 +16,15 @@ const AddressField = (props: { meta: { subfields: Subfields } }) => {
 
   return (
     <div>
-      <div className="group">
-        <Field name={subfields.address1} type="text" label="Address"
-               placeholder="Line 1" component={InputField}/>
-        <Field name={subfields.address2} type="text"
-               placeholder="Line 2" component={InputField}/>
-        <Field name={subfields.address3} type="text"
-               placeholder="Line 3" component={InputField}/>
+      <div className='group'>
+        <Field name={subfields.address1} type='text' label='Address' placeholder='Line 1' component={InputField} />
+        <Field name={subfields.address2} type='text' placeholder='Line 2' component={InputField} />
+        <Field name={subfields.address3} type='text' placeholder='Line 3' component={InputField} />
       </div>
       <div>
-        <Field name={subfields.locality} type="text"
-               placeholder="Suburb / Town" component={InputField}/>
-        <Field name={subfields.state} component={SelectField}/>
-        <Field name={subfields.postcode} type="text"
-               placeholder="Postcode" component={InputField}/>
+        <Field name={subfields.locality} type='text' placeholder='Suburb / Town' component={InputField} />
+        <Field name={subfields.state} component={SelectField} />
+        <Field name={subfields.postcode} type='text' placeholder='Postcode' component={InputField} />
       </div>
     </div>
   )

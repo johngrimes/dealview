@@ -7,7 +7,7 @@ const Scenarios = (props: { children: Children }) => {
   const { children } = props
 
   return (
-    <div className="scenarios">
+    <div className='scenarios'>
       <h1>Scenarios</h1>
       {children}
     </div>

@@ -1,10 +1,10 @@
 // @flow
 
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import type { Dispatch } from 'redux'
-import { reduxForm, getFormValues, Field } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import type { AsyncValidateFunction, OnSubmitFunction } from 'redux-form'
 
 import InputField from '../../forms/InputField.js'
@@ -15,52 +15,38 @@ import * as RealEstateActions from '../../../actions/RealEstateActions.js'
 
 import './RealEstateForm.css'
 
-const RealEstateForm = (props: { activePage: string,
-                                 handleSubmit: Function,
-                                 setActiveRealEstatePage: Function }) => {
-  const { activePage, handleSubmit, setActiveRealEstatePage } = props,
-        addressFields = {
-          address1: 'address1',
-          address2: 'address2',
-          address3: 'address3',
-          postcode: 'postcode',
-          locality: 'locality',
-          state: 'state'
-        }
+const RealEstateForm = (props: { activePage: string, handleSubmit: Function, setActiveRealEstatePage: Function }) => {
+  const { activePage, handleSubmit, setActiveRealEstatePage } = props
+  const addressFields = {
+    address1: 'address1',
+    address2: 'address2',
+    address3: 'address3',
+    postcode: 'postcode',
+    locality: 'locality',
+    state: 'state'
+  }
 
   return (
-    <form className="form form-stacked" onSubmit={handleSubmit}>
+    <form className='real-estate-form form form-stacked' onSubmit={handleSubmit}>
       <fieldset className={formPageClass('general', activePage)}>
-        <h2>General Details</h2>
-        <Field name="id" type="hidden" component={InputField}/>
-        <Field name="name" type="text" label="Name" component={InputField}/>
-        <Field name="address" meta={{ subfields: addressFields }}
-               component={AddressField}/>
-        <Field name="notes" label="Notes" component={TextAreaField}/>
+        <Field name='id' type='hidden' component={InputField} />
+        <Field name='name' type='text' label='Name' component={InputField} />
+        <Field name='address' meta={{ subfields: addressFields }} component={AddressField} />
+        <Field name='notes' label='Notes' component={TextAreaField} />
 
-        <button type="button"
-                onClick={() => setActiveRealEstatePage('value')}
-                className="button button-primary">Next</button>
+        <button type='button' onClick={() => setActiveRealEstatePage('value')} className='button button-primary'>Next</button>
       </fieldset>
       <fieldset className={formPageClass('value', activePage)}>
         <h2>Value</h2>
 
-        <button type="button"
-                onClick={() => setActiveRealEstatePage('general')}
-                className="button">Previous</button>
-        <button type="button"
-                onClick={() => setActiveRealEstatePage('mortgage')}
-                className="button button-primary">Next</button>
+        <button type='button' onClick={() => setActiveRealEstatePage('general')} className='button'>Previous</button>
+        <button type='button' onClick={() => setActiveRealEstatePage('mortgage')} className='button button-primary'>Next</button>
       </fieldset>
       <fieldset className={formPageClass('mortgage', activePage)}>
         <h2>Mortgage</h2>
 
-        <button type="button"
-                onClick={() => setActiveRealEstatePage('value')}
-                className="button">Previous</button>
-        <button type="submit"
-                className="button button-primary">Submit</button>
-      </fieldset>
+        <button type='button' onClick={() => setActiveRealEstatePage('value')} className='button'>Previous</button>
+        <button type='submit' className='button button-primary'>Submit</button> </fieldset>
     </form>
   )
 }
@@ -97,8 +83,7 @@ const ConnectedRealEstateForm =
 
 export default reduxForm({
   form: 'realEstate',
-  asyncBlurFields: [ 'name', 'address1', 'address2', 'address3', 'locality',
-                     'postcode', 'notes' ],
+  asyncBlurFields: [ 'name', 'address1', 'address2', 'address3', 'locality', 'postcode', 'notes' ],
   asyncValidate,
   onSubmit
 })(ConnectedRealEstateForm)

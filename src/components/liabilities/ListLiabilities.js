@@ -7,7 +7,7 @@ const ListLiabilities = (props: { children: Children }) => {
   const { children } = props
 
   return (
-    <div className="list-liabilities">
+    <div className='list-liabilities'>
       <h1>List Liabilities</h1>
       {children}
     </div>
