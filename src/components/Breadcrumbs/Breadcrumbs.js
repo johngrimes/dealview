@@ -1,36 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { connect } from 'react-redux'
 
 import './Breadcrumbs.css'
 
 export type Breadcrumb = {
   display: string,
   path: string
-}
-
-type Component = {
-  breadcrumb?: Breadcrumb
-}
-
-export type Route = {
-  component?: Component
-}
-
-// Recursive function that walks the supplied `routes` object, calling the
-// `breadcrumb` function on each component.
-const getBreadcrumbsFromRoutes = (routes: Array<Route>): Array<Breadcrumb> => {
-  const tail = routes.slice(1)
-  const head = routes[0]
-
-  if (!head) {
-    return []
-  } else if (head.component && head.component.breadcrumb) {
-    const breadcrumb = head.component.breadcrumb()
-    const newBreadcrumbs = getBreadcrumbsFromRoutes(tail)
-    newBreadcrumbs.push(breadcrumb)
-    return newBreadcrumbs
-  }
-  return getBreadcrumbsFromRoutes(tail)
 }
 
 // Takes an array of Breadcrumb objects and returns an array of links, each
@@ -41,13 +16,13 @@ const breadcrumbLinks = (breadcrumbs: Array<Breadcrumb>): Array<React$Element> =
 
   if (breadcrumb) {
     const breadcrumbLink = <li className='breadcrumbs-item' key={breadcrumb.path}>
-                             <Link className='breadcrumbs-link' to={breadcrumb.path}>
+                             <a className='breadcrumbs-link' href={breadcrumb.path}>
                                {breadcrumb.display}
-                             </Link>
+                             </a>
                            </li>
     const newBreadcrumbLinks = breadcrumbLinks(breadcrumbsCopy)
 
-    newBreadcrumbLinks.unshift(breadcrumbLink)
+    newBreadcrumbLinks.push(breadcrumbLink)
 
     return newBreadcrumbLinks
   }
@@ -56,7 +31,7 @@ const breadcrumbLinks = (breadcrumbs: Array<Breadcrumb>): Array<React$Element> =
 }
 
 type Props = {
-  routes: Array<Route>
+  route: String
 }
 
 // A Component that displays a breadcrumb trail, based on a set of routes
@@ -66,7 +41,15 @@ class Breadcrumbs extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { breadcrumbs: getBreadcrumbsFromRoutes(props.routes) }
+    console.log('props', props)
+    if (props.route.pathname === '/portfolio/assets/real-estate/new') {
+      this.state = { breadcrumbs: [
+        { display: 'Assets', path: '/portfolio/assets' },
+        { display: 'New Real Estate Asset', path: '/portfolio/assets/real-estate/new' }
+      ]}
+    } else {
+      this.state = { breadcrumbs: [] }
+    }
   }
 
   render() {
@@ -80,4 +63,8 @@ class Breadcrumbs extends React.Component {
   }
 }
 
-export default Breadcrumbs
+const mapStateToProps = (state) => {
+  return { route: state.app.route }
+}
+
+export default connect(mapStateToProps)(Breadcrumbs)

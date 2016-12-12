@@ -23,6 +23,7 @@
 .breadcrumbs-link {
   color: black;
   text-decoration: none;
+  font-size: 14px;
 }
 
 .breadcrumbs-link:hover {

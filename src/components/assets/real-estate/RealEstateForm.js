@@ -46,7 +46,8 @@ const RealEstateForm = (props: { activePage: string, handleSubmit: Function, set
         <h2>Mortgage</h2>
 
         <button type='button' onClick={() => setActiveRealEstatePage('value')} className='button'>Previous</button>
-        <button type='submit' className='button button-primary'>Submit</button> </fieldset>
+        <button type='submit' className='button button-primary'>Submit</button>
+      </fieldset>
     </form>
   )
 }

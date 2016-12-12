@@ -1,12 +1,30 @@
 // @flow
 
 import React from 'react'
-import type { Children } from 'react'
-
+import { connect } from 'react-redux'
+import CreateRealEstate from '../assets/real-estate/CreateRealEstate.js'
 import './AppComponent.css'
 
-const AppComponent = (props: { children: Children }) => {
-  const { children } = props
+type Location = {
+  href: string,
+  protocol: string,
+  host: string,
+  hostname: string,
+  port: string,
+  pathname: string,
+  search: string,
+  hash: string,
+  username: string,
+  password: string,
+  origin: string
+}
+type Routes = Map<string, React$Element<any>>
+
+const AppComponent = (props: { route: Location }) => {
+  const routes: Routes = new Map()
+  routes.set('/portfolio/assets/real-estate/new', <CreateRealEstate />)
+
+  const mainComponent = routes.get(props.route.pathname)
 
   return (
     <div>
@@ -25,9 +43,15 @@ const AppComponent = (props: { children: Children }) => {
         </ul>
         <div className='user-menu' />
       </header>
-      <div className='main'>{children}</div>
+      <div className='main'>{mainComponent}</div>
     </div>
   )
 }
 
-export default AppComponent
+const mapStateToProps = (state: Object) => {
+  return {
+    route: state.app.route
+  }
+}
+
+export default connect(mapStateToProps)(AppComponent)
