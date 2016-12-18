@@ -5,6 +5,8 @@ import React from 'react'
 import RealEstateForm from './RealEstateForm.js'
 import Breadcrumbs from '../../Breadcrumbs/Breadcrumbs.js'
 
+import './CreateRealEstate.css'
+
 class CreateRealEstate extends React.Component {
   render() {
     return (

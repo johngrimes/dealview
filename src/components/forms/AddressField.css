@@ -1,0 +1,19 @@
+.address-field .group {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.address-field label {
+  position: relative;
+  top: 0.5em;
+}
+
+form .address-field.with-errors input {
+  border-color: #ff8030;
+  border-width: 1px;
+}
+form .address-field.with-errors input:last-of-type {
+  border-width: 1px 1px 0;
+  border-radius: 4px 4px 0 0;
+  margin-bottom: -2px;
+}

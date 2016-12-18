@@ -178,6 +178,24 @@ since IE8 won't execute CSS that contains a CSS3 selector.
     border-bottom: 1px solid #e5e5e5;
 }
 
+.form input.with-errors {
+  border-color: #ff8030;
+  border-radius: 4px 4px 0 0;
+  border-width: 1px 1px 0;
+}
+.form .errors {
+  margin-left: 11em;
+  border: 1px solid #ff8030;
+  background-color: #ffba8f;
+  width: 300px;
+  border-radius: 0 0 4px 4px;
+  padding: 0.5em 0.6em;
+  box-sizing: border-box;
+}
+.form .error {
+  font-size: 0.9em;
+}
+
 .form-stacked input[type="text"],
 .form-stacked input[type="password"],
 .form-stacked input[type="email"],
@@ -236,6 +254,9 @@ since IE8 won't execute CSS that contains a CSS3 selector.
 }
 .form-aligned .controls {
     margin: 1.5em 0 0 11em;
+}
+.form-aligned button {
+  margin-left: 11em;
 }
 
 /* Rounded Inputs */

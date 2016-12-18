@@ -41,7 +41,6 @@ class Breadcrumbs extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log('props', props)
     if (props.route.pathname === '/portfolio/assets/real-estate/new') {
       this.state = { breadcrumbs: [
         { display: 'Assets', path: '/portfolio/assets' },

@@ -3,6 +3,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import CreateRealEstate from '../assets/real-estate/CreateRealEstate.js'
+
+import '../../styles/base.css'
+import '../../styles/menus.css'
+import '../../styles/forms.css'
 import './AppComponent.css'
 
 type Location = {
