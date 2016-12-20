@@ -17,8 +17,8 @@ import '../../../styles/forms.css'
 import '../../../styles/buttons.css'
 import './RealEstateForm.css'
 
-const RealEstateForm = (props: { activePage: string, handleSubmit: Function, setActiveRealEstatePage: Function }) => {
-  const { activePage, handleSubmit, setActiveRealEstatePage } = props
+const RealEstateForm = (props: { handleSubmit: Function, setActiveRealEstatePage: Function }) => {
+  const { handleSubmit } = props
   const addressFields = {
     address1: 'address1',
     address2: 'address2',
@@ -30,34 +30,26 @@ const RealEstateForm = (props: { activePage: string, handleSubmit: Function, set
 
   return (
     <form className='real-estate-form form form-aligned' onSubmit={handleSubmit}>
-      <fieldset className={formPageClass('general', activePage)}>
+      <fieldset>
         <legend>General details</legend>
 
         <Field name='id' type='hidden' component={InputField} />
         <Field name='name' type='text' label='Name' component={InputField} />
         <Field name='address' meta={{ subfields: addressFields }} component={AddressField} />
         <Field name='notes' label='Notes' component={TextAreaField} />
-
-        <button type='button' onClick={() => setActiveRealEstatePage('value')} className='button button-primary'>Next</button>
       </fieldset>
-      <fieldset className={formPageClass('value', activePage)}>
+      <fieldset>
         <legend>Value</legend>
 
-        <button type='button' onClick={() => setActiveRealEstatePage('general')} className='button'>Previous</button>
-        <button type='button' onClick={() => setActiveRealEstatePage('mortgage')} className='button button-primary'>Next</button>
       </fieldset>
-      <fieldset className={formPageClass('mortgage', activePage)}>
+      <fieldset>
         <legend>Mortgage</legend>
 
-        <button type='button' onClick={() => setActiveRealEstatePage('value')} className='button'>Previous</button>
         <button type='submit' className='button button-primary'>Submit</button>
       </fieldset>
     </form>
   )
 }
-
-const formPageClass = (pageName: string, activePage: string): string =>
-  pageName + (activePage === pageName ? '' : ' form-page-inactive')
 
 const validate: ValidateFunction = values => {
   let errors = {}
