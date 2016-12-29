@@ -1,83 +1,124 @@
 // @flow
 
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import type { Dispatch } from 'redux'
-import { reduxForm, Field } from 'redux-form'
-import type { ValidateFunction, OnSubmitFunction } from 'redux-form'
 
 import InputField from '../../forms/InputField.js'
-import AddressField from '../../forms/AddressField.js'
+import AddressField, { AddressDefaults, AddressErrorDefaults } from '../../forms/AddressField.js'
 import TextAreaField from '../../forms/TextAreaField.js'
 import * as Validations from '../../../utils/FormValidation.js'
-import * as RealEstateActions from '../../../actions/RealEstateActions.js'
+import type { FieldErrors } from '../../../utils/FormValidation.js'
+import type { AddressValues, AddressErrors } from '../../../components/forms/AddressField.js'
 
 import '../../../styles/forms.css'
 import '../../../styles/buttons.css'
 import './RealEstateForm.css'
 
-const RealEstateForm = (props: { handleSubmit: Function, setActiveRealEstatePage: Function }) => {
-  const { handleSubmit } = props
-  const addressFields = {
-    address1: 'address1',
-    address2: 'address2',
-    address3: 'address3',
-    postcode: 'postcode',
-    locality: 'locality',
-    state: 'state'
+type RealEstateValues = {
+  id: string,
+  name: string,
+  address: AddressValues,
+  notes: string
+}
+
+type RealEstateErrors = {
+  name: FieldErrors,
+  address: AddressErrors,
+  notes: FieldErrors
+}
+
+type State = {
+  values: RealEstateValues,
+  errors: RealEstateErrors
+}
+
+class RealEstateForm extends React.Component {
+  state: State
+  handleChange: (fieldName: string, value: string) => void
+  handleAddressChange: (values: AddressValues) => void
+
+  constructor() {
+    super()
+    this.state = {
+      values: {
+        id: '',
+        name: '',
+        address: AddressDefaults,
+        notes: ''
+      },
+      errors: {
+        name: [],
+        address: AddressErrorDefaults,
+        notes: []
+      }
+    }
+
+    this.handleChange = (fieldName, value) => {
+      const updatedValues = this.state.values
+      updatedValues[fieldName] = value
+      this.setState({
+        values: updatedValues,
+        errors: this.validate()
+      })
+    }
+
+    this.handleAddressChange = (values) => {
+      const updatedValues = this.state.values
+      updatedValues.address = values
+      this.setState({
+        values: updatedValues,
+        errors: this.validate()
+      })
+    }
   }
 
-  return (
-    <form className='real-estate-form form form-aligned' onSubmit={handleSubmit}>
-      <fieldset>
-        <legend>General details</legend>
+  render() {
+    const values = this.state.values
+    const errors = this.state.errors
 
-        <Field name='id' type='hidden' component={InputField} />
-        <Field name='name' type='text' label='Name' component={InputField} />
-        <Field name='address' meta={{ subfields: addressFields }} component={AddressField} />
-        <Field name='notes' label='Notes' component={TextAreaField} />
-      </fieldset>
-      <fieldset>
-        <legend>Value</legend>
+    return (
+      <form className='real-estate-form form form-aligned' onSubmit={this.handleSubmit}>
+        <fieldset>
+          <legend>General details</legend>
 
-      </fieldset>
-      <fieldset>
-        <legend>Mortgage</legend>
+          <InputField name='id' type='hidden' value={values.id} />
+          <InputField name='name' type='text' label='Name' value={values.name} errors={errors.name}
+            notifyChange={(value) => this.handleChange('name', value)} />
+          <AddressField name='address' value={values.address} errors={errors.address} notifyChange={this.handleAddressChange} />
+          <TextAreaField name='notes' label='Notes' value={values.notes}
+            notifyChange={(value) => this.handleChange('notes', value)} />
+        </fieldset>
+        <fieldset>
+          <legend>Value</legend>
 
-        <button type='submit' className='button button-primary'>Submit</button>
-      </fieldset>
-    </form>
-  )
+        </fieldset>
+        <fieldset>
+          <legend>Mortgage</legend>
+
+          <button type='submit' className='button button-primary'>Submit</button>
+        </fieldset>
+      </form>
+    )
+  }
+
+  validate(): RealEstateErrors {
+    const values = this.state.values
+    let errors = {}
+
+    errors.name = []
+    errors.name = errors.name.concat(Validations.required(values.name))
+    errors.name = errors.name.concat(Validations.minLength(values.name, 3))
+    errors.name = errors.name.concat(Validations.maxLength(values.name, 100))
+
+    errors.address = AddressField.validate(values.address)
+
+    errors.notes = []
+
+    return errors
+  }
+
+  handleSubmit(event: Event) {
+    console.log(event)
+  }
 }
 
-const validate: ValidateFunction = values => {
-  let errors = {}
-
-  errors = Validations.required(values, errors, ['name'])
-  errors = Validations.minLength(values, errors,
-             [ 'name', 'address1', 'address2', 'address3', 'locality' ], 3)
-  errors = Validations.maxLength(values, errors,
-             [ 'name', 'address1', 'address2', 'address3', 'locality' ], 100)
-  errors = Validations.isLength(values, errors, ['postcode'], 4)
-
-  console.log('errors', errors)
-  return errors
-}
-
-const onSubmit: OnSubmitFunction = (values, dispatch) =>
-  dispatch(RealEstateActions.saveRealEstate(values))
-
-const mapStateToProps = (state: Object) => ({
-  activePage: state.form.realEstate.activePage
-})
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(RealEstateActions, dispatch)
-const ConnectedRealEstateForm =
-  connect(mapStateToProps, mapDispatchToProps)(RealEstateForm)
-
-export default reduxForm({
-  form: 'realEstate',
-  validate,
-  onSubmit
-})(ConnectedRealEstateForm)
+export default RealEstateForm

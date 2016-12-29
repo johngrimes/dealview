@@ -1,48 +1,36 @@
 // @flow
 
-type Values = { [key: string]: string }
-type Errors = { [key: string]: string }
-type Fields = Array<string>
 type ValidatorFunction = (value: string) => boolean
+export type FieldErrors = string[]
 
 //
 // Validates a set of fields, using a supplied validator function.
 //
-const validate = (values: Values, errors: Errors, fields: Fields, validator: ValidatorFunction, message: string) => {
-  const updatedErrors = Object.assign({}, errors)
-  fields.forEach(f => {
-    // if (typeof values[f] === 'undefined') return
-    if (!validator(values[f])) {
-      if (typeof updatedErrors[f] === 'undefined') updatedErrors[f] = []
-      updatedErrors[f].push(message)
-    }
-  })
-  return updatedErrors
+const validate = (value: string, validator: ValidatorFunction, message: string): FieldErrors => {
+  if (!validator(value)) return [message]
+  else return []
 }
 
 //
 // Validates the presence of a set of fields.
 //
-export const required = (values: Values, errors: Errors, fields: Fields) =>
-  validate(values, errors, fields, v => !!v, "can't be blank")
+export const required = (value: string): FieldErrors =>
+  validate(value, v => !!v, "can't be blank")
 
 //
 // Validates that a set of fields have values with a minimum length.
 //
-export const minLength = (values: Values, errors: Errors, fields: Fields, min: number) =>
-  validate(values, errors, fields, v => !v || v.length >= min,
-                  `must be at least ${min} characters`)
+export const minLength = (value: string, min: number): FieldErrors =>
+  validate(value, v => !v || v.length >= min, `must be at least ${min} characters`)
 
 //
 // Validates that a set of fields have values with a maximum length.
 //
-export const maxLength = (values: Values, errors: Errors, fields: Fields, max: number) =>
-  validate(values, errors, fields, v => !v || v.length <= max,
-                  `must be at most ${max} characters`)
+export const maxLength = (value: string, max: number): FieldErrors =>
+  validate(value, v => !v || v.length <= max, `must be at most ${max} characters`)
 
 //
 // Validates that a set of fields have values with an exact length.
 //
-export const isLength = (values: Values, errors: Errors, fields: Fields, is: number) =>
-  validate(values, errors, fields, v => !v || v.length === is,
-                  `must be exactly ${is} characters`)
+export const isLength = (value: string, is: number): FieldErrors =>
+  validate(value, v => !v || v.length === is, `must be exactly ${is} characters`)
