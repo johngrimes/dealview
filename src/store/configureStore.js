@@ -1,17 +1,12 @@
 // @flow
 
-import { createStore, applyMiddleware } from 'redux'
+import { createStore } from 'redux'
 import type { Store, State } from 'redux'
-import Thunk from 'redux-thunk'
-import composeWithDevTools from './composeWithDevTools.js'
 
 import AppReducer from '../reducers/AppReducer.js'
 
-const enhancer = composeWithDevTools(
-  applyMiddleware(Thunk)
-)
-
 const configureStore = (initialState: State): Store =>
-  createStore(AppReducer, initialState, enhancer)
+  createStore(AppReducer, initialState,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 export default configureStore

@@ -9,8 +9,7 @@ import configureStore from './store/configureStore.js'
 import AppComponent from './components/App/AppComponent.js'
 
 const store: Store = configureStore({
-  app: { route: window.location },
-  form: { realEstate: { activePage: 'general' } }
+  app: { route: window.location }
 })
 
 // Dispatch an action whenever the location of the page changes.
