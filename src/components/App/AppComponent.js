@@ -1,61 +1,62 @@
 // @flow
 
 import React from 'react'
-import { connect } from 'react-redux'
-import CreateRealEstate from '../assets/real-estate/CreateRealEstate.js'
+
+import EventPublisher from '../../data/events/EventPublisher.js'
+import { routes, getRouteForPath } from '../../routing.js'
+import type { Routes, Route } from '../../routing.js'
 
 import '../../styles/base.css'
 import '../../styles/menus.css'
 import '../../styles/forms.css'
 import './AppComponent.css'
 
-type Location = {
-  href: string,
-  protocol: string,
-  host: string,
-  hostname: string,
-  port: string,
-  pathname: string,
-  search: string,
-  hash: string,
-  username: string,
-  password: string,
-  origin: string
+type Props = {
+  eventPublisher: EventPublisher
 }
-type Routes = Map<string, React$Element<any>>
-
-const AppComponent = (props: { route: Location }) => {
-  const routes: Routes = new Map()
-  routes.set('/portfolio/assets/real-estate/new', <CreateRealEstate />)
-
-  const mainComponent = routes.get(props.route.pathname)
-
-  return (
-    <div>
-      <header className='primary-menu menu menu-horizontal'>
-        <a className='logo menu-heading menu-link' href='/'>DealView</a>
-        <ul className='primary-nav menu-list'>
-          <li className='menu-item'>
-            <a className='menu-link' href='/portfolio'>Portfolio</a>
-          </li>
-          <li className='menu-item'>
-            <a className='menu-link' href='/cash-flow'>Cash Flow</a>
-          </li>
-          <li className='menu-item'>
-            <a className='menu-link' href='/scenarios'>Scenarios</a>
-          </li>
-        </ul>
-        <div className='user-menu' />
-      </header>
-      <div className='main'>{mainComponent}</div>
-    </div>
-  )
+type State = {
+  route?: Route
 }
 
-const mapStateToProps = (state: Object) => {
-  return {
-    route: state.app.route
+class AppComponent extends React.Component {
+  props: Props
+  state: State
+  routes: Routes
+
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      route: getRouteForPath(routes, window.location.pathname)
+    }
+    window.addEventListener('popstate', (event) => {
+      this.setState({
+        route: getRouteForPath(routes, window.location.pathname)
+      })
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <header className='primary-menu menu menu-horizontal'>
+          <a className='logo menu-heading menu-link' href='/'>DealView</a>
+          <ul className='primary-nav menu-list'>
+            <li className='menu-item'>
+              <a className='menu-link' href='/portfolio'>Portfolio</a>
+            </li>
+            <li className='menu-item'>
+              <a className='menu-link' href='/cash-flow'>Cash Flow</a>
+            </li>
+            <li className='menu-item'>
+              <a className='menu-link' href='/scenarios'>Scenarios</a>
+            </li>
+          </ul>
+          <div className='user-menu' />
+        </header>
+        {this.state.route ? <div className='main'>{this.state.route.component}</div> : null}
+      </div>
+    )
   }
 }
 
-export default connect(mapStateToProps)(AppComponent)
+export default AppComponent

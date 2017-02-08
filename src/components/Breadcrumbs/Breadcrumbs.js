@@ -1,5 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
+
+import type { Route } from '../../routing.js'
 
 import './Breadcrumbs.css'
 
@@ -31,7 +32,7 @@ const breadcrumbLinks = (breadcrumbs: Array<Breadcrumb>): Array<React$Element> =
 }
 
 type Props = {
-  route: String
+  route: Route
 }
 
 // A Component that displays a breadcrumb trail, based on a set of routes
@@ -39,31 +40,16 @@ type Props = {
 class Breadcrumbs extends React.Component {
   props: Props
 
-  constructor(props) {
-    super(props)
-    if (props.route.pathname === '/portfolio/assets/real-estate/new') {
-      this.state = { breadcrumbs: [
-        { display: 'Assets', path: '/portfolio/assets' },
-        { display: 'New Real Estate Asset', path: '/portfolio/assets/real-estate/new' }
-      ]}
-    } else {
-      this.state = { breadcrumbs: [] }
-    }
-  }
-
   render() {
+    console.log('Breadcrumbs props', this.props)
     return (
       <div className='breadcrumbs'>
         <ul className='breadcrumbs-list'>
-          {breadcrumbLinks(this.state.breadcrumbs)}
+          {breadcrumbLinks(this.props.route.breadcrumbs)}
         </ul>
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return { route: state.app.route }
-}
-
-export default connect(mapStateToProps)(Breadcrumbs)
+export default Breadcrumbs

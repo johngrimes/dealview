@@ -6,22 +6,20 @@ import { Provider } from 'react-redux'
 import type { Store } from 'redux'
 
 import configureStore from './store/configureStore.js'
+import EventPublisher from './data/events/EventPublisher.js'
+import { listener as eventListener } from './data/events/listener.js'
 import AppComponent from './components/App/AppComponent.js'
 
 const store: Store = configureStore({
   app: { route: window.location }
 })
 
-// Dispatch an action whenever the location of the page changes.
-const handlePopState = (location) => store.dispatch({
-  type: 'SET_LOCATION',
-  location: location
-})
-window.addEventListener('popstate', handlePopState)
+const eventPublisher = new EventPublisher()
+eventPublisher.subscribe('CreateRealEstate', eventListener)
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppComponent />
+    <AppComponent eventPublisher={eventPublisher} />
   </Provider>,
   document.getElementById('app')
 )

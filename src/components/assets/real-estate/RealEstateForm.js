@@ -3,22 +3,19 @@
 import React from 'react'
 
 import InputField from '../../forms/InputField.js'
-import AddressField, { AddressDefaults, AddressErrorDefaults } from '../../forms/AddressField.js'
+import AddressField, { AddressErrorDefaults } from '../../forms/AddressField.js'
 import TextAreaField from '../../forms/TextAreaField.js'
 import * as Validations from '../../../utils/FormValidation.js'
+import { save } from '../../../data/assets/realEstate.js'
+import { RealEstateEmpty } from '../../../data/assets/realEstate.js'
+import type { RealEstateValues } from '../../../data/assets/realEstate.js'
+import type { AddressValues } from '../../../data/commonTypes.js'
 import type { FieldErrors } from '../../../utils/FormValidation.js'
-import type { AddressValues, AddressErrors } from '../../../components/forms/AddressField.js'
+import type { AddressErrors } from '../../../components/forms/AddressField.js'
 
 import '../../../styles/forms.css'
 import '../../../styles/buttons.css'
 import './RealEstateForm.css'
-
-type RealEstateValues = {
-  id: string,
-  name: string,
-  address: AddressValues,
-  notes: string
-}
 
 type RealEstateErrors = {
   name: FieldErrors,
@@ -35,16 +32,12 @@ class RealEstateForm extends React.Component {
   state: State
   handleChange: (fieldName: string, value: string) => void
   handleAddressChange: (values: AddressValues) => void
+  handleSubmit: (event: Event) => boolean
 
   constructor() {
     super()
     this.state = {
-      values: {
-        id: '',
-        name: '',
-        address: AddressDefaults,
-        notes: ''
-      },
+      values: RealEstateEmpty,
       errors: {
         name: [],
         address: AddressErrorDefaults,
@@ -68,6 +61,16 @@ class RealEstateForm extends React.Component {
         values: updatedValues,
         errors: this.validate()
       })
+    }
+
+    this.handleSubmit = (event) => {
+      event.preventDefault()
+      save(this.state.values).then((id) => {
+        let values = Object.assign({}, this.state.values, { id: id })
+        this.setState({ values: values })
+        this.props.eventPublisher.publish('CreateRealEstate', this.state.values)
+      }).catch((error) => console.error(error))
+      return false
     }
   }
 
@@ -114,10 +117,6 @@ class RealEstateForm extends React.Component {
     errors.notes = []
 
     return errors
-  }
-
-  handleSubmit(event: Event) {
-    console.log(event)
   }
 }
 

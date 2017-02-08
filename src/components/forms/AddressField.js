@@ -3,18 +3,10 @@
 import React from 'react'
 
 import * as Validations from '../../utils/FormValidation.js'
+import type { AddressValues } from '../../data/commonTypes.js'
 import type { FieldErrors } from '../../utils/FormValidation.js'
 
 import './AddressField.css'
-
-export type AddressValues = {
-  address1: string,
-  address2: string,
-  address3: string,
-  locality: string,
-  state: string,
-  postcode: string
-}
 
 export type AddressErrors = {
   address1: FieldErrors,
@@ -30,15 +22,6 @@ const AddressLabels = {
   locality: 'Suburb / Town',
   state: 'State',
   postcode: 'Postcode'
-}
-
-export const AddressDefaults = {
-  address1: '',
-  address2: '',
-  address3: '',
-  locality: '',
-  state: '',
-  postcode: ''
 }
 
 export const AddressErrorDefaults = {
