@@ -12,7 +12,7 @@ type Route = {
   breadcrumbs: Array<Breadcrumb>
 }
 
-const placeholderPattern = /:([a-z_]+)(?=\/|$)/g
+const placeholderPattern = /:(\w+)/g
 
 export const routes: Routes = [
   { route: '/portfolio/assets/real-estate/new',
@@ -34,7 +34,7 @@ export const routes: Routes = [
 export const getRouteForPath = (routes: Routes, path: string): Route => {
   let match = null
   routes.some(route => {
-    const pathPattern: string = route.route.replace(placeholderPattern, '([a-z_\\d]+)')
+    const pathPattern: string = route.route.replace(placeholderPattern, '(\\w+)')
     const values = path.match(pathPattern)
     if (values) {
       const placeholders: Array<string>|void = []
