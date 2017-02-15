@@ -35,7 +35,7 @@ class ShowRealEstate extends React.Component {
 
     return (
       <div className='show-real-estate'>
-        <Breadcrumbs route={this.props.route} />
+        <Breadcrumbs route={this.props.route} name={values.name} />
         <dl>
           <dd>Name</dd>
           <dt>{values.name}</dt>
