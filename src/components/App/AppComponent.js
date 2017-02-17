@@ -3,7 +3,8 @@
 import React from 'react'
 
 import EventPublisher from '../../data/events/EventPublisher.js'
-import { routes, getRouteForPath } from '../../routing.js'
+import { routes, getRouteForPath, getNotFoundRoute } from '../../routing.js'
+import Link from '../Link.js'
 import type { Routes, Route } from '../../routing.js'
 
 import '../../styles/base.css'
@@ -22,16 +23,22 @@ class AppComponent extends React.Component {
   props: Props
   state: State
   routes: Routes
+  eventPublisher: Object
 
   constructor(props: Props) {
     super(props)
+    this.eventPublisher = { eventPublisher: this.props.eventPublisher }
     this.state = {
-      route: getRouteForPath(routes, window.location.pathname)
+      route: getRouteForPath(routes, window.location.pathname, this.eventPublisher)
     }
-    window.addEventListener('popstate', (event) => {
+    this.props.eventPublisher.subscribe('Navigate', (eventType, content) => {
       this.setState({
-        route: getRouteForPath(routes, window.location.pathname)
+        route: getRouteForPath(routes, window.location.pathname, this.eventPublisher) ||
+          getNotFoundRoute(window.location.pathname)
       })
+    })
+    window.addEventListener('popstate', (event: Event) => {
+      this.props.eventPublisher.publish('Navigate', { path: window.location.pathname })
     })
   }
 
@@ -39,16 +46,16 @@ class AppComponent extends React.Component {
     return (
       <div>
         <header className='primary-menu menu menu-horizontal'>
-          <a className='logo menu-heading menu-link' href='/'>DealView</a>
+          <Link className='logo menu-heading menu-link' href='/' {...this.eventPublisher}>DealView</Link>
           <ul className='primary-nav menu-list'>
             <li className='menu-item'>
-              <a className='menu-link' href='/portfolio'>Portfolio</a>
+              <Link className='menu-link' href='/portfolio' {...this.eventPublisher}>Portfolio</Link>
             </li>
             <li className='menu-item'>
-              <a className='menu-link' href='/cash-flow'>Cash Flow</a>
+              <Link className='menu-link' href='/cash-flow' {...this.eventPublisher}>Cash Flow</Link>
             </li>
             <li className='menu-item'>
-              <a className='menu-link' href='/scenarios'>Scenarios</a>
+              <Link className='menu-link' href='/scenarios' {...this.eventPublisher}>Scenarios</Link>
             </li>
           </ul>
           <div className='user-menu' />

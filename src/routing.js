@@ -2,6 +2,7 @@ import React from 'react'
 
 import CreateRealEstate from './components/assets/real-estate/CreateRealEstate.js'
 import ShowRealEstate from './components/assets/real-estate/ShowRealEstate.js'
+import NotFound from './components/NotFound.js'
 import type { Breadcrumb } from './components/Breadcrumbs/Breadcrumbs.js'
 
 type Routes = Array<Route>
@@ -26,12 +27,12 @@ export const routes: Routes = [
     componentClass: ShowRealEstate,
     breadcrumbs: [
       { display: 'Assets', path: '/portfolio/assets' },
-      { display: ':name', path: '/portfolio/assets/:id' }
+      { display: '{name}', path: '/portfolio/assets/real-estate/{id}' }
     ]
   }
 ]
 
-export const getRouteForPath = (routes: Routes, path: string): Route => {
+export const getRouteForPath = (routes: Routes, path: string, additionalProps = {}): Route => {
   let match = null
   routes.some(route => {
     const pathPattern: string = route.route.replace(placeholderPattern, '(\\w+)')
@@ -43,10 +44,11 @@ export const getRouteForPath = (routes: Routes, path: string): Route => {
         placeholders.push(x[1])
         x = placeholderPattern.exec(route.route)
       }
+      const initialProps = Object.assign(additionalProps, route.props ? route.props : {})
       const props = placeholders ? placeholders.reduce((p, placeholder, i) => {
         p[placeholder] = values[i + 1]
         return p
-      }, route.props ? route.props : {}) : []
+      }, initialProps) : []
       props.route = route
       route.component = React.createElement(route.componentClass, props)
       match = route
@@ -54,4 +56,12 @@ export const getRouteForPath = (routes: Routes, path: string): Route => {
     } else return false
   })
   return match
+}
+
+export const getNotFoundRoute = (path: string): Route => {
+  return {
+    route: path,
+    componentClass: NotFound,
+    component: React.createElement(NotFound)
+  }
 }

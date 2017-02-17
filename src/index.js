@@ -7,7 +7,7 @@ import type { Store } from 'redux'
 
 import configureStore from './store/configureStore.js'
 import EventPublisher from './data/events/EventPublisher.js'
-import { listener as eventListener } from './data/events/listener.js'
+import { eventLogger } from './data/events/logger.js'
 import AppComponent from './components/App/AppComponent.js'
 
 const store: Store = configureStore({
@@ -15,7 +15,7 @@ const store: Store = configureStore({
 })
 
 const eventPublisher = new EventPublisher()
-eventPublisher.subscribe('CreateRealEstate', eventListener)
+eventPublisher.subscribe('*', eventLogger)
 
 ReactDOM.render(
   <Provider store={store}>

@@ -17,6 +17,9 @@ class EventPublisher {
       for (const listener of subscribers[eventType]) {
         listener(eventType, content)
       }
+      for (const listener of subscribers['*']) {
+        listener(eventType, content)
+      }
       return true
     }
   }

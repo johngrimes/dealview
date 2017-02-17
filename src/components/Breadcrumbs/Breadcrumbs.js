@@ -3,6 +3,8 @@ import React from 'react'
 import type { Route } from '../../routing.js'
 
 import './Breadcrumbs.css'
+import Link from '../../components/Link.js'
+import type { EventPublisher } from '../../data/events/EventPublisher.js'
 
 export type Breadcrumb = {
   display: string,
@@ -12,7 +14,8 @@ export type Breadcrumb = {
 const placeholderPattern = /{(\w+)}/g
 
 type Props = {
-  route: Route
+  route: Route,
+  eventPublisher?: EventPublisher
 }
 
 // A Component that displays a breadcrumb trail, based on a set of routes
@@ -29,9 +32,9 @@ class Breadcrumbs extends React.Component {
     if (breadcrumb) {
       const translated = this.translateBreadcrumb(breadcrumb)
       const breadcrumbLink = <li className='breadcrumbs-item' key={translated.path}>
-                               <a className='breadcrumbs-link' href={translated.path}>
+                               <Link className='breadcrumbs-link' href={translated.path} eventPublisher={this.props.eventPublisher}>
                                  {translated.display}
-                               </a>
+                               </Link>
                              </li>
       const newBreadcrumbLinks = this.breadcrumbLinks(breadcrumbsCopy)
 

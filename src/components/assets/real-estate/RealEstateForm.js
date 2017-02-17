@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+import EventPublisher from '../../../data/events/EventPublisher.js'
 import InputField from '../../forms/InputField.js'
 import AddressField, { AddressErrorDefaults } from '../../forms/AddressField.js'
 import TextAreaField from '../../forms/TextAreaField.js'
@@ -23,12 +24,17 @@ type RealEstateErrors = {
   notes: FieldErrors
 }
 
+type Props = {
+  eventPublisher: EventPublisher
+}
+
 type State = {
   values: RealEstateValues,
   errors: RealEstateErrors
 }
 
 class RealEstateForm extends React.Component {
+  props: Props
   state: State
   handleChange: (fieldName: string, value: string) => void
   handleAddressChange: (values: AddressValues) => void

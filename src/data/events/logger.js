@@ -2,7 +2,7 @@
 
 import { save } from '../database.js'
 
-export const listener = (eventType: string, content: Object): void => {
+export const eventLogger = (eventType: string, content: Object): void => {
   const event = {
     type: eventType,
     content: content

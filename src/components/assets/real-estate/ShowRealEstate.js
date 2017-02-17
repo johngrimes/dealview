@@ -5,13 +5,15 @@ import React from 'react'
 import Breadcrumbs from '../../Breadcrumbs/Breadcrumbs.js'
 import { load, RealEstateEmpty } from '../../../data/assets/realEstate.js'
 import type { Route } from '../../../routing.js'
+import type { EventPublisher } from '../../../data/events/EventPublisher.js'
 import type { RealEstateValues } from '../../../data/assets/realEstate.js'
 
 import './ShowRealEstate.css'
 
 type Props = {
   id: string,
-  route: Route
+  route: Route,
+  eventPublisher?: EventPublisher
 }
 
 type State = {
@@ -21,9 +23,11 @@ type State = {
 class ShowRealEstate extends React.Component {
   props: Props
   state: State
+  eventPublisher: Object
 
   constructor(props: Props) {
     super(props)
+    this.eventPublisher = { eventPublisher: this.props.eventPublisher }
     this.state = { values: RealEstateEmpty }
     load(props.id).then((values) => {
       this.setState({ values: values })
@@ -35,7 +39,7 @@ class ShowRealEstate extends React.Component {
 
     return (
       <div className='show-real-estate'>
-        <Breadcrumbs route={this.props.route} name={values.name} />
+        <Breadcrumbs route={this.props.route} id={values.id} name={values.name} {...this.eventPublisher} />
         <dl>
           <dd>Name</dd>
           <dt>{values.name}</dt>
