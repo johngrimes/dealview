@@ -1,6 +1,6 @@
 // @flow
 
-export type Values = { [key: string]: string|Values }
+export type Values = { [key: string]: string|Array<any>|Values }
 
 // eslint-disable-next-line no-unused-vars
 const getDatabase = (): Promise<IDBDatabase> => {

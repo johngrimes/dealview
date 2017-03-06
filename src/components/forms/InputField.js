@@ -61,7 +61,7 @@ class InputField extends React.Component {
     return (
       <div className='control-group'>
         {labelTag}
-        <input id={this.props.name} className={inputClass} type={this.props.type} placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} />
+        <input name={this.props.name} className={inputClass} type={this.props.type} placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} />
         {this.state.touched && errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
       </div>
     )

@@ -1,0 +1,30 @@
+.add-valuation-button {
+  margin-top: 8px;
+}
+
+.valuations-input table .control-group input {
+  border: 0;
+  box-shadow: none;
+  width: 100px;
+  padding: 8px 16px;
+}
+
+.valuations-input table input[name^="valuations-date"] {
+  width: 110px;
+}
+
+.valuations-input table input[name^="valuations-amount"] {
+  width: 120px;
+}
+
+.valuations-input table input[name^="valuations-note"] {
+  width: 300px;
+}
+
+.valuations-input table td {
+  padding: 0;
+}
+
+.valuations-input table .control-group {
+  margin: 0;
+}
