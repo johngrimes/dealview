@@ -22,25 +22,28 @@ import '../../../styles/buttons.css'
 import '../../../styles/tables.css'
 import './RealEstateForm.css'
 
-type RealEstateErrors = {
+export type RealEstateErrors = {
   name: FieldErrors,
   address: AddressErrors,
   notes: FieldErrors
 }
 
 type Props = {
-  eventPublisher: EventPublisher
+  eventPublisher?: EventPublisher
 }
 
 type State = {
   values: RealEstateValues,
-  errors: RealEstateErrors
+  errors: RealEstateErrors,
+  allErrorsShown: boolean,
+  focusedInput: string
 }
 
 class RealEstateForm extends React.Component {
   props: Props
   state: State
   handleChange: (fieldName: string, value: string) => void
+  handleFocus: (fieldName: string) => void
   handleAddressChange: (values: AddressValues) => void
   handleValuationsChange: (values: Valuations) => void
   handleSubmit: (event: Event) => boolean
@@ -53,7 +56,9 @@ class RealEstateForm extends React.Component {
         name: [],
         address: AddressErrorDefaults,
         notes: []
-      }
+      },
+      allErrorsShown: false,
+      focusedInput: 'name'
     }
 
     this.handleChange = (fieldName, value) => {
@@ -64,6 +69,8 @@ class RealEstateForm extends React.Component {
         errors: this.validate()
       })
     }
+
+    this.handleFocus = (fieldName) => { this.setState({ focusedInput: fieldName }) }
 
     this.handleAddressChange = (values) => {
       const updatedValues = this.state.values
@@ -85,34 +92,69 @@ class RealEstateForm extends React.Component {
 
     this.handleSubmit = (event) => {
       event.preventDefault()
-      save(this.state.values).then((id) => {
-        let values = Object.assign({}, this.state.values, { id: id })
-        this.setState({ values: values })
-        this.props.eventPublisher.publish('CreateRealEstate', this.state.values)
-      }).catch((error) => console.error(error))
+      const errors = this.validate()
+      this.setState({ errors: errors })
+      if (!errors) {
+        save(this.state.values).then((id) => {
+          let values = Object.assign({}, this.state.values, { id: id })
+          this.setState({ values: values })
+          if (this.props.eventPublisher) {
+            this.props.eventPublisher.publish('CreateRealEstate', this.state.values)
+          }
+        }).catch((error) => console.error(error))
+      } else {
+        const firstErrorFieldName = RealEstateForm.findFirstErrorFieldName(errors)
+        firstErrorFieldName
+          ? this.setState({ allErrorsShown: true, focusedInput: firstErrorFieldName })
+          : this.setState({ allErrorsShown: true })
+      }
       return false
     }
+  }
+
+  static findFirstErrorFieldName(errors: RealEstateErrors): string|null {
+    return (function seek(errors, parentComponentName) {
+      let match = null
+      Object.keys(errors).some(fieldName => {
+        if (errors[fieldName] instanceof Array) {
+          if (errors[fieldName].length > 0) {
+            match = parentComponentName ? parentComponentName + '-' + fieldName : fieldName
+            return true
+          } else return false
+        } else if (errors[fieldName] instanceof Object) {
+          match = seek(errors[fieldName], fieldName)
+          return (match !== null)
+        }
+      })
+      return match
+    })(errors)
   }
 
   render() {
     const values = this.state.values
     const errors = this.state.errors
+    const idField = values.id ? <HiddenField name='id' value={values.id} /> : null
 
     return (
       <form className='real-estate-form form form-aligned' onSubmit={this.handleSubmit}>
         <fieldset>
           <legend>General details</legend>
 
-          <HiddenField name='id' value={values.id} />
-          <InputField name='name' type='text' label='Name' value={values.name} errors={errors.name}
-            notifyChange={(value) => this.handleChange('name', value)} />
-          <AddressField name='address' value={values.address} errors={errors.address} notifyChange={this.handleAddressChange} />
+          {idField}
+          <InputField name='name' type='text' label='Name' value={values.name}
+            errors={errors.name} forceErrorDisplay={this.state.allErrorsShown}
+            onChange={(value) => this.handleChange('name', value)}
+            onFocus={this.handleFocus} focus={this.state.focusedInput} />
+          <AddressField name='address' value={values.address} errors={errors.address}
+            onChange={this.handleAddressChange}
+            onFocus={this.handleFocus} focus={this.state.focusedInput} />
           <TextAreaField name='notes' label='Notes' value={values.notes}
-            notifyChange={(value) => this.handleChange('notes', value)} />
+            onChange={(value) => this.handleChange('notes', value)}
+            onFocus={this.handleFocus} focus={this.state.focusedInput} />
         </fieldset>
         <fieldset>
           <legend>Value</legend>
-          <ValuationsInput name='valuations' value={values.valuations} notifyChange={this.handleValuationsChange} />
+          <ValuationsInput name='valuations' value={values.valuations} onChange={this.handleValuationsChange} />
         </fieldset>
         <fieldset>
           <legend>Mortgage</legend>

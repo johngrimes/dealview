@@ -9,32 +9,34 @@ import type { FieldErrors } from '../../utils/FormValidation.js'
 import './AddressField.css'
 
 export type AddressErrors = {
-  address1: FieldErrors,
-  address2: FieldErrors,
-  address3: FieldErrors
+  line1: FieldErrors,
+  line2: FieldErrors,
+  line3: FieldErrors
 }
 
 // Human-readable field labels.
 const AddressLabels = {
-  address1: 'Line 1',
-  address2: 'Line 2',
-  address3: 'Line 3',
+  line1: 'Line 1',
+  line2: 'Line 2',
+  line3: 'Line 3',
   locality: 'Suburb / Town',
   state: 'State',
   postcode: 'Postcode'
 }
 
 export const AddressErrorDefaults = {
-  address1: [],
-  address2: [],
-  address3: []
+  line1: [],
+  line2: [],
+  line3: []
 }
 
 type Props = {
   name: string,
   value: AddressValues,
   errors?: AddressErrors,
-  notifyChange?: (value: AddressValues) => void
+  focus?: string,
+  onChange?: (value: AddressValues) => void,
+  onFocus?: (fieldName: string) => void
 }
 
 type State = {
@@ -45,7 +47,9 @@ type State = {
 class AddressField extends React.Component {
   props: Props
   state: State
+  _refs: { [fieldName: string]: HTMLInputElement }
   handleChange: (fieldName: string, value: string) => void
+  handleFocus: (event: Event) => true
 
   constructor(props: Props) {
     super(props)
@@ -61,9 +65,27 @@ class AddressField extends React.Component {
         value: updatedState,
         touched: true
       })
-      if (this.props.notifyChange) this.props.notifyChange(updatedState)
+      if (this.props.onChange) this.props.onChange(updatedState)
+    }
+
+    this.handleFocus = (event: Event) => {
+      const target = event.target
+      if (this.props.onFocus && target instanceof HTMLInputElement) {
+        this.props.onFocus(target.name)
+      }
+      return true
+    }
+
+    this._refs = {}
+  }
+
+  setFocus() {
+    if (this.props.focus && this._refs[this.props.focus]) {
+      this._refs[this.props.focus].focus()
     }
   }
+  componentDidMount() { this.setFocus() }
+  componentDidUpdate() { this.setFocus() }
 
   render() {
     // Create an array from any address field errors.
@@ -87,21 +109,33 @@ class AddressField extends React.Component {
     return (
       <div>
         <div className={addressClass}>
-          <label htmlFor='address1'>Address</label>
+          <label htmlFor={this.props.name + '-line1'}>Address</label>
           <div className='group'>
-            <input id={this.props.name + '-address1'} name='address1' type='text' placeholder={AddressLabels.address1} value={this.state.value.address1}
-              onChange={(event) => this.handleChange('address1', event.target.value)} />
-            <input id={this.props.name + '-address2'} name='address2' type='text' placeholder={AddressLabels.address2} value={this.state.value.address2}
-              onChange={(event) => this.handleChange('address2', event.target.value)} />
-            <input id={this.props.name + '-address3'} name='address3' type='text' placeholder={AddressLabels.address3} value={this.state.value.address3}
-              onChange={(event) => this.handleChange('address3', event.target.value)} />
-            <input id={this.props.name + '-locality'} name='locality' type='text' placeholder={AddressLabels.locality} value={this.state.value.locality}
-              onChange={(event) => this.handleChange('locality', event.target.value)} />
+            <input id={this.props.name + '-line1'} name={this.props.name + '-line1'} type='text'
+              placeholder={AddressLabels.line1} value={this.state.value.line1}
+              ref={input => this._refs[this.props.name + '-line2'] = input}
+              onChange={(event) => this.handleChange('line1', event.target.value)}
+              onFocus={this.handleFocus} />
+            <input name={this.props.name + '-line2'} type='text'
+              placeholder={AddressLabels.line2} value={this.state.value.line2}
+              ref={input => this._refs[this.props.name + '-line2'] = input}
+              onChange={(event) => this.handleChange('line2', event.target.value)}
+              onFocus={this.handleFocus} />
+            <input name={this.props.name + '-line3'} type='text'
+              placeholder={AddressLabels.line3} value={this.state.value.line3}
+              ref={input => this._refs[this.props.name + '-line3'] = input}
+              onChange={(event) => this.handleChange('line3', event.target.value)}
+              onFocus={this.handleFocus} />
+            <input name={this.props.name + '-locality'} type='text'
+              placeholder={AddressLabels.locality} value={this.state.value.locality}
+              ref={input => this._refs[this.props.name + '-locality'] = input}
+              onChange={(event) => this.handleChange('locality', event.target.value)}
+              onFocus={this.handleFocus} />
           </div>
           {this.state.touched && errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
         </div>
-        <input id={this.props.name + '-state'} name='state' type='hidden' value={this.state.value.state} />
-        <input id={this.props.name + '-postcode'} name='postcode' type='hidden' value={this.state.value.postcode} />
+        <input name={this.props.name + '-state'} type='hidden' value={this.state.value.state} />
+        <input name={this.props.name + '-postcode'} type='hidden' value={this.state.value.postcode} />
       </div>
     )
   }
@@ -109,17 +143,17 @@ class AddressField extends React.Component {
   static validate(values: AddressValues): AddressErrors {
     let errors = {}
 
-    errors.address1 = []
-    errors.address1 = errors.address1.concat(Validations.minLength(values.address1, 3))
-    errors.address1 = errors.address1.concat(Validations.maxLength(values.address1, 100))
+    errors.line1 = []
+    errors.line1 = errors.line1.concat(Validations.minLength(values.line1, 3))
+    errors.line1 = errors.line1.concat(Validations.maxLength(values.line1, 100))
 
-    errors.address2 = []
-    errors.address2 = errors.address2.concat(Validations.minLength(values.address2, 3))
-    errors.address2 = errors.address2.concat(Validations.maxLength(values.address2, 100))
+    errors.line2 = []
+    errors.line2 = errors.line2.concat(Validations.minLength(values.line2, 3))
+    errors.line2 = errors.line2.concat(Validations.maxLength(values.line2, 100))
 
-    errors.address3 = []
-    errors.address3 = errors.address3.concat(Validations.minLength(values.address3, 3))
-    errors.address3 = errors.address3.concat(Validations.maxLength(values.address3, 100))
+    errors.line3 = []
+    errors.line3 = errors.line3.concat(Validations.minLength(values.line3, 3))
+    errors.line3 = errors.line3.concat(Validations.maxLength(values.line3, 100))
 
     return errors
   }

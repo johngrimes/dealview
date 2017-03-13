@@ -11,7 +11,10 @@ type Props = {
   label?: string,
   placeholder?: string,
   errors?: FieldErrors,
-  notifyChange?: (value: string) => void
+  forceErrorDisplay?: boolean,
+  focus?: string,
+  onChange?: (value: string) => void,
+  onFocus?: (fieldName: string) => void
 }
 
 type State = {
@@ -22,7 +25,9 @@ type State = {
 class InputField extends React.Component {
   props: Props
   state: State
+  ref: HTMLInputElement
   handleChange: (event: Event) => true
+  handleFocus: (event: Event) => true
 
   constructor(props: Props) {
     super(props)
@@ -38,11 +43,27 @@ class InputField extends React.Component {
           value: target.value,
           touched: true
         })
-        if (this.props.notifyChange) this.props.notifyChange(target.value)
+        if (this.props.onChange) this.props.onChange(target.value)
+      }
+      return true
+    }
+
+    this.handleFocus = (event) => {
+      const target = event.target
+      if (this.props.onFocus && target instanceof HTMLInputElement) {
+        this.props.onFocus(target.name)
       }
       return true
     }
   }
+
+  setFocus() {
+    if (this.props.focus === this.props.name) {
+      this.ref.focus()
+    }
+  }
+  componentDidMount() { this.setFocus() }
+  componentDidUpdate() { this.setFocus() }
 
   render() {
     const labelTag = this.props.label ? <label htmlFor={this.props.name}>{this.props.label}</label> : null
@@ -61,8 +82,8 @@ class InputField extends React.Component {
     return (
       <div className='control-group'>
         {labelTag}
-        <input name={this.props.name} className={inputClass} type={this.props.type} placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} />
-        {this.state.touched && errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
+        <input name={this.props.name} className={inputClass} type={this.props.type} placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} onFocus={this.handleFocus} ref={input => this.ref = input} />
+        {(this.props.forceErrorDisplay || this.state.touched) && errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
       </div>
     )
   }

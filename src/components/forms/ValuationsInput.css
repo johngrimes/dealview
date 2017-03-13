@@ -2,7 +2,8 @@
   margin-top: 8px;
 }
 
-.valuations-input table .control-group input {
+.valuations-input table .control-group input,
+.valuations-input table .react-datepicker__input-container input {
   border: 0;
   box-shadow: none;
   width: 100px;

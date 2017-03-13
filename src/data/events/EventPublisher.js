@@ -14,8 +14,10 @@ class EventPublisher {
     }
 
     this.publish = (eventType, content) => {
-      for (const listener of subscribers[eventType]) {
-        listener(eventType, content)
+      if (subscribers[eventType]) {
+        for (const listener of subscribers[eventType]) {
+          listener(eventType, content)
+        }
       }
       for (const listener of subscribers['*']) {
         listener(eventType, content)

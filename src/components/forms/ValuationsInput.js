@@ -1,10 +1,13 @@
 // @flow
 
 import React from 'react'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
 
 import InputField from '../../components/forms/InputField.js'
 
 import './ValuationsInput.css'
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 type Valuation = {
   date: string,
@@ -55,8 +58,8 @@ class ValuationsInput extends React.Component {
   render() {
     const valuations = this.state.value.map((v, i) => {
       return <tr key={i}>
-        <td><InputField name={`valuations-date-${i}`} type='text' value={v.date}
-          notifyChange={(value) => this.handleChange(i, 'date', value)} /></td>
+        <td><DatePicker name={`valuations-date-${i}`} dateFormat='YYYY-MM-DD' selected={moment(v.date, 'YYYY-MM-DD')}
+          onChange={(value) => this.handleChange(i, 'date', value.format('YYYY-MM-DD'))} /></td>
         <td><InputField name={`valuations-amount-${i}`} type='number' value={v.amount.toString()}
           notifyChange={(value) => this.handleChange(i, 'amount', parseInt(value, 10))} /></td>
         <td><InputField name={`valuations-note-${i}`} type='text' value={v.note}

@@ -45,9 +45,9 @@ class ShowRealEstate extends React.Component {
           <dt>{values.name}</dt>
           <dd>Address</dd>
           <dt>
-            <div className='p-street-address'>{values.address.address1}</div>
-            <div className='p-extended-address'>{values.address.address2}</div>
-            <div className='p-extended-address'>{values.address.address3}</div>
+            <div className='p-street-address'>{values.address.line1}</div>
+            <div className='p-extended-address'>{values.address.line2}</div>
+            <div className='p-extended-address'>{values.address.line3}</div>
             <div className='p-locality'>{values.address.locality}</div>
             <div className='p-region'>{values.address.state}</div>
             <div className='p-postal-code'>{values.address.postcode}</div>

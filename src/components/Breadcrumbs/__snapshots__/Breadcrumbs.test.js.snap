@@ -7,7 +7,8 @@ exports[`Breadcrumbs should render using variable substitution 1`] = `
       className="breadcrumbs-item">
       <a
         className="breadcrumbs-link"
-        href="/categories">
+        href="/categories"
+        onClick={[Function]}>
         Categories
       </a>
     </li>
@@ -15,7 +16,8 @@ exports[`Breadcrumbs should render using variable substitution 1`] = `
       className="breadcrumbs-item">
       <a
         className="breadcrumbs-link"
-        href="/categories/kitchenware">
+        href="/categories/kitchenware"
+        onClick={[Function]}>
         Kitchenware
       </a>
     </li>
@@ -23,7 +25,8 @@ exports[`Breadcrumbs should render using variable substitution 1`] = `
       className="breadcrumbs-item">
       <a
         className="breadcrumbs-link"
-        href="/categories/kitchenware/items/99">
+        href="/categories/kitchenware/items/99"
+        onClick={[Function]}>
         Long-Handled Spatula
       </a>
     </li>
