@@ -1,8 +1,17 @@
 /* global expect */
 
+jest.mock('../../../data/database.js', () => {
+  return {
+    save: (objectStore, values) => {
+      return new Promise((resolve) => { resolve() })
+    }
+  }
+})
+
 import RealEstateForm from './RealEstateForm.js'
 import type { RealEstateErrors } from './RealEstateForm.js'
 import { RealEstateEmpty } from '../../../data/assets/realEstate.js'
+import { AddressEmpty } from '../../../data/commonTypes.js'
 
 import React from 'react'
 import { mount } from 'enzyme'
@@ -13,7 +22,15 @@ describe('RealEstateForm', () => {
     wrapper.setState({
       values: {
         name: 'rover',
-        address: { line3: 'a' }
+        address: {
+          line1: '',
+          line2: '',
+          line3: 'a',
+          locality: '',
+          state: '',
+          postcode: ''
+        },
+        valuations: []
       }
     })
     wrapper.find('form').simulate('submit')
@@ -26,7 +43,7 @@ describe('RealEstateForm', () => {
       values: RealEstateEmpty,
       errors: {
         name: [],
-        address: {},
+        address: AddressEmpty,
         notes: ['has incorrect grammar in it']
       },
       allErrorsShown: false,
@@ -40,7 +57,7 @@ describe('RealEstateForm', () => {
     it('should return the name of the first field with errors', () => {
       const errors: RealEstateErrors = {
         name: [],
-        address: {},
+        address: AddressEmpty,
         notes: ['has incorrect grammar in it']
       }
       const result = RealEstateForm.findFirstErrorFieldName(errors)

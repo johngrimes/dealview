@@ -2281,6 +2281,12 @@
         }
       }
     },
+    "enzyme-to-json": {
+      "version": "1.5.0",
+      "from": "enzyme-to-json@latest",
+      "resolved": "https://registry.npmjs.org/enzyme-to-json/-/enzyme-to-json-1.5.0.tgz",
+      "dev": true
+    },
     "errno": {
       "version": "0.1.4",
       "from": "errno@>=0.1.1 <0.2.0-0",
@@ -4843,6 +4849,18 @@
       "resolved": "https://registry.npmjs.org/lodash.isarray/-/lodash.isarray-3.0.4.tgz",
       "dev": true
     },
+    "lodash.isnil": {
+      "version": "4.0.0",
+      "from": "lodash.isnil@>=4.0.0 <5.0.0",
+      "resolved": "https://registry.npmjs.org/lodash.isnil/-/lodash.isnil-4.0.0.tgz",
+      "dev": true
+    },
+    "lodash.isplainobject": {
+      "version": "4.0.6",
+      "from": "lodash.isplainobject@>=4.0.6 <5.0.0",
+      "resolved": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz",
+      "dev": true
+    },
     "lodash.keys": {
       "version": "3.1.2",
       "from": "lodash.keys@>=3.0.0 <4.0.0",
@@ -4867,6 +4885,12 @@
       "resolved": "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.0.tgz",
       "dev": true
     },
+    "lodash.omitby": {
+      "version": "4.6.0",
+      "from": "lodash.omitby@>=4.5.0 <5.0.0",
+      "resolved": "https://registry.npmjs.org/lodash.omitby/-/lodash.omitby-4.6.0.tgz",
+      "dev": true
+    },
     "lodash.pick": {
       "version": "4.4.0",
       "from": "lodash.pick@>=4.2.1 <5.0.0",
@@ -4877,6 +4901,12 @@
       "version": "4.6.0",
       "from": "lodash.pickby@>=4.0.0 <5.0.0",
       "resolved": "https://registry.npmjs.org/lodash.pickby/-/lodash.pickby-4.6.0.tgz",
+      "dev": true
+    },
+    "lodash.range": {
+      "version": "3.2.0",
+      "from": "lodash.range@>=3.2.0 <4.0.0",
+      "resolved": "https://registry.npmjs.org/lodash.range/-/lodash.range-3.2.0.tgz",
       "dev": true
     },
     "lodash.reduce": {
@@ -5208,6 +5238,12 @@
       "version": "1.0.11",
       "from": "object-keys@>=1.0.10 <2.0.0",
       "resolved": "https://registry.npmjs.org/object-keys/-/object-keys-1.0.11.tgz",
+      "dev": true
+    },
+    "object-values": {
+      "version": "1.0.0",
+      "from": "object-values@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/object-values/-/object-values-1.0.0.tgz",
       "dev": true
     },
     "object.assign": {

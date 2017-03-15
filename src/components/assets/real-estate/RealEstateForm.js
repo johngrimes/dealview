@@ -9,7 +9,7 @@ import AddressField, { AddressErrorDefaults } from '../../forms/AddressField.js'
 import TextAreaField from '../../forms/TextAreaField.js'
 import ValuationsInput from '../../forms/ValuationsInput.js'
 import * as Validations from '../../../utils/FormValidation.js'
-import { save } from '../../../data/assets/realEstate.js'
+import { save, load } from '../../../data/assets/realEstate.js'
 import { RealEstateEmpty } from '../../../data/assets/realEstate.js'
 import type { RealEstateValues } from '../../../data/assets/realEstate.js'
 import type { AddressValues } from '../../../data/commonTypes.js'
@@ -29,7 +29,8 @@ export type RealEstateErrors = {
 }
 
 type Props = {
-  eventPublisher?: EventPublisher
+  eventPublisher?: EventPublisher,
+  id?: string
 }
 
 type State = {
@@ -48,7 +49,7 @@ class RealEstateForm extends React.Component {
   handleValuationsChange: (values: Valuations) => void
   handleSubmit: (event: Event) => boolean
 
-  constructor() {
+  constructor(props: Props) {
     super()
     this.state = {
       values: RealEstateEmpty,
@@ -59,6 +60,12 @@ class RealEstateForm extends React.Component {
       },
       allErrorsShown: false,
       focusedInput: 'name'
+    }
+
+    if (props.id) {
+      load(props.id).then(values => {
+        this.setState({ values: values })
+      })
     }
 
     this.handleChange = (fieldName, value) => {
@@ -94,19 +101,19 @@ class RealEstateForm extends React.Component {
       event.preventDefault()
       const errors = this.validate()
       this.setState({ errors: errors })
-      if (!errors) {
-        save(this.state.values).then((id) => {
+      if (Validations.areErrorsPresent(errors)) {
+        const firstErrorFieldName = RealEstateForm.findFirstErrorFieldName(errors)
+        firstErrorFieldName
+          ? this.setState({ allErrorsShown: true, focusedInput: firstErrorFieldName })
+          : this.setState({ allErrorsShown: true })
+      } else {
+        save(this.state.values).then(id => {
           let values = Object.assign({}, this.state.values, { id: id })
           this.setState({ values: values })
           if (this.props.eventPublisher) {
             this.props.eventPublisher.publish('CreateRealEstate', this.state.values)
           }
         }).catch((error) => console.error(error))
-      } else {
-        const firstErrorFieldName = RealEstateForm.findFirstErrorFieldName(errors)
-        firstErrorFieldName
-          ? this.setState({ allErrorsShown: true, focusedInput: firstErrorFieldName })
-          : this.setState({ allErrorsShown: true })
       }
       return false
     }
@@ -154,7 +161,8 @@ class RealEstateForm extends React.Component {
         </fieldset>
         <fieldset>
           <legend>Value</legend>
-          <ValuationsInput name='valuations' value={values.valuations} onChange={this.handleValuationsChange} />
+          <ValuationsInput name='valuations' value={values.valuations}
+            onChange={this.handleValuationsChange} onFocus={this.handleFocus} />
         </fieldset>
         <fieldset>
           <legend>Mortgage</legend>

@@ -2,6 +2,7 @@
 
 type ValidatorFunction = (value: string) => boolean
 export type FieldErrors = string[]
+export type FormErrors = { [fieldName: string]: FieldErrors|{} }
 
 //
 // Validates a set of fields, using a supplied validator function.
@@ -9,6 +10,18 @@ export type FieldErrors = string[]
 const validate = (value: string, validator: ValidatorFunction, message: string): FieldErrors => {
   if (!validator(value)) return [message]
   else return []
+}
+
+export const areErrorsPresent = (errors: FormErrors): boolean => {
+  return Object.keys(errors).some((fieldName) => {
+    if (errors[fieldName] instanceof Array) {
+      return errors[fieldName].length > 0
+    } else if (errors[fieldName] instanceof Object) {
+      return areErrorsPresent(errors[fieldName])
+    } else {
+      console.error('Value encountered in form errors object that is not Array or Object')
+    }
+  })
 }
 
 //

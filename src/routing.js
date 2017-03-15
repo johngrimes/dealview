@@ -1,7 +1,7 @@
 import React from 'react'
 
 import CreateRealEstate from './components/assets/real-estate/CreateRealEstate.js'
-import ShowRealEstate from './components/assets/real-estate/ShowRealEstate.js'
+import EditRealEstate from './components/assets/real-estate/EditRealEstate.js'
 import NotFound from './components/NotFound.js'
 import type { Breadcrumb } from './components/Breadcrumbs/Breadcrumbs.js'
 
@@ -23,11 +23,11 @@ export const routes: Routes = [
       { display: 'New Real Estate Asset', path: '/portfolio/assets/real-estate/new' }
     ]
   },
-  { route: '/portfolio/assets/real-estate/:id',
-    componentClass: ShowRealEstate,
+  { route: '/portfolio/assets/real-estate/:id/edit',
+    componentClass: EditRealEstate,
     breadcrumbs: [
       { display: 'Assets', path: '/portfolio/assets' },
-      { display: '{name}', path: '/portfolio/assets/real-estate/{id}' }
+      { display: '{name}', path: '/portfolio/assets/real-estate/{id}/edit' }
     ]
   }
 ]

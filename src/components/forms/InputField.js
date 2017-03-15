@@ -57,6 +57,10 @@ class InputField extends React.Component {
     }
   }
 
+  componentWillReceiveProps(props: Props) {
+    this.setState({ value: props.value })
+  }
+
   setFocus() {
     if (this.props.focus === this.props.name) {
       this.ref.focus()

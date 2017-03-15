@@ -79,6 +79,10 @@ class AddressField extends React.Component {
     this._refs = {}
   }
 
+  componentWillReceiveProps(props: Props) {
+    this.setState({ value: props.value })
+  }
+
   setFocus() {
     if (this.props.focus && this._refs[this.props.focus]) {
       this._refs[this.props.focus].focus()
