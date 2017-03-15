@@ -35,7 +35,7 @@ export const save = (objectStore: string, values: Values): Promise<string> => {
       const transaction = db.transaction([objectStore], 'readwrite')
       const store = transaction.objectStore(objectStore)
       if (!values.id) { delete values.id }
-      const request = store.add(values)
+      const request = store.put(values)
       request.onsuccess = (event) => { resolve(event.target.result) }
       request.onerror = () => { reject(request.error) }
     }).catch((error) => { reject(error) })
@@ -51,7 +51,7 @@ export const load = (objectStore: string, id: string): Promise<Values> => {
       const transaction = db.transaction([objectStore], 'readonly')
       const store = transaction.objectStore(objectStore)
       const request = store.get(parseInt(id))
-      request.onsuccess = (event) => { console.log('event', event); resolve(event.target.result) }
+      request.onsuccess = (event) => { resolve(event.target.result) }
       request.onerror = () => { reject(request.error) }
     }).catch((error) => { reject(error) })
   })
