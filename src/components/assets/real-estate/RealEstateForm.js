@@ -9,7 +9,7 @@ import AddressField, { AddressErrorDefaults } from '../../forms/AddressField.js'
 import TextAreaField from '../../forms/TextAreaField.js'
 import ValuationsInput from '../../forms/ValuationsInput.js'
 import * as Validations from '../../../utils/FormValidation.js'
-import { save, load } from '../../../data/assets/realEstate.js'
+import { save } from '../../../data/assets/realEstate.js'
 import { RealEstateEmpty } from '../../../data/assets/realEstate.js'
 import type { RealEstateValues } from '../../../data/assets/realEstate.js'
 import type { AddressValues } from '../../../data/commonTypes.js'
@@ -30,7 +30,7 @@ export type RealEstateErrors = {
 
 type Props = {
   eventPublisher?: EventPublisher,
-  id?: string
+  values?: RealEstateValues
 }
 
 type State = {
@@ -62,10 +62,8 @@ class RealEstateForm extends React.Component {
       focusedInput: 'name'
     }
 
-    if (props.id) {
-      load(props.id).then(values => {
-        this.setState({ values: values })
-      })
+    if (props.values) {
+      this.setState({ values: props.values })
     }
 
     this.handleChange = (fieldName, value) => {
@@ -116,6 +114,12 @@ class RealEstateForm extends React.Component {
         }).catch((error) => console.error(error))
       }
       return false
+    }
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.values) {
+      this.setState({ values: nextProps.values })
     }
   }
 
