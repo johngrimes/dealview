@@ -109,6 +109,7 @@ class RealEstateForm extends React.Component {
         save(this.state.values).then(id => {
           let values = Object.assign({}, this.state.values, { id: id })
           this.setState({ values: values })
+          if (this.props.onSubmit) { this.props.onSubmit(this.state.values) }
           if (this.props.eventPublisher) {
             this.props.eventPublisher.publish('CreateRealEstate', this.state.values)
           }

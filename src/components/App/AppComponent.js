@@ -33,8 +33,9 @@ class AppComponent extends React.Component {
       route: getRouteForPath(routes, window.location.pathname, this.eventPublisher)
     }
     this.props.eventPublisher.subscribe('Navigate', (eventType, content) => {
+      window.history.pushState({}, '', content.path)
       this.setState({
-        route: getRouteForPath(routes, window.location.pathname, this.eventPublisher) ||
+        route: getRouteForPath(routes, content.path, this.eventPublisher) ||
           getNotFoundRoute(window.location.pathname)
       })
     })
