@@ -1,44 +1,28 @@
-import React from 'react'
+// @flow
 
-import CreateRealEstate from './components/assets/real-estate/CreateRealEstate.js'
-import EditRealEstate from './components/assets/real-estate/EditRealEstate.js'
+import React from 'react'
+import type { Element } from 'react'
+
 import NotFound from './components/NotFound.js'
 import type { Breadcrumb } from './components/Breadcrumbs/Breadcrumbs.js'
 
-type Routes = Array<Route>
-type Route = {
+export type Routes = Array<Route>
+export type Route = {
   route: string,
-  componentClass: React$Element<any>,
-  component: React$Element<any>,
-  breadcrumbs: Array<Breadcrumb>
+  componentClass: any,
+  component?: Element<any>,
+  breadcrumbs?: Array<Breadcrumb>
 }
 
 const placeholderPattern = /:(\w+)/g
 
-export const routes: Routes = [
-  { route: '/portfolio/assets/real-estate/new',
-    componentClass: CreateRealEstate,
-    breadcrumbs: [
-      { display: 'Assets', path: '/portfolio/assets' },
-      { display: 'New Real Estate Asset', path: '/portfolio/assets/real-estate/new' }
-    ]
-  },
-  { route: '/portfolio/assets/real-estate/:id/edit',
-    componentClass: EditRealEstate,
-    breadcrumbs: [
-      { display: 'Assets', path: '/portfolio/assets' },
-      { display: '{name}', path: '/portfolio/assets/real-estate/{id}/edit' }
-    ]
-  }
-]
-
-export const getRouteForPath = (routes: Routes, path: string, additionalProps = {}): Route => {
+export const getRouteForPath = (routes: Routes, path: string, additionalProps: Object = {}): Route|void => {
   let match = null
   routes.some(route => {
     const pathPattern: string = route.route.replace(placeholderPattern, '(\\w+)')
     const values = path.match(pathPattern)
     if (values) {
-      const placeholders: Array<string>|void = []
+      const placeholders: Array<string> = []
       let x = placeholderPattern.exec(route.route)
       while (x) {
         placeholders.push(x[1])
@@ -48,7 +32,7 @@ export const getRouteForPath = (routes: Routes, path: string, additionalProps = 
       const props = placeholders ? placeholders.reduce((p, placeholder, i) => {
         p[placeholder] = values[i + 1]
         return p
-      }, initialProps) : []
+      }, initialProps) : {}
       props.route = route
       route.component = React.createElement(route.componentClass, props)
       match = route

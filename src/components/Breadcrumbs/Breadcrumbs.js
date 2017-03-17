@@ -1,10 +1,13 @@
-import React from 'react'
+// @flow
 
+import React from 'react'
+import type { Element } from 'react'
+
+import Link from '../../components/Link.js'
+import EventPublisher from '../../data/events/EventPublisher.js'
 import type { Route } from '../../routing.js'
 
 import './Breadcrumbs.css'
-import Link from '../../components/Link.js'
-import type { EventPublisher } from '../../data/events/EventPublisher.js'
 
 export type Breadcrumb = {
   display: string,
@@ -25,7 +28,7 @@ class Breadcrumbs extends React.Component {
 
   // Takes an array of Breadcrumb objects and returns an array of links, each
   // wrapped in a list item.
-  breadcrumbLinks(breadcrumbs: Array<Breadcrumb>): Array<React$Element> {
+  breadcrumbLinks(breadcrumbs: Array<Breadcrumb>): Array<Element<any>> {
     const breadcrumbsCopy = breadcrumbs.slice()
     const breadcrumb = breadcrumbsCopy.pop()
 
@@ -55,7 +58,7 @@ class Breadcrumbs extends React.Component {
   }
 
   // Translates placeholders to prop values within a string.
-  translateField(field: String): String {
+  translateField(field: string): string {
     return field.replace(placeholderPattern, this.translate.bind(this))
   }
 
@@ -63,19 +66,19 @@ class Breadcrumbs extends React.Component {
   //
   // This is a callback function compatible with the JavaScript String replace function, see:
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_function_as_a_parameter
-  translate(match, ...args): String {
+  translate(match: string, ...args: string[]): string {
     const placeholder = args[0]
     return this.props[placeholder]
   }
 
   render() {
-    return (
+    return this.props.route.breadcrumbs ? (
       <div className='breadcrumbs'>
         <ul className='breadcrumbs-list'>
           {this.breadcrumbLinks(this.props.route.breadcrumbs)}
         </ul>
       </div>
-    )
+    ) : null
   }
 }
 

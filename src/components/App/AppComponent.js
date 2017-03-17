@@ -3,7 +3,8 @@
 import React from 'react'
 
 import EventPublisher from '../../data/events/EventPublisher.js'
-import { routes, getRouteForPath, getNotFoundRoute } from '../../routing.js'
+import { getRouteForPath, getNotFoundRoute } from '../../routing.js'
+import { routes } from '../../routes.js'
 import Link from '../Link.js'
 import type { Routes, Route } from '../../routing.js'
 

@@ -30,7 +30,8 @@ export type RealEstateErrors = {
 
 type Props = {
   eventPublisher?: EventPublisher,
-  values?: RealEstateValues
+  values?: RealEstateValues,
+  onSubmit?: (values: RealEstateValues) => void
 }
 
 type State = {

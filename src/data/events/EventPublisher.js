@@ -1,3 +1,5 @@
+// @flow
+
 type EventListener = (eventType: string, content: Object) => void
 
 class EventPublisher {
