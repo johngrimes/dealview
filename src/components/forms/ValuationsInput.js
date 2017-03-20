@@ -7,7 +7,7 @@ import moment from 'moment'
 import './ValuationsInput.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
-type Valuation = {
+export type Valuation = {
   date?: string,
   amount?: number,
   note?: string

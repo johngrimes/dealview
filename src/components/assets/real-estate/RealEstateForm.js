@@ -111,7 +111,7 @@ class RealEstateForm extends React.Component {
           this.setState({ values: values })
           if (this.props.onSubmit) { this.props.onSubmit(this.state.values) }
           if (this.props.eventPublisher) {
-            this.props.eventPublisher.publish('CreateRealEstate', this.state.values)
+            this.props.eventPublisher.publish('SaveRealEstate', this.state.values)
           }
         }).catch((error) => console.error(error))
       }
