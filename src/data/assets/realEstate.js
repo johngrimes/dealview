@@ -40,17 +40,26 @@ export const loadAll = (): Promise<RealEstateValues[]> => {
 
 export const assetSubscriber = (eventType: string, content: RealEstateValues): void => {
   getAssetRecord(content.id).then(existingAsset => {
-    const lastValuation = content.valuations.length > 0
-      ? content.valuations.slice().sort(compareValuationsByDate)[0].amount : null
+    const lastValuation = getLastValuation(content)
     const asset: AssetValues = {
       type: 'RealEstate',
       instanceId: content.id,
       name: content.name
     }
-    if (lastValuation) { asset.lastValuation = lastValuation }
+    if (lastValuation) { asset.lastValuation = lastValuation.amount }
     if (existingAsset) { asset.id = existingAsset.id }
     saveToDatabase('Asset', asset).catch(error => { console.error(error) })
   })
+}
+
+export const getLastValuation = (realEstate: RealEstateValues): Valuation|false => {
+  if (realEstate.valuations.length === 0) {
+    return false
+  }
+  const sortedValuations = realEstate.valuations.slice().sort(compareValuationsByDate)
+  const idxFuture = sortedValuations.findIndex(v => { moment(v.date, 'YYYY-MM-DD').valueOf() > moment().valueOf() })
+  const slicedValuations = sortedValuations.slice(0, idxFuture)
+  return slicedValuations[slicedValuations.length - 1]
 }
 
 const compareValuationsByDate = (a: Valuation, b: Valuation): number => {
