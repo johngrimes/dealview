@@ -1,17 +1,13 @@
 // @flow
 
 import React from 'react'
-import type { Children } from 'react'
 
-const CashFlow = (props: { children: Children }) => {
-  const { children } = props
-
-  return (
-    <div className='cash-flow'>
-      <h1>Cash Flow</h1>
-      {children}
-    </div>
-  )
+class CashFlow extends React.Component {
+  render() {
+    return (
+      <div className='cash-flow' />
+    )
+  }
 }
 
 export default CashFlow

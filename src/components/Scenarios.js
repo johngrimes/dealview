@@ -1,17 +1,13 @@
 // @flow
 
 import React from 'react'
-import type { Children } from 'react'
 
-const Scenarios = (props: { children: Children }) => {
-  const { children } = props
-
-  return (
-    <div className='scenarios'>
-      <h1>Scenarios</h1>
-      {children}
-    </div>
-  )
+class Scenarios extends React.Component {
+  render() {
+    return (
+      <div className='scenarios' />
+    )
+  }
 }
 
 export default Scenarios

@@ -1,8 +1,10 @@
 // @flow
 
+import _ from 'lodash'
+
 type ValidatorFunction = (value: string) => boolean
 export type FieldErrors = string[]
-export type FormErrors = { [fieldName: string]: FieldErrors|{} }
+export type FormErrors = { [fieldName: string]: FieldErrors|FormErrors }
 
 //
 // Validates a set of fields, using a supplied validator function.
@@ -13,11 +15,11 @@ const validate = (value: string, validator: ValidatorFunction, message: string):
 }
 
 export const areErrorsPresent = (errors: FormErrors): boolean => {
-  return Object.keys(errors).some((fieldName) => {
-    if (errors[fieldName] instanceof Array) {
-      return errors[fieldName].length > 0
-    } else if (errors[fieldName] instanceof Object) {
-      return areErrorsPresent(errors[fieldName])
+  return _.some(errors, value => {
+    if (value instanceof Array) {
+      return value.length > 0
+    } else if (value instanceof Object) {
+      return areErrorsPresent(value)
     } else {
       console.error('Value encountered in form errors object that is not Array or Object')
     }

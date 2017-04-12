@@ -1,48 +1,78 @@
 // @flow
 
 import React from 'react'
+import { connect } from 'react-redux'
+import type { Dispatch } from 'redux'
 
-import EventPublisher from '../../../data/events/EventPublisher.js'
-import { load } from '../../../data/assets/realEstate.js'
 import RealEstateForm from './RealEstateForm.js'
 import Breadcrumbs from '../../Breadcrumbs/Breadcrumbs.js'
-import type { RealEstateValues } from '../../../data/assets/realEstate.js'
-import type { Route } from '../../../routing.js'
+import NotFound from '../../NotFound/NotFound.js'
+import { putRealEstate, loadRealEstate } from '../../../actions/realEstate.js'
+import type { RealEstate } from '../../../data/assets/realEstate.js'
+import type { GlobalState } from '../../../store.js'
+import type { ObjectStoreStatus } from '../../../actions/objects.js'
 
 import './EditRealEstate.css'
 
 type Props = {
-  route: Route,
-  eventPublisher: EventPublisher,
-  id: string
-}
-
-type State = {
-  values?: RealEstateValues
+  id: string,
+  realEstate: {
+    status: ObjectStoreStatus,
+    object: RealEstate
+  },
+  dispatch: Dispatch
 }
 
 class EditRealEstate extends React.Component {
   props: Props
-  state: State
+  handleSubmit: (realEstate: RealEstate) => void
 
   constructor(props: Props) {
-    super()
-    this.state = {}
+    super(props)
+    if (this.props.realEstate.status === 'uninitialised') {
+      this.props.dispatch(loadRealEstate())
+    }
 
-    load(props.id).then(values => {
-      this.setState({ values: values })
-    })
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  breadcrumbs() {
+    const { id, realEstate: { object: realEstate } } = this.props
+    const realEstateName = (typeof realEstate === 'undefined') ? id : realEstate.name
+    return [
+      { display: 'Portfolio', path: '/portfolio' },
+      { display: 'Assets', path: '/portfolio/assets' },
+      { display: realEstateName, path: `/portfolio/assets/real-estate/${id}` }
+    ]
+  }
+
+  handleSubmit(realEstate: RealEstate): void {
+    this.props.dispatch(putRealEstate(realEstate))
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.realEstate.status === 'uninitialised') {
+      this.props.dispatch(loadRealEstate())
+    }
   }
 
   render() {
-    return (
-      <div className='edit-real-estate'>
-        <Breadcrumbs route={this.props.route} eventPublisher={this.props.eventPublisher}
-          name={this.state.values ? this.state.values.name : this.props.id} />
-        <RealEstateForm eventPublisher={this.props.eventPublisher} values={this.state.values} />
+    return (typeof this.props.realEstate.object === 'undefined')
+    ? <NotFound />
+    : <div className='edit-real-estate'>
+        <Breadcrumbs breadcrumbs={this.breadcrumbs()} />
+        <RealEstateForm realEstate={this.props.realEstate.object} onSubmit={this.handleSubmit} />
       </div>
-    )
   }
 }
 
-export default EditRealEstate
+const mapStateToProps = (state: GlobalState, ownProps: Props) => {
+  return {
+    realEstate: {
+      status: state.realEstate.status,
+      object: state.realEstate.objects[ownProps.id]
+    }
+  }
+}
+
+export default connect(mapStateToProps)(EditRealEstate)

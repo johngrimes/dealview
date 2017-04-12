@@ -5,23 +5,23 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import type { Store } from 'redux'
 
-import configureStore from './store/configureStore.js'
-import EventPublisher from './data/events/EventPublisher.js'
-import { eventLogger } from './data/events/logger.js'
-import { assetSubscriber as realEstateAssetSubscriber } from './data/assets/realEstate.js'
+import configureStore from './store.js'
 import AppComponent from './components/App/AppComponent.js'
 
 const store: Store = configureStore({
-  app: { route: window.location }
+  assets: {
+    status: 'uninitialised',
+    objects: {}
+  },
+  realEstate: {
+    status: 'uninitialised',
+    objects: {}
+  }
 })
-
-const eventPublisher = new EventPublisher()
-eventPublisher.subscribe('*', eventLogger)
-eventPublisher.subscribe('SaveRealEstate', realEstateAssetSubscriber)
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppComponent eventPublisher={eventPublisher} />
+    <AppComponent />
   </Provider>,
   document.getElementById('app')
 )

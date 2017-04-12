@@ -1,6 +1,12 @@
 // @flow
 
-export type AddressValues = {
+import type { Dispatch } from 'redux'
+
+export type Thunk = (dispatch: Dispatch) => any
+
+export type ObjectMap = { [id: string]: Object }
+
+export type Address = {
   line1: string,
   line2: string,
   line3: string,
@@ -9,7 +15,7 @@ export type AddressValues = {
   postcode: string
 }
 
-export const AddressEmpty = {
+export const AddressDefaults = {
   line1: '',
   line2: '',
   line3: '',
@@ -17,3 +23,5 @@ export const AddressEmpty = {
   state: '',
   postcode: ''
 }
+
+export const DateFormat = 'YYYY-MM-DD'

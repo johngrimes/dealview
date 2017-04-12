@@ -4,6 +4,8 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
+import { DateFormat } from '../../data/commonTypes.js'
+
 import './ValuationsInput.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
@@ -12,21 +14,22 @@ export type Valuation = {
   amount?: number,
   note?: string
 }
-
-export type Valuations = Array<Valuation>
-
-export const ValuationsEmpty = []
+export const ValuationDefault = {
+  date: moment().format(DateFormat),
+  note: ''
+}
+export type Valuations = Valuation[]
 
 type Props = {
   name: string,
-  value: Valuations,
+  valuations: Valuations,
   focus?: string,
   onChange?: (valuations: Valuations) => void,
   onFocus?: (fieldName: string) => void
 }
 
 type State = {
-  value: Valuations
+  valuations: Valuations
 }
 
 class ValuationsInput extends React.Component {
@@ -34,58 +37,69 @@ class ValuationsInput extends React.Component {
   state: State
   _refs: { [fieldName: string]: HTMLInputElement }
   handleChange: (i: number, field: string, value: string|number) => void
-  handleFocus: (event: Event) => true
   handleAddValuation: (event: Event) => true
+  handleFocus: (event: Event) => true
+  setFocus: () => void
 
   constructor(props: Props) {
     super(props)
-    this.state = { value: this.props.value }
-
-    this.handleChange = (i, field, value) => {
-      const newState = this.state
-      newState.value[i][field] = value
-      this.setState(newState)
-      if (this.props.onChange) this.props.onChange(newState.value)
-    }
-
-    this.handleAddValuation = (event) => {
-      const newState = this.state
-      newState.value.push({ date: moment().format('YYYY-MM-DD'), note: '' })
-      this.setState(newState)
-      if (this.props.onChange) this.props.onChange(newState.value)
-      return true
-    }
-
-    this.handleFocus = (event: Event) => {
-      const target = event.target
-      if (this.props.onFocus && target instanceof HTMLInputElement) {
-        this.props.onFocus(target.name)
-      }
-      return true
-    }
-
+    this.state = { valuations: this.props.valuations }
     this._refs = {}
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleAddValuation = this.handleAddValuation.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.setFocus = this.setFocus.bind(this)
   }
 
-  componentWillReceiveProps(props: Props) {
-    this.setState({ value: props.value })
+  handleChange(i: number, field: string, value: string|number): void {
+    const updatedValuations = this.state.valuations
+    updatedValuations[i][field] = value
+    this.setState({
+      valuations: updatedValuations
+    })
+    if (this.props.onChange) this.props.onChange(updatedValuations)
   }
 
-  setFocus() {
+  handleAddValuation(event: Event): true {
+    const updatedValuations = this.state.valuations
+    updatedValuations.push({ date: moment().format(DateFormat), note: '' })
+    this.setState({
+      valuations: updatedValuations
+    })
+    if (this.props.onChange) this.props.onChange(updatedValuations)
+    return true
+  }
+
+  handleFocus(event: Event): true {
+    const target = event.target
+    if (this.props.onFocus && target instanceof HTMLInputElement) {
+      this.props.onFocus(target.name)
+    }
+    return true
+  }
+
+  setFocus(): void {
     if (this.props.focus && this._refs[this.props.focus]) {
       this._refs[this.props.focus].focus()
     }
   }
+
+  componentWillReceiveProps(props: Props) {
+    this.setState({ valuations: props.valuations })
+  }
+
   componentDidMount() { this.setFocus() }
+
   componentDidUpdate() { this.setFocus() }
 
   render() {
-    const valuations = this.state.value.map((v, i) => {
+    const valuations = this.state.valuations.map((v, i) => {
       return <tr key={i}>
         <td className='valuations-date'>
-          <DatePicker name={`valuations-date-${i}`} dateFormat='YYYY-MM-DD'
-            selected={moment(v.date, 'YYYY-MM-DD')}
-            onChange={(moment) => this.handleChange(i, 'date', moment.format('YYYY-MM-DD'))}
+          <DatePicker name={`valuations-date-${i}`} dateFormat={DateFormat}
+            selected={moment(v.date, DateFormat)}
+            onChange={(moment) => this.handleChange(i, 'date', moment.format(DateFormat))}
             onFocus={this.handleFocus} />
         </td>
         <td className='valuations-amount'>

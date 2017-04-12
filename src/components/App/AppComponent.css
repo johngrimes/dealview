@@ -11,6 +11,10 @@ body {
 	font-weight: 300;
 }
 
+.primary-menu .menu-selected {
+  background-color: #555;
+}
+
 .primary-menu .menu-heading.menu-link {
 	font-weight: inherit;
 }

@@ -1,41 +1,52 @@
 // @flow
 
 import React from 'react'
+import { connect } from 'react-redux'
+import type { Dispatch } from 'redux'
 
-import EventPublisher from '../../../data/events/EventPublisher.js'
 import RealEstateForm from './RealEstateForm.js'
 import Breadcrumbs from '../../Breadcrumbs/Breadcrumbs.js'
-import { editRealEstatePath } from '../../../routes.js'
-import type { Route } from '../../../routing.js'
-import type { RealEstateValues } from '../../../data/assets/realEstate.js'
+import { putRealEstate } from '../../../actions/realEstate.js'
+import type { RealEstate } from '../../../data/assets/realEstate.js'
+import type { BreadcrumbTrail } from '../../Breadcrumbs/Breadcrumbs.js'
 
 import './CreateRealEstate.css'
 
 type Props = {
-  route: Route,
-  eventPublisher: EventPublisher
+  dispatch: Dispatch
 }
 
 class CreateRealEstate extends React.Component {
   props: Props
-  handleSubmit: (values: RealEstateValues) => void
+  breadcrumbs: () => BreadcrumbTrail
+  handleSubmit: (realEstate: RealEstate) => void
 
   constructor(props: Props) {
-    super()
+    super(props)
 
-    this.handleSubmit = (values) => {
-      props.eventPublisher.publish('Navigate', { path: editRealEstatePath(values.id) })
-    }
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  breadcrumbs() {
+    return [
+      { display: 'Portfolio', path: '/portfolio' },
+      { display: 'Assets', path: '/portfolio/assets' },
+      { display: 'New Real Estate Asset', path: '/portfolio/assets/real-estate/new' }
+    ]
+  }
+
+  handleSubmit(realEstate: RealEstate): void {
+    this.props.dispatch(putRealEstate(realEstate))
   }
 
   render() {
     return (
       <div className='create-real-estate'>
-        <Breadcrumbs route={this.props.route} eventPublisher={this.props.eventPublisher} />
-        <RealEstateForm eventPublisher={this.props.eventPublisher} onSubmit={this.handleSubmit} />
+        <Breadcrumbs breadcrumbs={this.breadcrumbs()} />
+        <RealEstateForm onSubmit={this.handleSubmit} />
       </div>
     )
   }
 }
 
-export default CreateRealEstate
+export default connect()(CreateRealEstate)

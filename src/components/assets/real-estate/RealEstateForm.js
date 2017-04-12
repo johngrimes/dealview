@@ -1,41 +1,44 @@
 // @flow
 
 import React from 'react'
+import _ from 'lodash'
 
-import EventPublisher from '../../../data/events/EventPublisher.js'
 import InputField from '../../forms/InputField.js'
 import HiddenField from '../../forms/HiddenField.js'
-import AddressField, { AddressErrorDefaults } from '../../forms/AddressField.js'
+import AddressField, { AddressErrorsDefaults } from '../../forms/AddressField.js'
 import TextAreaField from '../../forms/TextAreaField.js'
 import ValuationsInput from '../../forms/ValuationsInput.js'
 import * as Validations from '../../../utils/FormValidation.js'
-import { save } from '../../../data/assets/realEstate.js'
-import { RealEstateEmpty } from '../../../data/assets/realEstate.js'
-import type { RealEstateValues } from '../../../data/assets/realEstate.js'
-import type { AddressValues } from '../../../data/commonTypes.js'
+import { RealEstateDefaults } from '../../../data/assets/realEstate.js'
+import type { RealEstate } from '../../../data/assets/realEstate.js'
+import type { Address } from '../../../data/commonTypes.js'
+import type { AddressErrors } from '../../forms/AddressField.js'
 import type { Valuations } from '../../../components/forms/ValuationsInput.js'
 import type { FieldErrors } from '../../../utils/FormValidation.js'
-import type { AddressErrors } from '../../../components/forms/AddressField.js'
 
 import '../../../styles/forms.css'
 import '../../../styles/buttons.css'
 import '../../../styles/tables.css'
 import './RealEstateForm.css'
 
-export type RealEstateErrors = {
+type RealEstateErrors = {
   name: FieldErrors,
   address: AddressErrors,
   notes: FieldErrors
 }
+const RealEstateErrorsDefaults = {
+  name: [],
+  address: AddressErrorsDefaults,
+  notes: []
+}
 
 type Props = {
-  eventPublisher?: EventPublisher,
-  values?: RealEstateValues,
-  onSubmit?: (values: RealEstateValues) => void
+  realEstate?: RealEstate,
+  onSubmit?: (realEstate: RealEstate) => void
 }
 
 type State = {
-  values: RealEstateValues,
+  realEstate: RealEstate,
   errors: RealEstateErrors,
   allErrorsShown: boolean,
   focusedInput: string
@@ -46,107 +49,95 @@ class RealEstateForm extends React.Component {
   state: State
   handleChange: (fieldName: string, value: string) => void
   handleFocus: (fieldName: string) => void
-  handleAddressChange: (values: AddressValues) => void
-  handleValuationsChange: (values: Valuations) => void
+  handleAddressChange: (address: Address) => void
+  handleValuationsChange: (valuations: Valuations) => void
   handleSubmit: (event: Event) => boolean
+  validate: () => RealEstateErrors
 
   constructor(props: Props) {
-    super()
+    super(props)
     this.state = {
-      values: RealEstateEmpty,
-      errors: {
-        name: [],
-        address: AddressErrorDefaults,
-        notes: []
-      },
+      realEstate: RealEstateDefaults,
+      errors: RealEstateErrorsDefaults,
       allErrorsShown: false,
       focusedInput: 'name'
     }
 
-    if (props.values) {
-      this.setState({ values: props.values })
-    }
+    if (props.realEstate) { this.state.realEstate = props.realEstate }
 
-    this.handleChange = (fieldName, value) => {
-      const updatedValues = this.state.values
-      updatedValues[fieldName] = value
-      this.setState({
-        values: updatedValues,
-        errors: this.validate()
-      })
-    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.handleAddressChange = this.handleAddressChange.bind(this)
+    this.handleValuationsChange = this.handleValuationsChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.validate = this.validate.bind(this)
+  }
 
-    this.handleFocus = (fieldName) => { this.setState({ focusedInput: fieldName }) }
+  handleChange(fieldName: string, value: string): void {
+    this.setState({
+      realEstate: { ...this.state.realEstate, [fieldName]: value },
+      errors: this.validate()
+    })
+  }
 
-    this.handleAddressChange = (values) => {
-      const updatedValues = this.state.values
-      updatedValues.address = values
-      this.setState({
-        values: updatedValues,
-        errors: this.validate()
-      })
-    }
+  handleFocus(fieldName: string): void {
+    this.setState({ focusedInput: fieldName })
+  }
 
-    this.handleValuationsChange = (valuations) => {
-      const updatedValues = this.state.values
-      updatedValues.valuations = valuations
-      this.setState({
-        values: updatedValues,
-        errors: this.validate()
-      })
-    }
+  handleAddressChange(address: Address): void {
+    this.setState({
+      realEstate: { ...this.state.realEstate, address },
+      errors: this.validate()
+    })
+  }
 
-    this.handleSubmit = (event) => {
-      event.preventDefault()
-      const errors = this.validate()
-      this.setState({ errors: errors })
-      if (Validations.areErrorsPresent(errors)) {
-        const firstErrorFieldName = RealEstateForm.findFirstErrorFieldName(errors)
-        firstErrorFieldName
-          ? this.setState({ allErrorsShown: true, focusedInput: firstErrorFieldName })
-          : this.setState({ allErrorsShown: true })
-      } else {
-        save(this.state.values).then(id => {
-          let values = Object.assign({}, this.state.values, { id: id })
-          this.setState({ values: values })
-          if (this.props.onSubmit) { this.props.onSubmit(this.state.values) }
-          if (this.props.eventPublisher) {
-            this.props.eventPublisher.publish('SaveRealEstate', this.state.values)
-          }
-        }).catch((error) => console.error(error))
-      }
-      return false
+  handleValuationsChange(valuations: Valuations): void {
+    this.setState({
+      realEstate: { ...this.state.realEstate, valuations },
+      errors: this.validate()
+    })
+  }
+
+  handleSubmit(event: Event): boolean {
+    event.preventDefault()
+    const errors = this.validate()
+    this.setState({ errors: errors })
+    if (Validations.areErrorsPresent(errors)) {
+      const firstErrorFieldName = RealEstateForm.findFirstErrorFieldName(errors)
+      firstErrorFieldName
+        ? this.setState({ allErrorsShown: true, focusedInput: firstErrorFieldName })
+        : this.setState({ allErrorsShown: true })
+    } else {
+      if (this.props.onSubmit) { this.props.onSubmit(this.state.realEstate) }
     }
+    return false
+  }
+
+  validate(): RealEstateErrors {
+    const realEstate = this.state.realEstate
+    let errors = RealEstateErrorsDefaults
+
+    errors.name = []
+      .concat(Validations.required(realEstate.name))
+      .concat(Validations.minLength(realEstate.name, 3))
+      .concat(Validations.maxLength(realEstate.name, 100))
+
+    errors.address = AddressField.validate(realEstate.address)
+
+    errors.notes = []
+
+    return errors
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.values) {
-      this.setState({ values: nextProps.values })
+    if (nextProps.realEstate) {
+      this.setState({ realEstate: nextProps.realEstate })
     }
   }
 
-  static findFirstErrorFieldName(errors: RealEstateErrors): string|null {
-    return (function seek(errors, parentComponentName) {
-      let match = null
-      Object.keys(errors).some(fieldName => {
-        if (errors[fieldName] instanceof Array) {
-          if (errors[fieldName].length > 0) {
-            match = parentComponentName ? parentComponentName + '-' + fieldName : fieldName
-            return true
-          } else return false
-        } else if (errors[fieldName] instanceof Object) {
-          match = seek(errors[fieldName], fieldName)
-          return (match !== null)
-        }
-      })
-      return match
-    })(errors)
-  }
-
   render() {
-    const values = this.state.values
-    const errors = this.state.errors
-    const idField = values.id ? <HiddenField name='id' value={values.id} /> : null
+    const { realEstate, errors, allErrorsShown, focusedInput } = this.state
+    const idField = typeof realEstate.id === 'string' ? <HiddenField name='id' value={realEstate.id} /> : null
 
     return (
       <form className='real-estate-form form form-aligned' onSubmit={this.handleSubmit}>
@@ -154,20 +145,20 @@ class RealEstateForm extends React.Component {
           <legend>General details</legend>
 
           {idField}
-          <InputField name='name' type='text' label='Name' value={values.name}
-            errors={errors.name} forceErrorDisplay={this.state.allErrorsShown}
+          <InputField name='name' type='text' label='Name' value={realEstate.name}
+            errors={errors.name} forceErrorDisplay={allErrorsShown}
             onChange={(value) => this.handleChange('name', value)}
-            onFocus={this.handleFocus} focus={this.state.focusedInput} />
-          <AddressField name='address' value={values.address} errors={errors.address}
+            onFocus={this.handleFocus} focus={focusedInput} />
+          <AddressField name='address' address={realEstate.address} errors={errors.address}
             onChange={this.handleAddressChange}
-            onFocus={this.handleFocus} focus={this.state.focusedInput} />
-          <TextAreaField name='notes' label='Notes' value={values.notes}
+            onFocus={this.handleFocus} focus={focusedInput} />
+          <TextAreaField name='notes' label='Notes' value={realEstate.notes}
             onChange={(value) => this.handleChange('notes', value)}
-            onFocus={this.handleFocus} focus={this.state.focusedInput} />
+            onFocus={this.handleFocus} focus={focusedInput} />
         </fieldset>
         <fieldset>
           <legend>Value</legend>
-          <ValuationsInput name='valuations' value={values.valuations}
+          <ValuationsInput name='valuations' valuations={realEstate.valuations}
             onChange={this.handleValuationsChange} onFocus={this.handleFocus} />
         </fieldset>
         <fieldset>
@@ -178,20 +169,22 @@ class RealEstateForm extends React.Component {
     )
   }
 
-  validate(): RealEstateErrors {
-    const values = this.state.values
-    let errors = {}
-
-    errors.name = []
-    errors.name = errors.name.concat(Validations.required(values.name))
-    errors.name = errors.name.concat(Validations.minLength(values.name, 3))
-    errors.name = errors.name.concat(Validations.maxLength(values.name, 100))
-
-    errors.address = AddressField.validate(values.address)
-
-    errors.notes = []
-
-    return errors
+  static findFirstErrorFieldName(realEstateErrors: RealEstateErrors): string|null {
+    return (function seek(realEstateErrors, parentComponentName) {
+      let match = null
+      _.some(realEstateErrors, (errors, fieldName) => {
+        if (errors instanceof Array) {
+          if (errors.length > 0) {
+            match = parentComponentName ? parentComponentName + '-' + fieldName : fieldName
+            return true
+          } else return false
+        } else if (errors instanceof Object) {
+          match = seek(errors, fieldName)
+          return (match !== null)
+        }
+      })
+      return match
+    })(realEstateErrors)
   }
 }
 

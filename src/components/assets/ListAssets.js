@@ -1,35 +1,58 @@
 // @flow
 
 import React from 'react'
+import { connect } from 'react-redux'
+import _ from 'lodash'
+import type { Dispatch } from 'redux'
+import { Link } from 'react-router-dom'
 
-import { loadAll } from '../../data/assets/asset.js'
-import type { AssetValues } from '../../data/assets/asset.js'
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.js'
+import { loadAssets } from '../../actions/assets.js'
+import type { GlobalState } from '../../store.js'
+import type { AssetMap } from '../../data/assets/asset.js'
+import type { BreadcrumbTrail } from '../Breadcrumbs/Breadcrumbs.js'
 
-type State = {
-  assets: AssetValues[]
+type Props = {
+  assets: AssetMap,
+  breadcrumbs: BreadcrumbTrail,
+  dispatch: Dispatch
 }
 
 class ListAssets extends React.Component {
-  state: State
+  props: Props
 
-  constructor() {
-    super()
-    this.state = { assets: [] }
-    loadAll().then(result => {
-      this.setState({ assets: result })
-    })
+  constructor(props: Props) {
+    super(props)
+    if (this.props.assets.status === 'uninitialised') {
+      this.props.dispatch(loadAssets())
+    }
+  }
+
+  breadcrumbs() {
+    return [
+      { display: 'Portfolio', path: '/portfolio' },
+      { display: 'Assets', path: '/portfolio/assets' }
+    ]
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.assets.status === 'uninitialised') {
+      this.props.dispatch(loadAssets())
+    }
   }
 
   render() {
-    const assets = this.state.assets.map((v, i) => {
+    const assets = _.map(this.props.assets.objects, (v, k) => {
       const lastValuation = v.lastValuation ? <div className='asset-last-valuation'>{v.lastValuation}</div> : null
-      return <li key={i} className='asset'>
-        <div className='asset-name'>{v.name}</div>
+      return <li key={k} className='asset'>
+        <Link className='asset-name' to={`/portfolio/assets/real-estate/${v.instanceId}`}>{v.name}</Link>
         {lastValuation}
       </li>
     })
     return (
       <div className='list-assets'>
+        <Breadcrumbs breadcrumbs={this.breadcrumbs()} />
+        <p><Link to='/portfolio/assets/new'>New Asset</Link></p>
         <ol className='assets'>
           {assets}
         </ol>
@@ -38,4 +61,10 @@ class ListAssets extends React.Component {
   }
 }
 
-export default ListAssets
+const mapStateToProps = (state: GlobalState) => {
+  return {
+    assets: state.assets
+  }
+}
+
+export default connect(mapStateToProps)(ListAssets)
