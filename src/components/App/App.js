@@ -14,15 +14,15 @@ import NotFound from '../NotFound/NotFound.js'
 import '../../styles/base.css'
 import '../../styles/menus.css'
 import '../../styles/forms.css'
-import './AppComponent.css'
+import './App.css'
 
-class AppComponent extends React.Component {
+class App extends React.Component {
   render() {
     return (
       <Router>
         <div>
           <header className='primary-menu menu menu-horizontal'>
-            <a className='logo menu-heading menu-link' href='/'>DealView</a>
+            <Link className='logo menu-heading menu-link' to='/'>DealView</Link>
             <ul className='primary-nav menu-list'>
               <li className='menu-item'>
                 <NavLink className='menu-link' activeClassName='menu-selected' to='/portfolio'>Portfolio</NavLink>
@@ -58,4 +58,4 @@ class AppComponent extends React.Component {
   }
 }
 
-export default AppComponent
+export default App

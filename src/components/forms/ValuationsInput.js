@@ -99,6 +99,7 @@ class ValuationsInput extends React.Component {
         <td className='valuations-date'>
           <DatePicker name={`valuations-date-${i}`} dateFormat={DateFormat}
             selected={moment(v.date, DateFormat)}
+            showYearDropdown
             onChange={(moment) => this.handleChange(i, 'date', moment.format(DateFormat))}
             onFocus={this.handleFocus} />
         </td>

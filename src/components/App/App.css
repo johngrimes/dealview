@@ -11,7 +11,12 @@ body {
 	font-weight: 300;
 }
 
-.primary-menu .menu-selected {
+.primary-menu .menu-link:focus {
+  background-color: #666;
+  outline: none;
+}
+
+.primary-menu .menu-selected, .primary-menu .menu-selected:focus {
   background-color: #555;
 }
 

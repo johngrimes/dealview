@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import type { Store } from 'redux'
 
 import configureStore from './store.js'
-import AppComponent from './components/App/AppComponent.js'
+import App from './components/App/App.js'
 
 const store: Store = configureStore({
   assets: {
@@ -21,7 +21,7 @@ const store: Store = configureStore({
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppComponent />
+    <App />
   </Provider>,
   document.getElementById('app')
 )
