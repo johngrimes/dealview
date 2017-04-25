@@ -16,7 +16,7 @@ type Props = {
   dispatch: Dispatch
 }
 
-class CreateRealEstate extends React.Component {
+export class CreateRealEstate extends React.Component {
   props: Props
   breadcrumbs: () => BreadcrumbTrail
   handleSubmit: (realEstate: RealEstate) => void
@@ -27,7 +27,7 @@ class CreateRealEstate extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  breadcrumbs() {
+  breadcrumbs(): BreadcrumbTrail {
     return [
       { display: 'Portfolio', path: '/portfolio' },
       { display: 'Assets', path: '/portfolio/assets' },

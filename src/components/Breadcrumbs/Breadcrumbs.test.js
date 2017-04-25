@@ -3,23 +3,29 @@
 import Breadcrumbs from './Breadcrumbs.js'
 
 import React from 'react'
-import renderer from 'react-test-renderer'
-
-const route = {
-  route: '/categories/:category_id/items/:id',
-  breadcrumbs: [
-    { display: 'Categories', path: '/categories' },
-    { display: '{categoryName}', path: '/categories/{categoryId}' },
-    { display: '{itemName}', path: '/categories/{categoryId}/items/{itemId}' }
-  ]
-}
+import { Link } from 'react-router-dom'
+import { shallow } from 'enzyme'
 
 describe('Breadcrumbs', () => {
-  it('should render using variable substitution', () => {
-    const component = renderer.create(
-      <Breadcrumbs route={route} categoryId='kitchenware' categoryName='Kitchenware' itemId='99' itemName='Long-Handled Spatula' />
-    )
-    const tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+  it('should render a breadcrumb trail', () => {
+    const props = {
+      breadcrumbs: [
+        { display: 'Link 1', path: '/link1' },
+        { display: 'Link 2', path: '/link2' }
+      ]
+    }
+    const wrapper = shallow(<Breadcrumbs {...props} />)
+    expect(wrapper.find(Link)).toHaveLength(2)
+    expect(wrapper.findWhere(node => {
+      return node.type() === Link &&
+        node.children().text() === 'Link 1' &&
+        node.prop('to') === '/link1'
+    })).toHaveLength(1)
+    expect(wrapper.findWhere(node => {
+      return node.type() === Link &&
+        node.children().text() === 'Link 2' &&
+        node.prop('to') === '/link2'
+    })).toHaveLength(1)
+    expect(wrapper).toMatchSnapshot()
   })
 })

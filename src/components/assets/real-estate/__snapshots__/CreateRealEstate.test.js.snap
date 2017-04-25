@@ -1,0 +1,24 @@
+exports[`CreateRealEstate should render 1`] = `
+<div
+  className="create-real-estate">
+  <Breadcrumbs
+    breadcrumbs={
+      Array [
+        Object {
+          "display": "Portfolio",
+          "path": "/portfolio",
+        },
+        Object {
+          "display": "Assets",
+          "path": "/portfolio/assets",
+        },
+        Object {
+          "display": "New Real Estate Asset",
+          "path": "/portfolio/assets/real-estate/new",
+        },
+      ]
+    } />
+  <RealEstateForm
+    onSubmit={[Function]} />
+</div>
+`;

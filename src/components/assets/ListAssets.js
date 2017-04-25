@@ -9,16 +9,16 @@ import { Link } from 'react-router-dom'
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.js'
 import { loadAssets } from '../../actions/assets.js'
 import type { GlobalState } from '../../store.js'
-import type { AssetMap } from '../../data/assets/asset.js'
+import type { AssetState } from '../../reducers/assets.js'
 import type { BreadcrumbTrail } from '../Breadcrumbs/Breadcrumbs.js'
 
 type Props = {
-  assets: AssetMap,
+  assets: AssetState,
   breadcrumbs: BreadcrumbTrail,
   dispatch: Dispatch
 }
 
-class ListAssets extends React.Component {
+export class ListAssets extends React.Component {
   props: Props
 
   constructor(props: Props) {
@@ -28,7 +28,7 @@ class ListAssets extends React.Component {
     }
   }
 
-  breadcrumbs() {
+  breadcrumbs(): BreadcrumbTrail {
     return [
       { display: 'Portfolio', path: '/portfolio' },
       { display: 'Assets', path: '/portfolio/assets' }

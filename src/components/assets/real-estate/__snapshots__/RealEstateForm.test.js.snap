@@ -1,0 +1,83 @@
+exports[`RealEstateForm should render 1`] = `
+<form
+  className="real-estate-form form form-aligned"
+  onSubmit={[Function]}>
+  <fieldset>
+    <legend>
+      General details
+    </legend>
+    <InputField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={false}
+      label="Name"
+      name="name"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="text"
+      value="5 Sunrise St" />
+    <AddressField
+      address={
+        Object {
+          "line1": "5 Sunrise St",
+          "line2": "",
+          "line3": "",
+          "locality": "Ashgrove",
+          "postcode": "4060",
+          "state": "QLD",
+        }
+      }
+      errors={
+        Object {
+          "line1": Array [],
+          "line2": Array [],
+          "line3": Array [],
+        }
+      }
+      focus="name"
+      name="address"
+      onChange={[Function]}
+      onFocus={[Function]} />
+    <TextAreaField
+      focus="name"
+      label="Notes"
+      name="notes"
+      onChange={[Function]}
+      onFocus={[Function]}
+      value="Principal place of residence" />
+  </fieldset>
+  <fieldset>
+    <legend>
+      Value
+    </legend>
+    <ValuationsInput
+      name="valuations"
+      onChange={[Function]}
+      onFocus={[Function]}
+      valuations={
+        Array [
+          Object {
+            "amount": 520000,
+            "date": "2015-08-25",
+            "note": "Purchase price",
+          },
+          Object {
+            "amount": 705000,
+            "date": "2016-04-15",
+            "note": "Formal valuation",
+          },
+        ]
+      } />
+  </fieldset>
+  <fieldset>
+    <legend>
+      Mortgage
+    </legend>
+    <button
+      className="button button-primary"
+      type="submit">
+      Submit
+    </button>
+  </fieldset>
+</form>
+`;

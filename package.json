@@ -23,7 +23,7 @@
     "cross-spawn": "^4.0.0",
     "css-loader": "^0.24.0",
     "detect-port": "^1.0.0",
-    "enzyme": "^2.4.1",
+    "enzyme": "^2.8.2",
     "enzyme-to-json": "^1.5.0",
     "eslint": "^3.4.0",
     "eslint-config-standard": "^6.2.1",
@@ -70,9 +70,9 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "^15.3.1",
-    "react-datepicker": "^0.41.1",
+    "react-datepicker": "^0.46.0",
     "react-dom": "^15.3.1",
-    "react-redux": "^5.0.3",
+    "react-redux": "^5.0.4",
     "react-router-dom": "^4.0.0",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
@@ -82,6 +82,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "jest --watch --env=jsdom",
+    "coverage": "jest --env=jsdom --coverage",
     "lint": "eslint"
   },
   "jest": {
@@ -105,6 +106,9 @@
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)$",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
     ]
   }
 }

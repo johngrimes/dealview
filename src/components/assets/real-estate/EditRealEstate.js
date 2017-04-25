@@ -11,6 +11,7 @@ import { putRealEstate, loadRealEstate } from '../../../actions/realEstate.js'
 import type { RealEstate } from '../../../data/assets/realEstate.js'
 import type { GlobalState } from '../../../store.js'
 import type { ObjectStoreStatus } from '../../../actions/objects.js'
+import type { BreadcrumbTrail } from '../../../components/Breadcrumbs/Breadcrumbs.js'
 
 import './EditRealEstate.css'
 
@@ -23,7 +24,7 @@ type Props = {
   dispatch: Dispatch
 }
 
-class EditRealEstate extends React.Component {
+export class EditRealEstate extends React.Component {
   props: Props
   handleSubmit: (realEstate: RealEstate) => void
 
@@ -36,7 +37,7 @@ class EditRealEstate extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  breadcrumbs() {
+  breadcrumbs(): BreadcrumbTrail {
     const { id, realEstate: { object: realEstate } } = this.props
     const realEstateName = (typeof realEstate === 'undefined') ? id : realEstate.name
     return [

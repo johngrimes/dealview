@@ -1,0 +1,54 @@
+exports[`ListAssets should render some Assets 1`] = `
+<div
+  className="list-assets">
+  <Breadcrumbs
+    breadcrumbs={
+      Array [
+        Object {
+          "display": "Portfolio",
+          "path": "/portfolio",
+        },
+        Object {
+          "display": "Assets",
+          "path": "/portfolio/assets",
+        },
+      ]
+    } />
+  <p>
+    <Link
+      replace={false}
+      to="/portfolio/assets/new">
+      New Asset
+    </Link>
+  </p>
+  <ol
+    className="assets">
+    <li
+      className="asset">
+      <Link
+        className="asset-name"
+        replace={false}
+        to="/portfolio/assets/real-estate/54">
+        5 Sunrise St
+      </Link>
+      <div
+        className="asset-last-valuation">
+        705000
+      </div>
+    </li>
+    <li
+      className="asset">
+      <Link
+        className="asset-name"
+        replace={false}
+        to="/portfolio/assets/real-estate/34">
+        38/8 Briggs Road
+      </Link>
+      <div
+        className="asset-last-valuation">
+        260000
+      </div>
+    </li>
+  </ol>
+</div>
+`;

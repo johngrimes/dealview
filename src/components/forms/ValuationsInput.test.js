@@ -6,7 +6,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 describe('ValuationsInput', () => {
-  it('should render', () => {
+  it('should render some valuations', () => {
     const valuations = [
       {
         date: '1983-06-21',
@@ -24,9 +24,8 @@ describe('ValuationsInput', () => {
         note: 'Sworn valuation'
       }
     ]
-    const handleChange = valuations => { console.log(valuations) }
     const wrapper = shallow(
-      <ValuationsInput name='value' value={valuations} notifyChange={handleChange} />
+      <ValuationsInput name='value' valuations={valuations} />
     )
     expect(wrapper).toMatchSnapshot()
   })

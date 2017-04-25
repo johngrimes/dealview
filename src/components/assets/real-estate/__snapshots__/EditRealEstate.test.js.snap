@@ -1,0 +1,51 @@
+exports[`EditRealEstate should render an existing Real Estate asset 1`] = `
+<div
+  className="edit-real-estate">
+  <Breadcrumbs
+    breadcrumbs={
+      Array [
+        Object {
+          "display": "Portfolio",
+          "path": "/portfolio",
+        },
+        Object {
+          "display": "Assets",
+          "path": "/portfolio/assets",
+        },
+        Object {
+          "display": "5 Sunrise St",
+          "path": "/portfolio/assets/real-estate/73",
+        },
+      ]
+    } />
+  <RealEstateForm
+    onSubmit={[Function]}
+    realEstate={
+      Object {
+        "address": Object {
+          "line1": "5 Sunrise St",
+          "line2": "",
+          "line3": "",
+          "locality": "Ashgrove",
+          "postcode": "4060",
+          "state": "QLD",
+        },
+        "id": "73",
+        "name": "5 Sunrise St",
+        "notes": "Principal place of residence",
+        "valuations": Array [
+          Object {
+            "amount": 520000,
+            "date": "2015-08-25",
+            "note": "Purchase price",
+          },
+          Object {
+            "amount": 705000,
+            "date": "2016-04-15",
+            "note": "Formal valuation",
+          },
+        ],
+      }
+    } />
+</div>
+`;
