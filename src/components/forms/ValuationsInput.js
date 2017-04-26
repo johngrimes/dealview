@@ -55,19 +55,19 @@ class ValuationsInput extends React.Component {
   handleChange(i: number, field: string, value: string|number): void {
     const updatedValuations = this.state.valuations
     updatedValuations[i][field] = value
-    this.setState({
-      valuations: updatedValuations
-    })
-    if (this.props.onChange) this.props.onChange(updatedValuations)
+    this.setState(
+      () => ({ valuations: updatedValuations }),
+      () => { if (this.props.onChange) this.props.onChange(updatedValuations) }
+    )
   }
 
   handleAddValuation(event: Event): true {
     const updatedValuations = this.state.valuations
     updatedValuations.push({ date: moment().format(DateFormat), note: '' })
-    this.setState({
-      valuations: updatedValuations
-    })
-    if (this.props.onChange) this.props.onChange(updatedValuations)
+    this.setState(
+      () => ({ valuations: updatedValuations }),
+      () => { if (this.props.onChange) this.props.onChange(updatedValuations) }
+    )
     return true
   }
 
@@ -86,7 +86,7 @@ class ValuationsInput extends React.Component {
   }
 
   componentWillReceiveProps(props: Props) {
-    this.setState({ valuations: props.valuations })
+    this.setState(() => ({ valuations: props.valuations }))
   }
 
   componentDidMount() { this.setFocus() }

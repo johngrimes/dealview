@@ -66,11 +66,12 @@ class AddressField extends React.Component {
 
   handleChange(fieldName: string, value: string): void {
     const updatedAddress = { ...this.state.address, [fieldName]: value }
-    this.setState({
-      address: updatedAddress,
-      touched: true
-    })
-    if (this.props.onChange) this.props.onChange(updatedAddress)
+    this.setState(
+      prevState => {
+        return { updatedAddress, touched: true }
+      },
+      () => { if (this.props.onChange) this.props.onChange(updatedAddress) }
+    )
   }
 
   handleFocus(event: Event): true {
@@ -88,7 +89,7 @@ class AddressField extends React.Component {
   }
 
   componentWillReceiveProps(props: Props) {
-    this.setState({ address: props.address })
+    this.setState(() => ({ address: props.address }))
   }
 
   componentDidMount() { this.setFocus() }

@@ -39,11 +39,10 @@ class InputField extends React.Component {
     this.handleChange = (event) => {
       const target = event.target
       if (target instanceof HTMLInputElement) {
-        this.setState({
-          value: target.value,
-          touched: true
-        })
-        if (this.props.onChange) this.props.onChange(target.value)
+        this.setState(
+          () => ({ value: target.value, touched: true }),
+          () => { if (this.props.onChange) this.props.onChange(target.value) }
+        )
       }
       return true
     }
@@ -58,7 +57,7 @@ class InputField extends React.Component {
   }
 
   componentWillReceiveProps(props: Props) {
-    this.setState({ value: props.value })
+    this.setState(() => ({ value: props.value }))
   }
 
   setFocus() {

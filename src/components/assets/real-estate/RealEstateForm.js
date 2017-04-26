@@ -52,7 +52,6 @@ class RealEstateForm extends React.Component {
   handleAddressChange: (address: Address) => void
   handleValuationsChange: (valuations: Valuations) => void
   handleSubmit: (event: Event) => boolean
-  validate: () => RealEstateErrors
 
   constructor(props: Props) {
     super(props)
@@ -70,68 +69,64 @@ class RealEstateForm extends React.Component {
     this.handleAddressChange = this.handleAddressChange.bind(this)
     this.handleValuationsChange = this.handleValuationsChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.validate = this.validate.bind(this)
   }
 
   handleChange(fieldName: string, value: string): void {
-    this.setState({
-      realEstate: { ...this.state.realEstate, [fieldName]: value },
-      errors: this.validate()
+    this.setState(prevState => {
+      const realEstate = { ...prevState.realEstate, [fieldName]: value }
+      return {
+        realEstate,
+        errors: RealEstateForm.validate(realEstate)
+      }
     })
   }
 
   handleFocus(fieldName: string): void {
-    this.setState({ focusedInput: fieldName })
+    this.setState(() => ({ focusedInput: fieldName }))
   }
 
   handleAddressChange(address: Address): void {
-    this.setState({
-      realEstate: { ...this.state.realEstate, address },
-      errors: this.validate()
+    this.setState(prevState => {
+      const realEstate = { ...prevState.realEstate, address }
+      return {
+        realEstate,
+        errors: RealEstateForm.validate(realEstate)
+      }
     })
   }
 
   handleValuationsChange(valuations: Valuations): void {
-    this.setState({
-      realEstate: { ...this.state.realEstate, valuations },
-      errors: this.validate()
+    this.setState(prevState => {
+      const realEstate = { ...prevState.realEstate, valuations }
+      return {
+        realEstate,
+        errors: RealEstateForm.validate(realEstate)
+      }
     })
   }
 
   handleSubmit(event: Event): boolean {
     event.preventDefault()
-    const errors = this.validate()
-    this.setState({ errors: errors })
-    if (Validations.areErrorsPresent(errors)) {
-      const firstErrorFieldName = RealEstateForm.findFirstErrorFieldName(errors)
-      firstErrorFieldName
-        ? this.setState({ allErrorsShown: true, focusedInput: firstErrorFieldName })
-        : this.setState({ allErrorsShown: true })
-    } else {
-      if (this.props.onSubmit) { this.props.onSubmit(this.state.realEstate) }
-    }
+    this.setState(
+      () => ({ errors: RealEstateForm.validate(this.state.realEstate) }),
+      () => {
+        const { errors, realEstate } = this.state
+        if (Validations.areErrorsPresent(errors)) {
+          const firstErrorFieldName = RealEstateForm.findFirstErrorFieldName(errors)
+          firstErrorFieldName
+            ? this.setState(() => ({ allErrorsShown: true, focusedInput: firstErrorFieldName }))
+            : this.setState(() => ({ allErrorsShown: true }))
+        } else {
+          if (this.props.onSubmit) { this.props.onSubmit(realEstate) }
+        }
+      }
+    )
     return false
-  }
-
-  validate(): RealEstateErrors {
-    const realEstate = this.state.realEstate
-    let errors = RealEstateErrorsDefaults
-
-    errors.name = []
-      .concat(Validations.required(realEstate.name))
-      .concat(Validations.minLength(realEstate.name, 3))
-      .concat(Validations.maxLength(realEstate.name, 100))
-
-    errors.address = AddressField.validate(realEstate.address)
-
-    errors.notes = []
-
-    return errors
   }
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.realEstate) {
-      this.setState({ realEstate: nextProps.realEstate })
+      this.setState(() => ({ realEstate: nextProps.realEstate }))
     }
   }
 
@@ -167,6 +162,21 @@ class RealEstateForm extends React.Component {
         </fieldset>
       </form>
     )
+  }
+
+  static validate(realEstate: RealEstate): RealEstateErrors {
+    let errors = RealEstateErrorsDefaults
+
+    errors.name = []
+      .concat(Validations.required(realEstate.name))
+      .concat(Validations.minLength(realEstate.name, 3))
+      .concat(Validations.maxLength(realEstate.name, 100))
+
+    errors.address = AddressField.validate(realEstate.address)
+
+    errors.notes = []
+
+    return errors
   }
 
   static findFirstErrorFieldName(realEstateErrors: RealEstateErrors): string|null {

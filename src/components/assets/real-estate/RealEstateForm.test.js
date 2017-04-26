@@ -43,30 +43,30 @@ describe('RealEstateForm', () => {
     wrapper.find('form').simulate('submit', { preventDefault() {} })
     expect(wrapper.state('allErrorsShown')).toEqual(true)
   })
+})
 
-  describe('findFirstErrorFieldName', () => {
-    it('should return the name of the first field with errors', () => {
-      const errors: RealEstateErrors = {
-        name: [],
-        address: AddressEmpty,
-        notes: ['has incorrect grammar in it']
-      }
-      const result = RealEstateForm.findFirstErrorFieldName(errors)
-      expect(result).toEqual('notes')
-    })
+describe('findFirstErrorFieldName', () => {
+  it('should return the name of the first field with errors', () => {
+    const errors: RealEstateErrors = {
+      name: [],
+      address: AddressEmpty,
+      notes: ['has incorrect grammar in it']
+    }
+    const result = RealEstateForm.findFirstErrorFieldName(errors)
+    expect(result).toEqual('notes')
+  })
 
-    it('should return a field within a complex input', () => {
-      const errors: RealEstateErrors = {
-        name: [],
-        address: {
-          line1: [],
-          line2: ["is not anywhere I've ever heard of"],
-          line3: []
-        },
-        notes: []
-      }
-      const result = RealEstateForm.findFirstErrorFieldName(errors)
-      expect(result).toEqual('address-line2')
-    })
+  it('should return a field within a complex input', () => {
+    const errors: RealEstateErrors = {
+      name: [],
+      address: {
+        line1: [],
+        line2: ["is not anywhere I've ever heard of"],
+        line3: []
+      },
+      notes: []
+    }
+    const result = RealEstateForm.findFirstErrorFieldName(errors)
+    expect(result).toEqual('address-line2')
   })
 })
