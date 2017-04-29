@@ -8,6 +8,7 @@ import HiddenField from '../../forms/HiddenField.js'
 import AddressField, { AddressErrorsDefaults } from '../../forms/AddressField.js'
 import TextAreaField from '../../forms/TextAreaField.js'
 import ValuationsInput from '../../forms/ValuationsInput.js'
+import DateField from '../../forms/DateField.js'
 import * as Validations from '../../../utils/FormValidation.js'
 import { RealEstateDefaults } from '../../../data/assets/realEstate.js'
 import type { RealEstate } from '../../../data/assets/realEstate.js'
@@ -24,12 +25,16 @@ import './RealEstateForm.css'
 type RealEstateErrors = {
   name: FieldErrors,
   address: AddressErrors,
-  notes: FieldErrors
+  notes: FieldErrors,
+  purchaseDate: FieldErrors,
+  saleDate: FieldErrors
 }
 const RealEstateErrorsDefaults = {
   name: [],
   address: AddressErrorsDefaults,
-  notes: []
+  notes: [],
+  purchaseDate: [],
+  saleDate: []
 }
 
 type Props = {
@@ -149,6 +154,19 @@ class RealEstateForm extends React.Component {
             onFocus={this.handleFocus} focus={focusedInput} />
           <TextAreaField name='notes' label='Notes' value={realEstate.notes}
             onChange={(value) => this.handleChange('notes', value)}
+            onFocus={this.handleFocus} focus={focusedInput} />
+        </fieldset>
+        <fieldset>
+          <legend>Purchase and sale</legend>
+          <DateField name='purchaseDate' label='Purchase date'
+            value={realEstate.purchaseDate} errors={errors.purchaseDate}
+            forceErrorDisplay={allErrorsShown}
+            onChange={(value) => this.handleChange('purchaseDate', value)}
+            onFocus={this.handleFocus} focus={focusedInput} />
+          <DateField name='saleDate' label='Sale date'
+            value={realEstate.saleDate} errors={errors.saleDate}
+            forceErrorDisplay={allErrorsShown}
+            onChange={(value) => this.handleChange('saleDate', value)}
             onFocus={this.handleFocus} focus={focusedInput} />
         </fieldset>
         <fieldset>

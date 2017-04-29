@@ -176,6 +176,8 @@ const realEstateToAsset = (realEstate: RealEstate): Asset => {
   asset.type = 'RealEstate'
   asset.name = realEstate.name
   if (typeof realEstate.id === 'number') { asset.instanceId = realEstate.id.toString() }
+  if (realEstate.purchaseDate) { asset.startDate = realEstate.purchaseDate }
+  if (realEstate.saleDate) { asset.startDate = realEstate.saleDate }
   if (lastValuation) { asset.lastValuation = lastValuation.amount }
   return asset
 }

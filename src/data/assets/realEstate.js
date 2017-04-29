@@ -8,6 +8,8 @@ export type RealEstate = {
   name: string,
   address: Address,
   notes: string,
+  purchaseDate?: string,
+  saleDate?: string,
   valuations: Valuations
 }
 
@@ -19,5 +21,7 @@ export const RealEstateDefaults = {
   name: '',
   address: AddressDefaults,
   notes: '',
+  purchaseDate: '',
+  saleDate: '',
   valuations: []
 }

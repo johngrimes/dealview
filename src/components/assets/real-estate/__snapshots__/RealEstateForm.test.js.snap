@@ -48,6 +48,27 @@ exports[`RealEstateForm should render 1`] = `
   </fieldset>
   <fieldset>
     <legend>
+      Purchase and sale
+    </legend>
+    <DateField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={false}
+      label="Purchase date"
+      name="purchaseDate"
+      onChange={[Function]}
+      onFocus={[Function]} />
+    <DateField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={false}
+      label="Sale date"
+      name="saleDate"
+      onChange={[Function]}
+      onFocus={[Function]} />
+  </fieldset>
+  <fieldset>
+    <legend>
       Value
     </legend>
     <ValuationsInput

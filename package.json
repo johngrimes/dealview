@@ -83,7 +83,8 @@
     "build": "node scripts/build.js",
     "test": "jest --watch --env=jsdom",
     "coverage": "jest --env=jsdom --coverage",
-    "lint": "eslint"
+    "lint": "eslint",
+    "flow": "flow check"
   },
   "jest": {
     "moduleFileExtensions": [

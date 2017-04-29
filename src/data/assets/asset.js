@@ -4,7 +4,9 @@ export type Asset = {
   type: 'RealEstate',
   instanceId: string,
   name: string,
-  lastValuation?: number
+  lastValuation?: number,
+  startDate?: string,
+  endDate?: string
 }
 
 export type AssetWithId = Asset & { id: string }

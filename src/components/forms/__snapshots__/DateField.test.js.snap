@@ -1,0 +1,39 @@
+exports[`DateField should render 1`] = `
+<div
+  className="control-group">
+  <label
+    htmlFor="someDate">
+    Some Date
+  </label>
+  <t
+    className=""
+    dateFormat="YYYY-MM-DD"
+    dateFormatCalendar="MMMM YYYY"
+    disabled={false}
+    disabledKeyboardNavigation={false}
+    dropdownMode="scroll"
+    monthsShown={1}
+    name="someDate"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClickOutside={[Function]}
+    onFocus={[Function]}
+    onMonthChange={[Function]}
+    onSelect={[Function]}
+    popoverAttachment="top left"
+    popoverTargetAttachment="bottom left"
+    popoverTargetOffset="10px 0"
+    selected={"1981-07-25T14:00:00.000Z"}
+    showYearDropdown={true}
+    tetherConstraints={
+      Array [
+        Object {
+          "attachment": "together",
+          "to": "window",
+        },
+      ]
+    }
+    utcOffset={600}
+    withPortal={false} />
+</div>
+`;
