@@ -1,13 +1,38 @@
-exports[`ValuationsInput should render some valuations 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ValuationsInput should be tolerant of an undefined valuations prop 1`] = `
 <div
-  className="valuations-input control-group">
+  className="valuations-input control-group"
+>
   <table
-    className="table">
+    className="table"
+  >
+    <tbody />
+  </table>
+  <button
+    className="button add-valuation-button"
+    onClick={[Function]}
+    type="button"
+  >
+    +  Add
+  </button>
+</div>
+`;
+
+exports[`ValuationsInput should render 1`] = `
+<div
+  className="valuations-input control-group"
+>
+  <table
+    className="table"
+  >
     <tbody>
       <tr>
         <td
-          className="valuations-date">
+          className="valuations-date"
+        >
           <t
+            autoFocus={false}
             dateFormat="YYYY-MM-DD"
             dateFormatCalendar="MMMM YYYY"
             disabled={false}
@@ -35,33 +60,40 @@ exports[`ValuationsInput should render some valuations 1`] = `
               ]
             }
             utcOffset={600}
-            withPortal={false} />
+            withPortal={false}
+          />
         </td>
         <td
-          className="valuations-amount">
+          className="valuations-amount"
+        >
           <input
             name="valuations-amount-0"
             onChange={[Function]}
             onFocus={[Function]}
             placeholder="Value"
             type="number"
-            value="18700000" />
+            value="18700000"
+          />
         </td>
         <td
-          className="valuations-note">
+          className="valuations-note"
+        >
           <input
             name="valuations-note-0"
             onChange={[Function]}
             onFocus={[Function]}
             placeholder="Note"
             type="text"
-            value="Initial purchase price" />
+            value="Initial purchase price"
+          />
         </td>
       </tr>
       <tr>
         <td
-          className="valuations-date">
+          className="valuations-date"
+        >
           <t
+            autoFocus={false}
             dateFormat="YYYY-MM-DD"
             dateFormatCalendar="MMMM YYYY"
             disabled={false}
@@ -89,33 +121,40 @@ exports[`ValuationsInput should render some valuations 1`] = `
               ]
             }
             utcOffset={600}
-            withPortal={false} />
+            withPortal={false}
+          />
         </td>
         <td
-          className="valuations-amount">
+          className="valuations-amount"
+        >
           <input
             name="valuations-amount-1"
             onChange={[Function]}
             onFocus={[Function]}
             placeholder="Value"
             type="number"
-            value="36000000" />
+            value="36000000"
+          />
         </td>
         <td
-          className="valuations-note">
+          className="valuations-note"
+        >
           <input
             name="valuations-note-1"
             onChange={[Function]}
             onFocus={[Function]}
             placeholder="Note"
             type="text"
-            value="Bank valuation - refinance" />
+            value="Bank valuation - refinance"
+          />
         </td>
       </tr>
       <tr>
         <td
-          className="valuations-date">
+          className="valuations-date"
+        >
           <t
+            autoFocus={false}
             dateFormat="YYYY-MM-DD"
             dateFormatCalendar="MMMM YYYY"
             disabled={false}
@@ -143,27 +182,32 @@ exports[`ValuationsInput should render some valuations 1`] = `
               ]
             }
             utcOffset={600}
-            withPortal={false} />
+            withPortal={false}
+          />
         </td>
         <td
-          className="valuations-amount">
+          className="valuations-amount"
+        >
           <input
             name="valuations-amount-2"
             onChange={[Function]}
             onFocus={[Function]}
             placeholder="Value"
             type="number"
-            value="75000000" />
+            value="75000000"
+          />
         </td>
         <td
-          className="valuations-note">
+          className="valuations-note"
+        >
           <input
             name="valuations-note-2"
             onChange={[Function]}
             onFocus={[Function]}
             placeholder="Note"
             type="text"
-            value="Sworn valuation" />
+            value="Sworn valuation"
+          />
         </td>
       </tr>
     </tbody>
@@ -171,7 +215,8 @@ exports[`ValuationsInput should render some valuations 1`] = `
   <button
     className="button add-valuation-button"
     onClick={[Function]}
-    type="button">
+    type="button"
+  >
     +  Add
   </button>
 </div>

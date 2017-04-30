@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddressField should display errors if touched 1`] = `
+<div>
+  <div
+    className="address-field control-group"
+  >
+    <label
+      htmlFor="someInput-line1"
+    >
+      Address
+    </label>
+    <div
+      className="group"
+    >
+      <input
+        id="someInput-line1"
+        name="someInput-line1"
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Line 1"
+        type="text"
+        value="5 Sunrise St"
+      />
+      <input
+        name="someInput-line2"
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Line 2"
+        type="text"
+        value=""
+      />
+      <input
+        name="someInput-line3"
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Line 3"
+        type="text"
+        value=""
+      />
+      <input
+        name="someInput-locality"
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Suburb / Town"
+        type="text"
+        value="Ashgrove"
+      />
+    </div>
+  </div>
+  <input
+    name="someInput-state"
+    type="hidden"
+    value="QLD"
+  />
+  <input
+    name="someInput-postcode"
+    type="hidden"
+    value="4060"
+  />
+</div>
+`;
+
+exports[`AddressField should render 1`] = `
+<div>
+  <div
+    className="address-field control-group"
+  >
+    <label
+      htmlFor="someInput-line1"
+    >
+      Address
+    </label>
+    <div
+      className="group"
+    >
+      <input
+        id="someInput-line1"
+        name="someInput-line1"
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Line 1"
+        type="text"
+        value="5 Sunrise St"
+      />
+      <input
+        name="someInput-line2"
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Line 2"
+        type="text"
+        value=""
+      />
+      <input
+        name="someInput-line3"
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Line 3"
+        type="text"
+        value=""
+      />
+      <input
+        name="someInput-locality"
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Suburb / Town"
+        type="text"
+        value="Ashgrove"
+      />
+    </div>
+  </div>
+  <input
+    name="someInput-state"
+    type="hidden"
+    value="QLD"
+  />
+  <input
+    name="someInput-postcode"
+    type="hidden"
+    value="4060"
+  />
+</div>
+`;

@@ -22,23 +22,23 @@ export type Valuations = Valuation[]
 
 type Props = {
   name: string,
-  valuations: Valuations,
+  valuations?: Valuations,
   focus?: string,
   onChange?: (valuations: Valuations) => void,
   onFocus?: (fieldName: string) => void
 }
 
 type State = {
-  valuations: Valuations
+  valuations?: Valuations
 }
 
 class ValuationsInput extends React.Component {
   props: Props
   state: State
-  _refs: { [fieldName: string]: HTMLInputElement }
+  _refs: { [fieldName: string]: { focus: () => void } }
   handleChange: (i: number, field: string, value: string|number) => void
-  handleAddValuation: (event: Event) => true
-  handleFocus: (event: Event) => true
+  handleAddValuation: () => void
+  handleFocus: (event: { target: { name: string } }) => void
   setFocus: () => void
 
   constructor(props: Props) {
@@ -53,6 +53,7 @@ class ValuationsInput extends React.Component {
   }
 
   handleChange(i: number, field: string, value: string|number): void {
+    if (this.state.valuations === undefined) return
     const updatedValuations = this.state.valuations
     updatedValuations[i][field] = value
     this.setState(
@@ -61,22 +62,20 @@ class ValuationsInput extends React.Component {
     )
   }
 
-  handleAddValuation(event: Event): true {
-    const updatedValuations = this.state.valuations
+  handleAddValuation(): void {
+    const updatedValuations = this.state.valuations || []
     updatedValuations.push({ date: moment().format(DateFormat), note: '' })
     this.setState(
       () => ({ valuations: updatedValuations }),
       () => { if (this.props.onChange) this.props.onChange(updatedValuations) }
     )
-    return true
   }
 
-  handleFocus(event: Event): true {
+  handleFocus(event: { target: { name: string } }): void {
     const target = event.target
-    if (this.props.onFocus && target instanceof HTMLInputElement) {
+    if (this.props.onFocus) {
       this.props.onFocus(target.name)
     }
-    return true
   }
 
   setFocus(): void {
@@ -94,29 +93,34 @@ class ValuationsInput extends React.Component {
   componentDidUpdate() { this.setFocus() }
 
   render() {
-    const valuations = this.state.valuations.map((v, i) => {
-      return <tr key={i}>
-        <td className='valuations-date'>
-          <DatePicker name={`valuations-date-${i}`} dateFormat={DateFormat}
-            selected={moment(v.date, DateFormat)}
-            showYearDropdown
-            onChange={(moment) => this.handleChange(i, 'date', moment.format(DateFormat))}
-            onFocus={this.handleFocus} />
-        </td>
-        <td className='valuations-amount'>
-          <input name={`valuations-amount-${i}`} type='number'
-            value={v.amount ? v.amount.toString() : ''} placeholder='Value'
-            onChange={(event) => this.handleChange(i, 'amount', parseInt(event.target.value, 10))}
-            onFocus={this.handleFocus} />
-        </td>
-        <td className='valuations-note'>
-          <input name={`valuations-note-${i}`} type='text'
-            value={v.note} placeholder='Note'
-            onChange={(event) => this.handleChange(i, 'note', event.target.value)}
-            onFocus={this.handleFocus} />
-        </td>
-      </tr>
-    })
+    const valuations = this.state.valuations === undefined
+      ? []
+      : this.state.valuations.map((v, i) => {
+        return <tr key={i}>
+          <td className='valuations-date'>
+            <DatePicker name={`valuations-date-${i}`} dateFormat={DateFormat}
+              selected={moment(v.date, DateFormat)}
+              showYearDropdown
+              autoFocus={this.props.focus === `valuations-date-${i}`}
+              onChange={(moment) => this.handleChange(i, 'date', moment.format(DateFormat))}
+              onFocus={this.handleFocus} />
+          </td>
+          <td className='valuations-amount'>
+            <input name={`valuations-amount-${i}`} type='number'
+              value={v.amount ? v.amount.toString() : ''} placeholder='Value'
+              onChange={(event) => this.handleChange(i, 'amount', parseInt(event.target.value, 10))}
+              ref={input => this._refs[`valuations-amount-${i}`] = input}
+              onFocus={this.handleFocus} />
+          </td>
+          <td className='valuations-note'>
+            <input name={`valuations-note-${i}`} type='text'
+              value={v.note} placeholder='Note'
+              onChange={(event) => this.handleChange(i, 'note', event.target.value)}
+              ref={input => this._refs[`valuations-note-${i}`] = input}
+              onFocus={this.handleFocus} />
+          </td>
+        </tr>
+      })
     return (
       <div className='valuations-input control-group'>
         <table className='table'>

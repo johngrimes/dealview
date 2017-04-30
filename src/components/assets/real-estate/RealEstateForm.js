@@ -44,7 +44,7 @@ type Props = {
 
 type State = {
   realEstate: RealEstate,
-  errors: RealEstateErrors,
+  errors?: RealEstateErrors,
   allErrorsShown: boolean,
   focusedInput: string
 }
@@ -62,7 +62,6 @@ class RealEstateForm extends React.Component {
     super(props)
     this.state = {
       realEstate: RealEstateDefaults,
-      errors: RealEstateErrorsDefaults,
       allErrorsShown: false,
       focusedInput: 'name'
     }
@@ -116,7 +115,7 @@ class RealEstateForm extends React.Component {
       () => ({ errors: RealEstateForm.validate(this.state.realEstate) }),
       () => {
         const { errors, realEstate } = this.state
-        if (Validations.areErrorsPresent(errors)) {
+        if (errors !== undefined && Validations.areErrorsPresent(errors)) {
           const firstErrorFieldName = RealEstateForm.findFirstErrorFieldName(errors)
           firstErrorFieldName
             ? this.setState(() => ({ allErrorsShown: true, focusedInput: firstErrorFieldName }))
@@ -136,7 +135,8 @@ class RealEstateForm extends React.Component {
   }
 
   render() {
-    const { realEstate, errors, allErrorsShown, focusedInput } = this.state
+    const { realEstate, allErrorsShown, focusedInput } = this.state
+    const errors = this.state.errors === undefined ? {} : this.state.errors
     const idField = typeof realEstate.id === 'string' ? <HiddenField name='id' value={realEstate.id} /> : null
 
     return (

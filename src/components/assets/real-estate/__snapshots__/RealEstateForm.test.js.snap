@@ -1,13 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`RealEstateForm should render 1`] = `
 <form
   className="real-estate-form form form-aligned"
-  onSubmit={[Function]}>
+  onSubmit={[Function]}
+>
   <fieldset>
     <legend>
       General details
     </legend>
     <InputField
-      errors={Array []}
       focus="name"
       forceErrorDisplay={false}
       label="Name"
@@ -15,7 +17,8 @@ exports[`RealEstateForm should render 1`] = `
       onChange={[Function]}
       onFocus={[Function]}
       type="text"
-      value="5 Sunrise St" />
+      value="5 Sunrise St"
+    />
     <AddressField
       address={
         Object {
@@ -27,45 +30,40 @@ exports[`RealEstateForm should render 1`] = `
           "state": "QLD",
         }
       }
-      errors={
-        Object {
-          "line1": Array [],
-          "line2": Array [],
-          "line3": Array [],
-        }
-      }
       focus="name"
       name="address"
       onChange={[Function]}
-      onFocus={[Function]} />
+      onFocus={[Function]}
+    />
     <TextAreaField
       focus="name"
       label="Notes"
       name="notes"
       onChange={[Function]}
       onFocus={[Function]}
-      value="Principal place of residence" />
+      value="Principal place of residence"
+    />
   </fieldset>
   <fieldset>
     <legend>
       Purchase and sale
     </legend>
     <DateField
-      errors={Array []}
       focus="name"
       forceErrorDisplay={false}
       label="Purchase date"
       name="purchaseDate"
       onChange={[Function]}
-      onFocus={[Function]} />
+      onFocus={[Function]}
+    />
     <DateField
-      errors={Array []}
       focus="name"
       forceErrorDisplay={false}
       label="Sale date"
       name="saleDate"
       onChange={[Function]}
-      onFocus={[Function]} />
+      onFocus={[Function]}
+    />
   </fieldset>
   <fieldset>
     <legend>
@@ -88,7 +86,8 @@ exports[`RealEstateForm should render 1`] = `
             "note": "Formal valuation",
           },
         ]
-      } />
+      }
+    />
   </fieldset>
   <fieldset>
     <legend>
@@ -96,7 +95,8 @@ exports[`RealEstateForm should render 1`] = `
     </legend>
     <button
       className="button button-primary"
-      type="submit">
+      type="submit"
+    >
       Submit
     </button>
   </fieldset>

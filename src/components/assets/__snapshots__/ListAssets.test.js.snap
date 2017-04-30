@@ -1,6 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`ListAssets should render some Assets 1`] = `
 <div
-  className="list-assets">
+  className="list-assets"
+>
   <Breadcrumbs
     breadcrumbs={
       Array [
@@ -13,39 +16,48 @@ exports[`ListAssets should render some Assets 1`] = `
           "path": "/portfolio/assets",
         },
       ]
-    } />
+    }
+  />
   <p>
     <Link
       replace={false}
-      to="/portfolio/assets/new">
+      to="/portfolio/assets/new"
+    >
       New Asset
     </Link>
   </p>
   <ol
-    className="assets">
+    className="assets"
+  >
     <li
-      className="asset">
+      className="asset"
+    >
       <Link
         className="asset-name"
         replace={false}
-        to="/portfolio/assets/real-estate/54">
+        to="/portfolio/assets/real-estate/54"
+      >
         5 Sunrise St
       </Link>
       <div
-        className="asset-last-valuation">
+        className="asset-last-valuation"
+      >
         705000
       </div>
     </li>
     <li
-      className="asset">
+      className="asset"
+    >
       <Link
         className="asset-name"
         replace={false}
-        to="/portfolio/assets/real-estate/34">
+        to="/portfolio/assets/real-estate/34"
+      >
         38/8 Briggs Road
       </Link>
       <div
-        className="asset-last-valuation">
+        className="asset-last-valuation"
+      >
         260000
       </div>
     </li>

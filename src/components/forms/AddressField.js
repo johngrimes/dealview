@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import _ from 'lodash'
 
 import * as Validations from '../../utils/FormValidation.js'
 import type { Address } from '../../data/commonTypes.js'
@@ -31,31 +32,32 @@ const AddressLabels = {
 
 type Props = {
   name: string,
-  address: Address,
+  address?: Address,
   errors?: AddressErrors,
+  forceErrorDisplay?: boolean,
   focus?: string,
   onChange?: (address: Address) => void,
   onFocus?: (fieldName: string) => void
 }
 
 type State = {
-  address: Address,
-  touched: boolean
+  address?: Address,
+  touched: string[]
 }
 
 class AddressField extends React.Component {
   props: Props
   state: State
-  _refs: { [fieldName: string]: HTMLInputElement }
+  _refs: { [fieldName: string]: { focus: () => void } }
   handleChange: (fieldName: string, value: string) => void
-  handleFocus: (event: Event) => true
+  handleFocus: (event: { target: { name: string } }) => void
   setFocus: () => void
 
   constructor(props: Props) {
     super(props)
     this.state = {
       address: props.address,
-      touched: false
+      touched: []
     }
 
     this._refs = {}
@@ -68,18 +70,20 @@ class AddressField extends React.Component {
     const updatedAddress = { ...this.state.address, [fieldName]: value }
     this.setState(
       prevState => {
-        return { updatedAddress, touched: true }
+        const updatedTouched = prevState.touched.includes(fieldName)
+          ? prevState.touched
+          : prevState.touched.concat(fieldName)
+        return { address: updatedAddress, touched: updatedTouched }
       },
       () => { if (this.props.onChange) this.props.onChange(updatedAddress) }
     )
   }
 
-  handleFocus(event: Event): true {
+  handleFocus(event: { target: { name: string } }): void {
     const target = event.target
-    if (this.props.onFocus && target instanceof HTMLInputElement) {
+    if (this.props.onFocus) {
       this.props.onFocus(target.name)
     }
-    return true
   }
 
   setFocus() {
@@ -97,22 +101,20 @@ class AddressField extends React.Component {
   componentDidUpdate() { this.setFocus() }
 
   render() {
-    const { name, errors } = this.props
-    const { address, touched } = this.state
+    const { name, forceErrorDisplay } = this.props
+    const errors = this.props.errors === undefined ? {} : this.props.errors
+    const { touched } = this.state
+    const address = this.state.address ? this.state.address : {}
 
     // Create an array from any address field errors.
-    const errorTags = []
-    if (errors) {
-      for (const fieldName in errors) {
-        const fieldErrors = errors[fieldName]
-        if (fieldErrors) {
-          fieldErrors.forEach((msg, i) => {
-            const labelledMessage = AddressLabels[fieldName] + ' ' + msg
-            errorTags.push(<div key={fieldName + '-' + i} className='error'>{labelledMessage}</div>)
-          })
-        }
-      }
-    }
+    const errorTags = _.flatMap(errors, (fieldErrors, fieldName) => {
+      return forceErrorDisplay || touched.includes(fieldName)
+        ? fieldErrors.map((msg, i) => {
+          const labelledMessage = AddressLabels[fieldName] + ' ' + msg
+          return <div key={fieldName + '-' + i} className='error'>{labelledMessage}</div>
+        })
+        : []
+    })
 
     const addressClass = touched && errorTags.length > 0
       ? 'address-field control-group with-errors'
@@ -125,7 +127,7 @@ class AddressField extends React.Component {
           <div className='group'>
             <input id={name + '-line1'} name={name + '-line1'} type='text'
               placeholder={AddressLabels.line1} value={address.line1}
-              ref={input => this._refs[name + '-line2'] = input}
+              ref={input => this._refs[name + '-line1'] = input}
               onChange={(event) => this.handleChange('line1', event.target.value)}
               onFocus={this.handleFocus} />
             <input name={name + '-line2'} type='text'
@@ -144,7 +146,7 @@ class AddressField extends React.Component {
               onChange={(event) => this.handleChange('locality', event.target.value)}
               onFocus={this.handleFocus} />
           </div>
-          {touched && errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
+          {errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
         </div>
         <input name={name + '-state'} type='hidden' value={address.state} />
         <input name={name + '-postcode'} type='hidden' value={address.postcode} />

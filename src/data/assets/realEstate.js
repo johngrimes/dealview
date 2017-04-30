@@ -21,7 +21,5 @@ export const RealEstateDefaults = {
   name: '',
   address: AddressDefaults,
   notes: '',
-  purchaseDate: '',
-  saleDate: '',
   valuations: []
 }

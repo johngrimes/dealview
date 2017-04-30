@@ -15,6 +15,7 @@ type Props = {
   label?: string,
   errors?: FieldErrors,
   forceErrorDisplay?: boolean,
+  focus?: string,
   onChange?: (value: string) => void,
   onFocus?: (fieldName: string) => void
 }
@@ -28,8 +29,8 @@ class DateField extends React.Component {
   props: Props
   state: State
   ref: HTMLInputElement
-  handleChange: (event: Event) => true
-  handleFocus: (event: Event) => true
+  handleChange: (value: string) => void
+  handleFocus: (event: { target: { name: string } }) => void
 
   constructor(props: Props) {
     super(props)
@@ -37,14 +38,23 @@ class DateField extends React.Component {
       value: props.value,
       touched: false
     }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
   }
 
-  handleChange(value: string) {
+  handleChange(value: string): void {
     this.setState(
       () => ({ value: value, touched: true }),
       () => { if (this.props.onChange) this.props.onChange(value) }
     )
-    return true
+  }
+
+  handleFocus(event: { target: { name: string } }): void {
+    const target = event.target
+    if (this.props.onFocus) {
+      this.props.onFocus(target.name)
+    }
   }
 
   componentWillReceiveProps(props: Props) {
@@ -74,6 +84,8 @@ class DateField extends React.Component {
         <DatePicker name={name} dateFormat={DateFormat}
           className={inputClass} ref={input => this.ref = input}
           selected={selected} showYearDropdown
+          autoFocus={this.props.focus === name}
+          onFocus={this.handleFocus}
           onChange={(moment) => this.handleChange(moment.format(DateFormat))} />
         {(forceErrorDisplay || touched) && errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
       </div>

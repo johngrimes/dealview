@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HiddenField should render 1`] = `
+<input
+  id="someInput"
+  type="hidden"
+  value="something"
+/>
+`;

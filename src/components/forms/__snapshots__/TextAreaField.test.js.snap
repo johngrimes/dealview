@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextAreaField should be tolerant of an undefined value prop 1`] = `
+<div
+  className="control-group"
+>
+  <label
+    htmlFor="someInput"
+  >
+    Some Input
+  </label>
+  <textarea
+    className=""
+    name="someInput"
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Type here..."
+  />
+</div>
+`;
+
+exports[`TextAreaField should display errors if touched 1`] = `
+<div
+  className="control-group"
+>
+  <textarea
+    className=""
+    name="someInput"
+    onChange={[Function]}
+    onFocus={[Function]}
+  />
+</div>
+`;
+
+exports[`TextAreaField should render 1`] = `
+<div
+  className="control-group"
+>
+  <label
+    htmlFor="someInput"
+  >
+    Some Input
+  </label>
+  <textarea
+    className=""
+    name="someInput"
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Type here..."
+    value="something"
+  />
+</div>
+`;

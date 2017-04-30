@@ -1,23 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Breadcrumbs should render a breadcrumb trail 1`] = `
 <div
-  className="breadcrumbs">
+  className="breadcrumbs"
+>
   <ul
-    className="breadcrumbs-list">
+    className="breadcrumbs-list"
+  >
     <li
-      className="breadcrumbs-item">
+      className="breadcrumbs-item"
+    >
       <Link
         className="breadcrumbs-link"
         replace={false}
-        to="/link1">
+        to="/link1"
+      >
         Link 1
       </Link>
     </li>
     <li
-      className="breadcrumbs-item">
+      className="breadcrumbs-item"
+    >
       <Link
         className="breadcrumbs-link"
         replace={false}
-        to="/link2">
+        to="/link2"
+      >
         Link 2
       </Link>
     </li>

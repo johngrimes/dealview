@@ -6,8 +6,11 @@ import type { FieldErrors } from '../../utils/FormValidation.js'
 
 type Props = {
   name: string,
-  type: string,
-  value: string,
+  type: 'hidden'|'text'|'search'|'tel'|'url'|'email'|
+        'password'|'date'|'month'|'week'|'time'|'datetime-local'|
+        'number'|'range'|'color'|'checkbox'|'radio'|'file'|
+        'submit'|'image'|'reset'|'button',
+  value?: string,
   label?: string,
   placeholder?: string,
   errors?: FieldErrors,
@@ -18,16 +21,16 @@ type Props = {
 }
 
 type State = {
-  value: string,
+  value?: string,
   touched: boolean
 }
 
 class InputField extends React.Component {
   props: Props
   state: State
-  ref: HTMLInputElement
-  handleChange: (event: Event) => true
-  handleFocus: (event: Event) => true
+  ref: { focus: () => void }
+  handleChange: (event: { target: { value: string } }) => void
+  handleFocus: (event: { target: { name: string } }) => void
 
   constructor(props: Props) {
     super(props)
@@ -36,28 +39,23 @@ class InputField extends React.Component {
       touched: false
     }
 
-    this.handleChange = (event) => {
-      const target = event.target
-      if (target instanceof HTMLInputElement) {
-        this.setState(
-          () => ({ value: target.value, touched: true }),
-          () => { if (this.props.onChange) this.props.onChange(target.value) }
-        )
-      }
-      return true
-    }
-
-    this.handleFocus = (event) => {
-      const target = event.target
-      if (this.props.onFocus && target instanceof HTMLInputElement) {
-        this.props.onFocus(target.name)
-      }
-      return true
-    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
   }
 
-  componentWillReceiveProps(props: Props) {
-    this.setState(() => ({ value: props.value }))
+  handleChange(event: { target: { value: string } }): void {
+    const target = event.target
+    this.setState(
+      () => ({ value: target.value, touched: true }),
+      () => { if (this.props.onChange) this.props.onChange(target.value) }
+    )
+  }
+
+  handleFocus(event: { target: { name: string } }): void {
+    const target = event.target
+    if (this.props.onFocus) {
+      this.props.onFocus(target.name)
+    }
   }
 
   setFocus() {
@@ -65,28 +63,43 @@ class InputField extends React.Component {
       this.ref.focus()
     }
   }
+
+  componentWillReceiveProps(props: Props) {
+    this.setState(() => ({ value: props.value }))
+  }
+
   componentDidMount() { this.setFocus() }
+
   componentDidUpdate() { this.setFocus() }
 
   render() {
-    const labelTag = this.props.label ? <label htmlFor={this.props.name}>{this.props.label}</label> : null
-
+    const { name, type, label, placeholder, errors, forceErrorDisplay } = this.props
+    const { value, touched } = this.state
+    const labelTag = label
+      ? <label htmlFor={name}>{label}</label>
+      : null
     const errorTags = []
-    if (this.props.errors) {
-      this.props.errors.forEach((msg, i) =>
+    if (errors) {
+      errors.forEach((msg, i) =>
         errorTags.push(<div key={i} className='error'>{msg}</div>)
       )
     }
-
-    const inputClass = this.state.touched && errorTags.length > 0
+    const className = touched && errorTags.length > 0
       ? 'with-errors'
       : ''
+    const props = {
+      name, className, type, placeholder, value,
+      onChange: this.handleChange,
+      onFocus: this.handleFocus,
+      ref: input => this.ref = input
+    }
 
     return (
       <div className='control-group'>
         {labelTag}
-        <input name={this.props.name} className={inputClass} type={this.props.type} placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} onFocus={this.handleFocus} ref={input => this.ref = input} />
-        {(this.props.forceErrorDisplay || this.state.touched) && errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
+        <input {...props} />
+        {(forceErrorDisplay || touched) &&
+          errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
       </div>
     )
   }

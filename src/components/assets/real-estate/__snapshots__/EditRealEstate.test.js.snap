@@ -1,6 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`EditRealEstate should render an existing Real Estate asset 1`] = `
 <div
-  className="edit-real-estate">
+  className="edit-real-estate"
+>
   <Breadcrumbs
     breadcrumbs={
       Array [
@@ -17,7 +20,8 @@ exports[`EditRealEstate should render an existing Real Estate asset 1`] = `
           "path": "/portfolio/assets/real-estate/73",
         },
       ]
-    } />
+    }
+  />
   <RealEstateForm
     onSubmit={[Function]}
     realEstate={
@@ -46,6 +50,7 @@ exports[`EditRealEstate should render an existing Real Estate asset 1`] = `
           },
         ],
       }
-    } />
+    }
+  />
 </div>
 `;

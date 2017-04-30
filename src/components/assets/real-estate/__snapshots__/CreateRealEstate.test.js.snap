@@ -1,6 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`CreateRealEstate should render 1`] = `
 <div
-  className="create-real-estate">
+  className="create-real-estate"
+>
   <Breadcrumbs
     breadcrumbs={
       Array [
@@ -17,8 +20,10 @@ exports[`CreateRealEstate should render 1`] = `
           "path": "/portfolio/assets/real-estate/new",
         },
       ]
-    } />
+    }
+  />
   <RealEstateForm
-    onSubmit={[Function]} />
+    onSubmit={[Function]}
+  />
 </div>
 `;

@@ -7,7 +7,7 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.14.0",
     "babel-eslint": "^6.1.2",
-    "babel-jest": "^18.0.0",
+    "babel-jest": "^19.0.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-class-properties": "^6.11.5",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
@@ -46,7 +46,7 @@
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.22.0",
     "http-proxy-middleware": "^0.17.1",
-    "jest": "^18.0.0",
+    "jest": "^19.0.0",
     "json-loader": "^0.5.4",
     "object-assign": "^4.1.0",
     "opn": "^4.0.2",
@@ -81,7 +81,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "jest --watch --env=jsdom",
+    "test": "jest --watch --env=jsdom --verbose",
     "coverage": "jest --env=jsdom --coverage",
     "lint": "eslint",
     "flow": "flow check"
@@ -96,7 +96,7 @@
       "^[./a-zA-Z0-9$_-]+\\.(jpg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm)$": "<rootDir>/config/jest/FileStub.js",
       "^[./a-zA-Z0-9$_-]+\\.css$": "<rootDir>/config/jest/CSSStub.js"
     },
-    "scriptPreprocessor": "<rootDir>/config/jest/transform.js",
+    "transform": { ".*": "<rootDir>/config/jest/transform.js" },
     "setupFiles": [
       "<rootDir>/config/polyfills.js"
     ],

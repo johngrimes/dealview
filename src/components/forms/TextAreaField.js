@@ -6,7 +6,7 @@ import type { FieldErrors } from '../../utils/FormValidation.js'
 
 type Props = {
   name: string,
-  value: string,
+  value?: string,
   label?: string,
   placeholder?: string,
   errors?: FieldErrors,
@@ -17,16 +17,16 @@ type Props = {
 }
 
 type State = {
-  value: string,
+  value?: string,
   touched: boolean
 }
 
 class TextAreaField extends React.Component {
   props: Props
   state: State
-  ref: HTMLTextAreaElement
-  handleChange: (event: Event) => true
-  handleFocus: (event: Event) => true
+  ref: { focus: () => void }
+  handleChange: (event: { target: { value: string } }) => void
+  handleFocus: (event: { target: { name: string } }) => void
 
   constructor(props: Props) {
     super(props)
@@ -35,23 +35,22 @@ class TextAreaField extends React.Component {
       touched: false
     }
 
-    this.handleChange = (event) => {
-      const target = event.target
-      if (target instanceof HTMLTextAreaElement) {
-        this.setState(
-          () => ({ value: target.value, touched: true }),
-          () => { if (this.props.onChange) this.props.onChange(target.value) }
-        )
-      }
-      return true
-    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+  }
 
-    this.handleFocus = (event) => {
-      const target = event.target
-      if (this.props.onFocus && target instanceof HTMLTextAreaElement) {
-        this.props.onFocus(target.name)
-      }
-      return true
+  handleChange(event: { target: { value: string } }): void {
+    const target = event.target
+    this.setState(
+      () => ({ value: target.value, touched: true }),
+      () => { if (this.props.onChange) this.props.onChange(target.value) }
+    )
+  }
+
+  handleFocus(event: { target: { name: string } }): void {
+    const target = event.target
+    if (this.props.onFocus) {
+      this.props.onFocus(target.name)
     }
   }
 
@@ -68,24 +67,35 @@ class TextAreaField extends React.Component {
   componentDidUpdate() { this.setFocus() }
 
   render() {
-    const labelTag = this.props.label ? <label htmlFor={this.props.name}>{this.props.label}</label> : null
-
+    const { name, label, placeholder, errors, forceErrorDisplay } = this.props
+    const { value, touched } = this.state
+    const labelTag = label
+      ? <label htmlFor={name}>{label}</label>
+      : null
     const errorTags = []
-    if (this.props.errors) {
-      this.props.errors.forEach((msg, i) =>
+    if (errors) {
+      errors.forEach((msg, i) =>
         errorTags.push(<div key={i} className='error'>{msg}</div>)
       )
     }
-
-    const inputClass = this.state.touched && errorTags.length > 0
+    const className = touched && errorTags.length > 0
       ? 'with-errors'
       : ''
+    const props = {
+      name, className, placeholder, value,
+      onChange: this.handleChange,
+      onFocus: this.handleFocus,
+      ref: input => this.ref = input
+    }
 
-    return <div className='control-group'>
-             {labelTag}
-             <textarea name={this.props.name} className={inputClass} placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} onFocus={this.handleFocus} ref={input => this.ref = input} />
-             {(this.props.forceErrorDisplay || this.state.touched) && errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
-           </div>
+    return (
+      <div className='control-group'>
+        {labelTag}
+        <textarea {...props} />
+        {(forceErrorDisplay || touched) &&
+          errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
+      </div>
+    )
   }
 }
 
