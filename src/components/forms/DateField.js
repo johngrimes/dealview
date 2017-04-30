@@ -28,7 +28,6 @@ type State = {
 class DateField extends React.Component {
   props: Props
   state: State
-  ref: HTMLInputElement
   handleChange: (value: string) => void
   handleFocus: (event: { target: { name: string } }) => void
 
@@ -82,7 +81,7 @@ class DateField extends React.Component {
       <div className='control-group'>
         {labelTag}
         <DatePicker name={name} dateFormat={DateFormat}
-          className={inputClass} ref={input => this.ref = input}
+          className={inputClass}
           selected={selected} showYearDropdown
           autoFocus={this.props.focus === name}
           onFocus={this.handleFocus}
