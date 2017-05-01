@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`isLength should not return an error for a string that is equal 1`] = `Array []`;
+
+exports[`isLength should return an error for a string that is less 1`] = `
+Array [
+  "must be exactly 6 characters",
+]
+`;
+
+exports[`isLength should return an error for a string that is more 1`] = `
+Array [
+  "must be exactly 4 characters",
+]
+`;
+
+exports[`maxLength should not return an error for a string that is equal 1`] = `Array []`;
+
+exports[`maxLength should not return an error for a string that is less 1`] = `Array []`;
+
+exports[`maxLength should return an error for a string that is more 1`] = `
+Array [
+  "must be at most 4 characters",
+]
+`;
+
+exports[`minLength should not return an error for a string that is equal 1`] = `Array []`;
+
+exports[`minLength should not return an error for a string that is more 1`] = `Array []`;
+
+exports[`minLength should return an error for a string that is less 1`] = `
+Array [
+  "must be at least 4 characters",
+]
+`;
+
+exports[`required should not return an error for a number 1`] = `Array []`;
+
+exports[`required should not return an error for a string 1`] = `Array []`;
+
+exports[`required should return an error for a blank string 1`] = `
+Array [
+  "can't be blank",
+]
+`;
+
+exports[`required should return an error for undefined 1`] = `
+Array [
+  "can't be blank",
+]
+`;
