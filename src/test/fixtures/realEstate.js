@@ -19,3 +19,20 @@ export const validRealEstate1: RealEstate = {
   ]
 }
 export const validRealEstateWithId1: RealEstateWithId = { ...validRealEstate1, id: '73' }
+
+export const validRealEstate2: RealEstate = {
+  name: '38/8 Briggs Rd',
+  address: {
+    line1: 'Unit 38, Capertree Gardens',
+    line2: '8 Briggs Rd',
+    line3: '',
+    locality: 'Springwood',
+    state: 'QLD',
+    postcode: '4127'
+  },
+  notes: 'Investment property',
+  valuations: [
+    { date: '2015-09-10', amount: 260000, note: 'Formal valuation' }
+  ]
+}
+export const validRealEstateWithId2: RealEstateWithId = { ...validRealEstate1, id: '78' }

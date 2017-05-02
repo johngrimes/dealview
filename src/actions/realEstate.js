@@ -1,15 +1,12 @@
 // @flow
 
-import moment from 'moment'
-
 import { getDatabase } from '../data/database.js'
 import { putObject, deleteObject, loadObjects } from './objects.js'
 import { putAssetRequest, putAssetSuccess, putAssetFailure,
          deleteAssetRequest, deleteAssetSuccess, deleteAssetFailure } from './assets.js'
-import { DateFormat } from '../data/commonTypes.js'
-import type { Asset, AssetWithId } from '../data/assets/asset.js'
+import { realEstateToAsset } from '../data/assets/realEstate.js'
+import type { AssetWithId } from '../data/assets/asset.js'
 import type { RealEstate, RealEstateWithId, RealEstateMap } from '../data/assets/realEstate.js'
-import type { Valuation } from '../components/forms/ValuationsInput.js'
 import type { Thunk } from '../data/commonTypes.js'
 
 const objectStore = 'Asset.RealEstate'
@@ -170,29 +167,3 @@ const getAssetRecordForRealEstate = (realEstateId: string): Promise<AssetWithId>
   })
 }
 
-const realEstateToAsset = (realEstate: RealEstate): Asset => {
-  const lastValuation = getLastValuation(realEstate)
-  const asset = {}
-  asset.type = 'RealEstate'
-  asset.name = realEstate.name
-  if (typeof realEstate.id === 'number') { asset.instanceId = realEstate.id.toString() }
-  if (realEstate.purchaseDate) { asset.startDate = realEstate.purchaseDate }
-  if (realEstate.saleDate) { asset.startDate = realEstate.saleDate }
-  if (lastValuation) { asset.lastValuation = lastValuation.amount }
-  return asset
-}
-
-export const getLastValuation = (realEstate: RealEstate): Valuation|false => {
-  if (realEstate.valuations.length === 0) {
-    return false
-  }
-  const sortedValuations = realEstate.valuations.slice().sort(compareValuationsByDate)
-  const idxFuture = sortedValuations.findIndex(v => { moment(v.date, DateFormat).valueOf() > moment().valueOf() })
-  const slicedValuations = sortedValuations.slice(0, idxFuture)
-  return slicedValuations[slicedValuations.length - 1]
-}
-
-const compareValuationsByDate = (a: Valuation, b: Valuation): number => {
-  const [milliA, milliB] = [a, b].map(v => { return v.date ? moment(v.date).valueOf() : 0 })
-  return milliA - milliB
-}

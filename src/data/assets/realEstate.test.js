@@ -4,9 +4,7 @@ import { getLastValuation } from './realEstate.js'
 
 import moment from 'moment'
 
-import { RealEstate } from '../data/assets/realEstate.js'
-import { DateFormat, Address } from '../data/commonTypes.js'
-import { Valuation } from '../components/forms/ValuationsInput.js'
+import { DateFormat } from '../commonTypes.js'
 
 describe('getLastValuation', () => {
   it('should get the correct valuation', () => {

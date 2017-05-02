@@ -18,7 +18,9 @@ const initialState: AssetState = {
 
 const AssetsReducer: Reducer<State, Action> = (state = initialState, action: AssetAction) => {
   switch (action.type) {
-    case ('PUT_ASSET_REQUEST' || 'DELETE_ASSET_REQUEST' || 'LOAD_ASSET_REQUEST'):
+    case 'PUT_ASSET_REQUEST':
+    case 'DELETE_ASSET_REQUEST':
+    case 'LOAD_ASSET_REQUEST':
       return {
         ...state,
         status: 'loading'
@@ -41,7 +43,9 @@ const AssetsReducer: Reducer<State, Action> = (state = initialState, action: Ass
         status: 'loaded',
         objects: action.assets
       }
-    case ('PUT_ASSET_FAILURE' || 'DELETE_ASSET_FAILURE' || 'LOAD_ASSET_FAILURE'):
+    case 'PUT_ASSET_FAILURE':
+    case 'DELETE_ASSET_FAILURE':
+    case 'LOAD_ASSET_FAILURE':
       return {
         ...state,
         status: 'error',

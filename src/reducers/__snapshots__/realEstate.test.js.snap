@@ -1,0 +1,325 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RealEstateReducer should update state upon delete success 1`] = `
+Object {
+  "objects": Object {},
+  "status": "loaded",
+}
+`;
+
+exports[`RealEstateReducer should update state upon failure 1`] = `
+Object {
+  "error": "Some error",
+  "objects": Object {
+    "73": Object {
+      "address": Object {
+        "line1": "5 Sunrise St",
+        "line2": "",
+        "line3": "",
+        "locality": "Ashgrove",
+        "postcode": "4060",
+        "state": "QLD",
+      },
+      "id": "73",
+      "name": "5 Sunrise St",
+      "notes": "Principal place of residence",
+      "valuations": Array [
+        Object {
+          "amount": 520000,
+          "date": "2015-08-25",
+          "note": "Purchase price",
+        },
+        Object {
+          "amount": 705000,
+          "date": "2016-04-15",
+          "note": "Formal valuation",
+        },
+      ],
+    },
+  },
+  "status": "error",
+}
+`;
+
+exports[`RealEstateReducer should update state upon failure 2`] = `
+Object {
+  "error": "Some error",
+  "objects": Object {
+    "73": Object {
+      "address": Object {
+        "line1": "5 Sunrise St",
+        "line2": "",
+        "line3": "",
+        "locality": "Ashgrove",
+        "postcode": "4060",
+        "state": "QLD",
+      },
+      "id": "73",
+      "name": "5 Sunrise St",
+      "notes": "Principal place of residence",
+      "valuations": Array [
+        Object {
+          "amount": 520000,
+          "date": "2015-08-25",
+          "note": "Purchase price",
+        },
+        Object {
+          "amount": 705000,
+          "date": "2016-04-15",
+          "note": "Formal valuation",
+        },
+      ],
+    },
+  },
+  "status": "error",
+}
+`;
+
+exports[`RealEstateReducer should update state upon failure 3`] = `
+Object {
+  "error": "Some error",
+  "objects": Object {
+    "73": Object {
+      "address": Object {
+        "line1": "5 Sunrise St",
+        "line2": "",
+        "line3": "",
+        "locality": "Ashgrove",
+        "postcode": "4060",
+        "state": "QLD",
+      },
+      "id": "73",
+      "name": "5 Sunrise St",
+      "notes": "Principal place of residence",
+      "valuations": Array [
+        Object {
+          "amount": 520000,
+          "date": "2015-08-25",
+          "note": "Purchase price",
+        },
+        Object {
+          "amount": 705000,
+          "date": "2016-04-15",
+          "note": "Formal valuation",
+        },
+      ],
+    },
+  },
+  "status": "error",
+}
+`;
+
+exports[`RealEstateReducer should update state upon load success 1`] = `
+Object {
+  "objects": Object {
+    "73": Object {
+      "address": Object {
+        "line1": "5 Sunrise St",
+        "line2": "",
+        "line3": "",
+        "locality": "Ashgrove",
+        "postcode": "4060",
+        "state": "QLD",
+      },
+      "id": "73",
+      "name": "5 Sunrise St",
+      "notes": "Principal place of residence",
+      "valuations": Array [
+        Object {
+          "amount": 520000,
+          "date": "2015-08-25",
+          "note": "Purchase price",
+        },
+        Object {
+          "amount": 705000,
+          "date": "2016-04-15",
+          "note": "Formal valuation",
+        },
+      ],
+    },
+    "78": Object {
+      "address": Object {
+        "line1": "5 Sunrise St",
+        "line2": "",
+        "line3": "",
+        "locality": "Ashgrove",
+        "postcode": "4060",
+        "state": "QLD",
+      },
+      "id": "78",
+      "name": "5 Sunrise St",
+      "notes": "Principal place of residence",
+      "valuations": Array [
+        Object {
+          "amount": 520000,
+          "date": "2015-08-25",
+          "note": "Purchase price",
+        },
+        Object {
+          "amount": 705000,
+          "date": "2016-04-15",
+          "note": "Formal valuation",
+        },
+      ],
+    },
+  },
+  "status": "loaded",
+}
+`;
+
+exports[`RealEstateReducer should update state upon put success 1`] = `
+Object {
+  "objects": Object {
+    "73": Object {
+      "address": Object {
+        "line1": "5 Sunrise St",
+        "line2": "",
+        "line3": "",
+        "locality": "Ashgrove",
+        "postcode": "4060",
+        "state": "QLD",
+      },
+      "id": "73",
+      "name": "5 Sunrise St",
+      "notes": "Principal place of residence",
+      "valuations": Array [
+        Object {
+          "amount": 520000,
+          "date": "2015-08-25",
+          "note": "Purchase price",
+        },
+        Object {
+          "amount": 705000,
+          "date": "2016-04-15",
+          "note": "Formal valuation",
+        },
+      ],
+    },
+    "78": Object {
+      "address": Object {
+        "line1": "5 Sunrise St",
+        "line2": "",
+        "line3": "",
+        "locality": "Ashgrove",
+        "postcode": "4060",
+        "state": "QLD",
+      },
+      "id": "78",
+      "name": "5 Sunrise St",
+      "notes": "Principal place of residence",
+      "valuations": Array [
+        Object {
+          "amount": 520000,
+          "date": "2015-08-25",
+          "note": "Purchase price",
+        },
+        Object {
+          "amount": 705000,
+          "date": "2016-04-15",
+          "note": "Formal valuation",
+        },
+      ],
+    },
+  },
+  "status": "loaded",
+}
+`;
+
+exports[`RealEstateReducer should update state upon request 1`] = `
+Object {
+  "objects": Object {
+    "73": Object {
+      "address": Object {
+        "line1": "5 Sunrise St",
+        "line2": "",
+        "line3": "",
+        "locality": "Ashgrove",
+        "postcode": "4060",
+        "state": "QLD",
+      },
+      "id": "73",
+      "name": "5 Sunrise St",
+      "notes": "Principal place of residence",
+      "valuations": Array [
+        Object {
+          "amount": 520000,
+          "date": "2015-08-25",
+          "note": "Purchase price",
+        },
+        Object {
+          "amount": 705000,
+          "date": "2016-04-15",
+          "note": "Formal valuation",
+        },
+      ],
+    },
+  },
+  "status": "loading",
+}
+`;
+
+exports[`RealEstateReducer should update state upon request 2`] = `
+Object {
+  "objects": Object {
+    "73": Object {
+      "address": Object {
+        "line1": "5 Sunrise St",
+        "line2": "",
+        "line3": "",
+        "locality": "Ashgrove",
+        "postcode": "4060",
+        "state": "QLD",
+      },
+      "id": "73",
+      "name": "5 Sunrise St",
+      "notes": "Principal place of residence",
+      "valuations": Array [
+        Object {
+          "amount": 520000,
+          "date": "2015-08-25",
+          "note": "Purchase price",
+        },
+        Object {
+          "amount": 705000,
+          "date": "2016-04-15",
+          "note": "Formal valuation",
+        },
+      ],
+    },
+  },
+  "status": "loading",
+}
+`;
+
+exports[`RealEstateReducer should update state upon request 3`] = `
+Object {
+  "objects": Object {
+    "73": Object {
+      "address": Object {
+        "line1": "5 Sunrise St",
+        "line2": "",
+        "line3": "",
+        "locality": "Ashgrove",
+        "postcode": "4060",
+        "state": "QLD",
+      },
+      "id": "73",
+      "name": "5 Sunrise St",
+      "notes": "Principal place of residence",
+      "valuations": Array [
+        Object {
+          "amount": 520000,
+          "date": "2015-08-25",
+          "note": "Purchase price",
+        },
+        Object {
+          "amount": 705000,
+          "date": "2016-04-15",
+          "note": "Formal valuation",
+        },
+      ],
+    },
+  },
+  "status": "loading",
+}
+`;

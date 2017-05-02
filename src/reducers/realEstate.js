@@ -19,7 +19,9 @@ const initialState: RealEstateState = {
 
 const RealEstateReducer: Reducer<State, Action> = (state = initialState, action: RealEstateAction) => {
   switch (action.type) {
-    case ('PUT_REAL_ESTATE_REQUEST' || 'DELETE_REAL_ESTATE_REQUEST' || 'LOAD_REAL_ESTATE_REQUEST'):
+    case 'PUT_REAL_ESTATE_REQUEST':
+    case 'DELETE_REAL_ESTATE_REQUEST':
+    case 'LOAD_REAL_ESTATE_REQUEST':
       return {
         ...state,
         status: 'loading'
@@ -42,7 +44,9 @@ const RealEstateReducer: Reducer<State, Action> = (state = initialState, action:
         status: 'loaded',
         objects: action.realEstate
       }
-    case ('PUT_REAL_ESTATE_FAILURE' || 'DELETE_REAL_ESTATE_FAILURE' || 'LOAD_REAL_ESTATE_FAILURE'):
+    case 'PUT_REAL_ESTATE_FAILURE':
+    case 'DELETE_REAL_ESTATE_FAILURE':
+    case 'LOAD_REAL_ESTATE_FAILURE':
       return {
         ...state,
         status: 'error',
