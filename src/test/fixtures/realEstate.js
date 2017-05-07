@@ -13,6 +13,7 @@ export const validRealEstate1: RealEstate = {
     postcode: '4060'
   },
   notes: 'Principal place of residence',
+  purchaseDate: '2014-09-10',
   valuations: [
     { date: '2015-08-25', amount: 520000, note: 'Purchase price' },
     { date: '2016-04-15', amount: 705000, note: 'Formal valuation' }
@@ -31,6 +32,7 @@ export const validRealEstate2: RealEstate = {
     postcode: '4127'
   },
   notes: 'Investment property',
+  purchaseDate: '2005-05-10',
   valuations: [
     { date: '2015-09-10', amount: 260000, note: 'Formal valuation' }
   ]

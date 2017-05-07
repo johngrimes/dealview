@@ -3,11 +3,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import type { Dispatch } from 'redux'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
+import type { Dispatch } from 'redux'
 
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.js'
 import { loadAssets } from '../../actions/assets.js'
+import { getValuationAtDate } from '../../data/assets/asset.js'
+import { DateFormat } from '../../data/commonTypes.js'
 import type { GlobalState } from '../../store.js'
 import type { AssetState } from '../../reducers/assets.js'
 import type { BreadcrumbTrail } from '../Breadcrumbs/Breadcrumbs.js'
@@ -43,10 +46,13 @@ export class ListAssets extends React.Component {
 
   render() {
     const assets = _.map(this.props.assets.objects, (v, k) => {
-      const lastValuation = v.lastValuation ? <div className='asset-last-valuation'>{v.lastValuation}</div> : null
+      const lastValuation = getValuationAtDate(v, moment().format(DateFormat))
+      const lastValuationTag = lastValuation === 0
+        ? null
+        : <div className='asset-last-valuation'>{lastValuation}</div>
       return <li key={k} className='asset'>
         <Link className='asset-name' to={`/portfolio/assets/real-estate/${v.instanceId}`}>{v.name}</Link>
-        {lastValuation}
+        {lastValuationTag}
       </li>
     })
     return (

@@ -55,6 +55,7 @@ exports[`RealEstateForm should render 1`] = `
       name="purchaseDate"
       onChange={[Function]}
       onFocus={[Function]}
+      value="2014-09-10"
     />
     <DateField
       focus="name"

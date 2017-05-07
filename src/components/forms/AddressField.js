@@ -155,7 +155,7 @@ class AddressField extends React.Component {
   }
 
   static validate(address: Address): AddressErrors {
-    let errors = {}
+    const errors = {}
 
     errors.line1 = []
       .concat(Validations.minLength(address.line1, 3))

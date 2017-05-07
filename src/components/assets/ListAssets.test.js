@@ -35,8 +35,8 @@ describe('ListAssets', () => {
       },
       dispatch
     }
-    const wrapper = shallow(<ListAssets {...props} />)
+    shallow(<ListAssets {...props} />)
     expect(dispatch).toHaveBeenCalled()
-    expect(assetActions.loadAssets).toHaveBeenCalled()
+    expect(loadAssets).toHaveBeenCalled()
   })
 })

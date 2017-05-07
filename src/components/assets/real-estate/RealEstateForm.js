@@ -137,7 +137,9 @@ class RealEstateForm extends React.Component {
   render() {
     const { realEstate, allErrorsShown, focusedInput } = this.state
     const errors = this.state.errors === undefined ? {} : this.state.errors
-    const idField = typeof realEstate.id === 'string' ? <HiddenField name='id' value={realEstate.id} /> : null
+    const idField = typeof realEstate.id === 'string'
+      ? <HiddenField name='id' value={realEstate.id} />
+      : null
 
     return (
       <form className='real-estate-form form form-aligned' onSubmit={this.handleSubmit}>
@@ -183,7 +185,7 @@ class RealEstateForm extends React.Component {
   }
 
   static validate(realEstate: RealEstate): RealEstateErrors {
-    let errors = RealEstateErrorsDefaults
+    const errors = RealEstateErrorsDefaults
 
     errors.name = []
       .concat(Validations.required(realEstate.name))
@@ -193,6 +195,9 @@ class RealEstateForm extends React.Component {
     errors.address = AddressField.validate(realEstate.address)
 
     errors.notes = []
+
+    errors.purchaseDate = []
+      .concat(Validations.required(realEstate.purchaseDate))
 
     return errors
   }

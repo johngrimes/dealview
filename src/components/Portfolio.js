@@ -2,6 +2,9 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import type { GlobalState } from '../store.js'
 
 class Portfolio extends React.Component {
   render() {
@@ -13,4 +16,10 @@ class Portfolio extends React.Component {
   }
 }
 
-export default Portfolio
+const mapStateToProps = (state: GlobalState) => {
+  return {
+    assets: state.assets
+  }
+}
+
+export default connect(mapStateToProps)(Portfolio)

@@ -1,5 +1,13 @@
-import { AssetMap } from '../data/assets/asset.js'
-import { LiabilityMap } from '../data/liabilities/liability.js'
+// @flow
+
+import _ from 'lodash'
+import moment from 'moment'
+import type { Moment } from 'moment'
+
+import { DateFormat } from '../data/commonTypes.js'
+import { getValuationAtDate } from '../data/assets/asset.js'
+import type { Asset, AssetMap } from '../data/assets/asset.js'
+import type { LiabilityMap } from '../data/liabilities/liability.js'
 
 export type BalanceSheet = {
   totalAssets: number,
@@ -8,6 +16,30 @@ export type BalanceSheet = {
 }
 export type BalanceSheetOverTime = { [date: string]: BalanceSheet }
 
-export balanceSheetOverTime(assets: AssetMap, liabilities: LiabilityMap): BalanceSheetOverTime {
+export const balanceSheetOverTime = (assets: AssetMap, liabilities: LiabilityMap,
+                                     startDate: string, endDate: string): BalanceSheetOverTime => {
+  const startDay = moment(startDate, DateFormat).startOf('day')
+  const endDay = moment(endDate, DateFormat).startOf('day')
+  return calcBalanceSheet(assets, liabilities, startDay, endDay)
+}
 
+const calcBalanceSheet = (assets: AssetMap, liabilities: LiabilityMap,
+                          date: Moment, endDate: Moment): BalanceSheetOverTime => {
+  if (date.isAfter(endDate)) return {}
+  const totalAssets = sumAssetValueAtDate(_.values(assets), date)
+  const totalLiabilities = 0  // sumLiabilityValueAtDate(liabilities, date)
+  const nextDate = moment(date.add(1, 'days'))
+  return { ...calcBalanceSheet(assets, liabilities, nextDate, endDate),
+    [date.format(DateFormat)]: {
+      totalAssets,
+      totalLiabilities,
+      equity: (totalAssets - totalLiabilities)
+    }
+  }
+}
+
+const sumAssetValueAtDate = (assets: Asset[], date: string): number => {
+  if (assets.length === 0) return 0
+  const { head, tail } = { head: _.head(assets), tail: _.tail(assets) }
+  return getValuationAtDate(head, date) + sumAssetValueAtDate(tail, date)
 }

@@ -37,6 +37,7 @@ exports[`EditRealEstate should render an existing Real Estate asset 1`] = `
         "id": "73",
         "name": "5 Sunrise St",
         "notes": "Principal place of residence",
+        "purchaseDate": "2014-09-10",
         "valuations": Array [
           Object {
             "amount": 520000,
