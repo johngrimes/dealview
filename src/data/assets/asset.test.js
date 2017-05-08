@@ -36,6 +36,11 @@ describe('getValuationAtDate', () => {
     expect(valuation).toEqual(520000)
   })
 
+  it('should recognise a valuation on the day it is effective', () => {
+    const valuation = getValuationAtDate(asset, moment('2014-07-03', DateFormat))
+    expect(valuation).toEqual(705000)
+  })
+
   it('should return zero if selected date is before start date', () => {
     const valuation = getValuationAtDate(asset, moment('1988-04-13', DateFormat))
     expect(valuation).toEqual(0)

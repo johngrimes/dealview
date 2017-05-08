@@ -18,8 +18,8 @@ export type BalanceSheetOverTime = { [date: string]: BalanceSheet }
 
 export const balanceSheetOverTime = (assets: AssetMap, liabilities: LiabilityMap,
                                      startDate: string, endDate: string): BalanceSheetOverTime => {
-  const startDay = moment(startDate, DateFormat).startOf('day')
-  const endDay = moment(endDate, DateFormat).startOf('day')
+  const startDay = moment(startDate, DateFormat)
+  const endDay = moment(endDate, DateFormat)
   return calcBalanceSheet(assets, liabilities, startDay, endDay)
 }
 
@@ -28,7 +28,7 @@ const calcBalanceSheet = (assets: AssetMap, liabilities: LiabilityMap,
   if (date.isAfter(endDate)) return {}
   const totalAssets = sumAssetValueAtDate(_.values(assets), date)
   const totalLiabilities = 0  // sumLiabilityValueAtDate(liabilities, date)
-  const nextDate = moment(date.add(1, 'days'))
+  const nextDate = moment(date).add(1, 'days')
   return { ...calcBalanceSheet(assets, liabilities, nextDate, endDate),
     [date.format(DateFormat)]: {
       totalAssets,
