@@ -3,10 +3,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import type { Dispatch } from 'redux'
 
-import type { GlobalState } from '../store.js'
+import { loadBalanceSheet } from 'actions/balanceSheet'
+import type { GlobalState } from 'store'
+import type { AssetState } from 'reducers/assets'
+import type { BalanceSheetState } from 'reducers/balanceSheet'
+
+type Props = {
+  assets: AssetState,
+  balanceSheet: BalanceSheetState,
+  dispatch: Dispatch
+}
 
 class Portfolio extends React.Component {
+  constructor(props: Props) {
+    super(props)
+    if (this.props.assets.status === 'uninitialised') {
+      this.props.dispatch(loadBalanceSheet())
+    }
+  }
   render() {
     return (
       <div className='portfolio'>
@@ -18,7 +34,8 @@ class Portfolio extends React.Component {
 
 const mapStateToProps = (state: GlobalState) => {
   return {
-    assets: state.assets
+    assets: state.assets,
+    balanceSheet: state.balanceSheet,
   }
 }
 

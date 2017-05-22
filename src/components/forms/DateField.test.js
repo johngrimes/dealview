@@ -1,20 +1,20 @@
 /* global expect */
 
-import DateField from './DateField.js'
+import DateField from 'components/forms/DateField'
 
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
-import DateFormat from '../../data/commonTypes.js'
+import DateFormat from 'data/commonTypes'
 
 describe('DateField', () => {
   it('should render', () => {
     const props = {
       name: 'someDate',
       value: '1981-07-26',
-      label: 'Some Date'
+      label: 'Some Date',
     }
     const wrapper = shallow(<DateField {...props} />)
     expect(wrapper).toMatchSnapshot()
@@ -23,7 +23,7 @@ describe('DateField', () => {
   it('should be tolerant of an empty value prop', () => {
     const props = {
       name: 'someDate',
-      label: 'Some Date'
+      label: 'Some Date',
     }
     const wrapper = shallow(<DateField {...props} />)
     expect(wrapper).toMatchSnapshot()
@@ -34,12 +34,12 @@ describe('DateField', () => {
       name: 'someDate',
       value: '1981-07-26',
       label: 'Some Date',
-      errors: ['does not look right', 'smells funny']
+      errors: ['does not look right', 'smells funny'],
     }
     const wrapper = shallow(<DateField {...props} />)
     wrapper.setState({
       value: '2013-06-10',
-      touched: true
+      touched: true,
     }, () => {
       expect(wrapper.find('.error')).toHaveLength(2)
       expect(wrapper).toMatchSnapshot()
@@ -50,7 +50,7 @@ describe('DateField', () => {
     const props = {
       name: 'someDate',
       value: '1981-07-26',
-      errors: ['does not look right', 'smells funny']
+      errors: ['does not look right', 'smells funny'],
     }
     const wrapper = shallow(<DateField {...props} />)
     expect(wrapper.find('.error')).toHaveLength(0)
@@ -61,7 +61,7 @@ describe('DateField', () => {
       name: 'someDate',
       value: '1981-07-26',
       errors: ['does not look right', 'smells funny'],
-      forceErrorDisplay: true
+      forceErrorDisplay: true,
     }
     const wrapper = shallow(<DateField {...props} />)
     expect(wrapper.find('.error')).toHaveLength(2)
@@ -71,7 +71,7 @@ describe('DateField', () => {
     const props = {
       name: 'someDate',
       value: '1981-07-26',
-      onChange: jest.fn()
+      onChange: jest.fn(),
     }
     const wrapper = shallow(<DateField {...props} />)
     wrapper.find(DatePicker).prop('onChange')(moment('2014-09-25', DateFormat))
@@ -82,7 +82,7 @@ describe('DateField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      onFocus: jest.fn()
+      onFocus: jest.fn(),
     }
     const wrapper = shallow(<DateField {...props} />)
     wrapper.find(DatePicker).prop('onFocus')({ target: { name: 'someInput' } })
@@ -93,7 +93,7 @@ describe('DateField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      focus: 'someInput'
+      focus: 'someInput',
     }
     const wrapper = shallow(<DateField {...props} />)
     expect(wrapper.find(DatePicker).prop('autoFocus')).toBe(true)

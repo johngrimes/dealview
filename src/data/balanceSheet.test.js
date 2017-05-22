@@ -1,12 +1,12 @@
 /* global expect */
 
-import { balanceSheetOverTime } from './balanceSheet.js'
-import { validAssetWithId1, validAssetWithId2 } from '../test/fixtures/asset.js'
+import { balanceSheetOverTime } from 'data/balanceSheet'
+import { validAssetWithId1, validAssetWithId2 } from 'fixtures/asset'
 
 describe('balanceSheetOverTime', () => {
   const assets = {
     [validAssetWithId1.id]: validAssetWithId1,
-    [validAssetWithId2.id]: validAssetWithId2
+    [validAssetWithId2.id]: validAssetWithId2,
   }
   const liabilities = {}
 

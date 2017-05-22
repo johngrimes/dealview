@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import './NotFound.css'
+import 'components/NotFound/NotFound.css'
 
 class NotFound extends React.Component {
   render() {

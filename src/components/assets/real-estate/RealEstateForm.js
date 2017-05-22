@@ -34,7 +34,7 @@ const RealEstateErrorsDefaults = {
   address: AddressErrorsDefaults,
   notes: [],
   purchaseDate: [],
-  saleDate: []
+  saleDate: [],
 }
 
 type Props = {
@@ -63,7 +63,7 @@ class RealEstateForm extends React.Component {
     this.state = {
       realEstate: RealEstateDefaults,
       allErrorsShown: false,
-      focusedInput: 'name'
+      focusedInput: 'name',
     }
 
     if (props.realEstate) { this.state.realEstate = props.realEstate }
@@ -80,7 +80,7 @@ class RealEstateForm extends React.Component {
       const realEstate = { ...prevState.realEstate, [fieldName]: value }
       return {
         realEstate,
-        errors: RealEstateForm.validate(realEstate)
+        errors: RealEstateForm.validate(realEstate),
       }
     })
   }
@@ -94,7 +94,7 @@ class RealEstateForm extends React.Component {
       const realEstate = { ...prevState.realEstate, address }
       return {
         realEstate,
-        errors: RealEstateForm.validate(realEstate)
+        errors: RealEstateForm.validate(realEstate),
       }
     })
   }
@@ -104,7 +104,7 @@ class RealEstateForm extends React.Component {
       const realEstate = { ...prevState.realEstate, valuations }
       return {
         realEstate,
-        errors: RealEstateForm.validate(realEstate)
+        errors: RealEstateForm.validate(realEstate),
       }
     })
   }

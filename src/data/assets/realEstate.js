@@ -1,9 +1,9 @@
 // @flow
 
-import { AddressDefaults } from '../commonTypes.js'
-import type { Address } from '../commonTypes.js'
-import type { Asset } from './asset.js'
-import type { Valuations } from '../../components/forms/ValuationsInput.js'
+import { AddressDefaults } from 'data/commonTypes'
+import type { Address } from 'data/commonTypes'
+import type { Asset } from 'data/assets/asset'
+import type { Valuations } from 'components/forms/ValuationsInput'
 
 export type RealEstate = {
   name: string,
@@ -23,7 +23,7 @@ export const RealEstateDefaults = {
   address: AddressDefaults,
   notes: '',
   purchaseDate: '',
-  valuations: []
+  valuations: [],
 }
 
 export const realEstateToAsset = (realEstate: RealEstate): Asset => {

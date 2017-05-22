@@ -12,7 +12,7 @@ export type Address = {
   line3: string,
   locality: string,
   state: string,
-  postcode: string
+  postcode: string,
 }
 
 export const AddressDefaults = {
@@ -21,7 +21,7 @@ export const AddressDefaults = {
   line3: '',
   locality: '',
   state: '',
-  postcode: ''
+  postcode: '',
 }
 
 export const DateFormat = 'YYYY-MM-DD'

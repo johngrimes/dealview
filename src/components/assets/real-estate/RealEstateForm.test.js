@@ -5,11 +5,10 @@ import RealEstateForm from './RealEstateForm.js'
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import ValuationsInput from '../../forms/ValuationsInput.js'
-import { RealEstateEmpty } from '../../../data/assets/realEstate.js'
-import { AddressEmpty } from '../../../data/commonTypes.js'
-import { validRealEstate1 } from '../../../test/fixtures/realEstate.js'
-import type { RealEstateErrors } from './RealEstateForm.js'
+import ValuationsInput from 'components/forms/ValuationsInput'
+import { AddressEmpty } from 'data/commonTypes'
+import { validRealEstate1 } from 'fixtures/realEstate'
+import type { RealEstateErrors } from 'components/assets/real-estate/RealEstateForm'
 
 describe('RealEstateForm', () => {
   it('should render', () => {
@@ -32,7 +31,7 @@ describe('RealEstateForm', () => {
       line3: 'a',
       locality: '',
       state: '',
-      postcode: ''
+      postcode: '',
     })
     wrapper.find('form').simulate('submit', { preventDefault() {} })
     expect(wrapper.state('focusedInput')).toEqual('address-line3')
@@ -50,7 +49,7 @@ describe('findFirstErrorFieldName', () => {
     const errors: RealEstateErrors = {
       name: [],
       address: AddressEmpty,
-      notes: ['has incorrect grammar in it']
+      notes: ['has incorrect grammar in it'],
     }
     const result = RealEstateForm.findFirstErrorFieldName(errors)
     expect(result).toEqual('notes')
@@ -62,9 +61,9 @@ describe('findFirstErrorFieldName', () => {
       address: {
         line1: [],
         line2: ["is not anywhere I've ever heard of"],
-        line3: []
+        line3: [],
       },
-      notes: []
+      notes: [],
     }
     const result = RealEstateForm.findFirstErrorFieldName(errors)
     expect(result).toEqual('address-line2')

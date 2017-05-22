@@ -4,10 +4,10 @@ import _ from 'lodash'
 import moment from 'moment'
 import type { Moment } from 'moment'
 
-import { DateFormat } from '../data/commonTypes.js'
-import { getValuationAtDate } from '../data/assets/asset.js'
-import type { Asset, AssetMap } from '../data/assets/asset.js'
-import type { LiabilityMap } from '../data/liabilities/liability.js'
+import { DateFormat } from 'data/commonTypes'
+import { getValuationAtDate } from 'data/assets/asset'
+import type { Asset, AssetMap } from 'data/assets/asset'
+import type { LiabilityMap } from 'data/liabilities/liability'
 
 export type BalanceSheet = {
   totalAssets: number,

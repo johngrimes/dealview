@@ -4,7 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
 
-import './Breadcrumbs.css'
+import 'components/Breadcrumbs/Breadcrumbs.css'
 
 type Breadcrumb = {
   display: string,

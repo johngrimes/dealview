@@ -31,7 +31,7 @@ export class CreateRealEstate extends React.Component {
     return [
       { display: 'Portfolio', path: '/portfolio' },
       { display: 'Assets', path: '/portfolio/assets' },
-      { display: 'New Real Estate Asset', path: '/portfolio/assets/real-estate/new' }
+      { display: 'New Real Estate Asset', path: '/portfolio/assets/real-estate/new' },
     ]
   }
 

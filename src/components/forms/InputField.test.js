@@ -1,6 +1,6 @@
 /* global expect */
 
-import InputField from './InputField.js'
+import InputField from 'components/forms/InputField.js'
 
 import React from 'react'
 import { shallow, mount } from 'enzyme'
@@ -12,7 +12,7 @@ describe('InputField', () => {
       type: 'text',
       value: 'something',
       label: 'Some Input',
-      placeholder: 'Type here...'
+      placeholder: 'Type here...',
     }
     const wrapper = shallow(<InputField {...props} />)
     expect(wrapper).toMatchSnapshot()
@@ -23,7 +23,7 @@ describe('InputField', () => {
       name: 'someInput',
       type: 'text',
       label: 'Some Input',
-      placeholder: 'Type here...'
+      placeholder: 'Type here...',
     }
     const wrapper = shallow(<InputField {...props} />)
     expect(wrapper).toMatchSnapshot()
@@ -33,12 +33,12 @@ describe('InputField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      errors: ['does not look right', 'smells funny']
+      errors: ['does not look right', 'smells funny'],
     }
     const wrapper = shallow(<InputField {...props} />)
     wrapper.setState({
       value: 'something',
-      touched: true
+      touched: true,
     }, () => {
       expect(wrapper.find('.error')).toHaveLength(2)
       expect(wrapper).toMatchSnapshot()
@@ -49,7 +49,7 @@ describe('InputField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      errors: ['does not look right', 'smells funny']
+      errors: ['does not look right', 'smells funny'],
     }
     const wrapper = shallow(<InputField {...props} />)
     expect(wrapper.find('.error')).toHaveLength(0)
@@ -60,7 +60,7 @@ describe('InputField', () => {
       name: 'someInput',
       type: 'text',
       errors: ['does not look right', 'smells funny'],
-      forceErrorDisplay: true
+      forceErrorDisplay: true,
     }
     const wrapper = shallow(<InputField {...props} />)
     expect(wrapper.find('.error')).toHaveLength(2)
@@ -70,7 +70,7 @@ describe('InputField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      onChange: jest.fn()
+      onChange: jest.fn(),
     }
     const wrapper = shallow(<InputField {...props} />)
     wrapper.find('input').prop('onChange')({ target: { value: 'something' } })
@@ -81,7 +81,7 @@ describe('InputField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      onFocus: jest.fn()
+      onFocus: jest.fn(),
     }
     const wrapper = shallow(<InputField {...props} />)
     wrapper.find('input').prop('onFocus')({ target: { name: 'someInput' } })
@@ -91,7 +91,7 @@ describe('InputField', () => {
   it('should focus the input when the focus prop is passed', () => {
     const props = {
       name: 'someInput',
-      type: 'text'
+      type: 'text',
     }
     const wrapper = mount(<InputField {...props} />)
     const spy = jest.spyOn(wrapper.find('input').getNode(), 'focus')

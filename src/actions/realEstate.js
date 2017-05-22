@@ -1,13 +1,11 @@
 // @flow
 
-import { getDatabase } from '../data/database.js'
-import { putObject, deleteObject, loadObjects } from './objects.js'
+import { putObject, deleteObject, getAllObjects } from 'data/database'
 import { putAssetRequest, putAssetSuccess, putAssetFailure,
-         deleteAssetRequest, deleteAssetSuccess, deleteAssetFailure } from './assets.js'
-import { realEstateToAsset } from '../data/assets/realEstate.js'
-import type { AssetWithId } from '../data/assets/asset.js'
-import type { RealEstate, RealEstateWithId, RealEstateMap } from '../data/assets/realEstate.js'
-import type { Thunk } from '../data/commonTypes.js'
+         deleteAssetRequest, deleteAssetSuccess, deleteAssetFailure } from 'actions/assets'
+import { realEstateToAsset } from 'data/assets/realEstate'
+import type { RealEstate, RealEstateWithId, RealEstateMap } from 'data/assets/realEstate'
+import type { Thunk } from 'data/commonTypes'
 
 const objectStore = 'Asset.RealEstate'
 const assetObjectStore = 'Asset'
@@ -65,14 +63,14 @@ export const putRealEstateRequest = (): PutRealEstateRequestAction => {
 export const putRealEstateSuccess = (realEstate: RealEstateWithId): PutRealEstateSuccessAction => {
   return {
     type: 'PUT_REAL_ESTATE_SUCCESS',
-    realEstate
+    realEstate,
   }
 }
 
 export const putRealEstateFailure = (error: string|null): PutRealEstateFailureAction => {
   return {
     type: 'PUT_REAL_ESTATE_FAILURE',
-    error
+    error,
   }
 }
 
@@ -83,14 +81,14 @@ export const deleteRealEstateRequest = (): DeleteRealEstateRequestAction => {
 export const deleteRealEstateSuccess = (id: string): DeleteRealEstateSuccessAction => {
   return {
     type: 'DELETE_REAL_ESTATE_SUCCESS',
-    id
+    id,
   }
 }
 
 export const deleteRealEstateFailure = (error: string|null): DeleteRealEstateFailureAction => {
   return {
     type: 'DELETE_REAL_ESTATE_FAILURE',
-    error
+    error,
   }
 }
 
@@ -101,69 +99,82 @@ export const loadRealEstateRequest = (): LoadRealEstateRequestAction => {
 export const loadRealEstateSuccess = (realEstate: RealEstateMap): LoadRealEstateSuccessAction => {
   return {
     type: 'LOAD_REAL_ESTATE_SUCCESS',
-    realEstate
+    realEstate,
   }
 }
 
 export const loadRealEstateFailure = (error: string|null): LoadRealEstateFailureAction => {
   return {
     type: 'LOAD_REAL_ESTATE_FAILURE',
-    error
+    error,
   }
 }
 
 export const putRealEstate = (realEstate: RealEstate): Thunk => {
   return dispatch => {
-    const putRealEstate = putObject(objectStore, realEstate,
-                                    putRealEstateRequest, putRealEstateSuccess, putRealEstateFailure)
-    dispatch(putRealEstate).then(saved => {
-      const asset = realEstateToAsset(saved)
-      getAssetRecordForRealEstate(saved.id.toString())
-        .then(existingAsset => {
-          dispatch(putObject(assetObjectStore, { ...asset, id: existingAsset.id },
-                             putAssetRequest, putAssetSuccess, putAssetFailure))
-        })
-        .catch(() => {
-          dispatch(putObject(assetObjectStore, asset,
-                             putAssetRequest, putAssetSuccess, putAssetFailure))
-        })
+    dispatch(putRealEstateRequest())
+    return new Promise((resolve, reject) => {
+      putObject(objectStore, realEstate).then(saved => {
+        dispatch(putRealEstateSuccess(saved))
+        const asset = realEstateToAsset(saved)
+        dispatch(putAssetRequest())
+        putObject(assetObjectStore, asset)
+          .then(savedAsset => {
+            dispatch(putAssetSuccess(savedAsset))
+            resolve(saved)
+          }).catch(error => {
+            dispatch(putAssetFailure(error))
+            dispatch(deleteRealEstateRequest())
+            deleteObject(objectStore, saved.id).then(id => {
+              dispatch(deleteRealEstateSuccess(id))
+              reject(error)
+            }).catch(error => {
+              dispatch(deleteRealEstateFailure(error))
+              reject(error)
+            })
+          })
+      }).catch(error => {
+        dispatch(putRealEstateFailure(error))
+        reject(error)
+      })
     })
   }
 }
 
 export const deleteRealEstate = (id: string): Thunk => {
   return dispatch => {
-    getAssetRecordForRealEstate(id).then(asset => {
-      const deleteAsset = deleteObject(assetObjectStore, asset.id,
-                                       deleteAssetRequest, deleteAssetSuccess, deleteAssetFailure)
-      const deleteRealEstate = deleteObject(objectStore, id,
-                                            deleteRealEstateRequest, deleteRealEstateSuccess, deleteRealEstateFailure)
-      dispatch(deleteAsset).then(() => { dispatch(deleteRealEstate) })
+    dispatch(deleteRealEstateRequest())
+    return new Promise((resolve, reject) => {
+      deleteObject(objectStore, id).then(deletedId => {
+        dispatch(deleteRealEstateSuccess(deletedId))
+        dispatch(deleteAssetRequest())
+        deleteObject(assetObjectStore, deletedId)
+        .then(() => {
+          dispatch(deleteAssetSuccess(deletedId))
+          resolve(deletedId)
+        }).catch(error => {
+          dispatch(deleteAssetFailure(error))
+          resolve(error)
+        })
+      }).catch(error => {
+        dispatch(deleteRealEstateFailure(error))
+        reject(error)
+      })
     })
   }
 }
 
 export const loadRealEstate = (): Thunk => {
   return dispatch => {
-    dispatch(loadObjects(objectStore,
-                         loadRealEstateRequest, loadRealEstateSuccess, loadRealEstateFailure))
+    dispatch(loadRealEstateRequest())
+    return new Promise((resolve, reject) => {
+      getAllObjects(objectStore).then(assets => {
+        dispatch(loadRealEstateSuccess(assets))
+        resolve(assets)
+      }).catch(error => {
+        dispatch(loadRealEstateFailure(error))
+        reject(error)
+      })
+    })
   }
 }
-
-const getAssetRecordForRealEstate = (realEstateId: string): Promise<AssetWithId> => {
-  return new Promise((resolve, reject) => {
-    getDatabase().then(db => {
-      const transaction = db.transaction(['Asset'], 'readonly')
-      const store = transaction.objectStore('Asset')
-      const index = store.index('type, instanceId')
-      const request = index.get(['RealEstate', realEstateId])
-      request.onsuccess = event => {
-        typeof event.target.result === 'undefined'
-        ? reject()
-        : resolve(event.target.result)
-      }
-      request.onerror = () => { reject() }
-    })
-  })
-}
-

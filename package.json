@@ -14,6 +14,7 @@
     "babel-plugin-transform-react-constant-elements": "^6.9.1",
     "babel-plugin-transform-regenerator": "^6.14.0",
     "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-latest": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "babel-runtime": "^6.11.6",
@@ -46,7 +47,7 @@
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.22.0",
     "http-proxy-middleware": "^0.17.1",
-    "jest": "^19.0.0",
+    "jest": "^20.0.1",
     "json-loader": "^0.5.4",
     "object-assign": "^4.1.0",
     "opn": "^4.0.2",
@@ -76,7 +77,8 @@
     "react-router-dom": "^4.0.0",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "uuid": "^3.0.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -96,7 +98,9 @@
       "^[./a-zA-Z0-9$_-]+\\.(jpg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm)$": "<rootDir>/config/jest/FileStub.js",
       "^[./a-zA-Z0-9$_-]+\\.css$": "<rootDir>/config/jest/CSSStub.js"
     },
-    "transform": { ".*": "<rootDir>/config/jest/transform.js" },
+    "transform": {
+      ".*": "<rootDir>/config/jest/transform.js"
+    },
     "setupFiles": [
       "<rootDir>/config/polyfills.js"
     ],

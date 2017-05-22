@@ -1,12 +1,12 @@
 /* global expect */
 
-import { CreateRealEstate } from './CreateRealEstate.js'
+import { CreateRealEstate } from 'components/assets/real-estate/CreateRealEstate'
 
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import RealEstateForm from './RealEstateForm.js'
-import { validRealEstate1 } from '../../../test/fixtures/realEstate.js'
+import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
+import { validRealEstate1 } from 'fixtures/realEstate'
 
 describe('CreateRealEstate', () => {
   it('should render', () => {

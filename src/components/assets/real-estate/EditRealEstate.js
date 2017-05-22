@@ -10,7 +10,7 @@ import NotFound from '../../NotFound/NotFound.js'
 import { putRealEstate, loadRealEstate } from '../../../actions/realEstate.js'
 import type { RealEstate } from '../../../data/assets/realEstate.js'
 import type { GlobalState } from '../../../store.js'
-import type { ObjectStoreStatus } from '../../../actions/objects.js'
+import type { ObjectStoreStatus } from 'store'
 import type { BreadcrumbTrail } from '../../../components/Breadcrumbs/Breadcrumbs.js'
 
 import './EditRealEstate.css'
@@ -43,7 +43,7 @@ export class EditRealEstate extends React.Component {
     return [
       { display: 'Portfolio', path: '/portfolio' },
       { display: 'Assets', path: '/portfolio/assets' },
-      { display: realEstateName, path: `/portfolio/assets/real-estate/${id}` }
+      { display: realEstateName, path: `/portfolio/assets/real-estate/${id}` },
     ]
   }
 
@@ -71,8 +71,8 @@ const mapStateToProps = (state: GlobalState, ownProps: Props) => {
   return {
     realEstate: {
       status: state.realEstate.status,
-      object: state.realEstate.objects[ownProps.id]
-    }
+      object: state.realEstate.objects[ownProps.id],
+    },
   }
 }
 

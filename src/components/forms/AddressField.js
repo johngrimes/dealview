@@ -3,11 +3,11 @@
 import React from 'react'
 import _ from 'lodash'
 
-import * as Validations from '../../utils/FormValidation.js'
-import type { Address } from '../../data/commonTypes.js'
-import type { FieldErrors } from '../../utils/FormValidation.js'
+import * as Validations from 'utils/FormValidation'
+import type { Address } from 'data/commonTypes'
+import type { FieldErrors } from 'utils/FormValidation'
 
-import './AddressField.css'
+import 'components/forms/AddressField.css'
 
 export type AddressErrors = {
   line1: FieldErrors,
@@ -17,7 +17,7 @@ export type AddressErrors = {
 export const AddressErrorsDefaults = {
   line1: [],
   line2: [],
-  line3: []
+  line3: [],
 }
 
 // Human-readable field labels.
@@ -27,7 +27,7 @@ const AddressLabels = {
   line3: 'Line 3',
   locality: 'Suburb / Town',
   state: 'State',
-  postcode: 'Postcode'
+  postcode: 'Postcode',
 }
 
 type Props = {
@@ -57,7 +57,7 @@ class AddressField extends React.Component {
     super(props)
     this.state = {
       address: props.address,
-      touched: []
+      touched: [],
     }
 
     this._refs = {}

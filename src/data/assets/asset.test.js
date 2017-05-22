@@ -1,6 +1,6 @@
 /* global expect */
 
-import { getValuationAtDate } from './asset.js'
+import { getValuationAtDate } from 'data/assets/asset'
 
 import moment from 'moment'
 import _ from 'lodash'
@@ -14,19 +14,19 @@ describe('getValuationAtDate', () => {
       {
         date: moment('2014-05-03', DateFormat),
         amount: 520000,
-        note: 'Purchase price'
+        note: 'Purchase price',
       },
       {
         date: moment('2014-07-03', DateFormat),
         amount: 705000,
-        note: 'Sworn valuation'
+        note: 'Sworn valuation',
       },
       {
         date: moment('2017-05-17', DateFormat),
         amount: 1800000,
-        note: 'Future fantasy'
-      }
-    ]
+        note: 'Future fantasy',
+      },
+    ],
   }
 
   it('should get the correct valuation', () => {
@@ -69,9 +69,9 @@ describe('getValuationAtDate', () => {
         {
           amount: 235,
           date: '2017-05-25',
-          note: ''
-        }
-      ]
+          note: '',
+        },
+      ],
     }
     const valuation = getValuationAtDate(asset, moment('2017-05-05', DateFormat))
     expect(valuation).toEqual(0)

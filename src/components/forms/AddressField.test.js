@@ -1,17 +1,17 @@
 /* global expect */
 
-import AddressField from './AddressField.js'
+import AddressField from 'components/forms/AddressField'
 
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 
-import { validAddress1 } from '../../test/fixtures/commonTypes.js'
+import { validAddress1 } from 'fixtures/commonTypes'
 
 describe('AddressField', () => {
   it('should render', () => {
     const props = {
       name: 'someInput',
-      address: validAddress1
+      address: validAddress1,
     }
     const wrapper = shallow(<AddressField {...props} />)
     expect(wrapper).toMatchSnapshot()
@@ -23,13 +23,13 @@ describe('AddressField', () => {
       address: validAddress1,
       errors: {
         line1: ['does not comply with the standard'],
-        line2: ['is too long']
-      }
+        line2: ['is too long'],
+      },
     }
     const wrapper = shallow(<AddressField {...props} />)
     wrapper.setState({
       value: 'something',
-      touched: ['line1']
+      touched: ['line1'],
     }, () => {
       expect(wrapper.find('.error')).toHaveLength(1)
       expect(wrapper).toMatchSnapshot()
@@ -42,9 +42,9 @@ describe('AddressField', () => {
       address: validAddress1,
       errors: {
         line1: ['does not comply with the standard'],
-        line2: ['is too long']
+        line2: ['is too long'],
       },
-      forceErrorDisplay: true
+      forceErrorDisplay: true,
     }
     const wrapper = shallow(<AddressField {...props} />)
     expect(wrapper.find('.error')).toHaveLength(2)
@@ -54,7 +54,7 @@ describe('AddressField', () => {
     const props = {
       name: 'someInput',
       address: validAddress1,
-      onChange: jest.fn()
+      onChange: jest.fn(),
     }
     const wrapper = shallow(<AddressField {...props} />)
     wrapper.find('input[name="someInput-line3"]').prop('onChange')({ target: { value: 'something' } })
@@ -65,7 +65,7 @@ describe('AddressField', () => {
     const props = {
       name: 'someInput',
       address: validAddress1,
-      onFocus: jest.fn()
+      onFocus: jest.fn(),
     }
     const wrapper = shallow(<AddressField {...props} />)
     wrapper.find('input[name="someInput-locality"]').prop('onFocus')({ target: { name: 'someInput-locality' } })
@@ -75,7 +75,7 @@ describe('AddressField', () => {
   it('should focus a field when the focus prop is passed', () => {
     const props = {
       name: 'someInput',
-      address: validAddress1
+      address: validAddress1,
     }
     const wrapper = mount(<AddressField {...props} />)
     const spy = jest.spyOn(wrapper.find('input[name="someInput-line1"]').getNode(), 'focus')

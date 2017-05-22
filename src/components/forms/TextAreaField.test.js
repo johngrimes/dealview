@@ -1,6 +1,6 @@
 /* global expect */
 
-import TextAreaField from './TextAreaField.js'
+import TextAreaField from 'components/forms/TextAreaField.js'
 
 import React from 'react'
 import { shallow, mount } from 'enzyme'
@@ -11,7 +11,7 @@ describe('TextAreaField', () => {
       name: 'someInput',
       value: 'something',
       label: 'Some Input',
-      placeholder: 'Type here...'
+      placeholder: 'Type here...',
     }
     const wrapper = shallow(<TextAreaField {...props} />)
     expect(wrapper).toMatchSnapshot()
@@ -21,7 +21,7 @@ describe('TextAreaField', () => {
     const props = {
       name: 'someInput',
       label: 'Some Input',
-      placeholder: 'Type here...'
+      placeholder: 'Type here...',
     }
     const wrapper = shallow(<TextAreaField {...props} />)
     expect(wrapper).toMatchSnapshot()
@@ -30,12 +30,12 @@ describe('TextAreaField', () => {
   it('should display errors if touched', () => {
     const props = {
       name: 'someInput',
-      errors: ['does not look right', 'smells funny']
+      errors: ['does not look right', 'smells funny'],
     }
     const wrapper = shallow(<TextAreaField {...props} />)
     wrapper.setState({
       value: 'something',
-      touched: true
+      touched: true,
     }, () => {
       expect(wrapper.find('.error')).toHaveLength(2)
       expect(wrapper).toMatchSnapshot()
@@ -46,7 +46,7 @@ describe('TextAreaField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      errors: ['does not look right', 'smells funny']
+      errors: ['does not look right', 'smells funny'],
     }
     const wrapper = shallow(<TextAreaField {...props} />)
     expect(wrapper.find('.error')).toHaveLength(0)
@@ -57,7 +57,7 @@ describe('TextAreaField', () => {
       name: 'someInput',
       type: 'text',
       errors: ['does not look right', 'smells funny'],
-      forceErrorDisplay: true
+      forceErrorDisplay: true,
     }
     const wrapper = shallow(<TextAreaField {...props} />)
     expect(wrapper.find('.error')).toHaveLength(2)
@@ -67,7 +67,7 @@ describe('TextAreaField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      onChange: jest.fn()
+      onChange: jest.fn(),
     }
     const wrapper = shallow(<TextAreaField {...props} />)
     wrapper.find('textarea').prop('onChange')({ target: { value: 'something' } })
@@ -78,7 +78,7 @@ describe('TextAreaField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      onFocus: jest.fn()
+      onFocus: jest.fn(),
     }
     const wrapper = shallow(<TextAreaField {...props} />)
     wrapper.find('textarea').prop('onFocus')({ target: { name: 'someInput' } })
@@ -88,7 +88,7 @@ describe('TextAreaField', () => {
   it('should focus the input when the focus prop is passed', () => {
     const props = {
       name: 'someInput',
-      type: 'text'
+      type: 'text',
     }
     const wrapper = mount(<TextAreaField {...props} />)
     const spy = jest.spyOn(wrapper.find('textarea').getNode(), 'focus')

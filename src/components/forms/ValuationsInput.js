@@ -4,9 +4,9 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
-import { DateFormat } from '../../data/commonTypes.js'
+import { DateFormat } from 'data/commonTypes'
 
-import './ValuationsInput.css'
+import 'components/forms/ValuationsInput.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 export type Valuation = {
@@ -16,7 +16,7 @@ export type Valuation = {
 }
 export const ValuationDefault = {
   date: moment().format(DateFormat),
-  note: ''
+  note: '',
 }
 export type Valuations = Valuation[]
 

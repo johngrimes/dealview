@@ -1,6 +1,6 @@
 // @flow
 
-import type { Address } from '../../data/commonTypes.js'
+import type { Address } from 'data/commonTypes'
 
 export const validAddress1: Address = {
   line1: '5 Sunrise St',
@@ -8,5 +8,5 @@ export const validAddress1: Address = {
   line3: '',
   locality: 'Ashgrove',
   state: 'QLD',
-  postcode: '4060'
+  postcode: '4060',
 }

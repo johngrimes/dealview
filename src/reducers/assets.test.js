@@ -1,22 +1,22 @@
 /* global expect */
 
-import AssetsReducer from './assets.js'
-import * as AssetActions from '../actions/assets.js'
-import { validAssetWithId1, validAssetWithId2 } from '../test/fixtures/asset.js'
+import AssetsReducer from 'reducers/assets'
+import * as AssetActions from 'actions/assets'
+import { validAssetWithId1, validAssetWithId2 } from 'fixtures/asset'
 
 describe('AssetsReducer', () => {
   const initialState = {
     status: 'loaded',
     objects: {
-      [validAssetWithId1.id]: validAssetWithId1
-    }
+      [validAssetWithId1.id]: validAssetWithId1,
+    },
   }
 
   it('should update state upon request', () => {
     const actions = [
       AssetActions.putAssetRequest,
       AssetActions.deleteAssetRequest,
-      AssetActions.loadAssetRequest
+      AssetActions.loadAssetsRequest,
     ]
     actions.forEach(action => {
       const nextState = AssetsReducer(initialState, action())
@@ -37,9 +37,9 @@ describe('AssetsReducer', () => {
   })
 
   it('should update state upon load success', () => {
-    const action = AssetActions.loadAssetSuccess({
+    const action = AssetActions.loadAssetsSuccess({
       [validAssetWithId1.id]: validAssetWithId1,
-      [validAssetWithId2.id]: validAssetWithId2
+      [validAssetWithId2.id]: validAssetWithId2,
     })
     const nextState = AssetsReducer(initialState, action)
     expect(nextState).toMatchSnapshot()
@@ -49,7 +49,7 @@ describe('AssetsReducer', () => {
     const actions = [
       AssetActions.putAssetFailure,
       AssetActions.deleteAssetFailure,
-      AssetActions.loadAssetFailure
+      AssetActions.loadAssetsFailure,
     ]
     actions.forEach(action => {
       const nextState = AssetsReducer(initialState, action('Some error'))

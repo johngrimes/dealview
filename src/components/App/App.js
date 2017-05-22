@@ -3,18 +3,18 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, NavLink, Link } from 'react-router-dom'
 
-import Portfolio from '../Portfolio.js'
-import ListAssets from '../assets/ListAssets.js'
-import CreateRealEstate from '../assets/real-estate/CreateRealEstate.js'
-import EditRealEstate from '../assets/real-estate/EditRealEstate.js'
-import CashFlow from '../CashFlow.js'
-import Scenarios from '../Scenarios.js'
-import NotFound from '../NotFound/NotFound.js'
+import Portfolio from 'components/Portfolio'
+import ListAssets from 'components/assets/ListAssets'
+import CreateRealEstate from 'components/assets/real-estate/CreateRealEstate'
+import EditRealEstate from 'components/assets/real-estate/EditRealEstate'
+import CashFlow from 'components/CashFlow'
+import Scenarios from 'components/Scenarios'
+import NotFound from 'components/NotFound/NotFound'
 
-import '../../styles/base.css'
-import '../../styles/menus.css'
-import '../../styles/forms.css'
-import './App.css'
+import 'styles/base.css'
+import 'styles/menus.css'
+import 'styles/forms.css'
+import 'components/App/App.css'
 
 class App extends React.Component {
   render() {

@@ -4,8 +4,8 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
-import { DateFormat } from '../../data/commonTypes.js'
-import type { FieldErrors } from '../../utils/FormValidation.js'
+import { DateFormat } from 'data/commonTypes'
+import type { FieldErrors } from 'utils/FormValidation'
 
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
@@ -35,7 +35,7 @@ class DateField extends React.Component {
     super(props)
     this.state = {
       value: props.value,
-      touched: false
+      touched: false,
     }
 
     this.handleChange = this.handleChange.bind(this)

@@ -3,9 +3,9 @@
 import _ from 'lodash'
 import type { Reducer, State, Action } from 'redux'
 
-import type { RealEstateMap } from '../data/assets/realEstate.js'
-import type { RealEstateAction } from '../actions/realEstate.js'
-import type { ObjectStoreStatus } from '../actions/objects.js'
+import type { RealEstateMap } from 'data/assets/realEstate'
+import type { RealEstateAction } from 'actions/realEstate'
+import type { ObjectStoreStatus } from 'store'
 
 export type RealEstateState = {
   status: ObjectStoreStatus,
@@ -14,7 +14,7 @@ export type RealEstateState = {
 }
 const initialState: RealEstateState = {
   status: 'uninitialised',
-  objects: {}
+  objects: {},
 }
 
 const RealEstateReducer: Reducer<State, Action> = (state = initialState, action: RealEstateAction) => {
@@ -24,25 +24,25 @@ const RealEstateReducer: Reducer<State, Action> = (state = initialState, action:
     case 'LOAD_REAL_ESTATE_REQUEST':
       return {
         ...state,
-        status: 'loading'
+        status: 'loading',
       }
     case 'PUT_REAL_ESTATE_SUCCESS':
       return {
         ...state,
         status: 'loaded',
-        objects: { ...state.objects, [action.realEstate.id]: action.realEstate }
+        objects: { ...state.objects, [action.realEstate.id]: action.realEstate },
       }
     case 'DELETE_REAL_ESTATE_SUCCESS':
       return {
         ...state,
         status: 'loaded',
-        objects: _.omit(state.objects, action.id)
+        objects: _.omit(state.objects, action.id),
       }
     case 'LOAD_REAL_ESTATE_SUCCESS':
       return {
         ...state,
         status: 'loaded',
-        objects: action.realEstate
+        objects: action.realEstate,
       }
     case 'PUT_REAL_ESTATE_FAILURE':
     case 'DELETE_REAL_ESTATE_FAILURE':
@@ -50,7 +50,7 @@ const RealEstateReducer: Reducer<State, Action> = (state = initialState, action:
       return {
         ...state,
         status: 'error',
-        error: action.error
+        error: action.error,
       }
     default:
       return state

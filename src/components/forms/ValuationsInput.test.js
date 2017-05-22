@@ -1,6 +1,6 @@
 /* global expect */
 
-import ValuationsInput from './ValuationsInput.js'
+import ValuationsInput from 'components/forms/ValuationsInput.js'
 
 import React from 'react'
 import { shallow, mount } from 'enzyme'
@@ -11,24 +11,24 @@ describe('ValuationsInput', () => {
     {
       date: '1983-06-21',
       amount: 18700000,
-      note: 'Initial purchase price'
+      note: 'Initial purchase price',
     },
     {
       date: '1992-03-15',
       amount: 36000000,
-      note: 'Bank valuation - refinance'
+      note: 'Bank valuation - refinance',
     },
     {
       date: '2001-12-25',
       amount: 75000000,
-      note: 'Sworn valuation'
-    }
+      note: 'Sworn valuation',
+    },
   ]
 
   it('should render', () => {
     const props = {
       name: 'value',
-      valuations
+      valuations,
     }
     const wrapper = shallow(<ValuationsInput {...props} />)
     expect(wrapper).toMatchSnapshot()
@@ -36,7 +36,7 @@ describe('ValuationsInput', () => {
 
   it('should be tolerant of an undefined valuations prop', () => {
     const props = {
-      name: 'value'
+      name: 'value',
     }
     const wrapper = shallow(<ValuationsInput {...props} />)
     expect(wrapper).toMatchSnapshot()
@@ -46,7 +46,7 @@ describe('ValuationsInput', () => {
     const props = {
       name: 'value',
       valuations,
-      onChange: jest.fn()
+      onChange: jest.fn(),
     }
     const wrapper = shallow(<ValuationsInput {...props} />)
     wrapper.find('input[name="valuations-note-0"]').prop('onChange')({ target: { value: 'Initial robbery' } })
@@ -61,7 +61,7 @@ describe('ValuationsInput', () => {
     const props = {
       name: 'value',
       valuations,
-      onFocus: jest.fn()
+      onFocus: jest.fn(),
     }
     const wrapper = shallow(<ValuationsInput {...props} />)
     wrapper.find('input[name="valuations-note-1"]').prop('onFocus')({ target: { name: 'valuations-note-1' } })
@@ -72,7 +72,7 @@ describe('ValuationsInput', () => {
     const props = {
       name: 'value',
       valuations,
-      focus: 'valuations-date-0'
+      focus: 'valuations-date-0',
     }
     const wrapper = shallow(<ValuationsInput {...props} />)
     expect(wrapper.find(DatePicker).first().prop('autoFocus')).toBe(true)
@@ -83,7 +83,7 @@ describe('ValuationsInput', () => {
     it(`should focus an ${field} input when the focus prop is passed`, () => {
       const props = {
         name: 'value',
-        valuations
+        valuations,
       }
       const wrapper = mount(<ValuationsInput {...props} />)
       const spy = jest.spyOn(

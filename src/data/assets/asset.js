@@ -2,8 +2,8 @@
 
 import moment from 'moment'
 
-import { DateFormat } from '../commonTypes.js'
-import type { Valuations, Valuation } from '../../components/forms/ValuationsInput.js'
+import { DateFormat } from 'data/commonTypes'
+import type { Valuations, Valuation } from 'components/forms/ValuationsInput'
 
 export type Asset = {
   type: 'RealEstate',
@@ -45,6 +45,6 @@ export const getValuationAtDate = (asset: { startDate: string, endDate?: string,
 }
 
 const compareValuationsByDate = (a: Valuation, b: Valuation): number => {
-  const [milliA, milliB] = [a, b].map(v => { return v.date ? moment(v.date).valueOf() : 0 })
+  const [ milliA, milliB ] = [ a, b ].map(v => { return v.date ? moment(v.date).valueOf() : 0 })
   return milliA - milliB
 }

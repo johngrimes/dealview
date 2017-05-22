@@ -5,8 +5,8 @@ import { EditRealEstate } from './EditRealEstate.js'
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import RealEstateForm from './RealEstateForm.js'
-import { validRealEstateWithId1 } from '../../../test/fixtures/realEstate.js'
+import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
+import { validRealEstateWithId1 } from 'fixtures/realEstate'
 
 describe('EditRealEstate', () => {
   it('should render an existing Real Estate asset', () => {
@@ -14,8 +14,8 @@ describe('EditRealEstate', () => {
       id: '73',
       realEstate: {
         status: 'loaded',
-        object: validRealEstateWithId1
-      }
+        object: validRealEstateWithId1,
+      },
     }
     const wrapper = shallow(<EditRealEstate {...props} />)
     expect(wrapper).toMatchSnapshot()
@@ -26,8 +26,8 @@ describe('EditRealEstate', () => {
       id: '73',
       realEstate: {
         status: 'loaded',
-        object: validRealEstateWithId1
-      }
+        object: validRealEstateWithId1,
+      },
     }
     const wrapper = shallow(<EditRealEstate {...props} />)
     expect(wrapper.find(RealEstateForm).prop('realEstate')).toBe(validRealEstateWithId1)
@@ -40,11 +40,11 @@ describe('EditRealEstate', () => {
     const props = {
       id: '73',
       realEstate: {
-        status: 'uninitialised'
+        status: 'uninitialised',
       },
-      dispatch
+      dispatch,
     }
-    const wrapper = shallow(<EditRealEstate {...props} />)
+    shallow(<EditRealEstate {...props} />)
     expect(dispatch).toHaveBeenCalled()
     expect(realEstateActions.loadRealEstate).toHaveBeenCalled()
   })
@@ -55,9 +55,9 @@ describe('EditRealEstate', () => {
       id: '73',
       realEstate: {
         status: 'loaded',
-        object: validRealEstateWithId1
+        object: validRealEstateWithId1,
       },
-      dispatch
+      dispatch,
     }
     const realEstateActions = require('../../../actions/realEstate.js')
     realEstateActions.putRealEstate = jest.fn()

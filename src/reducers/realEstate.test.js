@@ -1,22 +1,22 @@
 /* global expect */
 
-import RealEstateReducer from './realEstate.js'
-import * as RealEstateActions from '../actions/realEstate.js'
-import { validRealEstateWithId1, validRealEstateWithId2 } from '../test/fixtures/realEstate.js'
+import RealEstateReducer from 'reducers/realEstate'
+import * as RealEstateActions from 'actions/realEstate'
+import { validRealEstateWithId1, validRealEstateWithId2 } from 'fixtures/realEstate'
 
 describe('RealEstateReducer', () => {
   const initialState = {
     status: 'loaded',
     objects: {
-      [validRealEstateWithId1.id]: validRealEstateWithId1
-    }
+      [validRealEstateWithId1.id]: validRealEstateWithId1,
+    },
   }
 
   it('should update state upon request', () => {
     const actions = [
       RealEstateActions.putRealEstateRequest,
       RealEstateActions.deleteRealEstateRequest,
-      RealEstateActions.loadRealEstateRequest
+      RealEstateActions.loadRealEstateRequest,
     ]
     actions.forEach(action => {
       const nextState = RealEstateReducer(initialState, action())
@@ -39,7 +39,7 @@ describe('RealEstateReducer', () => {
   it('should update state upon load success', () => {
     const action = RealEstateActions.loadRealEstateSuccess({
       [validRealEstateWithId1.id]: validRealEstateWithId1,
-      [validRealEstateWithId2.id]: validRealEstateWithId2
+      [validRealEstateWithId2.id]: validRealEstateWithId2,
     })
     const nextState = RealEstateReducer(initialState, action)
     expect(nextState).toMatchSnapshot()
@@ -49,7 +49,7 @@ describe('RealEstateReducer', () => {
     const actions = [
       RealEstateActions.putRealEstateFailure,
       RealEstateActions.deleteRealEstateFailure,
-      RealEstateActions.loadRealEstateFailure
+      RealEstateActions.loadRealEstateFailure,
     ]
     actions.forEach(action => {
       const nextState = RealEstateReducer(initialState, action('Some error'))

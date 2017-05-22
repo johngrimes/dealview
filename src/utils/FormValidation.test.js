@@ -1,6 +1,6 @@
 /* global expect */
 
-import * as Validation from './FormValidation.js'
+import * as Validation from 'utils/FormValidation'
 
 describe('areErrorsPresent', () => {
   it('should return false for empty FormErrors object', () => {
@@ -9,9 +9,9 @@ describe('areErrorsPresent', () => {
       address: {
         line1: [],
         line2: [],
-        line3: []
+        line3: [],
       },
-      notes: []
+      notes: [],
     }
     expect(Validation.areErrorsPresent(errors)).toBe(false)
   })
@@ -22,9 +22,9 @@ describe('areErrorsPresent', () => {
       address: {
         line1: ['does not sound right'],
         line2: [],
-        line3: []
+        line3: [],
       },
-      notes: []
+      notes: [],
     }
     expect(Validation.areErrorsPresent(errors)).toBe(true)
   })

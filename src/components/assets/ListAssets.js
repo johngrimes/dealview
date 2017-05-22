@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import type { Dispatch } from 'redux'
 
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.js'
-import { loadAssets } from '../../actions/assets.js'
-import { getValuationAtDate } from '../../data/assets/asset.js'
-import { DateFormat } from '../../data/commonTypes.js'
-import type { GlobalState } from '../../store.js'
-import type { AssetState } from '../../reducers/assets.js'
-import type { BreadcrumbTrail } from '../Breadcrumbs/Breadcrumbs.js'
+import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
+import { loadAssets } from 'actions/assets'
+import { getValuationAtDate } from 'data/assets/asset'
+import { DateFormat } from 'data/commonTypes'
+import type { GlobalState } from 'store'
+import type { AssetState } from 'reducers/assets'
+import type { BreadcrumbTrail } from 'components/Breadcrumbs/Breadcrumbs'
 
 type Props = {
   assets: AssetState,
@@ -34,7 +34,7 @@ export class ListAssets extends React.Component {
   breadcrumbs(): BreadcrumbTrail {
     return [
       { display: 'Portfolio', path: '/portfolio' },
-      { display: 'Assets', path: '/portfolio/assets' }
+      { display: 'Assets', path: '/portfolio/assets' },
     ]
   }
 
@@ -69,7 +69,7 @@ export class ListAssets extends React.Component {
 
 const mapStateToProps = (state: GlobalState) => {
   return {
-    assets: state.assets
+    assets: state.assets,
   }
 }
 

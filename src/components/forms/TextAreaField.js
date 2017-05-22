@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import type { FieldErrors } from '../../utils/FormValidation.js'
+import type { FieldErrors } from 'utils/FormValidation'
 
 type Props = {
   name: string,
@@ -32,7 +32,7 @@ class TextAreaField extends React.Component {
     super(props)
     this.state = {
       value: props.value,
-      touched: false
+      touched: false,
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -85,7 +85,7 @@ class TextAreaField extends React.Component {
       name, className, placeholder, value,
       onChange: this.handleChange,
       onFocus: this.handleFocus,
-      ref: input => this.ref = input
+      ref: input => this.ref = input,
     }
 
     return (

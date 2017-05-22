@@ -1,6 +1,6 @@
 /* global expect */
 
-import Breadcrumbs from './Breadcrumbs.js'
+import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -11,8 +11,8 @@ describe('Breadcrumbs', () => {
     const props = {
       breadcrumbs: [
         { display: 'Link 1', path: '/link1' },
-        { display: 'Link 2', path: '/link2' }
-      ]
+        { display: 'Link 2', path: '/link2' },
+      ],
     }
     const wrapper = shallow(<Breadcrumbs {...props} />)
     expect(wrapper.find(Link)).toHaveLength(2)
