@@ -44,7 +44,7 @@ describe('DateField', () => {
       name: 'someDate',
       value: '1981-07-26',
       label: 'Some Date',
-      errors: ['does not look right', 'smells funny'],
+      errors: [ 'does not look right', 'smells funny' ],
     }
     const wrapper = shallow(<DateField {...props} />)
     wrapper.setState({
@@ -60,7 +60,7 @@ describe('DateField', () => {
     const props = {
       name: 'someDate',
       value: '1981-07-26',
-      errors: ['does not look right', 'smells funny'],
+      errors: [ 'does not look right', 'smells funny' ],
     }
     const wrapper = shallow(<DateField {...props} />)
     expect(wrapper.find('.error')).toHaveLength(0)
@@ -70,7 +70,7 @@ describe('DateField', () => {
     const props = {
       name: 'someDate',
       value: '1981-07-26',
-      errors: ['does not look right', 'smells funny'],
+      errors: [ 'does not look right', 'smells funny' ],
       forceErrorDisplay: true,
     }
     const wrapper = shallow(<DateField {...props} />)
