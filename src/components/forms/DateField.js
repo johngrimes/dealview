@@ -73,7 +73,7 @@ class DateField extends React.Component {
     const inputClass = touched && errorTags.length > 0
       ? 'with-errors'
       : ''
-    const selected = (typeof value === 'string')
+    const selected = (typeof value === 'string' && value.length > 0)
       ? moment(value, DateFormat)
       : undefined
 

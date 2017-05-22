@@ -20,10 +20,20 @@ describe('DateField', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
+  it('should be tolerant of an undefined value prop', () => {
+    const props = {
+      name: 'someDate',
+      label: 'Some Date',
+    }
+    const wrapper = shallow(<DateField {...props} />)
+    expect(wrapper).toMatchSnapshot()
+  })
+
   it('should be tolerant of an empty value prop', () => {
     const props = {
       name: 'someDate',
       label: 'Some Date',
+      value: '',
     }
     const wrapper = shallow(<DateField {...props} />)
     expect(wrapper).toMatchSnapshot()

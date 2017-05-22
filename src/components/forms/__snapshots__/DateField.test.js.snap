@@ -43,6 +43,49 @@ exports[`DateField should be tolerant of an empty value prop 1`] = `
 </div>
 `;
 
+exports[`DateField should be tolerant of an undefined value prop 1`] = `
+<div
+  className="control-group"
+>
+  <label
+    htmlFor="someDate"
+  >
+    Some Date
+  </label>
+  <t
+    autoFocus={false}
+    className=""
+    dateFormat="YYYY-MM-DD"
+    dateFormatCalendar="MMMM YYYY"
+    disabled={false}
+    disabledKeyboardNavigation={false}
+    dropdownMode="scroll"
+    monthsShown={1}
+    name="someDate"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClickOutside={[Function]}
+    onFocus={[Function]}
+    onMonthChange={[Function]}
+    onSelect={[Function]}
+    popoverAttachment="top left"
+    popoverTargetAttachment="bottom left"
+    popoverTargetOffset="10px 0"
+    showYearDropdown={true}
+    tetherConstraints={
+      Array [
+        Object {
+          "attachment": "together",
+          "to": "window",
+        },
+      ]
+    }
+    utcOffset={600}
+    withPortal={false}
+  />
+</div>
+`;
+
 exports[`DateField should display errors if touched 1`] = `
 <div
   className="control-group"
