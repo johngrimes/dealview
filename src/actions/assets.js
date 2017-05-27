@@ -1,13 +1,10 @@
 // @flow
 
-import { putObject, deleteObject, getAllObjects } from 'data/database'
-import type { Asset, AssetWithId, AssetMap } from 'data/assets/asset'
-import type { Thunk } from 'data/commonTypes'
-
-const objectStore = 'Asset'
+import type { Asset, AssetWithId, AssetMap } from 'types/assets/asset'
 
 type PutAssetRequestAction = {
-  type: 'PUT_ASSET_REQUEST'
+  type: 'PUT_ASSET_REQUEST',
+  asset: Asset,
 }
 type PutAssetSuccessAction = {
   type: 'PUT_ASSET_SUCCESS',
@@ -19,7 +16,8 @@ type PutAssetFailureAction = {
 }
 
 type DeleteAssetRequestAction = {
-  type: 'DELETE_ASSET_REQUEST'
+  type: 'DELETE_ASSET_REQUEST',
+  id: string,
 }
 type DeleteAssetSuccessAction = {
   type: 'DELETE_ASSET_SUCCESS',
@@ -52,8 +50,11 @@ export type AssetAction = PutAssetRequestAction
                         | LoadAssetsSuccessAction
                         | LoadAssetsFailureAction
 
-export const putAssetRequest = (): PutAssetRequestAction => {
-  return { type: 'PUT_ASSET_REQUEST' }
+export const putAssetRequest = (asset: Asset): PutAssetRequestAction => {
+  return {
+    type: 'PUT_ASSET_REQUEST',
+    asset,
+  }
 }
 
 export const putAssetSuccess = (asset: AssetWithId): PutAssetSuccessAction => {
@@ -70,8 +71,11 @@ export const putAssetFailure = (error: string|null): PutAssetFailureAction => {
   }
 }
 
-export const deleteAssetRequest = (): DeleteAssetRequestAction => {
-  return { type: 'DELETE_ASSET_REQUEST' }
+export const deleteAssetRequest = (id: string): DeleteAssetRequestAction => {
+  return {
+    type: 'DELETE_ASSET_REQUEST',
+    id,
+  }
 }
 
 export const deleteAssetSuccess = (id: string): DeleteAssetSuccessAction => {
@@ -103,50 +107,5 @@ export const loadAssetsFailure = (error: string|null): LoadAssetsFailureAction =
   return {
     type: 'LOAD_ASSETS_FAILURE',
     error,
-  }
-}
-
-export const putAsset = (asset: Asset): Thunk => {
-  return dispatch => {
-    dispatch(putAssetRequest())
-    return new Promise((resolve, reject) => {
-      putObject(objectStore, asset).then(saved => {
-        dispatch(putAssetSuccess(saved))
-        resolve(saved)
-      }).catch(error => {
-        dispatch(putAssetFailure(error))
-        reject(error)
-      })
-    })
-  }
-}
-
-export const deleteAsset = (id: string): Thunk => {
-  return dispatch => {
-    dispatch(deleteAssetRequest())
-    return new Promise((resolve, reject) => {
-      deleteObject(objectStore, id).then(key => {
-        dispatch(deleteAssetSuccess(key))
-        resolve(key)
-      }).catch(error => {
-        dispatch(deleteAssetFailure(error))
-        reject(error)
-      })
-    })
-  }
-}
-
-export const loadAssets = (): Thunk => {
-  return dispatch => {
-    dispatch(loadAssetsRequest())
-    return new Promise((resolve, reject) => {
-      getAllObjects(objectStore).then(assets => {
-        dispatch(loadAssetsSuccess(assets))
-        resolve(assets)
-      }).catch(error => {
-        dispatch(loadAssetsFailure(error))
-        reject(error)
-      })
-    })
   }
 }

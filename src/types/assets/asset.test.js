@@ -1,6 +1,6 @@
 /* global expect */
 
-import { getValuationAtDate } from 'data/assets/asset'
+import { getValuationAtDate } from 'types/assets/asset'
 
 import moment from 'moment'
 import _ from 'lodash'

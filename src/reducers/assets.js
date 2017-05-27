@@ -3,7 +3,7 @@
 import _ from 'lodash'
 import type { Reducer, State, Action } from 'redux'
 
-import type { AssetMap } from 'data/assets/asset'
+import type { AssetMap } from 'types/assets/asset'
 import type { AssetAction } from 'actions/assets'
 
 export type AssetState = {

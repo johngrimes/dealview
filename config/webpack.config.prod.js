@@ -31,14 +31,15 @@ module.exports = {
   },
   resolve: {
     fallback: paths.nodePaths + [path.resolve('src')],
-    extensions: ['.js', '.json', '.jsx', ''],
+    extensions: [ '.js', '.json', '.jsx', '' ],
     alias: {
       actions: path.resolve('src/actions'),
       components: path.resolve('src/components'),
-      data: path.resolve('src/data'),
+      db: path.resolve('src/db'),
       fixtures: path.resolve('test/fixtures'),
       reducers: path.resolve('src/reducers'),
       styles: path.resolve('src/styles'),
+      types: path.resolve('src/types'),
       utils: path.resolve('src/utils'),
     },
   },

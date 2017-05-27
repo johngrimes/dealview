@@ -1,6 +1,6 @@
 // @flow
 
-import type { Asset, AssetWithId } from 'data/assets/asset'
+import type { Asset, AssetWithId } from 'types/assets/asset'
 
 export const validAsset1: Asset = {
   type: 'RealEstate',

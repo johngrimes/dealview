@@ -4,7 +4,7 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
-import { DateFormat } from 'data/commonTypes'
+import { DateFormat } from 'types/commonTypes'
 import type { FieldErrors } from 'utils/FormValidation'
 
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'

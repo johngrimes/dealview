@@ -2,7 +2,7 @@
 
 import uuid from 'uuid/v4'
 
-import type { ObjectMap } from 'data/commonTypes'
+import type { ObjectMap } from 'types/commonTypes'
 
 export const getDatabase = (): Promise<IDBDatabase> => {
   return new Promise((resolve, reject) => {

@@ -1,6 +1,6 @@
 // @flow
 
-import type { Address } from 'data/commonTypes'
+import type { Address } from 'types/commonTypes'
 
 export const validAddress1: Address = {
   line1: '5 Sunrise St',

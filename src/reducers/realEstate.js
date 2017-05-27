@@ -3,7 +3,7 @@
 import _ from 'lodash'
 import type { Reducer, State, Action } from 'redux'
 
-import type { RealEstateMap } from 'data/assets/realEstate'
+import type { RealEstateMap } from 'types/assets/realEstate'
 import type { RealEstateAction } from 'actions/realEstate'
 import type { ObjectStoreStatus } from 'store'
 

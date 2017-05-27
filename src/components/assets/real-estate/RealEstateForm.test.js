@@ -1,12 +1,12 @@
 /* global expect */
 
-import RealEstateForm from './RealEstateForm.js'
+import RealEstateForm from './RealEstateForm'
 
 import React from 'react'
 import { shallow } from 'enzyme'
 
 import ValuationsInput from 'components/forms/ValuationsInput'
-import { AddressEmpty } from 'data/commonTypes'
+import { AddressEmpty } from 'types/commonTypes'
 import { validRealEstate1 } from 'fixtures/realEstate'
 import type { RealEstateErrors } from 'components/assets/real-estate/RealEstateForm'
 

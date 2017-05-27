@@ -4,7 +4,7 @@ import React from 'react'
 import _ from 'lodash'
 
 import * as Validations from 'utils/FormValidation'
-import type { Address } from 'data/commonTypes'
+import type { Address } from 'types/commonTypes'
 import type { FieldErrors } from 'utils/FormValidation'
 
 import 'components/forms/AddressField.css'

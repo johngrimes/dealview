@@ -2,7 +2,7 @@
 
 import moment from 'moment'
 
-import { DateFormat } from 'data/commonTypes'
+import { DateFormat } from 'types/commonTypes'
 import type { Valuations, Valuation } from 'components/forms/ValuationsInput'
 
 export type Asset = {

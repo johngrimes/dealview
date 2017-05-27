@@ -4,11 +4,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 
-import RealEstateForm from './RealEstateForm.js'
-import Breadcrumbs from '../../Breadcrumbs/Breadcrumbs.js'
-import { putRealEstate } from '../../../actions/realEstate.js'
-import type { RealEstate } from '../../../data/assets/realEstate.js'
-import type { BreadcrumbTrail } from '../../Breadcrumbs/Breadcrumbs.js'
+import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
+import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
+import { putRealEstateRequest } from 'actions/realEstate'
+import type { RealEstate } from 'types/assets/realEstate'
+import type { BreadcrumbTrail } from 'Breadcrumbs/Breadcrumbs'
 
 import './CreateRealEstate.css'
 
@@ -36,7 +36,7 @@ export class CreateRealEstate extends React.Component {
   }
 
   handleSubmit(realEstate: RealEstate): void {
-    this.props.dispatch(putRealEstate(realEstate))
+    this.props.dispatch(putRealEstateRequest(realEstate))
   }
 
   render() {

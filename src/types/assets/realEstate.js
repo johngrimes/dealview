@@ -1,8 +1,8 @@
 // @flow
 
-import { AddressDefaults } from 'data/commonTypes'
-import type { Address } from 'data/commonTypes'
-import type { Asset } from 'data/assets/asset'
+import { AddressDefaults } from 'types/commonTypes'
+import type { Address } from 'types/commonTypes'
+import type { Asset } from 'types/assets/asset'
 import type { Valuations } from 'components/forms/ValuationsInput'
 
 export type RealEstate = {

@@ -1,6 +1,6 @@
 // @flow
 
-import type { BalanceSheetOverTime } from 'data/balanceSheet'
+import type { BalanceSheetOverTime } from 'types/balanceSheet'
 
 export const validBalanceSheet1: BalanceSheetOverTime = {
   '2017-01-01': {

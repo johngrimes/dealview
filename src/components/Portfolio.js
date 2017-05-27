@@ -15,8 +15,14 @@ type Props = {
   balanceSheet: BalanceSheetState,
   dispatch: Dispatch
 }
+type State = {
+  date: string,
+}
 
 class Portfolio extends React.Component {
+  props: Props
+  state: State
+
   constructor(props: Props) {
     super(props)
     if (this.props.assets.status === 'uninitialised') {

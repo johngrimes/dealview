@@ -1,8 +1,8 @@
 // @flow
 
-import { putObject, getObject } from 'data/database'
-import type { BalanceSheetOverTime } from 'data/balanceSheet'
-import type { Thunk } from 'data/commonTypes'
+import { putObject, getObject } from 'db/db'
+import type { BalanceSheetOverTime } from 'types/balanceSheet'
+import type { Thunk } from 'types/commonTypes'
 
 const objectStore = 'BalanceSheet'
 const theOneAndOnlyKey = 'BalanceSheet'

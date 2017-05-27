@@ -2,7 +2,7 @@
 
 import type { Reducer, State, Action } from 'redux'
 
-import type { BalanceSheetOverTime } from 'data/balanceSheet'
+import type { BalanceSheetOverTime } from 'types/balanceSheet'
 import type { BalanceSheetAction } from 'actions/balanceSheet'
 
 export type BalanceSheetState = {

@@ -7,7 +7,7 @@ import { shallow } from 'enzyme'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
-import DateFormat from 'data/commonTypes'
+import DateFormat from 'types/commonTypes'
 
 describe('DateField', () => {
   it('should render', () => {
