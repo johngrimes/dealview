@@ -31,12 +31,17 @@ type UpdateBalanceSheetFailureAction = {
   error: string|null
 }
 
+type InvalidateBalanceSheetAction = {
+  type: 'INVALIDATE_BALANCE_SHEET'
+}
+
 export type BalanceSheetAction = LoadBalanceSheetRequestAction
                                | LoadBalanceSheetSuccessAction
                                | LoadBalanceSheetFailureAction
                                | UpdateBalanceSheetRequestAction
                                | UpdateBalanceSheetSuccessAction
                                | UpdateBalanceSheetFailureAction
+                               | InvalidateBalanceSheetAction
 
 export const updateBalanceSheetRequest = (): UpdateBalanceSheetRequestAction => {
   return { type: 'UPDATE_BALANCE_SHEET_REQUEST' }
@@ -72,6 +77,10 @@ export const loadBalanceSheetFailure = (error: string|null): LoadBalanceSheetFai
     type: 'LOAD_BALANCE_SHEET_FAILURE',
     error,
   }
+}
+
+export const invalidateBalanceSheet = (): InvalidateBalanceSheetAction => {
+  return { type: 'INVALIDATE_BALANCE_SHEET' }
 }
 
 export const updateBalanceSheet = (balanceSheet: BalanceSheetOverTime): Thunk => {

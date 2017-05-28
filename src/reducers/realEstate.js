@@ -12,12 +12,12 @@ export type RealEstateState = {
   error?: string,
   objects: RealEstateMap
 }
-const initialState: RealEstateState = {
+export const InitialRealEstateState: RealEstateState = {
   status: 'uninitialised',
   objects: {},
 }
 
-const RealEstateReducer: Reducer<State, Action> = (state = initialState, action: RealEstateAction) => {
+const RealEstateReducer: Reducer<State, Action> = (state = InitialRealEstateState, action: RealEstateAction) => {
   switch (action.type) {
     case 'PUT_REAL_ESTATE_REQUEST':
     case 'DELETE_REAL_ESTATE_REQUEST':

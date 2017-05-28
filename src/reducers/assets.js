@@ -11,12 +11,12 @@ export type AssetState = {
   error?: string,
   objects: AssetMap
 }
-const initialState: AssetState = {
+export const InitialAssetState: AssetState = {
   status: 'uninitialised',
   objects: {},
 }
 
-const AssetsReducer: Reducer<State, Action> = (state = initialState, action: AssetAction) => {
+const AssetsReducer: Reducer<State, Action> = (state = InitialAssetState, action: AssetAction) => {
   switch (action.type) {
     case 'PUT_ASSET_REQUEST':
     case 'DELETE_ASSET_REQUEST':

@@ -6,21 +6,15 @@ import { Provider } from 'react-redux'
 import type { Store } from 'redux'
 
 import configureStore from 'store'
+import { InitialAssetState } from 'reducers/assets'
+import { InitialRealEstateState } from 'reducers/realEstate'
+import { InitialBalanceSheetState } from 'reducers/balanceSheet'
 import App from 'components/App/App'
 
 const store: Store = configureStore({
-  assets: {
-    status: 'uninitialised',
-    objects: {},
-  },
-  realEstate: {
-    status: 'uninitialised',
-    objects: {},
-  },
-  balanceSheet: {
-    status: 'uninitialised',
-    balanceSheet: {},
-  },
+  assets: InitialAssetState,
+  realEstate: InitialRealEstateState,
+  balanceSheet: InitialBalanceSheetState,
 })
 
 ReactDOM.render(

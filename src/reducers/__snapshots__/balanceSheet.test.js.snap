@@ -1,5 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`BalanceSheetReducer should freshen upon update success 1`] = `
+Object {
+  "balanceSheet": Object {
+    "2017-01-01": Object {
+      "equity": 155070,
+      "totalAssets": 1000070,
+      "totalLiabilities": 845000,
+    },
+    "2017-01-02": Object {
+      "equity": 165080,
+      "totalAssets": 1000080,
+      "totalLiabilities": 835000,
+    },
+    "2017-01-03": Object {
+      "equity": 165080,
+      "totalAssets": 1000080,
+      "totalLiabilities": 835000,
+    },
+  },
+  "fresh": true,
+  "status": "loaded",
+}
+`;
+
+exports[`BalanceSheetReducer should invalidate balance sheet 1`] = `
+Object {
+  "balanceSheet": Object {
+    "2017-01-01": Object {
+      "equity": 155070,
+      "totalAssets": 1000070,
+      "totalLiabilities": 845000,
+    },
+    "2017-01-02": Object {
+      "equity": 165080,
+      "totalAssets": 1000080,
+      "totalLiabilities": 835000,
+    },
+  },
+  "fresh": false,
+  "status": "loaded",
+}
+`;
+
 exports[`BalanceSheetReducer should update state upon failure 1`] = `
 Object {
   "balanceSheet": Object {
@@ -15,6 +58,7 @@ Object {
     },
   },
   "error": "Some error",
+  "fresh": true,
   "status": "error",
 }
 `;
@@ -34,6 +78,7 @@ Object {
     },
   },
   "error": "Some error",
+  "fresh": true,
   "status": "error",
 }
 `;
@@ -57,6 +102,7 @@ Object {
       "totalLiabilities": 835000,
     },
   },
+  "fresh": true,
   "status": "loaded",
 }
 `;
@@ -75,6 +121,7 @@ Object {
       "totalLiabilities": 835000,
     },
   },
+  "fresh": true,
   "status": "loading",
 }
 `;
@@ -93,6 +140,7 @@ Object {
       "totalLiabilities": 835000,
     },
   },
+  "fresh": true,
   "status": "loading",
 }
 `;
@@ -116,6 +164,7 @@ Object {
       "totalLiabilities": 835000,
     },
   },
+  "fresh": true,
   "status": "loaded",
 }
 `;

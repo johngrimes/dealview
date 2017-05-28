@@ -7,6 +7,7 @@ import { validBalanceSheet1, validBalanceSheet2 } from 'fixtures/balanceSheet'
 describe('BalanceSheetReducer', () => {
   const initialState = {
     status: 'loaded',
+    fresh: true,
     balanceSheet: validBalanceSheet1,
   }
 
@@ -27,6 +28,12 @@ describe('BalanceSheetReducer', () => {
     expect(nextState).toMatchSnapshot()
   })
 
+  it('should freshen upon update success', () => {
+    const action = BalanceSheetActions.updateBalanceSheetSuccess(validBalanceSheet2)
+    const nextState = BalanceSheetReducer({ ...initialState, fresh: false }, action)
+    expect(nextState).toMatchSnapshot()
+  })
+
   it('should update state upon load success', () => {
     const action = BalanceSheetActions.loadBalanceSheetSuccess(validBalanceSheet2)
     const nextState = BalanceSheetReducer(initialState, action)
@@ -42,5 +49,11 @@ describe('BalanceSheetReducer', () => {
       const nextState = BalanceSheetReducer(initialState, action('Some error'))
       expect(nextState).toMatchSnapshot()
     })
+  })
+
+  it('should invalidate balance sheet', () => {
+    const action = BalanceSheetActions.invalidateBalanceSheet()
+    const nextState = BalanceSheetReducer(initialState, action)
+    expect(nextState).toMatchSnapshot()
   })
 })
