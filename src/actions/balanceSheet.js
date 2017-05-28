@@ -77,14 +77,15 @@ export const loadBalanceSheetFailure = (error: string|null): LoadBalanceSheetFai
 export const updateBalanceSheet = (balanceSheet: BalanceSheetOverTime): Thunk => {
   return dispatch => {
     dispatch(updateBalanceSheetRequest())
-    return new Promise((resolve, reject) => {
-      putObject(objectStore, balanceSheet, theOneAndOnlyKey).then(saved => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const saved = await putObject(objectStore, balanceSheet, theOneAndOnlyKey)
         dispatch(updateBalanceSheetSuccess(saved))
         resolve(saved)
-      }).catch(error => {
+      } catch (error) {
         dispatch(updateBalanceSheetFailure(error))
         reject(error)
-      })
+      }
     })
   }
 }
@@ -92,14 +93,15 @@ export const updateBalanceSheet = (balanceSheet: BalanceSheetOverTime): Thunk =>
 export const loadBalanceSheet = (): Thunk => {
   return dispatch => {
     dispatch(loadBalanceSheetRequest())
-    return new Promise((resolve, reject) => {
-      getObject(objectStore, theOneAndOnlyKey).then(balanceSheet => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const balanceSheet = await getObject(objectStore, theOneAndOnlyKey)
         dispatch(loadBalanceSheetSuccess(balanceSheet))
         resolve(balanceSheet)
-      }).catch(error => {
+      } catch (error) {
         dispatch(loadBalanceSheetFailure(error))
         reject(error)
-      })
+      }
     })
   }
 }
