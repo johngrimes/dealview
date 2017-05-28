@@ -33,8 +33,8 @@ const calcBalanceSheet = (assets: AssetMap, liabilities: LiabilityMap,
     [date.format(DateFormat)]: {
       totalAssets,
       totalLiabilities,
-      equity: (totalAssets - totalLiabilities)
-    }
+      equity: (totalAssets - totalLiabilities),
+    },
   }
 }
 

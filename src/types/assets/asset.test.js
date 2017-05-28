@@ -5,7 +5,7 @@ import { getValuationAtDate } from 'types/assets/asset'
 import moment from 'moment'
 import _ from 'lodash'
 
-import { DateFormat } from '../commonTypes.js'
+import { DateFormat } from 'types/commonTypes'
 
 describe('getValuationAtDate', () => {
   const asset = {

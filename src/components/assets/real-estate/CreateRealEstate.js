@@ -6,9 +6,9 @@ import type { Dispatch } from 'redux'
 
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
-import { putRealEstateRequest } from 'actions/realEstate'
+import { putRealEstate } from 'actions/realEstate'
 import type { RealEstate } from 'types/assets/realEstate'
-import type { BreadcrumbTrail } from 'Breadcrumbs/Breadcrumbs'
+import type { BreadcrumbTrail } from 'components/Breadcrumbs/Breadcrumbs'
 
 import './CreateRealEstate.css'
 
@@ -36,7 +36,7 @@ export class CreateRealEstate extends React.Component {
   }
 
   handleSubmit(realEstate: RealEstate): void {
-    this.props.dispatch(putRealEstateRequest(realEstate))
+    this.props.dispatch(putRealEstate(realEstate))
   }
 
   render() {

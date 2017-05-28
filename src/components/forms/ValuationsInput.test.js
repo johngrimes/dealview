@@ -1,6 +1,6 @@
 /* global expect */
 
-import ValuationsInput from 'components/forms/ValuationsInput.js'
+import ValuationsInput from 'components/forms/ValuationsInput'
 
 import React from 'react'
 import { shallow, mount } from 'enzyme'
@@ -78,7 +78,7 @@ describe('ValuationsInput', () => {
     expect(wrapper.find(DatePicker).first().prop('autoFocus')).toBe(true)
   })
 
-  const fields = ['amount', 'note']
+  const fields = [ 'amount', 'note' ]
   fields.forEach(field => {
     it(`should focus an ${field} input when the focus prop is passed`, () => {
       const props = {

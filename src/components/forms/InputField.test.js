@@ -1,6 +1,6 @@
 /* global expect */
 
-import InputField from 'components/forms/InputField.js'
+import InputField from 'components/forms/InputField'
 
 import React from 'react'
 import { shallow, mount } from 'enzyme'
@@ -33,7 +33,7 @@ describe('InputField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      errors: ['does not look right', 'smells funny'],
+      errors: [ 'does not look right', 'smells funny' ],
     }
     const wrapper = shallow(<InputField {...props} />)
     wrapper.setState({
@@ -49,7 +49,7 @@ describe('InputField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      errors: ['does not look right', 'smells funny'],
+      errors: [ 'does not look right', 'smells funny' ],
     }
     const wrapper = shallow(<InputField {...props} />)
     expect(wrapper.find('.error')).toHaveLength(0)
@@ -59,7 +59,7 @@ describe('InputField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      errors: ['does not look right', 'smells funny'],
+      errors: [ 'does not look right', 'smells funny' ],
       forceErrorDisplay: true,
     }
     const wrapper = shallow(<InputField {...props} />)

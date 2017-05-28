@@ -1,6 +1,6 @@
 /* global expect */
 
-import HiddenField from 'components/forms/HiddenField.js'
+import HiddenField from 'components/forms/HiddenField'
 
 import React from 'react'
 import { shallow } from 'enzyme'

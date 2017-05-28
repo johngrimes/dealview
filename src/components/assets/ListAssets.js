@@ -8,7 +8,7 @@ import moment from 'moment'
 import type { Dispatch } from 'redux'
 
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
-import { loadAssetsRequest } from 'actions/assets'
+import { loadAssets } from 'actions/assets'
 import { getValuationAtDate } from 'types/assets/asset'
 import { DateFormat } from 'types/commonTypes'
 import type { GlobalState } from 'store'
@@ -27,7 +27,7 @@ export class ListAssets extends React.Component {
   constructor(props: Props) {
     super(props)
     if (this.props.assets.status === 'uninitialised') {
-      this.props.dispatch(loadAssetsRequest())
+      this.props.dispatch(loadAssets())
     }
   }
 
@@ -40,7 +40,7 @@ export class ListAssets extends React.Component {
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.assets.status === 'uninitialised') {
-      this.props.dispatch(loadAssetsRequest())
+      this.props.dispatch(loadAssets())
     }
   }
 

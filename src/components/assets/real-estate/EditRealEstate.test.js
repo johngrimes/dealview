@@ -1,10 +1,9 @@
 /* global expect */
 
-import { EditRealEstate } from './EditRealEstate.js'
-
 import React from 'react'
 import { shallow } from 'enzyme'
 
+import { EditRealEstate } from 'components/assets/real-estate/EditRealEstate'
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
 import { validRealEstateWithId1 } from 'fixtures/realEstate'
 
@@ -35,7 +34,7 @@ describe('EditRealEstate', () => {
 
   it('should load Real Estate if uninitialised', () => {
     const dispatch = jest.fn()
-    const realEstateActions = require('../../../actions/realEstate.js')
+    const realEstateActions = require('actions/realEstate')
     realEstateActions.loadRealEstate = jest.fn()
     const props = {
       id: '73',
@@ -59,7 +58,7 @@ describe('EditRealEstate', () => {
       },
       dispatch,
     }
-    const realEstateActions = require('../../../actions/realEstate.js')
+    const realEstateActions = require('actions/realEstate')
     realEstateActions.putRealEstate = jest.fn()
     const wrapper = shallow(<EditRealEstate {...props} />)
     const handleSubmit = wrapper.find(RealEstateForm).prop('onSubmit')

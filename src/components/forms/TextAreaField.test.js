@@ -1,6 +1,6 @@
 /* global expect */
 
-import TextAreaField from 'components/forms/TextAreaField.js'
+import TextAreaField from 'components/forms/TextAreaField'
 
 import React from 'react'
 import { shallow, mount } from 'enzyme'
@@ -30,7 +30,7 @@ describe('TextAreaField', () => {
   it('should display errors if touched', () => {
     const props = {
       name: 'someInput',
-      errors: ['does not look right', 'smells funny'],
+      errors: [ 'does not look right', 'smells funny' ],
     }
     const wrapper = shallow(<TextAreaField {...props} />)
     wrapper.setState({
@@ -46,7 +46,7 @@ describe('TextAreaField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      errors: ['does not look right', 'smells funny'],
+      errors: [ 'does not look right', 'smells funny' ],
     }
     const wrapper = shallow(<TextAreaField {...props} />)
     expect(wrapper.find('.error')).toHaveLength(0)
@@ -56,7 +56,7 @@ describe('TextAreaField', () => {
     const props = {
       name: 'someInput',
       type: 'text',
-      errors: ['does not look right', 'smells funny'],
+      errors: [ 'does not look right', 'smells funny' ],
       forceErrorDisplay: true,
     }
     const wrapper = shallow(<TextAreaField {...props} />)
