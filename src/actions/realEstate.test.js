@@ -5,7 +5,7 @@ describe('putRealEstate', () => {
     jest.resetModules()
   })
 
-  it.only('should dispatch correct actions on success', () => {
+  it('should dispatch correct actions on success', () => {
     jest.mock('../db/db', () => ({
       putObject: objectStore => objectStore === 'Asset.RealEstate'
         ? new Promise(resolve => resolve({ some: 'realEstate' }))
@@ -25,17 +25,10 @@ describe('putRealEstate', () => {
         type: 'PUT_REAL_ESTATE_SUCCESS',
         realEstate: { some: 'realEstate' },
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_ASSET_REQUEST',
-      })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_ASSET_SUCCESS',
-        asset: { some: 'asset' },
-      })
     })
   })
 
-  it.only('should dispatch correct actions on failure to save RealEstate', () => {
+  it('should dispatch correct actions on failure to save RealEstate', () => {
     jest.mock('../db/db', () => ({
       putObject: objectStore => objectStore === 'Asset.RealEstate'
         ? new Promise((resolve, reject) => reject('Some error'))
@@ -54,29 +47,6 @@ describe('putRealEstate', () => {
       })
     })
   })
-
-  it.only('should dispatch correct actions on failure to save Asset', () => {
-    jest.mock('../db/db', () => ({
-      putObject: objectStore => objectStore === 'Asset'
-        ? new Promise((resolve, reject) => reject('Some error'))
-        : new Promise(resolve => resolve({ id: 'someId', some: 'realEstate' })),
-    }))
-    const RealEstateActions = require('actions/realEstate')
-    const thunk = RealEstateActions.putRealEstate({ some: 'realEstate' })
-    const dispatch = jest.fn()
-    return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_REAL_ESTATE_REQUEST',
-      })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_ASSET_REQUEST',
-      })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_REAL_ESTATE_FAILURE',
-        error: 'Some error',
-      })
-    })
-  })
 })
 
 describe('deleteRealEstate', () => {
@@ -84,7 +54,7 @@ describe('deleteRealEstate', () => {
     jest.resetModules()
   })
 
-  it.only('should dispatch correct actions on success', () => {
+  it('should dispatch correct actions on success', () => {
     jest.mock('../db/db', () => ({
       deleteObject: () => new Promise(resolve => resolve('someKey')),
     }))
@@ -96,17 +66,13 @@ describe('deleteRealEstate', () => {
         type: 'DELETE_REAL_ESTATE_REQUEST',
       })
       expect(dispatch).toHaveBeenCalledWith({
-        type: 'DELETE_ASSET_SUCCESS',
-        id: 'someKey',
-      })
-      expect(dispatch).toHaveBeenCalledWith({
         type: 'DELETE_REAL_ESTATE_SUCCESS',
         id: 'someKey',
       })
     })
   })
 
-  it.only('should dispatch correct actions on failure', () => {
+  it('should dispatch correct actions on failure', () => {
     jest.mock('../db/db', () => ({
       deleteObject: () => new Promise((resolve, reject) => reject('Some error')),
     }))
@@ -130,7 +96,7 @@ describe('loadRealEstate', () => {
     jest.resetModules()
   })
 
-  it.only('should dispatch correct actions on success', () => {
+  it('should dispatch correct actions on success', () => {
     jest.mock('../db/db', () => ({
       getAllObjects: () => new Promise(resolve => resolve([{ some: 'thing' }])),
     }))
@@ -148,7 +114,7 @@ describe('loadRealEstate', () => {
     })
   })
 
-  it.only('should dispatch correct actions on failure', () => {
+  it('should dispatch correct actions on failure', () => {
     jest.mock('../db/db', () => ({
       getAllObjects: () => new Promise((resolve, reject) => reject('Some error')),
     }))

@@ -1,14 +1,12 @@
 // @flow
 
 import { putObject, deleteObject, getAllObjects } from 'db/db'
-import { putAssetRequest, putAssetSuccess, deleteAssetRequest,
-         deleteAssetSuccess, deleteAssetFailure } from 'actions/assets'
+import { putAsset, deleteAsset } from 'actions/assets'
 import { realEstateToAsset } from 'types/assets/realEstate'
 import type { RealEstate, RealEstateWithId, RealEstateMap } from 'types/assets/realEstate'
 import type { Thunk } from 'types/commonTypes'
 
 const objectStore = 'Asset.RealEstate'
-const assetObjectStore = 'Asset'
 
 type PutRealEstateRequestAction = {
   type: 'PUT_REAL_ESTATE_REQUEST',
@@ -117,10 +115,7 @@ export const putRealEstate = (realEstate: RealEstate): Thunk => {
       try {
         const saved = await putObject(objectStore, realEstate)
         dispatch(putRealEstateSuccess(saved))
-        const asset = realEstateToAsset(saved)
-        dispatch(putAssetRequest())
-        const savedAsset = await putObject(assetObjectStore, asset)
-        dispatch(putAssetSuccess(savedAsset))
+        await dispatch(putAsset(realEstateToAsset(saved)))
         resolve(saved)
       } catch (error) {
         dispatch(putRealEstateFailure(error))
@@ -133,22 +128,16 @@ export const putRealEstate = (realEstate: RealEstate): Thunk => {
 export const deleteRealEstate = (id: string): Thunk => {
   return dispatch => {
     dispatch(deleteRealEstateRequest())
-    return new Promise((resolve, reject) => {
-      deleteObject(objectStore, id).then(deletedId => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const deletedId = await deleteObject(objectStore, id)
+        dispatch(deleteAsset(deletedId))
         dispatch(deleteRealEstateSuccess(deletedId))
-        dispatch(deleteAssetRequest())
-        deleteObject(assetObjectStore, deletedId)
-        .then(() => {
-          dispatch(deleteAssetSuccess(deletedId))
-          resolve(deletedId)
-        }).catch(error => {
-          dispatch(deleteAssetFailure(error))
-          resolve(error)
-        })
-      }).catch(error => {
+        resolve(deletedId)
+      } catch (error) {
         dispatch(deleteRealEstateFailure(error))
         reject(error)
-      })
+      }
     })
   }
 }
