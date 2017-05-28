@@ -17,6 +17,9 @@ describe('putAsset', () => {
         type: 'PUT_ASSET_REQUEST',
       })
       expect(dispatch).toHaveBeenCalledWith({
+        type: 'INVALIDATE_BALANCE_SHEET',
+      })
+      expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_ASSET_SUCCESS',
         asset: { some: 'thing' },
       })
@@ -57,6 +60,9 @@ describe('deleteAsset', () => {
     return expect(thunk(dispatch)).resolves.toEqual('someKey').then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'DELETE_ASSET_REQUEST',
+      })
+      expect(dispatch).toHaveBeenCalledWith({
+        type: 'INVALIDATE_BALANCE_SHEET',
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'DELETE_ASSET_SUCCESS',

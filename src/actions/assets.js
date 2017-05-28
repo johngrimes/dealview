@@ -1,6 +1,7 @@
 // @flow
 
 import { putObject, deleteObject, getAllObjects } from 'db/db'
+import { invalidateBalanceSheet } from 'actions/balanceSheet'
 import type { Asset, AssetWithId, AssetMap } from 'types/assets/asset'
 import type { Thunk } from 'types/commonTypes'
 
@@ -112,6 +113,7 @@ export const putAsset = (asset: Asset): Thunk => {
     return new Promise(async (resolve, reject) => {
       try {
         const saved = await putObject(objectStore, asset)
+        dispatch(invalidateBalanceSheet())
         dispatch(putAssetSuccess(saved))
         resolve(saved)
       } catch (error) {
@@ -128,6 +130,7 @@ export const deleteAsset = (id: string): Thunk => {
     return new Promise(async (resolve, reject) => {
       try {
         const key = await deleteObject(objectStore, id)
+        dispatch(invalidateBalanceSheet())
         dispatch(deleteAssetSuccess(key))
         resolve(key)
       } catch (error) {
