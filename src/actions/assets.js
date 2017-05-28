@@ -109,14 +109,15 @@ export const loadAssetsFailure = (error: string|null): LoadAssetsFailureAction =
 export const putAsset = (asset: Asset): Thunk => {
   return dispatch => {
     dispatch(putAssetRequest())
-    return new Promise((resolve, reject) => {
-      putObject(objectStore, asset).then(saved => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const saved = await putObject(objectStore, asset)
         dispatch(putAssetSuccess(saved))
         resolve(saved)
-      }).catch(error => {
+      } catch (error) {
         dispatch(putAssetFailure(error))
         reject(error)
-      })
+      }
     })
   }
 }
@@ -124,14 +125,15 @@ export const putAsset = (asset: Asset): Thunk => {
 export const deleteAsset = (id: string): Thunk => {
   return dispatch => {
     dispatch(deleteAssetRequest())
-    return new Promise((resolve, reject) => {
-      deleteObject(objectStore, id).then(key => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const key = await deleteObject(objectStore, id)
         dispatch(deleteAssetSuccess(key))
         resolve(key)
-      }).catch(error => {
+      } catch (error) {
         dispatch(deleteAssetFailure(error))
         reject(error)
-      })
+      }
     })
   }
 }
@@ -139,14 +141,15 @@ export const deleteAsset = (id: string): Thunk => {
 export const loadAssets = (): Thunk => {
   return dispatch => {
     dispatch(loadAssetsRequest())
-    return new Promise((resolve, reject) => {
-      getAllObjects(objectStore).then(assets => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const assets = await getAllObjects(objectStore)
         dispatch(loadAssetsSuccess(assets))
         resolve(assets)
-      }).catch(error => {
+      } catch (error) {
         dispatch(loadAssetsFailure(error))
         reject(error)
-      })
+      }
     })
   }
 }

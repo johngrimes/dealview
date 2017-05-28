@@ -1,8 +1,8 @@
 // @flow
 
 import { putObject, deleteObject, getAllObjects } from 'db/db'
-import { putAssetRequest, putAssetSuccess, putAssetFailure,
-         deleteAssetRequest, deleteAssetSuccess, deleteAssetFailure } from 'actions/assets'
+import { putAssetRequest, putAssetSuccess, deleteAssetRequest,
+         deleteAssetSuccess, deleteAssetFailure } from 'actions/assets'
 import { realEstateToAsset } from 'types/assets/realEstate'
 import type { RealEstate, RealEstateWithId, RealEstateMap } from 'types/assets/realEstate'
 import type { Thunk } from 'types/commonTypes'
@@ -113,30 +113,19 @@ export const loadRealEstateFailure = (error: string|null): LoadRealEstateFailure
 export const putRealEstate = (realEstate: RealEstate): Thunk => {
   return dispatch => {
     dispatch(putRealEstateRequest())
-    return new Promise((resolve, reject) => {
-      putObject(objectStore, realEstate).then(saved => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const saved = await putObject(objectStore, realEstate)
         dispatch(putRealEstateSuccess(saved))
         const asset = realEstateToAsset(saved)
         dispatch(putAssetRequest())
-        putObject(assetObjectStore, asset)
-          .then(savedAsset => {
-            dispatch(putAssetSuccess(savedAsset))
-            resolve(saved)
-          }).catch(error => {
-            dispatch(putAssetFailure(error))
-            dispatch(deleteRealEstateRequest())
-            deleteObject(objectStore, saved.id).then(id => {
-              dispatch(deleteRealEstateSuccess(id))
-              reject(error)
-            }).catch(error => {
-              dispatch(deleteRealEstateFailure(error))
-              reject(error)
-            })
-          })
-      }).catch(error => {
+        const savedAsset = await putObject(assetObjectStore, asset)
+        dispatch(putAssetSuccess(savedAsset))
+        resolve(saved)
+      } catch (error) {
         dispatch(putRealEstateFailure(error))
         reject(error)
-      })
+      }
     })
   }
 }
