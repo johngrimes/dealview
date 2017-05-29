@@ -8,7 +8,8 @@ import type { Thunk } from 'types/commonTypes'
 const objectStore = 'Asset'
 
 type PutAssetRequestAction = {
-  type: 'PUT_ASSET_REQUEST'
+  type: 'PUT_ASSET_REQUEST',
+  asset: Asset,
 }
 type PutAssetSuccessAction = {
   type: 'PUT_ASSET_SUCCESS',
@@ -20,7 +21,8 @@ type PutAssetFailureAction = {
 }
 
 type DeleteAssetRequestAction = {
-  type: 'DELETE_ASSET_REQUEST'
+  type: 'DELETE_ASSET_REQUEST',
+  id: string,
 }
 type DeleteAssetSuccessAction = {
   type: 'DELETE_ASSET_SUCCESS',
@@ -53,8 +55,11 @@ export type AssetAction = PutAssetRequestAction
                         | LoadAssetsSuccessAction
                         | LoadAssetsFailureAction
 
-export const putAssetRequest = (): PutAssetRequestAction => {
-  return { type: 'PUT_ASSET_REQUEST' }
+export const putAssetRequest = (asset: Asset): PutAssetRequestAction => {
+  return {
+    type: 'PUT_ASSET_REQUEST',
+    asset,
+  }
 }
 
 export const putAssetSuccess = (asset: AssetWithId): PutAssetSuccessAction => {
@@ -71,8 +76,11 @@ export const putAssetFailure = (error: string|null): PutAssetFailureAction => {
   }
 }
 
-export const deleteAssetRequest = (): DeleteAssetRequestAction => {
-  return { type: 'DELETE_ASSET_REQUEST' }
+export const deleteAssetRequest = (id: string): DeleteAssetRequestAction => {
+  return {
+    type: 'DELETE_ASSET_REQUEST',
+    id,
+  }
 }
 
 export const deleteAssetSuccess = (id: string): DeleteAssetSuccessAction => {
@@ -109,7 +117,7 @@ export const loadAssetsFailure = (error: string|null): LoadAssetsFailureAction =
 
 export const putAsset = (asset: Asset): Thunk => {
   return dispatch => {
-    dispatch(putAssetRequest())
+    dispatch(putAssetRequest(asset))
     return new Promise(async (resolve, reject) => {
       try {
         const saved = await putObject(objectStore, asset)
@@ -126,7 +134,7 @@ export const putAsset = (asset: Asset): Thunk => {
 
 export const deleteAsset = (id: string): Thunk => {
   return dispatch => {
-    dispatch(deleteAssetRequest())
+    dispatch(deleteAssetRequest(id))
     return new Promise(async (resolve, reject) => {
       try {
         const key = await deleteObject(objectStore, id)

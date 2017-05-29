@@ -10,6 +10,7 @@ const objectStore = 'Asset.RealEstate'
 
 type PutRealEstateRequestAction = {
   type: 'PUT_REAL_ESTATE_REQUEST',
+  realEstate: RealEstate,
 }
 type PutRealEstateSuccessAction = {
   type: 'PUT_REAL_ESTATE_SUCCESS',
@@ -22,6 +23,7 @@ type PutRealEstateFailureAction = {
 
 type DeleteRealEstateRequestAction = {
   type: 'DELETE_REAL_ESTATE_REQUEST',
+  id: string,
 }
 type DeleteRealEstateSuccessAction = {
   type: 'DELETE_REAL_ESTATE_SUCCESS',
@@ -54,8 +56,11 @@ export type RealEstateAction = PutRealEstateRequestAction
                              | LoadRealEstateSuccessAction
                              | LoadRealEstateFailureAction
 
-export const putRealEstateRequest = (): PutRealEstateRequestAction => {
-  return { type: 'PUT_REAL_ESTATE_REQUEST' }
+export const putRealEstateRequest = (realEstate: RealEstate): PutRealEstateRequestAction => {
+  return {
+    type: 'PUT_REAL_ESTATE_REQUEST',
+    realEstate,
+  }
 }
 
 export const putRealEstateSuccess = (realEstate: RealEstateWithId): PutRealEstateSuccessAction => {
@@ -72,8 +77,11 @@ export const putRealEstateFailure = (error: string|null): PutRealEstateFailureAc
   }
 }
 
-export const deleteRealEstateRequest = (): DeleteRealEstateRequestAction => {
-  return { type: 'DELETE_REAL_ESTATE_REQUEST' }
+export const deleteRealEstateRequest = (id: string): DeleteRealEstateRequestAction => {
+  return {
+    type: 'DELETE_REAL_ESTATE_REQUEST',
+    id,
+  }
 }
 
 export const deleteRealEstateSuccess = (id: string): DeleteRealEstateSuccessAction => {
@@ -110,7 +118,7 @@ export const loadRealEstateFailure = (error: string|null): LoadRealEstateFailure
 
 export const putRealEstate = (realEstate: RealEstate): Thunk => {
   return dispatch => {
-    dispatch(putRealEstateRequest())
+    dispatch(putRealEstateRequest(realEstate))
     return new Promise(async (resolve, reject) => {
       try {
         const saved = await putObject(objectStore, realEstate)
@@ -127,7 +135,7 @@ export const putRealEstate = (realEstate: RealEstate): Thunk => {
 
 export const deleteRealEstate = (id: string): Thunk => {
   return dispatch => {
-    dispatch(deleteRealEstateRequest())
+    dispatch(deleteRealEstateRequest(id))
     return new Promise(async (resolve, reject) => {
       try {
         const deletedId = await deleteObject(objectStore, id)

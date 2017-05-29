@@ -20,21 +20,24 @@ export const balanceSheetOverTime = (assets: AssetMap, liabilities: LiabilityMap
                                      startDate: string, endDate: string): BalanceSheetOverTime => {
   const startDay = moment(startDate, DateFormat)
   const endDay = moment(endDate, DateFormat)
-  return calcBalanceSheet(assets, liabilities, startDay, endDay)
+  // The Array.from is a workaround for https://github.com/facebook/flow/issues/1059, and can be removed once this is resolved.
+  return Object.assign({}, ...Array.from(calcBalanceSheet(assets, liabilities, startDay, endDay)))
 }
 
-const calcBalanceSheet = (assets: AssetMap, liabilities: LiabilityMap,
-                          date: Moment, endDate: Moment): BalanceSheetOverTime => {
-  if (date.isAfter(endDate)) return {}
-  const totalAssets = sumAssetValueAtDate(_.values(assets), date)
-  const totalLiabilities = 0  // sumLiabilityValueAtDate(liabilities, date)
-  const nextDate = moment(date).add(1, 'days')
-  return { ...calcBalanceSheet(assets, liabilities, nextDate, endDate),
-    [date.format(DateFormat)]: {
-      totalAssets,
-      totalLiabilities,
-      equity: (totalAssets - totalLiabilities),
-    },
+function* calcBalanceSheet(assets: AssetMap, liabilities: LiabilityMap,
+                           date: Moment, endDate: Moment): Generator<BalanceSheetOverTime, void, void> {
+  let nextDate = date
+  while (!nextDate.isAfter(endDate)) {
+    const totalAssets = sumAssetValueAtDate(_.values(assets), nextDate)
+    const totalLiabilities = 0  // sumLiabilityValueAtDate(liabilities, date)
+    yield {
+      [nextDate.format(DateFormat)]: {
+        totalAssets,
+        totalLiabilities,
+        equity: (totalAssets - totalLiabilities),
+      },
+    }
+    nextDate = moment(nextDate).add(1, 'days')
   }
 }
 

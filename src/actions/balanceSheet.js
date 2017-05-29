@@ -23,15 +23,19 @@ type LoadBalanceSheetFailureAction = {
 }
 
 type UpdateBalanceSheetRequestAction = {
-  type: 'UPDATE_BALANCE_SHEET_REQUEST'
+  type: 'UPDATE_BALANCE_SHEET_REQUEST',
+  assets: AssetMap,
+  liabilities: LiabilityMap,
+  startDate: string,
+  endDate: string,
 }
 type UpdateBalanceSheetSuccessAction = {
   type: 'UPDATE_BALANCE_SHEET_SUCCESS',
-  balanceSheet: BalanceSheetOverTime
+  balanceSheet: BalanceSheetOverTime,
 }
 type UpdateBalanceSheetFailureAction = {
   type: 'UPDATE_BALANCE_SHEET_FAILURE',
-  error: string|null
+  error: string|null,
 }
 
 type InvalidateBalanceSheetAction = {
@@ -46,8 +50,14 @@ export type BalanceSheetAction = LoadBalanceSheetRequestAction
                                | UpdateBalanceSheetFailureAction
                                | InvalidateBalanceSheetAction
 
-export const updateBalanceSheetRequest = (): UpdateBalanceSheetRequestAction => {
-  return { type: 'UPDATE_BALANCE_SHEET_REQUEST' }
+export const updateBalanceSheetRequest = (assets: AssetMap, liabilities: LiabilityMap, startDate: string, endDate: string): UpdateBalanceSheetRequestAction => {
+  return {
+    type: 'UPDATE_BALANCE_SHEET_REQUEST',
+    assets,
+    liabilities,
+    startDate,
+    endDate,
+  }
 }
 
 export const updateBalanceSheetSuccess = (balanceSheet: BalanceSheetOverTime): UpdateBalanceSheetSuccessAction => {
@@ -89,7 +99,7 @@ export const invalidateBalanceSheet = (): InvalidateBalanceSheetAction => {
 export const updateBalanceSheet = (assets: AssetMap, liabilities: LiabilityMap,
                                    startDate: string, endDate: string): Thunk => {
   return dispatch => {
-    dispatch(updateBalanceSheetRequest())
+    dispatch(updateBalanceSheetRequest(assets, liabilities, startDate, endDate))
     return new Promise(async (resolve, reject) => {
       try {
         const balanceSheet = await balanceSheetOverTime(assets, liabilities, startDate, endDate)

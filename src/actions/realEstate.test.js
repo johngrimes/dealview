@@ -20,6 +20,7 @@ describe('putRealEstate', () => {
     return expect(thunk(dispatch)).resolves.toEqual({ some: 'realEstate' }).then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_REAL_ESTATE_REQUEST',
+        realEstate: { some: 'realEstate' },
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_REAL_ESTATE_SUCCESS',
@@ -35,11 +36,12 @@ describe('putRealEstate', () => {
         : new Promise(resolve => resolve({ some: 'asset' })),
     }))
     const RealEstateActions = require('actions/realEstate')
-    const thunk = RealEstateActions.putRealEstate({ some: 'thing' })
+    const thunk = RealEstateActions.putRealEstate({ some: 'realEstate' })
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_REAL_ESTATE_REQUEST',
+        realEstate: { some: 'realEstate' },
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_REAL_ESTATE_FAILURE',
@@ -64,6 +66,7 @@ describe('deleteRealEstate', () => {
     return expect(thunk(dispatch)).resolves.toEqual('someKey').then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'DELETE_REAL_ESTATE_REQUEST',
+        id: 'someKey',
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'DELETE_REAL_ESTATE_SUCCESS',
@@ -82,6 +85,7 @@ describe('deleteRealEstate', () => {
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'DELETE_REAL_ESTATE_REQUEST',
+        id: 'someKey',
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'DELETE_REAL_ESTATE_FAILURE',

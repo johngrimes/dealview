@@ -15,6 +15,7 @@ describe('putAsset', () => {
     return expect(thunk(dispatch)).resolves.toEqual({ some: 'thing' }).then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_ASSET_REQUEST',
+        asset: { some: 'thing' },
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'INVALIDATE_BALANCE_SHEET',
@@ -36,6 +37,7 @@ describe('putAsset', () => {
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_ASSET_REQUEST',
+        asset: { some: 'thing' },
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_ASSET_FAILURE',
@@ -60,6 +62,7 @@ describe('deleteAsset', () => {
     return expect(thunk(dispatch)).resolves.toEqual('someKey').then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'DELETE_ASSET_REQUEST',
+        id: 'someKey',
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'INVALIDATE_BALANCE_SHEET',
@@ -81,6 +84,7 @@ describe('deleteAsset', () => {
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'DELETE_ASSET_REQUEST',
+        id: 'someKey',
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'DELETE_ASSET_FAILURE',
