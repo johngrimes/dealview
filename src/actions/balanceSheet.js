@@ -1,7 +1,10 @@
 // @flow
 
 import { putObject, getObject } from 'db/db'
+import { balanceSheetOverTime } from 'types/balanceSheet'
 import type { BalanceSheetOverTime } from 'types/balanceSheet'
+import type { AssetMap } from 'types/assets/asset'
+import type { LiabilityMap } from 'types/liabilities/liability'
 import type { Thunk } from 'types/commonTypes'
 
 const objectStore = 'BalanceSheet'
@@ -83,11 +86,13 @@ export const invalidateBalanceSheet = (): InvalidateBalanceSheetAction => {
   return { type: 'INVALIDATE_BALANCE_SHEET' }
 }
 
-export const updateBalanceSheet = (balanceSheet: BalanceSheetOverTime): Thunk => {
+export const updateBalanceSheet = (assets: AssetMap, liabilities: LiabilityMap,
+                                   startDate: string, endDate: string): Thunk => {
   return dispatch => {
     dispatch(updateBalanceSheetRequest())
     return new Promise(async (resolve, reject) => {
       try {
+        const balanceSheet = await balanceSheetOverTime(assets, liabilities, startDate, endDate)
         const saved = await putObject(objectStore, balanceSheet, theOneAndOnlyKey)
         dispatch(updateBalanceSheetSuccess(saved))
         resolve(saved)

@@ -7,7 +7,6 @@ import type { Valuations, Valuation } from 'components/forms/ValuationsInput'
 
 export type Asset = {
   type: 'RealEstate',
-  instanceId: string,
   name: string,
   startDate: string,
   endDate?: string,

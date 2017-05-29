@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 
-import { loadBalanceSheet } from 'actions/balanceSheet'
+import { loadBalanceSheet, updateBalanceSheet } from 'actions/balanceSheet'
 import type { GlobalState } from 'store'
 import type { AssetState } from 'reducers/assets'
 import type { BalanceSheetState } from 'reducers/balanceSheet'
@@ -25,7 +25,9 @@ class Portfolio extends React.Component {
 
   constructor(props: Props) {
     super(props)
-    if (this.props.assets.status === 'uninitialised') {
+    if (this.props.balanceSheet.fresh === false) {
+      this.props.dispatch(updateBalanceSheet(this.props.assets.objects, {}, '2017-05-28', '2027-05-28'))
+    } else if (this.props.balanceSheet.status === 'uninitialised') {
       this.props.dispatch(loadBalanceSheet())
     }
   }

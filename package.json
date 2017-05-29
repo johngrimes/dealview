@@ -91,7 +91,7 @@
     "lint": "eslint src test",
     "flow": "flow check"
   },
-  "pre-commit": [ "lint", "test-all" ],
+  "pre-commit": [ "lint", "flow", "test-all" ],
   "jest": {
     "moduleFileExtensions": [
       "jsx",

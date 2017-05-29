@@ -35,7 +35,7 @@ exports[`ListAssets should render some Assets 1`] = `
       <Link
         className="asset-name"
         replace={false}
-        to="/portfolio/assets/real-estate/54"
+        to="/portfolio/assets/real-estate/98"
       >
         5 Sunrise St
       </Link>
@@ -51,7 +51,7 @@ exports[`ListAssets should render some Assets 1`] = `
       <Link
         className="asset-name"
         replace={false}
-        to="/portfolio/assets/real-estate/34"
+        to="/portfolio/assets/real-estate/99"
       >
         38/8 Briggs Road
       </Link>

@@ -33,6 +33,6 @@ export const realEstateToAsset = (realEstate: RealEstate): Asset => {
   asset.startDate = realEstate.purchaseDate
   asset.endDate = realEstate.saleDate
   asset.valuations = realEstate.valuations
-  if (typeof realEstate.id === 'number') { asset.instanceId = realEstate.id.toString() }
+  if (typeof realEstate.id === 'string') { asset.id = realEstate.id }
   return asset
 }

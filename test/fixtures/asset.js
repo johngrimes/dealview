@@ -4,7 +4,6 @@ import type { Asset, AssetWithId } from 'types/assets/asset'
 
 export const validAsset1: Asset = {
   type: 'RealEstate',
-  instanceId: '54',
   name: '5 Sunrise St',
   startDate: '2014-09-10',
   valuations: [
@@ -16,7 +15,6 @@ export const validAssetWithId1: AssetWithId = { ...validAsset1, id: '98' }
 
 export const validAsset2: Asset = {
   type: 'RealEstate',
-  instanceId: '34',
   name: '38/8 Briggs Road',
   startDate: '2015-05-10',
   valuations: [

@@ -13,7 +13,6 @@ Object {
   "objects": Object {
     "98": Object {
       "id": "98",
-      "instanceId": "54",
       "name": "5 Sunrise St",
       "startDate": "2014-09-10",
       "type": "RealEstate",
@@ -41,7 +40,6 @@ Object {
   "objects": Object {
     "98": Object {
       "id": "98",
-      "instanceId": "54",
       "name": "5 Sunrise St",
       "startDate": "2014-09-10",
       "type": "RealEstate",
@@ -69,7 +67,6 @@ Object {
   "objects": Object {
     "98": Object {
       "id": "98",
-      "instanceId": "54",
       "name": "5 Sunrise St",
       "startDate": "2014-09-10",
       "type": "RealEstate",
@@ -96,7 +93,6 @@ Object {
   "objects": Object {
     "98": Object {
       "id": "98",
-      "instanceId": "54",
       "name": "5 Sunrise St",
       "startDate": "2014-09-10",
       "type": "RealEstate",
@@ -115,7 +111,6 @@ Object {
     },
     "99": Object {
       "id": "99",
-      "instanceId": "34",
       "name": "38/8 Briggs Road",
       "startDate": "2015-05-10",
       "type": "RealEstate",
@@ -137,7 +132,6 @@ Object {
   "objects": Object {
     "98": Object {
       "id": "98",
-      "instanceId": "54",
       "name": "5 Sunrise St",
       "startDate": "2014-09-10",
       "type": "RealEstate",
@@ -156,7 +150,6 @@ Object {
     },
     "99": Object {
       "id": "99",
-      "instanceId": "34",
       "name": "38/8 Briggs Road",
       "startDate": "2015-05-10",
       "type": "RealEstate",
@@ -178,7 +171,6 @@ Object {
   "objects": Object {
     "98": Object {
       "id": "98",
-      "instanceId": "54",
       "name": "5 Sunrise St",
       "startDate": "2014-09-10",
       "type": "RealEstate",
@@ -205,7 +197,6 @@ Object {
   "objects": Object {
     "98": Object {
       "id": "98",
-      "instanceId": "54",
       "name": "5 Sunrise St",
       "startDate": "2014-09-10",
       "type": "RealEstate",
@@ -232,7 +223,6 @@ Object {
   "objects": Object {
     "98": Object {
       "id": "98",
-      "instanceId": "54",
       "name": "5 Sunrise St",
       "startDate": "2014-09-10",
       "type": "RealEstate",

@@ -6,8 +6,14 @@ describe('updateBalanceSheet', () => {
   })
 
   it('should dispatch correct actions on success', () => {
+    jest.mock('../types/balanceSheet', () => ({
+      balanceSheetOverTime: () => ({ some: 'thing' }),
+    }))
     jest.mock('../db/db', () => ({
       putObject: () => new Promise(resolve => resolve({ some: 'thing' })),
+    }))
+    jest.mock('../types/balanceSheet', () => ({
+      balanceSheetOverTime: () => new Promise(resolve => resolve({ some: 'thing' })),
     }))
     const BalanceSheetActions = require('actions/balanceSheet')
     const thunk = BalanceSheetActions.updateBalanceSheet({ some: 'thing' })
@@ -24,6 +30,9 @@ describe('updateBalanceSheet', () => {
   })
 
   it('should dispatch correct actions on failure', () => {
+    jest.mock('../types/balanceSheet', () => ({
+      balanceSheetOverTime: () => ({ some: 'thing' }),
+    }))
     jest.mock('../db/db', () => ({
       putObject: () => new Promise((resolve, reject) => reject('Some error')),
     }))
