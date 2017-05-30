@@ -25,3 +25,15 @@ export const AddressDefaults = {
 }
 
 export const DateFormat = 'YYYY-MM-DD'
+
+export const formatNumber = (number: number): string => {
+  const numString = number.toString()
+  // The Array.from is a workaround for https://github.com/facebook/flow/issues/1059, and can be removed once this is resolved.
+  return [...Array.from(numString)].reduce((prev, curr, i, arr) => {
+    return (arr.length - i - 1) !== 0 && (arr.length - i - 1) % 3 === 0
+      ? prev + curr + ','
+      : prev + curr
+  }, '')
+}
+
+export const formatDollars = (number: number): string => '$' + formatNumber(number)
