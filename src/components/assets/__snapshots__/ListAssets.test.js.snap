@@ -42,7 +42,7 @@ exports[`ListAssets should render some Assets 1`] = `
       <div
         className="asset-last-valuation"
       >
-        705000
+        $705,000
       </div>
     </li>
     <li
@@ -58,7 +58,7 @@ exports[`ListAssets should render some Assets 1`] = `
       <div
         className="asset-last-valuation"
       >
-        260000
+        $260,000
       </div>
     </li>
   </ol>

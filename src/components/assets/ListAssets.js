@@ -10,7 +10,7 @@ import type { Dispatch } from 'redux'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import { loadAssets } from 'actions/assets'
 import { getValuationAtDate } from 'types/assets/asset'
-import { DateFormat } from 'types/commonTypes'
+import { DateFormat, formatDollars } from 'types/commonTypes'
 import type { GlobalState } from 'store'
 import type { AssetState } from 'reducers/assets'
 import type { BreadcrumbTrail } from 'components/Breadcrumbs/Breadcrumbs'
@@ -49,7 +49,7 @@ export class ListAssets extends React.Component {
       const lastValuation = getValuationAtDate(v, moment().format(DateFormat))
       const lastValuationTag = lastValuation === 0
         ? null
-        : <div className='asset-last-valuation'>{lastValuation}</div>
+        : <div className='asset-last-valuation'>{formatDollars(lastValuation)}</div>
       return <li key={k} className='asset'>
         <Link className='asset-name' to={`/portfolio/assets/real-estate/${v.id}`}>{v.name}</Link>
         {lastValuationTag}

@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 
 import { loadBalanceSheet, updateBalanceSheet } from 'actions/balanceSheet'
-import { DateFormat } from 'types/commonTypes'
+import { DateFormat, formatDollars } from 'types/commonTypes'
 import type { GlobalState } from 'store'
 import type { AssetState } from 'reducers/assets'
 import type { BalanceSheetState } from 'reducers/balanceSheet'
@@ -49,7 +49,7 @@ class Portfolio extends React.Component {
         <DatePicker showYearDropdown dateFormat={DateFormat} selected={date} onChange={moment => this.setState({ date: moment.format(DateFormat) })} />
         <div className='assets'>
           <Link to='/portfolio/assets'>Assets</Link>
-          <span className='assets-total'>{balanceSheet ? balanceSheet.totalAssets : '?'}</span>
+          <span className='assets-total'>{balanceSheet ? formatDollars(balanceSheet.totalAssets) : '?'}</span>
         </div>
       </div>
     )
