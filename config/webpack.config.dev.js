@@ -10,16 +10,19 @@ const env = require('./env')
 
 module.exports = {
   devtool: 'source-map',
-  entry: [
-    require.resolve('webpack-dev-server/client') + '?/',
-    require.resolve('webpack/hot/dev-server'),
-    require.resolve('./polyfills'),
-    path.join(paths.appSrc, 'index'),
-  ],
+  entry: {
+    main: [
+      require.resolve('webpack-dev-server/client') + '?/',
+      require.resolve('webpack/hot/dev-server'),
+      require.resolve('./polyfills'),
+      path.join(paths.appSrc, 'index'),
+    ],
+    worker: path.join(paths.appSrc, 'workers/balanceSheet'),
+  },
   output: {
     path: paths.appBuild,
     pathinfo: true,
-    filename: 'static/js/bundle.js',
+    filename: 'static/js/[name].js',
     publicPath: '/',
   },
   resolve: {
@@ -34,6 +37,7 @@ module.exports = {
       styles: path.resolve('src/styles'),
       types: path.resolve('src/types'),
       utils: path.resolve('src/utils'),
+      workers: path.resolve('src/workers'),
     },
   },
   resolveLoader: {
@@ -113,6 +117,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      chunks: ['main'],
     }),
     new webpack.DefinePlugin(env),
     new webpack.HotModuleReplacementPlugin(),
@@ -120,5 +125,7 @@ module.exports = {
     new WatchMissingNodeModulesPlugin(paths.appNodeModules),
     new webpack.NoErrorsPlugin(),
     new FlowStatusWebpackPlugin({ failOnError: true }),
+    // Filters out Moment.js locales, other than en
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),  // eslint-disable-line no-useless-escape
   ],
 }

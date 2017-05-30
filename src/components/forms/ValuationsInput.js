@@ -5,20 +5,10 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
 import { DateFormat } from 'types/commonTypes'
+import type { Valuations } from 'types/valuations'
 
 import 'components/forms/ValuationsInput.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
-
-export type Valuation = {
-  date?: string,
-  amount?: number,
-  note?: string
-}
-export const ValuationDefault = {
-  date: moment().format(DateFormat),
-  note: '',
-}
-export type Valuations = Valuation[]
 
 type Props = {
   name: string,

@@ -68,7 +68,8 @@
     "webdriverio": "^4.6.2",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.1",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^1.0.0",
+    "worker-loader": "^0.8.0"
   },
   "dependencies": {
     "lodash": "^4.17.4",
@@ -80,6 +81,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
+    "redux-worker": "^0.1.2",
     "uuid": "^3.0.1"
   },
   "scripts": {
@@ -91,7 +93,11 @@
     "lint": "eslint src test",
     "flow": "flow check"
   },
-  "pre-commit": [ "lint", "flow", "test-all" ],
+  "pre-commit": [
+    "lint",
+    "flow",
+    "test-all"
+  ],
   "jest": {
     "moduleFileExtensions": [
       "jsx",

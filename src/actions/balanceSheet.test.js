@@ -17,7 +17,9 @@ describe('updateBalanceSheet', () => {
     }))
     const BalanceSheetActions = require('actions/balanceSheet')
     const thunk = BalanceSheetActions.updateBalanceSheet({}, {}, '2017-05-28', '2027-05-28')
-    const dispatch = jest.fn()
+    const dispatch = jest.fn(
+      action => action.task === 'CALCULATE_BALANCE_SHEET' ? { response: { some: 'thing' } } : undefined
+    )
     return expect(thunk(dispatch)).resolves.toEqual({ some: 'thing' }).then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'UPDATE_BALANCE_SHEET_REQUEST',
@@ -42,7 +44,9 @@ describe('updateBalanceSheet', () => {
     }))
     const BalanceSheetActions = require('actions/balanceSheet')
     const thunk = BalanceSheetActions.updateBalanceSheet({}, {}, '2017-05-28', '2027-05-28')
-    const dispatch = jest.fn()
+    const dispatch = jest.fn(
+      action => action.task === 'CALCULATE_BALANCE_SHEET' ? { response: { some: 'thing' } } : undefined
+    )
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'UPDATE_BALANCE_SHEET_REQUEST',

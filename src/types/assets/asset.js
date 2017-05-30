@@ -3,7 +3,7 @@
 import moment from 'moment'
 
 import { DateFormat } from 'types/commonTypes'
-import type { Valuations, Valuation } from 'components/forms/ValuationsInput'
+import type { Valuations, Valuation } from 'types/valuations'
 
 export type Asset = {
   type: 'RealEstate',

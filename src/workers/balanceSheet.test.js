@@ -1,6 +1,6 @@
 /* global expect */
 
-import { balanceSheetOverTime } from 'types/balanceSheet'
+import { balanceSheetOverTime } from 'workers/balanceSheet'
 import { validAssetWithId1, validAssetWithId2 } from 'fixtures/asset'
 
 describe('balanceSheetOverTime', () => {

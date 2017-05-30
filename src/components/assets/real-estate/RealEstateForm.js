@@ -14,7 +14,7 @@ import { RealEstateDefaults } from 'types/assets/realEstate'
 import type { RealEstate } from 'types/assets/realEstate'
 import type { Address } from 'types/commonTypes'
 import type { AddressErrors } from 'components/forms/AddressField'
-import type { Valuations } from 'components/forms/ValuationsInput'
+import type { Valuations } from 'types/valuations'
 import type { FieldErrors } from 'utils/FormValidation'
 
 import 'styles/forms.css'

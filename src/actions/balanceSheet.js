@@ -1,7 +1,6 @@
 // @flow
 
 import { putObject, getObject } from 'db/db'
-import { balanceSheetOverTime } from 'types/balanceSheet'
 import type { BalanceSheetOverTime } from 'types/balanceSheet'
 import type { AssetMap } from 'types/assets/asset'
 import type { LiabilityMap } from 'types/liabilities/liability'
@@ -9,6 +8,14 @@ import type { Thunk } from 'types/commonTypes'
 
 const objectStore = 'BalanceSheet'
 const theOneAndOnlyKey = 'BalanceSheet'
+
+type CalculateBalanceSheetTask = {
+  task: 'CALCULATE_BALANCE_SHEET',
+  assets: AssetMap,
+  liabilities: LiabilityMap,
+  startDate: string,
+  endDate: string,
+}
 
 type LoadBalanceSheetRequestAction = {
   type: 'LOAD_BALANCE_SHEET_REQUEST'
@@ -50,6 +57,34 @@ export type BalanceSheetAction = LoadBalanceSheetRequestAction
                                | UpdateBalanceSheetFailureAction
                                | InvalidateBalanceSheetAction
 
+export const calculateBalanceSheet = (assets: AssetMap, liabilities: LiabilityMap, startDate: string, endDate: string): CalculateBalanceSheetTask => {
+  return {
+    task: 'CALCULATE_BALANCE_SHEET',
+    assets,
+    liabilities,
+    startDate,
+    endDate,
+  }
+}
+
+export const loadBalanceSheetRequest = (): LoadBalanceSheetRequestAction => {
+  return { type: 'LOAD_BALANCE_SHEET_REQUEST' }
+}
+
+export const loadBalanceSheetSuccess = (balanceSheet: BalanceSheetOverTime): LoadBalanceSheetSuccessAction => {
+  return {
+    type: 'LOAD_BALANCE_SHEET_SUCCESS',
+    balanceSheet,
+  }
+}
+
+export const loadBalanceSheetFailure = (error: string|null): LoadBalanceSheetFailureAction => {
+  return {
+    type: 'LOAD_BALANCE_SHEET_FAILURE',
+    error,
+  }
+}
+
 export const updateBalanceSheetRequest = (assets: AssetMap, liabilities: LiabilityMap, startDate: string, endDate: string): UpdateBalanceSheetRequestAction => {
   return {
     type: 'UPDATE_BALANCE_SHEET_REQUEST',
@@ -74,24 +109,6 @@ export const updateBalanceSheetFailure = (error: string|null): UpdateBalanceShee
   }
 }
 
-export const loadBalanceSheetRequest = (): LoadBalanceSheetRequestAction => {
-  return { type: 'LOAD_BALANCE_SHEET_REQUEST' }
-}
-
-export const loadBalanceSheetSuccess = (balanceSheet: BalanceSheetOverTime): LoadBalanceSheetSuccessAction => {
-  return {
-    type: 'LOAD_BALANCE_SHEET_SUCCESS',
-    balanceSheet,
-  }
-}
-
-export const loadBalanceSheetFailure = (error: string|null): LoadBalanceSheetFailureAction => {
-  return {
-    type: 'LOAD_BALANCE_SHEET_FAILURE',
-    error,
-  }
-}
-
 export const invalidateBalanceSheet = (): InvalidateBalanceSheetAction => {
   return { type: 'INVALIDATE_BALANCE_SHEET' }
 }
@@ -102,8 +119,8 @@ export const updateBalanceSheet = (assets: AssetMap, liabilities: LiabilityMap,
     dispatch(updateBalanceSheetRequest(assets, liabilities, startDate, endDate))
     return new Promise(async (resolve, reject) => {
       try {
-        const balanceSheet = await balanceSheetOverTime(assets, liabilities, startDate, endDate)
-        const saved = await putObject(objectStore, balanceSheet, theOneAndOnlyKey)
+        const result = await dispatch(calculateBalanceSheet(assets, liabilities, startDate, endDate))
+        const saved = await putObject(objectStore, result.response, theOneAndOnlyKey)
         dispatch(updateBalanceSheetSuccess(saved))
         resolve(saved)
       } catch (error) {

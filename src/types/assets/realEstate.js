@@ -3,7 +3,7 @@
 import { AddressDefaults } from 'types/commonTypes'
 import type { Address } from 'types/commonTypes'
 import type { Asset } from 'types/assets/asset'
-import type { Valuations } from 'components/forms/ValuationsInput'
+import type { Valuations } from 'types/valuations'
 
 export type RealEstate = {
   name: string,
