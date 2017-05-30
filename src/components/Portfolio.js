@@ -1,11 +1,14 @@
 // @flow
 
 import React from 'react'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 
 import { loadBalanceSheet, updateBalanceSheet } from 'actions/balanceSheet'
+import { DateFormat } from 'types/commonTypes'
 import type { GlobalState } from 'store'
 import type { AssetState } from 'reducers/assets'
 import type { BalanceSheetState } from 'reducers/balanceSheet'
@@ -30,11 +33,24 @@ class Portfolio extends React.Component {
     } else if (this.props.balanceSheet.status === 'uninitialised') {
       this.props.dispatch(loadBalanceSheet())
     }
+    this.state = { date: '2018-05-28' }
   }
+
   render() {
+    const date = moment(this.state.date)
+    const balanceSheet = typeof this.props.balanceSheet.balanceSheet === 'object'
+      ? this.props.balanceSheet.balanceSheet[this.state.date]
+      : undefined
+
+    console.log('this.props.balanceSheet.balanceSheet', this.props.balanceSheet.balanceSheet)
+    console.log('balanceSheet', balanceSheet)
     return (
       <div className='portfolio'>
-        <Link to='/portfolio/assets'>Assets</Link>
+        <DatePicker showYearDropdown dateFormat={DateFormat} selected={date} onChange={moment => this.setState({ date: moment.format(DateFormat) })} />
+        <div className='assets'>
+          <Link to='/portfolio/assets'>Assets</Link>
+          <span className='assets-total'>{balanceSheet ? balanceSheet.totalAssets : '?'}</span>
+        </div>
       </div>
     )
   }

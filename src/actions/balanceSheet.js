@@ -119,7 +119,7 @@ export const updateBalanceSheet = (assets: AssetMap, liabilities: LiabilityMap,
     dispatch(updateBalanceSheetRequest(assets, liabilities, startDate, endDate))
     return new Promise(async (resolve, reject) => {
       try {
-        const worker = new Worker('/static/js/worker.js')
+        const worker = new Worker('/static/js/worker.js', { name: 'Balance Sheet Worker' })
         worker.onmessage = async event => {
           console.log('Balance sheet calc returned:', event.data)
           // flow-ignore
