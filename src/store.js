@@ -1,9 +1,8 @@
 // @flow
 
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import logger from 'redux-logger'
-import { applyWorker } from 'redux-worker'
+import { createLogger } from 'redux-logger'
 import type { Store } from 'redux'
 
 import combinedReducer from 'reducers/combined'
@@ -19,10 +18,8 @@ export type GlobalState = {
 
 export type ObjectStoreStatus = 'uninitialised'|'loading'|'loaded'|'error'
 
-const enhancer = compose(
-  applyMiddleware(thunk, logger),
-  applyWorker(new Worker('/static/js/worker.js'))
-)
+const logger = createLogger({ timestamp: false })
+const enhancer = applyMiddleware(thunk, logger)
 
 const configureStore = (initialState: GlobalState): Store => {
   return createStore(combinedReducer, initialState, enhancer)

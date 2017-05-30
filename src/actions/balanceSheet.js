@@ -119,10 +119,15 @@ export const updateBalanceSheet = (assets: AssetMap, liabilities: LiabilityMap,
     dispatch(updateBalanceSheetRequest(assets, liabilities, startDate, endDate))
     return new Promise(async (resolve, reject) => {
       try {
-        const result = await dispatch(calculateBalanceSheet(assets, liabilities, startDate, endDate))
-        const saved = await putObject(objectStore, result.response, theOneAndOnlyKey)
-        dispatch(updateBalanceSheetSuccess(saved))
-        resolve(saved)
+        const worker = new Worker('/static/js/worker.js')
+        worker.onmessage = async event => {
+          console.log('Balance sheet calc returned:', event.data)
+          // flow-ignore
+          const saved = await putObject(objectStore, event.data, theOneAndOnlyKey)
+          dispatch(updateBalanceSheetSuccess(saved))
+          resolve(saved)
+        }
+        worker.postMessage([ assets, liabilities, startDate, endDate ])
       } catch (error) {
         dispatch(updateBalanceSheetFailure(error))
         reject(error)

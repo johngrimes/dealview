@@ -1,6 +1,6 @@
 /* global expect */
 
-import { balanceSheetOverTime } from 'workers/balanceSheet'
+import { balanceSheetOverTime } from 'types/balanceSheet'
 import { validAssetWithId1, validAssetWithId2 } from 'fixtures/asset'
 
 describe('balanceSheetOverTime', () => {
@@ -11,6 +11,7 @@ describe('balanceSheetOverTime', () => {
   const liabilities = {}
 
   it('should return correct results', () => {
+    window.onmessage = () => {}
     const result = balanceSheetOverTime(assets, liabilities, '2014-01-01', '2017-01-01')
     expect(result).toMatchSnapshot()
   })
