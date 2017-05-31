@@ -9,6 +9,7 @@ import type { Dispatch } from 'redux'
 
 import { loadBalanceSheet, updateBalanceSheet } from 'actions/balanceSheet'
 import { DateFormat, formatDollars } from 'types/commonTypes'
+import DateSlider from 'components/DateSlider/DateSlider'
 import type { GlobalState } from 'store'
 import type { AssetState } from 'reducers/assets'
 import type { BalanceSheetState } from 'reducers/balanceSheet'
@@ -41,11 +42,15 @@ class Portfolio extends React.Component {
     const balanceSheet = typeof this.props.balanceSheet.balanceSheet === 'object'
       ? this.props.balanceSheet.balanceSheet[this.state.date]
       : undefined
+    const dates = typeof this.props.balanceSheet.balanceSheet === 'object'
+      ? Object.keys(this.props.balanceSheet.balanceSheet)
+      : []
 
     console.log('this.props.balanceSheet.balanceSheet', this.props.balanceSheet.balanceSheet)
     console.log('balanceSheet', balanceSheet)
     return (
       <div className='portfolio'>
+        <DateSlider dates={dates} />
         <DatePicker showYearDropdown dateFormat={DateFormat} selected={date} onChange={moment => this.setState({ date: moment.format(DateFormat) })} />
         <div className='assets'>
           <Link to='/portfolio/assets'>Assets</Link>
