@@ -17,12 +17,12 @@ type Props = {
   forceErrorDisplay?: boolean,
   focus?: string,
   onChange?: (value: string) => void,
-  onFocus?: (fieldName: string) => void
+  onFocus?: (fieldName: string) => void,
 }
 
 type State = {
   value?: string,
-  touched: boolean
+  touched: boolean,
 }
 
 class InputField extends React.Component {

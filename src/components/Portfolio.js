@@ -26,6 +26,7 @@ type State = {
 class Portfolio extends React.Component {
   props: Props
   state: State
+  handleDateChange: (date: string) => void
 
   constructor(props: Props) {
     super(props)
@@ -35,6 +36,12 @@ class Portfolio extends React.Component {
       this.props.dispatch(loadBalanceSheet())
     }
     this.state = { date: '2018-05-28' }
+
+    this.handleDateChange = this.handleDateChange.bind(this)
+  }
+
+  handleDateChange(date: string): void {
+    this.setState(() => ({ date }))
   }
 
   render() {
@@ -46,11 +53,9 @@ class Portfolio extends React.Component {
       ? Object.keys(this.props.balanceSheet.balanceSheet)
       : []
 
-    console.log('this.props.balanceSheet.balanceSheet', this.props.balanceSheet.balanceSheet)
-    console.log('balanceSheet', balanceSheet)
     return (
       <div className='portfolio'>
-        <DateSlider dates={dates} />
+        <DateSlider dates={dates} onChange={this.handleDateChange} />
         <DatePicker showYearDropdown dateFormat={DateFormat} selected={date} onChange={moment => this.setState({ date: moment.format(DateFormat) })} />
         <div className='assets'>
           <Link to='/portfolio/assets'>Assets</Link>
