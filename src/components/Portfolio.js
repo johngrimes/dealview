@@ -61,6 +61,14 @@ class Portfolio extends React.Component {
           <Link to='/portfolio/assets'>Assets</Link>
           <span className='assets-total'>{balanceSheet ? formatDollars(balanceSheet.totalAssets) : '?'}</span>
         </div>
+        <div className='liabilities'>
+          <Link to='/portfolio/liabilities'>Liabilities</Link>
+          <span className='assets-total'>{balanceSheet ? formatDollars(balanceSheet.totalLiabilities) : '?'}</span>
+        </div>
+        <div className='equity'>
+          <span>Equity</span>
+          <span className='equity-total'>{balanceSheet ? formatDollars(balanceSheet.equity) : '?'}</span>
+        </div>
       </div>
     )
   }
