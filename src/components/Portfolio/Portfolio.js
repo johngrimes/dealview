@@ -7,12 +7,16 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 
+import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import { loadBalanceSheet, updateBalanceSheet } from 'actions/balanceSheet'
 import { DateFormat, formatDollars } from 'types/commonTypes'
 import DateSlider from 'components/DateSlider/DateSlider'
 import type { GlobalState } from 'store'
 import type { AssetState } from 'reducers/assets'
 import type { BalanceSheetState } from 'reducers/balanceSheet'
+import type { BreadcrumbTrail } from 'components/Breadcrumbs/Breadcrumbs'
+
+import 'components/Portfolio/Portfolio.css'
 
 type Props = {
   assets: AssetState,
@@ -40,6 +44,12 @@ class Portfolio extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this)
   }
 
+  breadcrumbs(): BreadcrumbTrail {
+    return [
+      { display: 'Portfolio', path: '/portfolio' },
+    ]
+  }
+
   handleDateChange(date: string): void {
     this.setState(() => ({ date }))
   }
@@ -55,7 +65,11 @@ class Portfolio extends React.Component {
 
     return (
       <div className='portfolio'>
-        <DateSlider dates={dates} onChange={this.handleDateChange} />
+        <Breadcrumbs breadcrumbs={this.breadcrumbs()} />
+        <div className='slider-container'>
+
+          <DateSlider dates={dates} className='date-slider' onChange={this.handleDateChange} />
+        </div>
         <DatePicker showYearDropdown dateFormat={DateFormat} selected={date} onChange={moment => this.setState({ date: moment.format(DateFormat) })} />
         <div className='assets'>
           <Link to='/portfolio/assets'>Assets</Link>

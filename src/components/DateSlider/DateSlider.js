@@ -7,6 +7,7 @@ import 'components/DateSlider/DateSlider.css'
 
 type Props = {
   dates: string[],
+  className?: string,
   onChange?: (value: string) => void,
 }
 type State = {
@@ -39,9 +40,10 @@ class DateSlider extends React.Component {
   }
 
   render() {
+    const { dates, className } = this.props
     return (
-      <input className='slider' type='range'
-        min='0' max={this.props.dates.length - 1} defaultValue={0}
+      <input className={className ? `slider ${className}` : className}
+        type='range' min='0' max={dates.length - 1} defaultValue={0}
         onChange={this.handleChange} />
     )
   }

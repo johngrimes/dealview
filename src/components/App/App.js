@@ -3,7 +3,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, NavLink, Link } from 'react-router-dom'
 
-import Portfolio from 'components/Portfolio'
+import Portfolio from 'components/Portfolio/Portfolio'
 import ListAssets from 'components/assets/ListAssets'
 import CreateRealEstate from 'components/assets/real-estate/CreateRealEstate'
 import EditRealEstate from 'components/assets/real-estate/EditRealEstate'

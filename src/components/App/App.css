@@ -2,6 +2,11 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+header, .main {
+  min-width: 900px;
+  max-width: 1600px;
+}
+
 .primary-menu {
 	background-color: #666;
 }
