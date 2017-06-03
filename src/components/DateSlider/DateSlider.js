@@ -41,14 +41,16 @@ class DateSlider extends React.Component {
 
   render() {
     const { dates, className } = this.props
-    console.log(dates)
+    const { selected } = this.state
     return (
       <div>
         <div className='date-tag start-date'>{dates[0]}</div>
         <div className='date-tag end-date'>{dates[dates.length - 1]}</div>
         <ReactSlider className={className ? `slider ${className}` : className}
           min={0} max={dates.length - 1} defaultValue={0}
-          onChange={this.handleChange} />
+          onChange={this.handleChange}>
+          <div className='date-tag selected-date'>{selected}</div>
+        </ReactSlider>
       </div>
     )
   }

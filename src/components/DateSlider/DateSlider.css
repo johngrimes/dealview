@@ -42,3 +42,11 @@
   float: right;
   left: 36px;
 }
+
+.selected-date {
+  background: transparent url('./date-tag-sel.svg') no-repeat top left;
+  line-height: 28px;
+  position: relative;
+  left: -28px;
+  top: 21px;
+}
