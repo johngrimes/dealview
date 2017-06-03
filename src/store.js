@@ -11,9 +11,9 @@ import type { RealEstateState } from 'reducers/realEstate'
 import type { BalanceSheetState } from 'reducers/balanceSheet'
 
 export type GlobalState = {
-  assets: AssetState,
-  realEstate: RealEstateState,
-  balanceSheet: BalanceSheetState
+  +assets: AssetState,
+  +realEstate: RealEstateState,
+  +balanceSheet: BalanceSheetState
 }
 
 export type ObjectStoreStatus = 'uninitialised'|'loading'|'loaded'|'error'

@@ -6,17 +6,17 @@ import type { Asset } from 'types/assets/asset'
 import type { Valuations } from 'types/valuations'
 
 export type RealEstate = {
-  name: string,
-  address: Address,
-  notes: string,
-  purchaseDate: string,
-  saleDate?: string,
-  valuations: Valuations
+  +name: string,
+  +address: Address,
+  +notes: string,
+  +purchaseDate: string,
+  +saleDate?: string,
+  +valuations: Valuations
 }
 
-export type RealEstateWithId = RealEstate & { id: string }
+export type RealEstateWithId = RealEstate & { +id: string }
 
-export type RealEstateMap = { [id: string]: RealEstate }
+export type RealEstateMap = { +[id: string]: RealEstate }
 
 export const RealEstateDefaults = {
   name: '',

@@ -7,7 +7,7 @@ describe('loadBalanceSheet', () => {
 
   it('should dispatch correct actions on success', () => {
     jest.mock('../db/db', () => ({
-      getObject: () => new Promise(resolve => resolve({ some: 'thing' })),
+      getObject: () => new Promise(resolve => resolve({ some: 'thing', id: 'blah' })),
     }))
     const BalanceSheetActions = require('actions/balanceSheet')
     const thunk = BalanceSheetActions.loadBalanceSheet()

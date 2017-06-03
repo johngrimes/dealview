@@ -2,15 +2,15 @@
 
 import moment from 'moment'
 
-import { DateFormat } from 'types/commonTypes'
+import { DateStorageFormat } from 'types/commonTypes'
 
 export type Valuation = {
-  date?: string,
-  amount?: number,
-  note?: string
+  +date?: string,
+  +amount?: number,
+  +note?: string
 }
 export const ValuationDefault = {
-  date: moment().format(DateFormat),
+  date: moment().format(DateStorageFormat),
   note: '',
 }
 export type Valuations = Valuation[]

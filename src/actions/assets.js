@@ -8,41 +8,41 @@ import type { Thunk } from 'types/commonTypes'
 const objectStore = 'Asset'
 
 type PutAssetRequestAction = {
-  type: 'PUT_ASSET_REQUEST',
-  asset: Asset,
+  +type: 'PUT_ASSET_REQUEST',
+  +asset: Asset,
 }
 type PutAssetSuccessAction = {
-  type: 'PUT_ASSET_SUCCESS',
-  asset: AssetWithId
+  +type: 'PUT_ASSET_SUCCESS',
+  +asset: AssetWithId
 }
 type PutAssetFailureAction = {
-  type: 'PUT_ASSET_FAILURE',
-  error: string|null
+  +type: 'PUT_ASSET_FAILURE',
+  +error: string|null
 }
 
 type DeleteAssetRequestAction = {
-  type: 'DELETE_ASSET_REQUEST',
-  id: string,
+  +type: 'DELETE_ASSET_REQUEST',
+  +id: string,
 }
 type DeleteAssetSuccessAction = {
-  type: 'DELETE_ASSET_SUCCESS',
-  id: string
+  +type: 'DELETE_ASSET_SUCCESS',
+  +id: string
 }
 type DeleteAssetFailureAction = {
-  type: 'DELETE_ASSET_FAILURE',
-  error: string|null
+  +type: 'DELETE_ASSET_FAILURE',
+  +error: string|null
 }
 
 type LoadAssetsRequestAction = {
-  type: 'LOAD_ASSETS_REQUEST'
+  +type: 'LOAD_ASSETS_REQUEST'
 }
 type LoadAssetsSuccessAction = {
-  type: 'LOAD_ASSETS_SUCCESS',
-  assets: AssetMap
+  +type: 'LOAD_ASSETS_SUCCESS',
+  +assets: AssetMap
 }
 type LoadAssetsFailureAction = {
-  type: 'LOAD_ASSETS_FAILURE',
-  error: string|null
+  +type: 'LOAD_ASSETS_FAILURE',
+  +error: string|null
 }
 
 export type AssetAction = PutAssetRequestAction

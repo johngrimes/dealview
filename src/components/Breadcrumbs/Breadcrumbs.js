@@ -7,13 +7,13 @@ import _ from 'lodash'
 import 'components/Breadcrumbs/Breadcrumbs.css'
 
 type Breadcrumb = {
-  display: string,
-  path: string
+  +display: string,
+  +path: string
 }
-export type BreadcrumbTrail = Array<Breadcrumb>
+export type BreadcrumbTrail = Breadcrumb[]
 
 type Props = {
-  breadcrumbs: BreadcrumbTrail
+  +breadcrumbs: BreadcrumbTrail
 }
 
 class Breadcrumbs extends React.Component {

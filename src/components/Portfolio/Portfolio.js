@@ -5,11 +5,10 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import type { Dispatch } from 'redux'
 
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import { loadBalanceSheet, updateBalanceSheet } from 'actions/balanceSheet'
-import { DateFormat, formatDollars } from 'types/commonTypes'
+import { DateDisplayFormat, DateStorageFormat, formatDollars } from 'types/commonTypes'
 import DateSlider from 'components/DateSlider/DateSlider'
 import type { GlobalState } from 'store'
 import type { AssetState } from 'reducers/assets'
@@ -19,12 +18,12 @@ import type { BreadcrumbTrail } from 'components/Breadcrumbs/Breadcrumbs'
 import 'components/Portfolio/Portfolio.css'
 
 type Props = {
-  assets: AssetState,
-  balanceSheet: BalanceSheetState,
-  dispatch: Dispatch
+  +assets: AssetState,
+  +balanceSheet: BalanceSheetState,
+  +dispatch: any
 }
 type State = {
-  date: string,
+  +date: string,
 }
 
 class Portfolio extends React.Component {
@@ -70,7 +69,7 @@ class Portfolio extends React.Component {
 
           <DateSlider dates={dates} className='date-slider' onChange={this.handleDateChange} />
         </div>
-        <DatePicker showYearDropdown dateFormat={DateFormat} selected={date} onChange={moment => this.setState({ date: moment.format(DateFormat) })} />
+        <DatePicker showYearDropdown dateFormat={DateDisplayFormat} selected={date} onChange={moment => this.setState(() => ({ date: moment.format(DateStorageFormat) }))} />
         <div className='assets'>
           <Link to='/portfolio/assets'>Assets</Link>
           <span className='assets-total'>{balanceSheet ? formatDollars(balanceSheet.totalAssets) : '?'}</span>

@@ -8,9 +8,9 @@ import type { RealEstateAction } from 'actions/realEstate'
 import type { ObjectStoreStatus } from 'store'
 
 export type RealEstateState = {
-  status: ObjectStoreStatus,
-  error?: string,
-  objects: RealEstateMap
+  +status: ObjectStoreStatus,
+  +error?: string,
+  +objects: RealEstateMap
 }
 export const InitialRealEstateState: RealEstateState = {
   status: 'uninitialised',

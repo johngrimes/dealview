@@ -1,24 +1,24 @@
 // @flow
 
 import React from 'react'
-// import ReactSlider from 'react-slider'
+import ReactSlider from 'react-slider'
 
 import 'components/DateSlider/DateSlider.css'
 
 type Props = {
-  dates: string[],
-  className?: string,
-  onChange?: (value: string) => void,
+  +dates: string[],
+  +className?: string,
+  +onChange?: (value: string) => void,
 }
 type State = {
-  selected: string,
-  selectedIndex: number,
+  +selected: string,
+  +selectedIndex: number,
 }
 
 class DateSlider extends React.Component {
   props: Props
   state: State
-  handleChange: (event: { target: { value: string } }) => void
+  handleChange: (value: string) => void
 
   constructor(props: Props) {
     super(props)
@@ -30,8 +30,8 @@ class DateSlider extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(event: { target: { value: string } }): void {
-    const selectedIndex = parseInt(event.target.value)
+  handleChange(value: string): void {
+    const selectedIndex = parseInt(value)
     const selected = this.props.dates[selectedIndex]
     this.setState(
       () => ({ selectedIndex, selected }),
@@ -41,10 +41,15 @@ class DateSlider extends React.Component {
 
   render() {
     const { dates, className } = this.props
+    console.log(dates)
     return (
-      <input className={className ? `slider ${className}` : className}
-        type='range' min='0' max={dates.length - 1} defaultValue={0}
-        onChange={this.handleChange} />
+      <div>
+        <div className='date-tag start-date'>{dates[0]}</div>
+        <div className='date-tag end-date'>{dates[dates.length - 1]}</div>
+        <ReactSlider className={className ? `slider ${className}` : className}
+          min={0} max={dates.length - 1} defaultValue={0}
+          onChange={this.handleChange} />
+      </div>
     )
   }
 }

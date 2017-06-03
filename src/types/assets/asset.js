@@ -1,28 +1,29 @@
 // @flow
 
 import moment from 'moment'
+import type { Moment } from 'moment'
 
-import { DateFormat } from 'types/commonTypes'
+import { DateStorageFormat } from 'types/commonTypes'
 import type { Valuations, Valuation } from 'types/valuations'
 
 export type Asset = {
-  type: 'RealEstate',
-  name: string,
-  startDate: string,
-  endDate?: string,
-  valuations: Valuations
+  +type: 'RealEstate',
+  +name: string,
+  +startDate: string,
+  +endDate?: string,
+  +valuations: Valuations
 }
 
-export type AssetWithId = Asset & { id: string }
+export type AssetWithId = Asset & { +id: string }
 
-export type AssetMap = { [id: string]: AssetWithId }
+export type AssetMap = { +[id: string]: AssetWithId }
 
 export const getValuationAtDate = (asset: { startDate: string, endDate?: string, valuations: Valuations },
-                                   date: string): number => {
-  const queryDate = moment(date)
-  const startDate = moment(asset.startDate)
+                                   date: Moment): number => {
+  const queryDate = date
+  const startDate = moment(asset.startDate, DateStorageFormat)
   const endDate = typeof asset.endDate === 'string'
-    ? moment(asset.endDate)
+    ? moment(asset.endDate, DateStorageFormat)
     : undefined
   if (typeof asset.valuations === 'undefined' ||
       asset.valuations.length === 0 ||
@@ -32,7 +33,7 @@ export const getValuationAtDate = (asset: { startDate: string, endDate?: string,
   }
   const sortedValuations = asset.valuations.slice().sort(compareValuationsByDate)
   const idxFuture = sortedValuations.findIndex(v => {
-    return moment(v.date, DateFormat).valueOf() > queryDate.valueOf()
+    return moment(v.date, DateStorageFormat).valueOf() > queryDate.valueOf()
   })
   const slicedValuations = idxFuture === -1
     ? sortedValuations
@@ -44,6 +45,6 @@ export const getValuationAtDate = (asset: { startDate: string, endDate?: string,
 }
 
 const compareValuationsByDate = (a: Valuation, b: Valuation): number => {
-  const [ milliA, milliB ] = [ a, b ].map(v => { return v.date ? moment(v.date).valueOf() : 0 })
+  const [ milliA, milliB ] = [ a, b ].map(v => { return v.date ? moment(v.date, DateStorageFormat).valueOf() : 0 })
   return milliA - milliB
 }

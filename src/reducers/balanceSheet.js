@@ -6,10 +6,10 @@ import type { BalanceSheetOverTime } from 'types/balanceSheet'
 import type { BalanceSheetAction } from 'actions/balanceSheet'
 
 export type BalanceSheetState = {
-  status: 'uninitialised'|'loading'|'loaded'|'error',
-  fresh: boolean,
-  error?: string,
-  balanceSheet: BalanceSheetOverTime
+  +status: 'uninitialised'|'loading'|'loaded'|'error',
+  +fresh: boolean,
+  +error?: string,
+  +balanceSheet: BalanceSheetOverTime
 }
 export const InitialBalanceSheetState: BalanceSheetState = {
   status: 'uninitialised',

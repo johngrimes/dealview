@@ -5,24 +5,24 @@ import React from 'react'
 import type { FieldErrors } from 'utils/FormValidation'
 
 type Props = {
-  name: string,
-  type: 'hidden'|'text'|'search'|'tel'|'url'|'email'|
-        'password'|'date'|'month'|'week'|'time'|'datetime-local'|
-        'number'|'range'|'color'|'checkbox'|'radio'|'file'|
-        'submit'|'image'|'reset'|'button',
-  value?: string,
-  label?: string,
-  placeholder?: string,
-  errors?: FieldErrors,
-  forceErrorDisplay?: boolean,
-  focus?: string,
-  onChange?: (value: string) => void,
-  onFocus?: (fieldName: string) => void,
+  +name: string,
+  +type: 'hidden'|'text'|'search'|'tel'|'url'|'email'|
+         'password'|'date'|'month'|'week'|'time'|'datetime-local'|
+         'number'|'range'|'color'|'checkbox'|'radio'|'file'|
+         'submit'|'image'|'reset'|'button',
+  +value?: string,
+  +label?: string,
+  +placeholder?: string,
+  +errors?: FieldErrors,
+  +forceErrorDisplay?: boolean,
+  +focus?: string,
+  +onChange?: (value: string) => void,
+  +onFocus?: (fieldName: string) => void,
 }
 
 type State = {
-  value?: string,
-  touched: boolean,
+  +value?: string,
+  +touched: boolean,
 }
 
 class InputField extends React.Component {

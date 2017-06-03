@@ -4,24 +4,22 @@ import _ from 'lodash'
 import moment from 'moment'
 import type { Moment } from 'moment'
 
-import { DateFormat } from 'types/commonTypes'
+import { DateStorageFormat } from 'types/commonTypes'
 import { getValuationAtDate } from 'types/assets/asset'
 import type { Asset, AssetMap } from 'types/assets/asset'
 import type { LiabilityMap } from 'types/liabilities/liability'
 
 export type BalanceSheet = {
-  totalAssets: number,
-  totalLiabilities: number,
-  equity: number
+  +totalAssets: number,
+  +totalLiabilities: number,
+  +equity: number
 }
-export type BalanceSheetOverTime = { [date: string]: BalanceSheet }
+export type BalanceSheetOverTime = { +[date: string]: BalanceSheet }
 
 export const balanceSheetOverTime = (assets: AssetMap, liabilities: LiabilityMap,
-                              startDate: string, endDate: string): BalanceSheetOverTime => {
-  const startDay = moment(startDate, DateFormat)
-  const endDay = moment(endDate, DateFormat)
+                              startDate: Moment, endDate: Moment): BalanceSheetOverTime => {
   // The Array.from is a workaround for https://github.com/facebook/flow/issues/1059, and can be removed once this is resolved.
-  return Object.assign({}, ...Array.from(calcBalanceSheet(assets, liabilities, startDay, endDay)))
+  return Object.assign({}, ...Array.from(calcBalanceSheet(assets, liabilities, startDate, endDate)))
 }
 
 function* calcBalanceSheet(assets: AssetMap, liabilities: LiabilityMap,
@@ -31,7 +29,7 @@ function* calcBalanceSheet(assets: AssetMap, liabilities: LiabilityMap,
     const totalAssets = sumAssetValueAtDate(_.values(assets), nextDate)
     const totalLiabilities = 0  // sumLiabilityValueAtDate(liabilities, date)
     yield {
-      [nextDate.format(DateFormat)]: {
+      [nextDate.format(DateStorageFormat)]: {
         totalAssets,
         totalLiabilities,
         equity: (totalAssets - totalLiabilities),
@@ -41,7 +39,7 @@ function* calcBalanceSheet(assets: AssetMap, liabilities: LiabilityMap,
   }
 }
 
-const sumAssetValueAtDate = (assets: Asset[], date: string): number => {
+const sumAssetValueAtDate = (assets: Asset[], date: Moment): number => {
   if (assets.length === 0) return 0
   const { head, tail } = { head: _.head(assets), tail: _.tail(assets) }
   return getValuationAtDate(head, date) + sumAssetValueAtDate(tail, date)

@@ -7,9 +7,9 @@ import type { AssetMap } from 'types/assets/asset'
 import type { AssetAction } from 'actions/assets'
 
 export type AssetState = {
-  status: 'uninitialised'|'loading'|'loaded'|'error',
-  error?: string,
-  objects: AssetMap
+  +status: 'uninitialised'|'loading'|'loaded'|'error',
+  +error?: string,
+  +objects: AssetMap
 }
 export const InitialAssetState: AssetState = {
   status: 'uninitialised',

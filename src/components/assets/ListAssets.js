@@ -5,20 +5,19 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-import type { Dispatch } from 'redux'
 
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import { loadAssets } from 'actions/assets'
 import { getValuationAtDate } from 'types/assets/asset'
-import { DateFormat, formatDollars } from 'types/commonTypes'
+import { formatDollars } from 'types/commonTypes'
 import type { GlobalState } from 'store'
 import type { AssetState } from 'reducers/assets'
 import type { BreadcrumbTrail } from 'components/Breadcrumbs/Breadcrumbs'
 
 type Props = {
-  assets: AssetState,
-  breadcrumbs: BreadcrumbTrail,
-  dispatch: Dispatch
+  +assets: AssetState,
+  +breadcrumbs: BreadcrumbTrail,
+  +dispatch: any
 }
 
 export class ListAssets extends React.Component {
@@ -46,7 +45,7 @@ export class ListAssets extends React.Component {
 
   render() {
     const assets = _.map(this.props.assets.objects, (v, k) => {
-      const lastValuation = getValuationAtDate(v, moment().format(DateFormat))
+      const lastValuation = getValuationAtDate(v, moment())
       const lastValuationTag = lastValuation === 0
         ? null
         : <div className='asset-last-valuation'>{formatDollars(lastValuation)}</div>

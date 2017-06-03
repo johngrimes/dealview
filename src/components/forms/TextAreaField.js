@@ -5,20 +5,20 @@ import React from 'react'
 import type { FieldErrors } from 'utils/FormValidation'
 
 type Props = {
-  name: string,
-  value?: string,
-  label?: string,
-  placeholder?: string,
-  errors?: FieldErrors,
-  forceErrorDisplay?: boolean,
-  focus?: string,
-  onChange?: (value: string) => void,
-  onFocus?: (fieldName: string) => void
+  +name: string,
+  +value?: string,
+  +label?: string,
+  +placeholder?: string,
+  +errors?: FieldErrors,
+  +forceErrorDisplay?: boolean,
+  +focus?: string,
+  +onChange?: (value: string) => void,
+  +onFocus?: (fieldName: string) => void
 }
 
 type State = {
-  value?: string,
-  touched: boolean
+  +value?: string,
+  +touched: boolean
 }
 
 class TextAreaField extends React.Component {

@@ -4,22 +4,23 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
-import { DateFormat } from 'types/commonTypes'
+import { DateDisplayFormat, DateStorageFormat } from 'types/commonTypes'
+import { ValuationDefault } from 'types/valuations'
 import type { Valuations } from 'types/valuations'
 
 import 'components/forms/ValuationsInput.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 type Props = {
-  name: string,
-  valuations?: Valuations,
-  focus?: string,
-  onChange?: (valuations: Valuations) => void,
-  onFocus?: (fieldName: string) => void
+  +name: string,
+  +valuations?: Valuations,
+  +focus?: string,
+  +onChange?: (valuations: Valuations) => void,
+  +onFocus?: (fieldName: string) => void
 }
 
 type State = {
-  valuations?: Valuations
+  +valuations?: Valuations
 }
 
 class ValuationsInput extends React.Component {
@@ -54,7 +55,7 @@ class ValuationsInput extends React.Component {
 
   handleAddValuation(): void {
     const updatedValuations = this.state.valuations || []
-    updatedValuations.push({ date: moment().format(DateFormat), note: '' })
+    updatedValuations.push(ValuationDefault)
     this.setState(
       () => ({ valuations: updatedValuations }),
       () => { if (this.props.onChange) this.props.onChange(updatedValuations) }
@@ -88,11 +89,11 @@ class ValuationsInput extends React.Component {
       : this.state.valuations.map((v, i) => {
         return <tr key={i}>
           <td className='valuations-date'>
-            <DatePicker name={`valuations-date-${i}`} dateFormat={DateFormat}
-              selected={moment(v.date, DateFormat)}
+            <DatePicker name={`valuations-date-${i}`} dateFormat={DateDisplayFormat}
+              selected={moment(v.date, DateStorageFormat)}
               showYearDropdown
               autoFocus={this.props.focus === `valuations-date-${i}`}
-              onChange={(moment) => this.handleChange(i, 'date', moment.format(DateFormat))}
+              onChange={(moment) => this.handleChange(i, 'date', moment.format(DateStorageFormat))}
               onFocus={this.handleFocus} />
           </td>
           <td className='valuations-amount'>

@@ -3,8 +3,8 @@
 import React from 'react'
 
 type Props = {
-  name: string,
-  value?: string
+  +name: string,
+  +value?: string
 }
 
 class HiddenField extends React.Component {

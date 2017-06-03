@@ -7,7 +7,7 @@ import { shallow } from 'enzyme'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
-import DateFormat from 'types/commonTypes'
+import { DateStorageFormat } from 'types/commonTypes'
 
 describe('DateField', () => {
   it('should render', () => {
@@ -84,7 +84,7 @@ describe('DateField', () => {
       onChange: jest.fn(),
     }
     const wrapper = shallow(<DateField {...props} />)
-    wrapper.find(DatePicker).prop('onChange')(moment('2014-09-25', DateFormat))
+    wrapper.find(DatePicker).prop('onChange')(moment('2014-09-25', DateStorageFormat))
     expect(props.onChange).toHaveBeenCalledWith('2014-09-25')
   })
 

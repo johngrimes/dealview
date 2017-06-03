@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 type ValidatorFunction = (value: string) => boolean
 export type FieldErrors = string[]
-export type FormErrors = { [fieldName: string]: FieldErrors|FormErrors }
+export type FormErrors = { +[fieldName: string]: (FieldErrors|FormErrors) }
 
 //
 // Validates a set of fields, using a supplied validator function.

@@ -5,6 +5,7 @@ body {
 header, .main {
   min-width: 900px;
   max-width: 1600px;
+  box-sizing: border-box;
 }
 
 .primary-menu {

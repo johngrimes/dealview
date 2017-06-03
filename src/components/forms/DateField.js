@@ -4,25 +4,25 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
-import { DateFormat } from 'types/commonTypes'
+import { DateDisplayFormat, DateStorageFormat } from 'types/commonTypes'
 import type { FieldErrors } from 'utils/FormValidation'
 
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 type Props = {
-  name: string,
-  value?: string,
-  label?: string,
-  errors?: FieldErrors,
-  forceErrorDisplay?: boolean,
-  focus?: string,
-  onChange?: (value: string) => void,
-  onFocus?: (fieldName: string) => void
+  +name: string,
+  +value?: string,
+  +label?: string,
+  +errors?: FieldErrors,
+  +forceErrorDisplay?: boolean,
+  +focus?: string,
+  +onChange?: (value: string) => void,
+  +onFocus?: (fieldName: string) => void
 }
 
 type State = {
-  value?: string,
-  touched: boolean
+  +value?: string,
+  +touched: boolean
 }
 
 class DateField extends React.Component {
@@ -74,18 +74,18 @@ class DateField extends React.Component {
       ? 'with-errors'
       : ''
     const selected = (typeof value === 'string' && value.length > 0)
-      ? moment(value, DateFormat)
+      ? moment(value, DateStorageFormat)
       : undefined
 
     return (
       <div className='control-group'>
         {labelTag}
-        <DatePicker name={name} dateFormat={DateFormat}
+        <DatePicker name={name} dateFormat={DateDisplayFormat}
           className={inputClass}
           selected={selected} showYearDropdown
           autoFocus={this.props.focus === name}
           onFocus={this.handleFocus}
-          onChange={(moment) => this.handleChange(moment.format(DateFormat))} />
+          onChange={(moment) => this.handleChange(moment.format(DateStorageFormat))} />
         {(forceErrorDisplay || touched) && errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
       </div>
     )

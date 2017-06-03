@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import type { Dispatch } from 'redux'
 
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
@@ -21,7 +20,7 @@ type Props = {
     status: ObjectStoreStatus,
     object: RealEstate
   },
-  dispatch: Dispatch
+  dispatch: any
 }
 
 export class EditRealEstate extends React.Component {

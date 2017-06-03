@@ -33,7 +33,7 @@ exports[`ValuationsInput should render 1`] = `
         >
           <t
             autoFocus={false}
-            dateFormat="YYYY-MM-DD"
+            dateFormat="D MMM YYYY"
             dateFormatCalendar="MMMM YYYY"
             disabled={false}
             disabledKeyboardNavigation={false}
@@ -94,7 +94,7 @@ exports[`ValuationsInput should render 1`] = `
         >
           <t
             autoFocus={false}
-            dateFormat="YYYY-MM-DD"
+            dateFormat="D MMM YYYY"
             dateFormatCalendar="MMMM YYYY"
             disabled={false}
             disabledKeyboardNavigation={false}
@@ -155,7 +155,7 @@ exports[`ValuationsInput should render 1`] = `
         >
           <t
             autoFocus={false}
-            dateFormat="YYYY-MM-DD"
+            dateFormat="D MMM YYYY"
             dateFormatCalendar="MMMM YYYY"
             disabled={false}
             disabledKeyboardNavigation={false}

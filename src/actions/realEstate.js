@@ -9,41 +9,41 @@ import type { Thunk } from 'types/commonTypes'
 const objectStore = 'Asset.RealEstate'
 
 type PutRealEstateRequestAction = {
-  type: 'PUT_REAL_ESTATE_REQUEST',
-  realEstate: RealEstate,
+  +type: 'PUT_REAL_ESTATE_REQUEST',
+  +realEstate: RealEstate,
 }
 type PutRealEstateSuccessAction = {
-  type: 'PUT_REAL_ESTATE_SUCCESS',
-  realEstate: RealEstateWithId,
+  +type: 'PUT_REAL_ESTATE_SUCCESS',
+  +realEstate: RealEstateWithId,
 }
 type PutRealEstateFailureAction = {
-  type: 'PUT_REAL_ESTATE_FAILURE',
-  error: string|null,
+  +type: 'PUT_REAL_ESTATE_FAILURE',
+  +error: string|null,
 }
 
 type DeleteRealEstateRequestAction = {
-  type: 'DELETE_REAL_ESTATE_REQUEST',
-  id: string,
+  +type: 'DELETE_REAL_ESTATE_REQUEST',
+  +id: string,
 }
 type DeleteRealEstateSuccessAction = {
-  type: 'DELETE_REAL_ESTATE_SUCCESS',
-  id: string,
+  +type: 'DELETE_REAL_ESTATE_SUCCESS',
+  +id: string,
 }
 type DeleteRealEstateFailureAction = {
-  type: 'DELETE_REAL_ESTATE_FAILURE',
-  error: string|null,
+  +type: 'DELETE_REAL_ESTATE_FAILURE',
+  +error: string|null,
 }
 
 type LoadRealEstateRequestAction = {
-  type: 'LOAD_REAL_ESTATE_REQUEST'
+  +type: 'LOAD_REAL_ESTATE_REQUEST'
 }
 type LoadRealEstateSuccessAction = {
-  type: 'LOAD_REAL_ESTATE_SUCCESS',
-  realEstate: RealEstateMap,
+  +type: 'LOAD_REAL_ESTATE_SUCCESS',
+  +realEstate: RealEstateMap,
 }
 type LoadRealEstateFailureAction = {
-  type: 'LOAD_REAL_ESTATE_FAILURE',
-  error: string|null,
+  +type: 'LOAD_REAL_ESTATE_FAILURE',
+  +error: string|null,
 }
 
 export type RealEstateAction = PutRealEstateRequestAction

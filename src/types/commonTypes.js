@@ -7,12 +7,12 @@ export type Thunk = (dispatch: Dispatch) => any
 export type ObjectMap = { [id: string]: Object }
 
 export type Address = {
-  line1: string,
-  line2: string,
-  line3: string,
-  locality: string,
-  state: string,
-  postcode: string,
+  +line1: string,
+  +line2: string,
+  +line3: string,
+  +locality: string,
+  +state: string,
+  +postcode: string,
 }
 
 export const AddressDefaults = {
@@ -24,7 +24,8 @@ export const AddressDefaults = {
   postcode: '',
 }
 
-export const DateFormat = 'YYYY-MM-DD'
+export const DateDisplayFormat = 'D MMM YYYY'
+export const DateStorageFormat = 'YYYY-MM-DD'
 
 export const formatNumber = (number: number): string => {
   const numString = number.toString()

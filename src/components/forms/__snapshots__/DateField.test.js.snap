@@ -12,7 +12,7 @@ exports[`DateField should be tolerant of an empty value prop 1`] = `
   <t
     autoFocus={false}
     className=""
-    dateFormat="YYYY-MM-DD"
+    dateFormat="D MMM YYYY"
     dateFormatCalendar="MMMM YYYY"
     disabled={false}
     disabledKeyboardNavigation={false}
@@ -55,7 +55,7 @@ exports[`DateField should be tolerant of an undefined value prop 1`] = `
   <t
     autoFocus={false}
     className=""
-    dateFormat="YYYY-MM-DD"
+    dateFormat="D MMM YYYY"
     dateFormatCalendar="MMMM YYYY"
     disabled={false}
     disabledKeyboardNavigation={false}
@@ -98,7 +98,7 @@ exports[`DateField should display errors if touched 1`] = `
   <t
     autoFocus={false}
     className=""
-    dateFormat="YYYY-MM-DD"
+    dateFormat="D MMM YYYY"
     dateFormatCalendar="MMMM YYYY"
     disabled={false}
     disabledKeyboardNavigation={false}
@@ -142,7 +142,7 @@ exports[`DateField should render 1`] = `
   <t
     autoFocus={false}
     className=""
-    dateFormat="YYYY-MM-DD"
+    dateFormat="D MMM YYYY"
     dateFormatCalendar="MMMM YYYY"
     disabled={false}
     disabledKeyboardNavigation={false}

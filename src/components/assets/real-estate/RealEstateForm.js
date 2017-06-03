@@ -23,11 +23,11 @@ import 'styles/tables.css'
 import 'components/assets/real-estate/RealEstateForm.css'
 
 type RealEstateErrors = {
-  name: FieldErrors,
-  address: AddressErrors,
-  notes: FieldErrors,
-  purchaseDate: FieldErrors,
-  saleDate: FieldErrors
+  +name: FieldErrors,
+  +address: AddressErrors,
+  +notes: FieldErrors,
+  +purchaseDate: FieldErrors,
+  +saleDate: FieldErrors,
 }
 const RealEstateErrorsDefaults = {
   name: [],
@@ -115,7 +115,7 @@ class RealEstateForm extends React.Component {
       () => ({ errors: RealEstateForm.validate(this.state.realEstate) }),
       () => {
         const { errors, realEstate } = this.state
-        if (errors !== undefined && Validations.areErrorsPresent(errors)) {
+        if (typeof errors !== 'undefined' && Validations.areErrorsPresent(errors)) {
           const firstErrorFieldName = RealEstateForm.findFirstErrorFieldName(errors)
           firstErrorFieldName
             ? this.setState(() => ({ allErrorsShown: true, focusedInput: firstErrorFieldName }))
@@ -185,21 +185,20 @@ class RealEstateForm extends React.Component {
   }
 
   static validate(realEstate: RealEstate): RealEstateErrors {
-    const errors = RealEstateErrorsDefaults
-
-    errors.name = []
+    const name = []
       .concat(Validations.required(realEstate.name))
       .concat(Validations.minLength(realEstate.name, 3))
       .concat(Validations.maxLength(realEstate.name, 100))
-
-    errors.address = AddressField.validate(realEstate.address)
-
-    errors.notes = []
-
-    errors.purchaseDate = []
+    const address = AddressField.validate(realEstate.address)
+    const purchaseDate = []
       .concat(Validations.required(realEstate.purchaseDate))
 
-    return errors
+    return {
+      ...RealEstateErrorsDefaults,
+      name,
+      address,
+      purchaseDate,
+    }
   }
 
   static findFirstErrorFieldName(realEstateErrors: RealEstateErrors): string|null {

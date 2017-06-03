@@ -10,9 +10,9 @@ import type { FieldErrors } from 'utils/FormValidation'
 import 'components/forms/AddressField.css'
 
 export type AddressErrors = {
-  line1: FieldErrors,
-  line2: FieldErrors,
-  line3: FieldErrors
+  +line1: FieldErrors,
+  +line2: FieldErrors,
+  +line3: FieldErrors,
 }
 export const AddressErrorsDefaults = {
   line1: [],
@@ -31,18 +31,18 @@ const AddressLabels = {
 }
 
 type Props = {
-  name: string,
-  address?: Address,
-  errors?: AddressErrors,
-  forceErrorDisplay?: boolean,
-  focus?: string,
-  onChange?: (address: Address) => void,
-  onFocus?: (fieldName: string) => void
+  +name: string,
+  +address?: Address,
+  +errors?: AddressErrors,
+  +forceErrorDisplay?: boolean,
+  +focus?: string,
+  +onChange?: (address: Address) => void,
+  +onFocus?: (fieldName: string) => void,
 }
 
 type State = {
-  address?: Address,
-  touched: string[]
+  +address?: Address,
+  +touched: string[],
 }
 
 class AddressField extends React.Component {
