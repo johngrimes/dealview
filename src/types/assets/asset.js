@@ -4,7 +4,8 @@ import moment from 'moment'
 import type { Moment } from 'moment'
 
 import { DateStorageFormat } from 'types/commonTypes'
-import type { Valuations, Valuation } from 'types/valuations'
+import { compareValuationsByDate } from 'types/valuations'
+import type { Valuations } from 'types/valuations'
 
 export type Asset = {
   +type: 'RealEstate',
@@ -42,9 +43,4 @@ export const getValuationAtDate = (asset: { startDate: string, endDate?: string,
     ? 0
     : slicedValuations[slicedValuations.length - 1].amount
   return typeof amount === 'number' ? amount : 0
-}
-
-const compareValuationsByDate = (a: Valuation, b: Valuation): number => {
-  const [ milliA, milliB ] = [ a, b ].map(v => { return v.date ? moment(v.date, DateStorageFormat).valueOf() : 0 })
-  return milliA - milliB
 }

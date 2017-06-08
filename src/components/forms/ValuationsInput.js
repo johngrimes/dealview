@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
 import { DateDisplayFormat, DateStorageFormat } from 'types/commonTypes'
-import { ValuationDefault } from 'types/valuations'
+import { ValuationDefault, compareValuationsByDate } from 'types/valuations'
 import type { Valuations } from 'types/valuations'
 
 import 'components/forms/ValuationsInput.css'
@@ -30,6 +30,7 @@ class ValuationsInput extends React.Component {
   handleChange: (i: number, field: string, value: string|number) => void
   handleAddValuation: () => void
   handleFocus: (event: { target: { name: string } }) => void
+  handleBlur: (event: { relatedTarget: { name: string } | null }) => void
   setFocus: () => void
 
   constructor(props: Props) {
@@ -40,16 +41,23 @@ class ValuationsInput extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleAddValuation = this.handleAddValuation.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
     this.setFocus = this.setFocus.bind(this)
   }
 
   handleChange(i: number, field: string, value: string|number): void {
     if (this.state.valuations === undefined) return
-    const updatedValuations = this.state.valuations
-    updatedValuations[i][field] = value
     this.setState(
-      () => ({ valuations: updatedValuations }),
-      () => { if (this.props.onChange) this.props.onChange(updatedValuations) }
+      prevState => {
+        const updatedValuations = prevState.valuations.slice()
+        updatedValuations[i] = { ...updatedValuations[i], [field]: value }
+        return { ...prevState, valuations: updatedValuations }
+      },
+      () => {
+        if (this.state.valuations && this.props.onChange) {
+          this.props.onChange(this.state.valuations)
+        }
+      }
     )
   }
 
@@ -75,6 +83,15 @@ class ValuationsInput extends React.Component {
     }
   }
 
+  handleBlur(event: { relatedTarget: { name: string } | null }): void {
+    if (event.relatedTarget &&
+        !event.relatedTarget.name.match(`^${this.props.name}`)) {
+      this.setState(prevState => ({
+        valuations: prevState.valuations.sort(compareValuationsByDate),
+      }))
+    }
+  }
+
   componentWillReceiveProps(props: Props) {
     this.setState(() => ({ valuations: props.valuations }))
   }
@@ -94,21 +111,21 @@ class ValuationsInput extends React.Component {
               showYearDropdown
               autoFocus={this.props.focus === `valuations-date-${i}`}
               onChange={(moment) => this.handleChange(i, 'date', moment.format(DateStorageFormat))}
-              onFocus={this.handleFocus} />
+              onFocus={this.handleFocus} onBlur={this.handleBlur} />
           </td>
           <td className='valuations-amount'>
             <input name={`valuations-amount-${i}`} type='number'
               value={v.amount ? v.amount.toString() : ''} placeholder='Value'
               onChange={(event) => this.handleChange(i, 'amount', parseInt(event.target.value, 10))}
               ref={input => this._refs[`valuations-amount-${i}`] = input}
-              onFocus={this.handleFocus} />
+              onFocus={this.handleFocus} onBlur={this.handleBlur} />
           </td>
           <td className='valuations-note'>
             <input name={`valuations-note-${i}`} type='text'
               value={v.note} placeholder='Note'
               onChange={(event) => this.handleChange(i, 'note', event.target.value)}
               ref={input => this._refs[`valuations-note-${i}`] = input}
-              onFocus={this.handleFocus} />
+              onFocus={this.handleFocus} onBlur={this.handleBlur} />
           </td>
         </tr>
       })

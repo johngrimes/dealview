@@ -14,3 +14,8 @@ export const ValuationDefault = {
   note: '',
 }
 export type Valuations = Valuation[]
+
+export const compareValuationsByDate = (a: Valuation, b: Valuation): number => {
+  const [ milliA, milliB ] = [ a, b ].map(v => { return v.date ? moment(v.date, DateStorageFormat).valueOf() : 0 })
+  return milliA - milliB
+}
