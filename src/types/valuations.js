@@ -4,14 +4,18 @@ import moment from 'moment'
 
 import { DateStorageFormat } from 'types/commonTypes'
 
+type ValuationType = 'none'|'purchase'|'sale'
+
 export type Valuation = {
   +date?: string,
   +amount?: number,
-  +note?: string
+  +note?: string,
+  +type: ValuationType,
 }
 export const ValuationDefault = {
   date: moment().format(DateStorageFormat),
   note: '',
+  type: 'none',
 }
 export type Valuations = Valuation[]
 

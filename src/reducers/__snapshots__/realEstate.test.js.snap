@@ -27,13 +27,15 @@ Object {
       "valuations": Array [
         Object {
           "amount": 520000,
-          "date": "2015-08-25",
+          "date": "2014-09-10",
           "note": "Purchase price",
+          "type": "purchase",
         },
         Object {
           "amount": 705000,
           "date": "2016-04-15",
           "note": "Formal valuation",
+          "type": "none",
         },
       ],
     },
@@ -62,13 +64,15 @@ Object {
       "valuations": Array [
         Object {
           "amount": 520000,
-          "date": "2015-08-25",
+          "date": "2014-09-10",
           "note": "Purchase price",
+          "type": "purchase",
         },
         Object {
           "amount": 705000,
           "date": "2016-04-15",
           "note": "Formal valuation",
+          "type": "none",
         },
       ],
     },
@@ -97,13 +101,15 @@ Object {
       "valuations": Array [
         Object {
           "amount": 520000,
-          "date": "2015-08-25",
+          "date": "2014-09-10",
           "note": "Purchase price",
+          "type": "purchase",
         },
         Object {
           "amount": 705000,
           "date": "2016-04-15",
           "note": "Formal valuation",
+          "type": "none",
         },
       ],
     },
@@ -131,39 +137,43 @@ Object {
       "valuations": Array [
         Object {
           "amount": 520000,
-          "date": "2015-08-25",
+          "date": "2014-09-10",
           "note": "Purchase price",
+          "type": "purchase",
         },
         Object {
           "amount": 705000,
           "date": "2016-04-15",
           "note": "Formal valuation",
+          "type": "none",
         },
       ],
     },
     "78": Object {
       "address": Object {
-        "line1": "5 Sunrise St",
-        "line2": "",
+        "line1": "Unit 38, Capertree Gardens",
+        "line2": "8 Briggs Rd",
         "line3": "",
-        "locality": "Ashgrove",
-        "postcode": "4060",
+        "locality": "Springwood",
+        "postcode": "4127",
         "state": "QLD",
       },
       "id": "78",
-      "name": "5 Sunrise St",
-      "notes": "Principal place of residence",
-      "purchaseDate": "2014-09-10",
+      "name": "38/8 Briggs Rd",
+      "notes": "Investment property",
+      "purchaseDate": "2005-05-10",
       "valuations": Array [
         Object {
-          "amount": 520000,
-          "date": "2015-08-25",
+          "amount": 165000,
+          "date": "2005-05-10",
           "note": "Purchase price",
+          "type": "purchase",
         },
         Object {
-          "amount": 705000,
-          "date": "2016-04-15",
+          "amount": 260000,
+          "date": "2015-09-10",
           "note": "Formal valuation",
+          "type": "none",
         },
       ],
     },
@@ -191,39 +201,43 @@ Object {
       "valuations": Array [
         Object {
           "amount": 520000,
-          "date": "2015-08-25",
+          "date": "2014-09-10",
           "note": "Purchase price",
+          "type": "purchase",
         },
         Object {
           "amount": 705000,
           "date": "2016-04-15",
           "note": "Formal valuation",
+          "type": "none",
         },
       ],
     },
     "78": Object {
       "address": Object {
-        "line1": "5 Sunrise St",
-        "line2": "",
+        "line1": "Unit 38, Capertree Gardens",
+        "line2": "8 Briggs Rd",
         "line3": "",
-        "locality": "Ashgrove",
-        "postcode": "4060",
+        "locality": "Springwood",
+        "postcode": "4127",
         "state": "QLD",
       },
       "id": "78",
-      "name": "5 Sunrise St",
-      "notes": "Principal place of residence",
-      "purchaseDate": "2014-09-10",
+      "name": "38/8 Briggs Rd",
+      "notes": "Investment property",
+      "purchaseDate": "2005-05-10",
       "valuations": Array [
         Object {
-          "amount": 520000,
-          "date": "2015-08-25",
+          "amount": 165000,
+          "date": "2005-05-10",
           "note": "Purchase price",
+          "type": "purchase",
         },
         Object {
-          "amount": 705000,
-          "date": "2016-04-15",
+          "amount": 260000,
+          "date": "2015-09-10",
           "note": "Formal valuation",
+          "type": "none",
         },
       ],
     },
@@ -251,13 +265,15 @@ Object {
       "valuations": Array [
         Object {
           "amount": 520000,
-          "date": "2015-08-25",
+          "date": "2014-09-10",
           "note": "Purchase price",
+          "type": "purchase",
         },
         Object {
           "amount": 705000,
           "date": "2016-04-15",
           "note": "Formal valuation",
+          "type": "none",
         },
       ],
     },
@@ -285,13 +301,15 @@ Object {
       "valuations": Array [
         Object {
           "amount": 520000,
-          "date": "2015-08-25",
+          "date": "2014-09-10",
           "note": "Purchase price",
+          "type": "purchase",
         },
         Object {
           "amount": 705000,
           "date": "2016-04-15",
           "note": "Formal valuation",
+          "type": "none",
         },
       ],
     },
@@ -319,13 +337,15 @@ Object {
       "valuations": Array [
         Object {
           "amount": 520000,
-          "date": "2015-08-25",
+          "date": "2014-09-10",
           "note": "Purchase price",
+          "type": "purchase",
         },
         Object {
           "amount": 705000,
           "date": "2016-04-15",
           "note": "Formal valuation",
+          "type": "none",
         },
       ],
     },

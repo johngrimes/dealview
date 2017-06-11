@@ -6,6 +6,7 @@ import moment from 'moment'
 
 import { DateDisplayFormat, DateStorageFormat } from 'types/commonTypes'
 import { ValuationDefault, compareValuationsByDate } from 'types/valuations'
+import HiddenField from 'components/forms/HiddenField'
 import type { Valuations } from 'types/valuations'
 
 import 'components/forms/ValuationsInput.css'
@@ -35,7 +36,10 @@ class ValuationsInput extends React.Component {
 
   constructor(props: Props) {
     super(props)
-    this.state = { valuations: this.props.valuations }
+    const valuations = this.props.valuations
+      ? this.props.valuations.sort(compareValuationsByDate)
+      : this.props.valuations
+    this.state = { valuations }
     this._refs = {}
 
     this.handleChange = this.handleChange.bind(this)
@@ -93,7 +97,10 @@ class ValuationsInput extends React.Component {
   }
 
   componentWillReceiveProps(props: Props) {
-    this.setState(() => ({ valuations: props.valuations }))
+    if (props.valuations) {
+      const sortedValuations = props.valuations.sort(compareValuationsByDate)
+      this.setState(() => ({ valuations: sortedValuations }))
+    }
   }
 
   componentDidMount() { this.setFocus() }
@@ -105,7 +112,9 @@ class ValuationsInput extends React.Component {
       ? []
       : this.state.valuations.map((v, i) => {
         return <tr key={i}>
-          <td className='valuations-date'>
+          <td className={v.type !== 'none'
+            ? `valuations-date valuations-date-${v.type}`
+            : 'valuations-date'}>
             <DatePicker name={`valuations-date-${i}`} dateFormat={DateDisplayFormat}
               selected={moment(v.date, DateStorageFormat)}
               showYearDropdown
@@ -126,6 +135,7 @@ class ValuationsInput extends React.Component {
               onChange={(event) => this.handleChange(i, 'note', event.target.value)}
               ref={input => this._refs[`valuations-note-${i}`] = input}
               onFocus={this.handleFocus} onBlur={this.handleBlur} />
+            <HiddenField name={`valuations-note-${i}`} type='hidden' value={v.type} />
           </td>
         </tr>
       })

@@ -29,7 +29,7 @@ exports[`ValuationsInput should render 1`] = `
     <tbody>
       <tr>
         <td
-          className="valuations-date"
+          className="valuations-date valuations-date-purchase"
         >
           <t
             autoFocus={false}
@@ -87,6 +87,11 @@ exports[`ValuationsInput should render 1`] = `
             placeholder="Note"
             type="text"
             value="Initial purchase price"
+          />
+          <HiddenField
+            name="valuations-note-0"
+            type="hidden"
+            value="purchase"
           />
         </td>
       </tr>
@@ -151,6 +156,11 @@ exports[`ValuationsInput should render 1`] = `
             type="text"
             value="Bank valuation - refinance"
           />
+          <HiddenField
+            name="valuations-note-1"
+            type="hidden"
+            value="none"
+          />
         </td>
       </tr>
       <tr>
@@ -213,6 +223,11 @@ exports[`ValuationsInput should render 1`] = `
             placeholder="Note"
             type="text"
             value="Sworn valuation"
+          />
+          <HiddenField
+            name="valuations-note-2"
+            type="hidden"
+            value="none"
           />
         </td>
       </tr>

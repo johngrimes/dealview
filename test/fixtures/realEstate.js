@@ -15,8 +15,8 @@ export const validRealEstate1: RealEstate = {
   notes: 'Principal place of residence',
   purchaseDate: '2014-09-10',
   valuations: [
-    { date: '2015-08-25', amount: 520000, note: 'Purchase price' },
-    { date: '2016-04-15', amount: 705000, note: 'Formal valuation' },
+    { date: '2014-09-10', amount: 520000, note: 'Purchase price', type: 'purchase' },
+    { date: '2016-04-15', amount: 705000, note: 'Formal valuation', type: 'none' },
   ],
 }
 export const validRealEstateWithId1: RealEstateWithId = { ...validRealEstate1, id: '73' }
@@ -34,7 +34,8 @@ export const validRealEstate2: RealEstate = {
   notes: 'Investment property',
   purchaseDate: '2005-05-10',
   valuations: [
-    { date: '2015-09-10', amount: 260000, note: 'Formal valuation' },
+    { date: '2005-05-10', amount: 165000, note: 'Purchase price', type: 'purchase' },
+    { date: '2015-09-10', amount: 260000, note: 'Formal valuation', type: 'none' },
   ],
 }
-export const validRealEstateWithId2: RealEstateWithId = { ...validRealEstate1, id: '78' }
+export const validRealEstateWithId2: RealEstateWithId = { ...validRealEstate2, id: '78' }

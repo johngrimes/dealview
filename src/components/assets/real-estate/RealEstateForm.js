@@ -27,14 +27,18 @@ type RealEstateErrors = {
   +address: AddressErrors,
   +notes: FieldErrors,
   +purchaseDate: FieldErrors,
+  +purchaseAmount: FieldErrors,
   +saleDate: FieldErrors,
+  +saleAmount: FieldErrors,
 }
 const RealEstateErrorsDefaults = {
   name: [],
   address: AddressErrorsDefaults,
   notes: [],
   purchaseDate: [],
+  purchaseAmount: [],
   saleDate: [],
+  saleAmount: [],
 }
 
 type Props = {
@@ -44,6 +48,8 @@ type Props = {
 
 type State = {
   realEstate: RealEstate,
+  purchase?: { date: string, amount: number },
+  sale?: { date: string, amount: number },
   errors?: RealEstateErrors,
   allErrorsShown: boolean,
   focusedInput: string
@@ -56,6 +62,8 @@ class RealEstateForm extends React.Component {
   handleFocus: (fieldName: string) => void
   handleAddressChange: (address: Address) => void
   handleValuationsChange: (valuations: Valuations) => void
+  handlePurchaseChange: (purchase: { date?: string, amount?: number }) => void
+  handleSaleChange: (sale: { date?: string, amount?: number }) => void
   handleSubmit: (event: Event) => boolean
 
   constructor(props: Props) {
@@ -72,6 +80,8 @@ class RealEstateForm extends React.Component {
     this.handleFocus = this.handleFocus.bind(this)
     this.handleAddressChange = this.handleAddressChange.bind(this)
     this.handleValuationsChange = this.handleValuationsChange.bind(this)
+    this.handlePurchaseChange = this.handlePurchaseChange.bind(this)
+    this.handleSaleChange = this.handleSaleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -109,6 +119,54 @@ class RealEstateForm extends React.Component {
     })
   }
 
+  handlePurchaseChange(purchase: { date?: string, amount?: number }): void {
+    this.setState(prevState => {
+      const updatedPurchase = { ...prevState.purchase, ...purchase }
+      console.log(updatedPurchase)
+      if (updatedPurchase.date && updatedPurchase.amount) {
+        const updatedValuations = prevState.realEstate.valuations
+          .filter(v => v.type !== 'purchase')
+        console.log(updatedValuations)
+        updatedValuations.push({
+          date: updatedPurchase.date,
+          amount: updatedPurchase.amount,
+          note: 'Purchase amount',
+          type: 'purchase',
+        })
+        return {
+          ...prevState,
+          realEstate: { ...prevState.realEstate, valuations: updatedValuations },
+          purchase: updatedPurchase,
+        }
+      } else {
+        return { ...prevState, purchase: updatedPurchase }
+      }
+    })
+  }
+
+  handleSaleChange(sale: { date?: string, amount?: number }): void {
+    this.setState(prevState => {
+      const updatedSale = { ...prevState.sale, ...sale }
+      if (updatedSale.date && updatedSale.amount) {
+        const updatedValuations = prevState.realEstate.valuations
+          .filter(v => v.type !== 'sale')
+        updatedValuations.push({
+          date: updatedSale.date,
+          amount: updatedSale.amount,
+          note: 'Sale amount',
+          type: 'sale',
+        })
+        return {
+          ...prevState,
+          realEstate: { ...prevState.realEstate, valuations: updatedValuations },
+          sale: updatedSale,
+        }
+      } else {
+        return { ...prevState, sale: updatedSale }
+      }
+    })
+  }
+
   handleSubmit(event: Event): boolean {
     event.preventDefault()
     this.setState(
@@ -135,7 +193,7 @@ class RealEstateForm extends React.Component {
   }
 
   render() {
-    const { realEstate, allErrorsShown, focusedInput } = this.state
+    const { realEstate, purchase, sale, allErrorsShown, focusedInput } = this.state
     const errors = this.state.errors === undefined ? {} : this.state.errors
     const idField = typeof realEstate.id === 'string'
       ? <HiddenField name='id' value={realEstate.id} />
@@ -149,26 +207,41 @@ class RealEstateForm extends React.Component {
           {idField}
           <InputField name='name' type='text' label='Name' value={realEstate.name}
             errors={errors.name} forceErrorDisplay={allErrorsShown}
-            onChange={(value) => this.handleChange('name', value)}
+            onChange={value => this.handleChange('name', value)}
             onFocus={this.handleFocus} focus={focusedInput} />
           <AddressField name='address' address={realEstate.address} errors={errors.address}
             onChange={this.handleAddressChange}
             onFocus={this.handleFocus} focus={focusedInput} />
           <TextAreaField name='notes' label='Notes' value={realEstate.notes}
-            onChange={(value) => this.handleChange('notes', value)}
+            onChange={value => this.handleChange('notes', value)}
             onFocus={this.handleFocus} focus={focusedInput} />
         </fieldset>
         <fieldset>
-          <legend>Purchase and sale</legend>
+          <legend>Purchase</legend>
           <DateField name='purchaseDate' label='Purchase date'
-            value={realEstate.purchaseDate} errors={errors.purchaseDate}
+            value={purchase ? purchase.date : undefined} errors={errors.purchaseDate}
             forceErrorDisplay={allErrorsShown}
-            onChange={(value) => this.handleChange('purchaseDate', value)}
+            onChange={value => this.handlePurchaseChange({ date: value })}
             onFocus={this.handleFocus} focus={focusedInput} />
-          <DateField name='saleDate' label='Sale date'
-            value={realEstate.saleDate} errors={errors.saleDate}
+          <InputField name='purchaseAmount' label='Purchase amount' type='number'
+            value={purchase && purchase.amount ? purchase.amount.toString() : undefined}
+            errors={errors.purchaseAmount}
             forceErrorDisplay={allErrorsShown}
-            onChange={(value) => this.handleChange('saleDate', value)}
+            onChange={value => this.handlePurchaseChange({ amount: parseInt(value) })}
+            onFocus={this.handleFocus} focus={focusedInput} />
+        </fieldset>
+        <fieldset>
+          <legend>Sale</legend>
+          <DateField name='saleDate' label='Sale date'
+            value={sale ? sale.date : undefined} errors={errors.saleDate}
+            forceErrorDisplay={allErrorsShown}
+            onChange={value => this.handleSaleChange({ date: value })}
+            onFocus={this.handleFocus} focus={focusedInput} />
+          <InputField name='saleAmount' label='Sale amount' type='number'
+            value={sale && sale.amount ? sale.amount.toString() : undefined}
+            errors={errors.saleAmount}
+            forceErrorDisplay={allErrorsShown}
+            onChange={value => this.handleSaleChange({ amount: parseInt(value) })}
             onFocus={this.handleFocus} focus={focusedInput} />
         </fieldset>
         <fieldset>

@@ -41,13 +41,15 @@ exports[`EditRealEstate should render an existing Real Estate asset 1`] = `
         "valuations": Array [
           Object {
             "amount": 520000,
-            "date": "2015-08-25",
+            "date": "2014-09-10",
             "note": "Purchase price",
+            "type": "purchase",
           },
           Object {
             "amount": 705000,
             "date": "2016-04-15",
             "note": "Formal valuation",
+            "type": "none",
           },
         ],
       }

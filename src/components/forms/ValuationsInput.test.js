@@ -12,16 +12,19 @@ describe('ValuationsInput', () => {
       date: '1983-06-21',
       amount: 18700000,
       note: 'Initial purchase price',
+      type: 'purchase',
     },
     {
       date: '1992-03-15',
       amount: 36000000,
       note: 'Bank valuation - refinance',
+      type: 'none',
     },
     {
       date: '2001-12-25',
       amount: 75000000,
       note: 'Sworn valuation',
+      type: 'none',
     },
   ]
 

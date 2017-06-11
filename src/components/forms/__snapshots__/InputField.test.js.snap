@@ -16,6 +16,7 @@ exports[`InputField should be tolerant of an undefined value prop 1`] = `
     onFocus={[Function]}
     placeholder="Type here..."
     type="text"
+    value=""
   />
 </div>
 `;
@@ -30,6 +31,7 @@ exports[`InputField should display errors if touched 1`] = `
     onChange={[Function]}
     onFocus={[Function]}
     type="text"
+    value=""
   />
 </div>
 `;
