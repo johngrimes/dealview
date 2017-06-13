@@ -37,6 +37,7 @@ class ValuationsInput extends React.Component {
   _refs: { [fieldName: string]: { focus: () => void } }
   handleChange: (i: number, field: string, value: string|number) => void
   handleAddValuation: () => void
+  handleDeleteValuation: (index: number) => void
   handleFocus: (event: { target: { name: string } }) => void
   handleBlur: (event: { relatedTarget: { name: string } | null }) => void
   setFocus: () => void
@@ -54,6 +55,7 @@ class ValuationsInput extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleAddValuation = this.handleAddValuation.bind(this)
+    this.handleDeleteValuation = this.handleDeleteValuation.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.setFocus = this.setFocus.bind(this)
@@ -85,6 +87,13 @@ class ValuationsInput extends React.Component {
     this.setState(
       () => ({ valuations: updatedValuations }),
       () => { if (this.props.onChange) this.props.onChange(updatedValuations) }
+    )
+  }
+
+  handleDeleteValuation(index: number): void {
+    this.setState(
+      prevState => ({ valuations: prevState.valuations.filter((_, i) => i !== index) }),
+      () => { if (this.props.onChange && this.state.valuations) this.props.onChange(this.state.valuations) }
     )
   }
 
@@ -151,6 +160,9 @@ class ValuationsInput extends React.Component {
               ref={input => this._refs[`valuations-note-${i}`] = input}
               onFocus={this.handleFocus} onBlur={this.handleBlur} />
             <HiddenField name={`valuations-type-${i}`} type='hidden' value={v.type} />
+          </td>
+          <td className='valuations-delete'>
+            <button className='delete-valuation-button' type='button' onClick={() => this.handleDeleteValuation(i)}>Delete</button>
           </td>
         </tr>
       })

@@ -97,6 +97,17 @@ exports[`ValuationsInput should render 1`] = `
             value="purchase"
           />
         </td>
+        <td
+          className="valuations-delete"
+        >
+          <button
+            className="delete-valuation-button"
+            onClick={[Function]}
+            type="button"
+          >
+            Delete
+          </button>
+        </td>
       </tr>
       <tr
         className=""
@@ -168,6 +179,17 @@ exports[`ValuationsInput should render 1`] = `
             value="none"
           />
         </td>
+        <td
+          className="valuations-delete"
+        >
+          <button
+            className="delete-valuation-button"
+            onClick={[Function]}
+            type="button"
+          >
+            Delete
+          </button>
+        </td>
       </tr>
       <tr
         className=""
@@ -238,6 +260,17 @@ exports[`ValuationsInput should render 1`] = `
             type="hidden"
             value="none"
           />
+        </td>
+        <td
+          className="valuations-delete"
+        >
+          <button
+            className="delete-valuation-button"
+            onClick={[Function]}
+            type="button"
+          >
+            Delete
+          </button>
         </td>
       </tr>
     </tbody>
