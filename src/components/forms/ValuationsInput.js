@@ -3,11 +3,13 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
+import type { Moment } from 'moment'
 
 import { DateDisplayFormat, DateStorageFormat } from 'types/commonTypes'
 import { ValuationDefault, compareValuationsByDate } from 'types/valuations'
 import HiddenField from 'components/forms/HiddenField'
 import type { Valuations } from 'types/valuations'
+import type { FieldErrors } from 'utils/FormValidation'
 
 import 'components/forms/ValuationsInput.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
@@ -15,13 +17,18 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 type Props = {
   +name: string,
   +valuations?: Valuations,
+  +minDate?: Moment,
+  +maxDate?: Moment,
+  +errors?: FieldErrors,
+  +forceErrorDisplay?: boolean,
   +focus?: string,
   +onChange?: (valuations: Valuations) => void,
   +onFocus?: (fieldName: string) => void
 }
 
 type State = {
-  +valuations?: Valuations
+  +valuations?: Valuations,
+  +touched: boolean,
 }
 
 class ValuationsInput extends React.Component {
@@ -39,7 +46,10 @@ class ValuationsInput extends React.Component {
     const valuations = this.props.valuations
       ? this.props.valuations.sort(compareValuationsByDate)
       : this.props.valuations
-    this.state = { valuations }
+    this.state = {
+      valuations,
+      touched: false,
+    }
     this._refs = {}
 
     this.handleChange = this.handleChange.bind(this)
@@ -55,7 +65,11 @@ class ValuationsInput extends React.Component {
       prevState => {
         const updatedValuations = prevState.valuations.slice()
         updatedValuations[i] = { ...updatedValuations[i], [field]: value }
-        return { ...prevState, valuations: updatedValuations }
+        return {
+          ...prevState,
+          valuations: updatedValuations,
+          touched: true,
+        }
       },
       () => {
         if (this.state.valuations && this.props.onChange) {
@@ -108,22 +122,23 @@ class ValuationsInput extends React.Component {
   componentDidUpdate() { this.setFocus() }
 
   render() {
+    const { errors, forceErrorDisplay, minDate, maxDate } = this.props
+    const { touched } = this.state
     const valuations = this.state.valuations === undefined
       ? []
       : this.state.valuations.map((v, i) => {
-        return <tr key={i}>
-          <td className={v.type !== 'none'
-            ? `valuations-date valuations-date-${v.type}`
-            : 'valuations-date'}>
+        return <tr key={i} className={v.type && v.type !== 'none' ? `valuation-${v.type}` : ''}>
+          <td className='valuations-date'>
             <DatePicker name={`valuations-date-${i}`} dateFormat={DateDisplayFormat}
               selected={moment(v.date, DateStorageFormat)}
               showYearDropdown
+              minDate={minDate} maxDate={maxDate}
               autoFocus={this.props.focus === `valuations-date-${i}`}
               onChange={(moment) => this.handleChange(i, 'date', moment.format(DateStorageFormat))}
               onFocus={this.handleFocus} onBlur={this.handleBlur} />
           </td>
           <td className='valuations-amount'>
-            <input name={`valuations-amount-${i}`} type='number'
+            <input name={`valuations-amount-${i}`} type='number' min='1'
               value={v.amount ? v.amount.toString() : ''} placeholder='Value'
               onChange={(event) => this.handleChange(i, 'amount', parseInt(event.target.value, 10))}
               ref={input => this._refs[`valuations-amount-${i}`] = input}
@@ -135,15 +150,24 @@ class ValuationsInput extends React.Component {
               onChange={(event) => this.handleChange(i, 'note', event.target.value)}
               ref={input => this._refs[`valuations-note-${i}`] = input}
               onFocus={this.handleFocus} onBlur={this.handleBlur} />
-            <HiddenField name={`valuations-note-${i}`} type='hidden' value={v.type} />
+            <HiddenField name={`valuations-type-${i}`} type='hidden' value={v.type} />
           </td>
         </tr>
       })
+    const errorTags = []
+    if (errors) {
+      errors.forEach((msg, i) =>
+        errorTags.push(<div key={i} className='error'>{msg}</div>)
+      )
+    }
+
     return (
       <div className='valuations-input control-group'>
         <table className='table'>
           <tbody>{valuations}</tbody>
         </table>
+        {(forceErrorDisplay || touched) &&
+          errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
         <button className='button add-valuation-button' type='button' onClick={this.handleAddValuation}>+&nbsp;&nbsp;Add</button>
       </div>
     )

@@ -10,8 +10,9 @@ exports[`RealEstateForm should render 1`] = `
       General details
     </legend>
     <InputField
+      errors={Array []}
       focus="name"
-      forceErrorDisplay={false}
+      forceErrorDisplay={true}
       label="Name"
       name="name"
       onChange={[Function]}
@@ -28,6 +29,13 @@ exports[`RealEstateForm should render 1`] = `
           "locality": "Ashgrove",
           "postcode": "4060",
           "state": "QLD",
+        }
+      }
+      errors={
+        Object {
+          "line1": Array [],
+          "line2": Array [],
+          "line3": Array [],
         }
       }
       focus="name"
@@ -49,21 +57,26 @@ exports[`RealEstateForm should render 1`] = `
       Purchase
     </legend>
     <DateField
+      errors={Array []}
       focus="name"
-      forceErrorDisplay={false}
+      forceErrorDisplay={true}
       label="Purchase date"
       name="purchaseDate"
       onChange={[Function]}
       onFocus={[Function]}
+      value="2014-09-10"
     />
     <InputField
+      errors={Array []}
       focus="name"
-      forceErrorDisplay={false}
+      forceErrorDisplay={true}
       label="Purchase amount"
+      min="1"
       name="purchaseAmount"
       onChange={[Function]}
       onFocus={[Function]}
       type="number"
+      value="520000"
     />
   </fieldset>
   <fieldset>
@@ -71,17 +84,20 @@ exports[`RealEstateForm should render 1`] = `
       Sale
     </legend>
     <DateField
+      errors={Array []}
       focus="name"
-      forceErrorDisplay={false}
+      forceErrorDisplay={true}
       label="Sale date"
       name="saleDate"
       onChange={[Function]}
       onFocus={[Function]}
     />
     <InputField
+      errors={Array []}
       focus="name"
-      forceErrorDisplay={false}
+      forceErrorDisplay={true}
       label="Sale amount"
+      min="1"
       name="saleAmount"
       onChange={[Function]}
       onFocus={[Function]}
@@ -93,6 +109,10 @@ exports[`RealEstateForm should render 1`] = `
       Value
     </legend>
     <ValuationsInput
+      errors={Array []}
+      forceErrorDisplay={true}
+      maxDate={null}
+      minDate={"2014-09-10T14:00:00.000Z"}
       name="valuations"
       onChange={[Function]}
       onFocus={[Function]}

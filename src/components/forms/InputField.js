@@ -13,6 +13,7 @@ type Props = {
   +value?: string,
   +label?: string,
   +placeholder?: string,
+  +min?: string,
   +errors?: FieldErrors,
   +forceErrorDisplay?: boolean,
   +focus?: string,
@@ -73,7 +74,8 @@ class InputField extends React.Component {
   componentDidUpdate() { this.setFocus() }
 
   render() {
-    const { name, type, label, placeholder, errors, forceErrorDisplay } = this.props
+    const { name, type, label, placeholder,
+      min, errors, forceErrorDisplay } = this.props
     const { touched } = this.state
     const value = this.state.value ? this.state.value : ''
     const labelTag = label
@@ -89,7 +91,7 @@ class InputField extends React.Component {
       ? 'with-errors'
       : ''
     const props = {
-      name, className, type, placeholder, value,
+      name, className, type, placeholder, min, value,
       onChange: this.handleChange,
       onFocus: this.handleFocus,
       ref: input => this.ref = input,

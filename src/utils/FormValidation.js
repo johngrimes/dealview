@@ -2,14 +2,14 @@
 
 import _ from 'lodash'
 
-type ValidatorFunction = (value: string) => boolean
+type ValidatorFunction = (value: any) => boolean
 export type FieldErrors = string[]
 export type FormErrors = { +[fieldName: string]: (FieldErrors|FormErrors) }
 
 //
 // Validates a set of fields, using a supplied validator function.
 //
-const validate = (value: string, validator: ValidatorFunction, message: string): FieldErrors => {
+export const validate = (value: any, validator: ValidatorFunction, message: string): FieldErrors => {
   if (!validator(value)) return [message]
   else return []
 }

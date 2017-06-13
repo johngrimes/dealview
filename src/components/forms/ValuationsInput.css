@@ -30,3 +30,11 @@
 .valuations-input table .control-group {
   margin: 0;
 }
+
+.valuations-input .errors {
+  width: 540px !important;
+}
+
+.valuations-input .valuation-purchase {
+  color: #666;
+}

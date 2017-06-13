@@ -3,6 +3,7 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
+import type { Moment } from 'moment'
 
 import { DateDisplayFormat, DateStorageFormat } from 'types/commonTypes'
 import type { FieldErrors } from 'utils/FormValidation'
@@ -11,7 +12,7 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 type Props = {
   +name: string,
-  +value?: string,
+  +value?: string | Moment,
   +label?: string,
   +errors?: FieldErrors,
   +forceErrorDisplay?: boolean,
@@ -73,9 +74,12 @@ class DateField extends React.Component {
     const inputClass = touched && errorTags.length > 0
       ? 'with-errors'
       : ''
-    const selected = (typeof value === 'string' && value.length > 0)
-      ? moment(value, DateStorageFormat)
-      : undefined
+    let selected
+    if (typeof value === 'string' && value.length > 0) {
+      selected = moment(value, DateStorageFormat)
+    } else if (value instanceof moment) {
+      selected = value
+    }
 
     return (
       <div className='control-group'>

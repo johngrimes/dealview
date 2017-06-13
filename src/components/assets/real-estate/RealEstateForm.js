@@ -2,6 +2,7 @@
 
 import React from 'react'
 import _ from 'lodash'
+import moment from 'moment'
 
 import InputField from 'components/forms/InputField'
 import HiddenField from 'components/forms/HiddenField'
@@ -11,6 +12,7 @@ import ValuationsInput from 'components/forms/ValuationsInput'
 import DateField from 'components/forms/DateField'
 import * as Validations from 'utils/FormValidation'
 import { RealEstateDefaults } from 'types/assets/realEstate'
+import { DateStorageFormat } from 'types/commonTypes'
 import type { RealEstate } from 'types/assets/realEstate'
 import type { Address } from 'types/commonTypes'
 import type { AddressErrors } from 'components/forms/AddressField'
@@ -30,6 +32,7 @@ type RealEstateErrors = {
   +purchaseAmount: FieldErrors,
   +saleDate: FieldErrors,
   +saleAmount: FieldErrors,
+  +valuations: FieldErrors,
 }
 const RealEstateErrorsDefaults = {
   name: [],
@@ -39,20 +42,21 @@ const RealEstateErrorsDefaults = {
   purchaseAmount: [],
   saleDate: [],
   saleAmount: [],
+  valuations: [],
 }
 
 type Props = {
-  realEstate?: RealEstate,
-  onSubmit?: (realEstate: RealEstate) => void
+  +realEstate?: RealEstate,
+  +onSubmit?: (realEstate: RealEstate) => void
 }
 
 type State = {
-  realEstate: RealEstate,
-  purchase?: { date: string, amount: number },
-  sale?: { date: string, amount: number },
-  errors?: RealEstateErrors,
-  allErrorsShown: boolean,
-  focusedInput: string
+  +realEstate: RealEstate,
+  +purchase?: { date: string, amount: number },
+  +sale?: { date: string, amount: number },
+  +errors?: RealEstateErrors,
+  +allErrorsShown: boolean,
+  +focusedInput: string
 }
 
 class RealEstateForm extends React.Component {
@@ -62,8 +66,8 @@ class RealEstateForm extends React.Component {
   handleFocus: (fieldName: string) => void
   handleAddressChange: (address: Address) => void
   handleValuationsChange: (valuations: Valuations) => void
-  handlePurchaseChange: (purchase: { date?: string, amount?: number }) => void
-  handleSaleChange: (sale: { date?: string, amount?: number }) => void
+  handlePurchaseChange: (purchase: { +date?: string, +amount?: number }) => void
+  handleSaleChange: (sale: { +date?: string, +amount?: number }) => void
   handleSubmit: (event: Event) => boolean
 
   constructor(props: Props) {
@@ -74,7 +78,26 @@ class RealEstateForm extends React.Component {
       focusedInput: 'name',
     }
 
-    if (props.realEstate) { this.state.realEstate = props.realEstate }
+    if (props.realEstate) {
+      const realEstate = props.realEstate
+      const valuations = props.realEstate.valuations
+        ? props.realEstate.valuations
+        : []
+      this.state = {
+        ...this.state,
+        realEstate,
+        purchase: _.pick(
+          valuations.find(v => v.type === 'purchase'),
+          [ 'date', 'amount' ]
+        ),
+        sale: _.pick(
+          valuations.find(v => v.type === 'sale'),
+          [ 'date', 'amount' ]
+        ),
+        errors: RealEstateForm.validate(realEstate),
+        allErrorsShown: true,
+      }
+    }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
@@ -116,17 +139,26 @@ class RealEstateForm extends React.Component {
         realEstate,
         errors: RealEstateForm.validate(realEstate),
       }
+    }, () => {
+      const purchaseVal = _.pick(
+        valuations.find(v => v.type === 'purchase'),
+        [ 'date', 'amount' ]
+      )
+      const saleVal = _.pick(
+        valuations.find(v => v.type === 'sale'),
+        [ 'date', 'amount' ]
+      )
+      if (purchaseVal) { this.handlePurchaseChange(purchaseVal) }
+      if (saleVal) { this.handleSaleChange(saleVal) }
     })
   }
 
-  handlePurchaseChange(purchase: { date?: string, amount?: number }): void {
+  handlePurchaseChange(purchase: { +date?: string, +amount?: number }): void {
     this.setState(prevState => {
       const updatedPurchase = { ...prevState.purchase, ...purchase }
-      console.log(updatedPurchase)
       if (updatedPurchase.date && updatedPurchase.amount) {
         const updatedValuations = prevState.realEstate.valuations
           .filter(v => v.type !== 'purchase')
-        console.log(updatedValuations)
         updatedValuations.push({
           date: updatedPurchase.date,
           amount: updatedPurchase.amount,
@@ -144,7 +176,7 @@ class RealEstateForm extends React.Component {
     })
   }
 
-  handleSaleChange(sale: { date?: string, amount?: number }): void {
+  handleSaleChange(sale: { +date?: string, +amount?: number }): void {
     this.setState(prevState => {
       const updatedSale = { ...prevState.sale, ...sale }
       if (updatedSale.date && updatedSale.amount) {
@@ -198,6 +230,8 @@ class RealEstateForm extends React.Component {
     const idField = typeof realEstate.id === 'string'
       ? <HiddenField name='id' value={realEstate.id} />
       : null
+    const minValuationDate = purchase ? moment(purchase.date, DateStorageFormat).add(1, 'd') : undefined
+    const maxValuationDate = sale ? moment(sale.date, DateStorageFormat).subtract(1, 'd') : undefined
 
     return (
       <form className='real-estate-form form form-aligned' onSubmit={this.handleSubmit}>
@@ -223,7 +257,7 @@ class RealEstateForm extends React.Component {
             forceErrorDisplay={allErrorsShown}
             onChange={value => this.handlePurchaseChange({ date: value })}
             onFocus={this.handleFocus} focus={focusedInput} />
-          <InputField name='purchaseAmount' label='Purchase amount' type='number'
+          <InputField name='purchaseAmount' label='Purchase amount' type='number' min='1'
             value={purchase && purchase.amount ? purchase.amount.toString() : undefined}
             errors={errors.purchaseAmount}
             forceErrorDisplay={allErrorsShown}
@@ -237,7 +271,7 @@ class RealEstateForm extends React.Component {
             forceErrorDisplay={allErrorsShown}
             onChange={value => this.handleSaleChange({ date: value })}
             onFocus={this.handleFocus} focus={focusedInput} />
-          <InputField name='saleAmount' label='Sale amount' type='number'
+          <InputField name='saleAmount' label='Sale amount' type='number' min='1'
             value={sale && sale.amount ? sale.amount.toString() : undefined}
             errors={errors.saleAmount}
             forceErrorDisplay={allErrorsShown}
@@ -247,6 +281,8 @@ class RealEstateForm extends React.Component {
         <fieldset>
           <legend>Value</legend>
           <ValuationsInput name='valuations' valuations={realEstate.valuations}
+            minDate={minValuationDate} maxDate={maxValuationDate}
+            errors={errors.valuations} forceErrorDisplay={allErrorsShown}
             onChange={this.handleValuationsChange} onFocus={this.handleFocus} />
         </fieldset>
         <fieldset>
@@ -265,13 +301,42 @@ class RealEstateForm extends React.Component {
     const address = AddressField.validate(realEstate.address)
     const purchaseDate = []
       .concat(Validations.required(realEstate.purchaseDate))
+    const valuations = []
+      // .concat(ValuationsInput.validate(realEstate.valuations))
+      .concat(RealEstateForm.purchaseValuationPresent(realEstate))
+      .concat(RealEstateForm.valuationsWithinPurchaseAndSale(realEstate))
 
     return {
       ...RealEstateErrorsDefaults,
       name,
       address,
       purchaseDate,
+      valuations,
     }
+  }
+
+  static purchaseValuationPresent(realEstate: RealEstate): FieldErrors {
+    return Validations.validate(
+      realEstate,
+      re => re.valuations.some(valuation => valuation.type === 'purchase'),
+      'There must be a purchase valuation'
+    )
+  }
+
+  static valuationsWithinPurchaseAndSale(realEstate: RealEstate): FieldErrors {
+    const purchaseVal = realEstate.valuations.find(v => v.type === 'purchase')
+    const saleVal = realEstate.valuations.find(v => v.type === 'sale')
+    if (!purchaseVal) { return [] }
+
+    return Validations.validate(
+      realEstate,
+      re => re.valuations.every(valuation =>
+        [ 'purchase', 'sale' ].includes(valuation.type) || (saleVal
+          ? valuation.date > purchaseVal.date && valuation.date < saleVal.date
+          : valuation.date > purchaseVal.date)
+      ),
+      'Valuations must all be between the purchase and sale dates'
+    )
   }
 
   static findFirstErrorFieldName(realEstateErrors: RealEstateErrors): string|null {

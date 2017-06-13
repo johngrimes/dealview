@@ -11,8 +11,10 @@ class HiddenField extends React.Component {
   props: Props
 
   render() {
+    const value = this.props.value ? this.props.value : ''
+
     return (
-      <input id={this.props.name} type='hidden' value={this.props.value} />
+      <input id={this.props.name} type='hidden' value={value} />
     )
   }
 }
