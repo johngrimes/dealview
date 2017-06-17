@@ -142,4 +142,13 @@ describe('ValuationsInput', () => {
     wrapper.find('.delete-valuation-button').first().simulate('click')
     expect(wrapper.state('valuations')).toHaveLength(numValuations - 1)
   })
+
+  describe('validation', () => {
+    it('should return an error when valuations share dates', () => {
+      const valsWithDupe = valuations.concat(valuations[0])
+      const result = ValuationsInput.validate(valsWithDupe)
+      expect(result).toHaveLength(1)
+      expect(result).toMatchSnapshot()
+    })
+  })
 })

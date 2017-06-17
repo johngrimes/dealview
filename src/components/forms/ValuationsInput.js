@@ -3,11 +3,13 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
+import _ from 'lodash'
 import type { Moment } from 'moment'
 
 import { DateDisplayFormat, DateStorageFormat } from 'types/commonTypes'
 import { ValuationDefault, compareValuationsByDate } from 'types/valuations'
 import HiddenField from 'components/forms/HiddenField'
+import * as Validations from 'utils/FormValidation'
 import type { Valuations } from 'types/valuations'
 import type { FieldErrors } from 'utils/FormValidation'
 
@@ -184,6 +186,19 @@ class ValuationsInput extends React.Component {
           errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
         <button className='button add-valuation-button' type='button' onClick={this.handleAddValuation}>+&nbsp;&nbsp;Add</button>
       </div>
+    )
+  }
+
+  static validate(valuations: Valuations): FieldErrors {
+    return []
+      .concat(ValuationsInput.valuationsDontShareDates(valuations))
+  }
+
+  static valuationsDontShareDates(valuations: Valuations): FieldErrors {
+    return Validations.validate(
+      valuations,
+      vals => vals.length === _.uniq(vals.map(v => v.date)).length,
+      'Valuations must all be on different dates'
     )
   }
 }

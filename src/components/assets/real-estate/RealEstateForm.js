@@ -302,6 +302,7 @@ class RealEstateForm extends React.Component {
     const purchaseDate = []
       .concat(Validations.required(realEstate.purchaseDate))
     const valuations = []
+      .concat(ValuationsInput.validate(realEstate.valuations))
       .concat(RealEstateForm.purchaseValuationPresent(realEstate))
       .concat(RealEstateForm.valuationsWithinPurchaseAndSale(realEstate))
 

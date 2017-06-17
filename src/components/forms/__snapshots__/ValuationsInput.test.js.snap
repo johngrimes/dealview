@@ -301,3 +301,9 @@ exports[`ValuationsInput should render 1`] = `
   </button>
 </div>
 `;
+
+exports[`ValuationsInput validation should return an error when valuations share dates 1`] = `
+Array [
+  "Valuations must all be on different dates",
+]
+`;
