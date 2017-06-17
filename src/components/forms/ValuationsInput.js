@@ -136,7 +136,9 @@ class ValuationsInput extends React.Component {
     const valuations = this.state.valuations === undefined
       ? []
       : this.state.valuations.map((v, i) => {
-        return <tr key={i} className={v.type && v.type !== 'none' ? `valuation-${v.type}` : ''}>
+        return <tr key={i} className={v.type && v.type !== 'none'
+            ? `valuation valuation-${v.type}`
+            : 'valuation'}>
           <td className='valuations-date'>
             <DatePicker name={`valuations-date-${i}`} dateFormat={DateDisplayFormat}
               selected={moment(v.date, DateStorageFormat)}
@@ -175,7 +177,7 @@ class ValuationsInput extends React.Component {
 
     return (
       <div className='valuations-input control-group'>
-        <table className='table'>
+        <table className='valuations table'>
           <tbody>{valuations}</tbody>
         </table>
         {(forceErrorDisplay || touched) &&

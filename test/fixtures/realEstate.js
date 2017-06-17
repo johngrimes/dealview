@@ -36,6 +36,7 @@ export const validRealEstate2: RealEstate = {
   valuations: [
     { date: '2005-05-10', amount: 165000, note: 'Purchase price', type: 'purchase' },
     { date: '2015-09-10', amount: 260000, note: 'Formal valuation', type: 'none' },
+    { date: '2017-01-01', amount: 340000, note: 'Sale price', type: 'sale' },
   ],
 }
 export const validRealEstateWithId2: RealEstateWithId = { ...validRealEstate2, id: '78' }

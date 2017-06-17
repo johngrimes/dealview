@@ -45,6 +45,29 @@ describe('ValuationsInput', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
+  it('should display errors if touched', () => {
+    const props = {
+      name: 'someInput',
+      errors: [ 'does not look right', 'smells funny' ],
+    }
+    const wrapper = shallow(<ValuationsInput {...props} />)
+    wrapper.setState({
+      touched: true,
+    }, () => {
+      expect(wrapper.find('.error')).toHaveLength(2)
+      expect(wrapper.find('.errors')).toMatchSnapshot()
+    })
+  })
+
+  it('should not display errors if not touched', () => {
+    const props = {
+      name: 'someInput',
+      errors: [ 'does not look right', 'smells funny' ],
+    }
+    const wrapper = shallow(<ValuationsInput {...props} />)
+    expect(wrapper.find('.error')).toHaveLength(0)
+  })
+
   it('should call onChange when an input changes', () => {
     const props = {
       name: 'value',
@@ -96,5 +119,27 @@ describe('ValuationsInput', () => {
       wrapper.setProps({ focus: `valuations-${field}-0` })
       expect(spy).toHaveBeenCalled()
     })
+  })
+
+  it('should add a new valuation', () => {
+    const props = {
+      name: 'value',
+      valuations,
+    }
+    const numValuations = valuations.length
+    const wrapper = shallow(<ValuationsInput {...props} />)
+    wrapper.find('.add-valuation-button').simulate('click')
+    expect(wrapper.state('valuations')).toHaveLength(numValuations + 1)
+  })
+
+  it('should delete a valuation', () => {
+    const props = {
+      name: 'value',
+      valuations,
+    }
+    const numValuations = valuations.length
+    const wrapper = shallow(<ValuationsInput {...props} />)
+    wrapper.find('.delete-valuation-button').first().simulate('click')
+    expect(wrapper.state('valuations')).toHaveLength(numValuations - 1)
   })
 })
