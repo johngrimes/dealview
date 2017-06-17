@@ -1,6 +1,6 @@
 /* global expect */
 
-import ValuationsInput from 'components/forms/ValuationsInput'
+import ValuationsInput from 'components/forms/ValuationsInput/ValuationsInput'
 
 import React from 'react'
 import { shallow, mount } from 'enzyme'

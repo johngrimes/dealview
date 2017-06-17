@@ -121,9 +121,7 @@ exports[`ValuationsInput should render 1`] = `
             className="delete-valuation-button"
             onClick={[Function]}
             type="button"
-          >
-            Delete
-          </button>
+          />
         </td>
       </tr>
       <tr
@@ -203,9 +201,7 @@ exports[`ValuationsInput should render 1`] = `
             className="delete-valuation-button"
             onClick={[Function]}
             type="button"
-          >
-            Delete
-          </button>
+          />
         </td>
       </tr>
       <tr
@@ -285,9 +281,7 @@ exports[`ValuationsInput should render 1`] = `
             className="delete-valuation-button"
             onClick={[Function]}
             type="button"
-          >
-            Delete
-          </button>
+          />
         </td>
       </tr>
     </tbody>

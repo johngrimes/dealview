@@ -13,7 +13,7 @@ import * as Validations from 'utils/FormValidation'
 import type { Valuations } from 'types/valuations'
 import type { FieldErrors } from 'utils/FormValidation'
 
-import 'components/forms/ValuationsInput.css'
+import 'components/forms/ValuationsInput/ValuationsInput.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 type Props = {
@@ -166,7 +166,7 @@ class ValuationsInput extends React.Component {
             <HiddenField name={`valuations-type-${i}`} type='hidden' value={v.type} />
           </td>
           <td className='valuations-delete'>
-            <button className='delete-valuation-button' type='button' onClick={() => this.handleDeleteValuation(i)}>Delete</button>
+            <button className='delete-valuation-button' type='button' onClick={() => this.handleDeleteValuation(i)} />
           </td>
         </tr>
       })

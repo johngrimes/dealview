@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 import _ from 'lodash'
 
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
-import ValuationsInput from 'components/forms/ValuationsInput'
+import ValuationsInput from 'components/forms/ValuationsInput/ValuationsInput'
 import { AddressEmpty } from 'types/commonTypes'
 import { validRealEstate1, validRealEstate2 } from 'fixtures/realEstate'
 import type { RealEstateErrors } from 'components/assets/real-estate/RealEstateForm'
