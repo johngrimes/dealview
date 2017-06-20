@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateSlider should render correctly 1`] = `
+<div
+  className="date-slider"
+>
+  <div
+    className="date-tag start-date"
+  >
+    2017-06-21
+  </div>
+  <div
+    className="date-tag end-date"
+  >
+    2017-06-23
+  </div>
+  <ReactSlider
+    barClassName="bar"
+    className="slider someClass"
+    defaultValue={0}
+    disabled={false}
+    handleActiveClassName="active"
+    handleClassName="handle"
+    invert={false}
+    max={2}
+    min={0}
+    minDistance={0}
+    onChange={[Function]}
+    orientation="horizontal"
+    pearling={false}
+    snapDragDisabled={false}
+    step={1}
+    value={1}
+    withBars={false}
+  >
+    <div
+      className="date-tag selected-date"
+    >
+      2017-06-22
+    </div>
+  </ReactSlider>
+</div>
+`;

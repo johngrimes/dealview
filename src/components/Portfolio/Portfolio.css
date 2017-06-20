@@ -5,3 +5,31 @@
 .portfolio .date-slider {
   width: 100%;
 }
+
+.portfolio .balance-sheet {
+  margin: 20px;
+}
+
+.portfolio .balance-sheet a,
+.portfolio .balance-sheet span {
+  display: block;
+  text-align: center;
+}
+
+.portfolio .balance-sheet a {
+  text-decoration: none;
+}
+.portfolio .balance-sheet a:visited {
+  color: black;
+}
+
+.portfolio .assets,
+.portfolio .liabilities,
+.portfolio .equity {
+  background-color: #6dcff6;
+  padding: 20px;
+  width: 100px;
+  margin: 0 20px 20px 0;
+  float: left;
+  border-radius: 8px;
+}

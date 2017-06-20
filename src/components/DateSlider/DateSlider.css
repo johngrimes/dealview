@@ -1,6 +1,6 @@
 .slider {
   clear: both;
-  margin: 20px 0 40px;
+  margin: 34px 0 40px;
   height: 8px;
   background: linear-gradient(#aaa, #ddd);
   display: block;
@@ -49,4 +49,9 @@
   position: relative;
   left: -28px;
   top: 21px;
+}
+
+.date-slider-uninitialised .date-tag,
+.date-slider-uninitialised .handle {
+  display: none;
 }

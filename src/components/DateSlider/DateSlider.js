@@ -7,6 +7,8 @@ import 'components/DateSlider/DateSlider.css'
 
 type Props = {
   +dates: string[],
+  +selected: string,
+  +initialised: boolean,
   +className?: string,
   +onChange?: (value: string) => void,
 }
@@ -22,9 +24,11 @@ class DateSlider extends React.Component {
 
   constructor(props: Props) {
     super(props)
+
+    const selectedIndex = props.dates.indexOf(props.selected)
     this.state = {
-      selectedIndex: 0,
-      selected: props.dates[0],
+      selected: props.selected,
+      selectedIndex: selectedIndex !== -1 ? selectedIndex : 0,
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -39,15 +43,24 @@ class DateSlider extends React.Component {
     )
   }
 
+  componentWillReceiveProps(props: Props) {
+    const selectedIndex = props.dates.indexOf(props.selected)
+    this.setState(() => ({
+      selected: props.selected,
+      selectedIndex: selectedIndex !== -1 ? selectedIndex : 0,
+    }))
+  }
+
   render() {
-    const { dates, className } = this.props
-    const { selected } = this.state
+    const { dates, className, initialised } = this.props
+    const { selected, selectedIndex } = this.state
     return (
-      <div>
+      <div className={initialised ? 'date-slider' : 'date-slider date-slider-uninitialised'}>
         <div className='date-tag start-date'>{dates[0]}</div>
         <div className='date-tag end-date'>{dates[dates.length - 1]}</div>
         <ReactSlider className={className ? `slider ${className}` : className}
           min={0} max={dates.length - 1} defaultValue={0}
+          value={selectedIndex}
           onChange={this.handleChange}>
           <div className='date-tag selected-date'>{selected}</div>
         </ReactSlider>
