@@ -304,29 +304,235 @@ exports[`RealEstateForm should render 2`] = `
 </form>
 `;
 
-exports[`purchase and sale should update valuations when purchase amount is changed 1`] = `
+exports[`purchase and sale should update state when purchase amount is changed 1`] = `
 Object {
-  "amount": 350000,
-  "date": "2014-09-10",
+  "allErrorsShown": true,
+  "errors": Object {
+    "address": Object {
+      "line1": Array [],
+      "line2": Array [],
+      "line3": Array [],
+    },
+    "name": Array [],
+    "notes": Array [],
+    "purchaseAmount": Array [],
+    "purchaseDate": Array [],
+    "saleAmount": Array [],
+    "saleDate": Array [],
+    "valuations": Array [],
+  },
+  "focusedInput": "name",
+  "purchase": Object {
+    "amount": 350000,
+    "date": "2014-09-10",
+  },
+  "purchaseDate": "2014-09-10",
+  "realEstate": Object {
+    "address": Object {
+      "line1": "5 Sunrise St",
+      "line2": "",
+      "line3": "",
+      "locality": "Ashgrove",
+      "postcode": "4060",
+      "state": "QLD",
+    },
+    "name": "5 Sunrise St",
+    "notes": "Principal place of residence",
+    "purchaseDate": "2014-09-10",
+    "valuations": Array [
+      Object {
+        "amount": 705000,
+        "date": "2016-04-15",
+        "note": "Formal valuation",
+        "type": "none",
+      },
+      Object {
+        "amount": 350000,
+        "date": "2014-09-10",
+        "note": "Purchase amount",
+        "type": "purchase",
+      },
+    ],
+  },
+  "sale": Object {},
 }
 `;
 
-exports[`purchase and sale should update valuations when purchase date is changed 1`] = `
+exports[`purchase and sale should update state when purchase date is changed 1`] = `
 Object {
-  "amount": 520000,
-  "date": "2016-05-14",
+  "allErrorsShown": true,
+  "errors": Object {
+    "address": Object {
+      "line1": Array [],
+      "line2": Array [],
+      "line3": Array [],
+    },
+    "name": Array [],
+    "notes": Array [],
+    "purchaseAmount": Array [],
+    "purchaseDate": Array [],
+    "saleAmount": Array [],
+    "saleDate": Array [],
+    "valuations": Array [],
+  },
+  "focusedInput": "name",
+  "purchase": Object {
+    "amount": 520000,
+    "date": "2016-05-14",
+  },
+  "purchaseDate": "2016-05-14",
+  "realEstate": Object {
+    "address": Object {
+      "line1": "5 Sunrise St",
+      "line2": "",
+      "line3": "",
+      "locality": "Ashgrove",
+      "postcode": "4060",
+      "state": "QLD",
+    },
+    "name": "5 Sunrise St",
+    "notes": "Principal place of residence",
+    "purchaseDate": "2014-09-10",
+    "valuations": Array [
+      Object {
+        "amount": 705000,
+        "date": "2016-04-15",
+        "note": "Formal valuation",
+        "type": "none",
+      },
+      Object {
+        "amount": 520000,
+        "date": "2016-05-14",
+        "note": "Purchase amount",
+        "type": "purchase",
+      },
+    ],
+  },
+  "sale": Object {},
 }
 `;
 
-exports[`purchase and sale should update valuations when sale amount is changed 1`] = `
+exports[`purchase and sale should update state when sale amount is changed 1`] = `
 Object {
-  "amount": 350000,
+  "allErrorsShown": true,
+  "errors": Object {
+    "address": Object {
+      "line1": Array [],
+      "line2": Array [],
+      "line3": Array [],
+    },
+    "name": Array [],
+    "notes": Array [],
+    "purchaseAmount": Array [],
+    "purchaseDate": Array [],
+    "saleAmount": Array [],
+    "saleDate": Array [],
+    "valuations": Array [],
+  },
+  "focusedInput": "name",
+  "purchase": Object {
+    "amount": 520000,
+    "date": "2014-09-10",
+  },
+  "realEstate": Object {
+    "address": Object {
+      "line1": "5 Sunrise St",
+      "line2": "",
+      "line3": "",
+      "locality": "Ashgrove",
+      "postcode": "4060",
+      "state": "QLD",
+    },
+    "name": "5 Sunrise St",
+    "notes": "Principal place of residence",
+    "purchaseDate": "2014-09-10",
+    "valuations": Array [
+      Object {
+        "amount": 520000,
+        "date": "2014-09-10",
+        "note": "Purchase price",
+        "type": "purchase",
+      },
+      Object {
+        "amount": 705000,
+        "date": "2016-04-15",
+        "note": "Formal valuation",
+        "type": "none",
+      },
+      Object {
+        "amount": 350000,
+        "date": undefined,
+        "note": "Sale amount",
+        "type": "sale",
+      },
+    ],
+  },
+  "sale": Object {
+    "amount": 350000,
+  },
+  "saleDate": undefined,
 }
 `;
 
-exports[`purchase and sale should update valuations when sale date is changed 1`] = `
+exports[`purchase and sale should update state when sale date is changed 1`] = `
 Object {
-  "date": "2016-05-14",
+  "allErrorsShown": true,
+  "errors": Object {
+    "address": Object {
+      "line1": Array [],
+      "line2": Array [],
+      "line3": Array [],
+    },
+    "name": Array [],
+    "notes": Array [],
+    "purchaseAmount": Array [],
+    "purchaseDate": Array [],
+    "saleAmount": Array [],
+    "saleDate": Array [],
+    "valuations": Array [],
+  },
+  "focusedInput": "name",
+  "purchase": Object {
+    "amount": 520000,
+    "date": "2014-09-10",
+  },
+  "realEstate": Object {
+    "address": Object {
+      "line1": "5 Sunrise St",
+      "line2": "",
+      "line3": "",
+      "locality": "Ashgrove",
+      "postcode": "4060",
+      "state": "QLD",
+    },
+    "name": "5 Sunrise St",
+    "notes": "Principal place of residence",
+    "purchaseDate": "2014-09-10",
+    "valuations": Array [
+      Object {
+        "amount": 520000,
+        "date": "2014-09-10",
+        "note": "Purchase price",
+        "type": "purchase",
+      },
+      Object {
+        "amount": 705000,
+        "date": "2016-04-15",
+        "note": "Formal valuation",
+        "type": "none",
+      },
+      Object {
+        "amount": undefined,
+        "date": "2016-05-14",
+        "note": "Sale amount",
+        "type": "sale",
+      },
+    ],
+  },
+  "sale": Object {
+    "date": "2016-05-14",
+  },
+  "saleDate": "2016-05-14",
 }
 `;
 

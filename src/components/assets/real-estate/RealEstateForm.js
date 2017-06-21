@@ -156,22 +156,19 @@ class RealEstateForm extends React.Component {
   handlePurchaseChange(purchase: { +date?: string, +amount?: number }): void {
     this.setState(prevState => {
       const updatedPurchase = { ...prevState.purchase, ...purchase }
-      if (updatedPurchase.date && updatedPurchase.amount) {
-        const updatedValuations = prevState.realEstate.valuations
-          .filter(v => v.type !== 'purchase')
-        updatedValuations.push({
-          date: updatedPurchase.date,
-          amount: updatedPurchase.amount,
-          note: 'Purchase amount',
-          type: 'purchase',
-        })
-        return {
-          ...prevState,
-          realEstate: { ...prevState.realEstate, valuations: updatedValuations },
-          purchase: updatedPurchase,
-        }
-      } else {
-        return { ...prevState, purchase: updatedPurchase }
+      const updatedValuations = prevState.realEstate.valuations
+        .filter(v => v.type !== 'purchase')
+      updatedValuations.push({
+        date: updatedPurchase.date,
+        amount: updatedPurchase.amount,
+        note: 'Purchase amount',
+        type: 'purchase',
+      })
+      return {
+        ...prevState,
+        realEstate: { ...prevState.realEstate, valuations: updatedValuations },
+        purchase: updatedPurchase,
+        purchaseDate: updatedPurchase.date,
       }
     })
   }
@@ -179,22 +176,19 @@ class RealEstateForm extends React.Component {
   handleSaleChange(sale: { +date?: string, +amount?: number }): void {
     this.setState(prevState => {
       const updatedSale = { ...prevState.sale, ...sale }
-      if (updatedSale.date && updatedSale.amount) {
-        const updatedValuations = prevState.realEstate.valuations
-          .filter(v => v.type !== 'sale')
-        updatedValuations.push({
-          date: updatedSale.date,
-          amount: updatedSale.amount,
-          note: 'Sale amount',
-          type: 'sale',
-        })
-        return {
-          ...prevState,
-          realEstate: { ...prevState.realEstate, valuations: updatedValuations },
-          sale: updatedSale,
-        }
-      } else {
-        return { ...prevState, sale: updatedSale }
+      const updatedValuations = prevState.realEstate.valuations
+        .filter(v => v.type !== 'sale')
+      updatedValuations.push({
+        date: updatedSale.date,
+        amount: updatedSale.amount,
+        note: 'Sale amount',
+        type: 'sale',
+      })
+      return {
+        ...prevState,
+        realEstate: { ...prevState.realEstate, valuations: updatedValuations },
+        sale: updatedSale,
+        saleDate: updatedSale.date,
       }
     })
   }

@@ -43,9 +43,7 @@ describe('Portfolio', () => {
       dispatch: jest.fn(),
     }
     const wrapper = shallow(<Portfolio {...initialProps} />)
-    console.log('initialised')
     wrapper.setProps(props)
-    console.log('props set')
     const dateSlider = wrapper.find(DateSlider)
     expect(dateSlider.prop('dates')).toEqual(Object.keys(validBalanceSheet1))
     expect(dateSlider.prop('selected')).toBe(moment().format(DateStorageFormat))

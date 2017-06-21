@@ -143,7 +143,7 @@ class ValuationsInput extends React.Component {
             : 'valuation'}>
           <td className='valuations-date'>
             <DatePicker name={`valuations-date-${i}`} dateFormat={DateDisplayFormat}
-              selected={moment(v.date, DateStorageFormat)}
+              selected={v.date ? moment(v.date, DateStorageFormat) : undefined}
               showYearDropdown
               minDate={minDate} maxDate={maxDate}
               autoFocus={this.props.focus === `valuations-date-${i}`}

@@ -1,10 +1,10 @@
 /* global expect */
 
-import ValuationsInput from 'components/forms/ValuationsInput/ValuationsInput'
-
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 import DatePicker from 'react-datepicker'
+
+import ValuationsInput from 'components/forms/ValuationsInput/ValuationsInput'
 
 describe('ValuationsInput', () => {
   const valuations = [
@@ -43,6 +43,20 @@ describe('ValuationsInput', () => {
     }
     const wrapper = shallow(<ValuationsInput {...props} />)
     expect(wrapper).toMatchSnapshot()
+  })
+
+  it('should be tolerant of a valuation with a undefined date', () => {
+    const props = {
+      name: 'value',
+      valuations: [
+        {
+          amount: 350000,
+          type: 'none',
+        },
+      ],
+    }
+    const wrapper = shallow(<ValuationsInput {...props} />)
+    expect(wrapper.find(DatePicker).prop('selected')).toBe(undefined)
   })
 
   it('should display errors if touched', () => {

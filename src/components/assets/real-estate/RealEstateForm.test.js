@@ -93,27 +93,27 @@ describe('validation', () => {
 })
 
 describe('purchase and sale', () => {
-  it('should update valuations when purchase date is changed', () => {
+  it('should update state when purchase date is changed', () => {
     const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
     wrapper.find({ name: 'purchaseDate' }).prop('onChange')('2016-05-14')
-    expect(wrapper.state('purchase')).toMatchSnapshot()
+    expect(wrapper.state()).toMatchSnapshot()
   })
 
-  it('should update valuations when purchase amount is changed', () => {
+  it('should update state when purchase amount is changed', () => {
     const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
     wrapper.find({ name: 'purchaseAmount' }).prop('onChange')(350000)
-    expect(wrapper.state('purchase')).toMatchSnapshot()
+    expect(wrapper.state()).toMatchSnapshot()
   })
 
-  it('should update valuations when sale date is changed', () => {
+  it('should update state when sale date is changed', () => {
     const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
     wrapper.find({ name: 'saleDate' }).prop('onChange')('2016-05-14')
-    expect(wrapper.state('sale')).toMatchSnapshot()
+    expect(wrapper.state()).toMatchSnapshot()
   })
 
-  it('should update valuations when sale amount is changed', () => {
+  it('should update state when sale amount is changed', () => {
     const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
     wrapper.find({ name: 'saleAmount' }).prop('onChange')(350000)
-    expect(wrapper.state('sale')).toMatchSnapshot()
+    expect(wrapper.state()).toMatchSnapshot()
   })
 })

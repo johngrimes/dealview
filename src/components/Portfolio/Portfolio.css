@@ -7,7 +7,7 @@
 }
 
 .portfolio .balance-sheet {
-  margin: 20px;
+  margin: 50px 20px;
 }
 
 .portfolio .balance-sheet a,
@@ -18,6 +18,7 @@
 
 .portfolio .balance-sheet a {
   text-decoration: none;
+  color: black;
 }
 .portfolio .balance-sheet a:visited {
   color: black;
@@ -26,10 +27,10 @@
 .portfolio .assets,
 .portfolio .liabilities,
 .portfolio .equity {
-  background-color: #6dcff6;
+  background-color: #9dddf6;
   padding: 20px;
   width: 100px;
   margin: 0 20px 20px 0;
   float: left;
-  border-radius: 8px;
+  border-radius: 5px;
 }
