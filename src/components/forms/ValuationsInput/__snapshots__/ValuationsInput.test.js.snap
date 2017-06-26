@@ -296,6 +296,18 @@ exports[`ValuationsInput should render 1`] = `
 </div>
 `;
 
+exports[`ValuationsInput validation should return an error when a valuation does not have a date 1`] = `
+Array [
+  "Valuations must all have dates",
+]
+`;
+
+exports[`ValuationsInput validation should return an error when a valuation does not have an amount 1`] = `
+Array [
+  "Valuations must all have amounts",
+]
+`;
+
 exports[`ValuationsInput validation should return an error when valuations share dates 1`] = `
 Array [
   "Valuations must all be on different dates",

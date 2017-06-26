@@ -3,8 +3,10 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 import DatePicker from 'react-datepicker'
+import moment from 'moment'
 
 import ValuationsInput from 'components/forms/ValuationsInput/ValuationsInput'
+import DateStorageFormat from 'types/commonTypes'
 
 describe('ValuationsInput', () => {
   const valuations = [
@@ -157,10 +159,68 @@ describe('ValuationsInput', () => {
     expect(wrapper.state('valuations')).toHaveLength(numValuations - 1)
   })
 
+  it('should not pass minimum date to purchase date picker', () => {
+    const props = {
+      name: 'value',
+      minDate: moment('1983-06-21', DateStorageFormat),
+      valuations: [
+        {
+          date: '1983-06-21',
+          amount: 18700000,
+          note: 'Initial purchase price',
+          type: 'purchase',
+        },
+      ],
+    }
+    const wrapper = shallow(<ValuationsInput {...props} />)
+    expect(wrapper.find(DatePicker).prop('minDate')).toBe(undefined)
+  })
+
+  it('should not pass maximum date to sale date picker', () => {
+    const props = {
+      name: 'value',
+      maxDate: moment('2017-01-01'),
+      valuations: [
+        {
+          date: '2017-01-01',
+          amount: 340000,
+          note: 'Sale price',
+          type: 'sale',
+        },
+      ],
+    }
+    const wrapper = shallow(<ValuationsInput {...props} />)
+    expect(wrapper.find(DatePicker).prop('maxDate')).toBe(undefined)
+  })
+
   describe('validation', () => {
     it('should return an error when valuations share dates', () => {
       const valsWithDupe = valuations.concat(valuations[0])
       const result = ValuationsInput.validate(valsWithDupe)
+      expect(result).toHaveLength(1)
+      expect(result).toMatchSnapshot()
+    })
+
+    it('should return an error when a valuation does not have a date', () => {
+      const valsNoDate = [
+        {
+          amount: 350000,
+          type: 'none',
+        },
+      ]
+      const result = ValuationsInput.validate(valsNoDate)
+      expect(result).toHaveLength(1)
+      expect(result).toMatchSnapshot()
+    })
+
+    it('should return an error when a valuation does not have an amount', () => {
+      const valsNoAmount = [
+        {
+          date: '2023-03-04',
+          type: 'none',
+        },
+      ]
+      const result = ValuationsInput.validate(valsNoAmount)
       expect(result).toHaveLength(1)
       expect(result).toMatchSnapshot()
     })

@@ -166,9 +166,12 @@ class RealEstateForm extends React.Component {
       })
       return {
         ...prevState,
-        realEstate: { ...prevState.realEstate, valuations: updatedValuations },
+        realEstate: {
+          ...prevState.realEstate,
+          valuations: updatedValuations,
+          purchaseDate: updatedPurchase.date,
+        },
         purchase: updatedPurchase,
-        purchaseDate: updatedPurchase.date,
       }
     })
   }
@@ -186,9 +189,12 @@ class RealEstateForm extends React.Component {
       })
       return {
         ...prevState,
-        realEstate: { ...prevState.realEstate, valuations: updatedValuations },
+        realEstate: {
+          ...prevState.realEstate,
+          valuations: updatedValuations,
+          saleDate: updatedSale.date,
+        },
         sale: updatedSale,
-        saleDate: updatedSale.date,
       }
     })
   }
@@ -224,8 +230,10 @@ class RealEstateForm extends React.Component {
     const idField = typeof realEstate.id === 'string'
       ? <HiddenField name='id' value={realEstate.id} />
       : null
-    const minValuationDate = purchase ? moment(purchase.date, DateStorageFormat).add(1, 'd') : undefined
-    const maxValuationDate = sale ? moment(sale.date, DateStorageFormat).subtract(1, 'd') : undefined
+    const minValuationDate = purchase && purchase.date
+      ? moment(purchase.date, DateStorageFormat).add(1, 'd') : undefined
+    const maxValuationDate = sale && sale.date
+      ? moment(sale.date, DateStorageFormat).subtract(1, 'd') : undefined
 
     return (
       <form className='real-estate-form form form-aligned' onSubmit={this.handleSubmit}>

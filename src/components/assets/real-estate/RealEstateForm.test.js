@@ -3,11 +3,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import _ from 'lodash'
+import moment from 'moment'
 
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
 import ValuationsInput from 'components/forms/ValuationsInput/ValuationsInput'
 import { AddressEmpty } from 'types/commonTypes'
 import { validRealEstate1, validRealEstate2 } from 'fixtures/realEstate'
+import { DateStorageFormat } from 'types/commonTypes'
 import type { RealEstateErrors } from 'components/assets/real-estate/RealEstateForm'
 
 describe('RealEstateForm', () => {
@@ -22,6 +24,38 @@ describe('RealEstateForm', () => {
     const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
     expect(wrapper.find(ValuationsInput).prop('valuations'))
       .toBe(validRealEstate1.valuations)
+  })
+
+  it('should pass minimum date to ValuationsInput component when there is a purchase', () => {
+    const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
+    const minDate = wrapper.find(ValuationsInput).prop('minDate')
+    const expectedMinDate = moment(validRealEstate1.purchaseDate, DateStorageFormat).add(1, 'd')
+    expect(minDate.isSame(expectedMinDate)).toBe(true)
+  })
+
+  it('should pass maximum date to ValuationsInput component when there is a sale', () => {
+    const wrapper = shallow(<RealEstateForm realEstate={validRealEstate2} />)
+    const maxDate = wrapper.find(ValuationsInput).prop('maxDate')
+    const expectedMaxDate = moment(validRealEstate2.saleDate, DateStorageFormat).subtract(1, 'd')
+    expect(maxDate.isSame(expectedMaxDate)).toBe(true)
+  })
+
+  it('should not pass minimum date to ValuationsInput when purchase has no date', () => {
+    const realEstate = { ...validRealEstate1, valuations: [
+      { amount: 165000, note: 'Purchase price', type: 'purchase' },
+    ] }
+    const wrapper = shallow(<RealEstateForm realEstate={realEstate} />)
+    const minDate = wrapper.find(ValuationsInput).prop('minDate')
+    expect(minDate).toBe(undefined)
+  })
+
+  it('should not pass maximum date to ValuationsInput when sale has no date', () => {
+    const realEstate = { ...validRealEstate1, valuations: [
+      { amount: 340000, note: 'Sale price', type: 'sale' },
+    ] }
+    const wrapper = shallow(<RealEstateForm realEstate={realEstate} />)
+    const maxDate = wrapper.find(ValuationsInput).prop('maxDate')
+    expect(maxDate).toBe(undefined)
   })
 
   it('should focus the first field with errors upon submission', () => {

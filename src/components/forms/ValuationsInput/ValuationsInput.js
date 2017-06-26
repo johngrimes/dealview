@@ -84,8 +84,9 @@ class ValuationsInput extends React.Component {
   }
 
   handleAddValuation(): void {
-    const updatedValuations = this.state.valuations || []
-    updatedValuations.push(ValuationDefault)
+    const updatedValuations = this.state.valuations
+      ? this.state.valuations.concat([ValuationDefault])
+      : []
     this.setState(
       () => ({ valuations: updatedValuations }),
       () => { if (this.props.onChange) this.props.onChange(updatedValuations) }
@@ -145,7 +146,8 @@ class ValuationsInput extends React.Component {
             <DatePicker name={`valuations-date-${i}`} dateFormat={DateDisplayFormat}
               selected={v.date ? moment(v.date, DateStorageFormat) : undefined}
               showYearDropdown
-              minDate={minDate} maxDate={maxDate}
+              minDate={v.type !== 'purchase' ? minDate : undefined}
+              maxDate={v.type !== 'sale' ? maxDate : undefined}
               autoFocus={this.props.focus === `valuations-date-${i}`}
               onChange={(moment) => this.handleChange(i, 'date', moment.format(DateStorageFormat))}
               onFocus={this.handleFocus} onBlur={this.handleBlur} />
@@ -191,13 +193,34 @@ class ValuationsInput extends React.Component {
 
   static validate(valuations: Valuations): FieldErrors {
     return []
+      .concat(ValuationsInput.valuationsHaveDates(valuations))
+      .concat(ValuationsInput.valuationsHaveAmounts(valuations))
       .concat(ValuationsInput.valuationsDontShareDates(valuations))
+  }
+
+  static valuationsHaveDates(valuations: Valuations): FieldErrors {
+    return Validations.validate(
+      valuations,
+      vals => vals.every(v => v.date),
+      'Valuations must all have dates'
+    )
+  }
+
+  static valuationsHaveAmounts(valuations: Valuations): FieldErrors {
+    return Validations.validate(
+      valuations,
+      vals => vals.every(v => v.amount),
+      'Valuations must all have amounts'
+    )
   }
 
   static valuationsDontShareDates(valuations: Valuations): FieldErrors {
     return Validations.validate(
       valuations,
-      vals => vals.length === _.uniq(vals.map(v => v.date)).length,
+      vals => {
+        const valsWithDates = vals.filter(v => v.date)
+        return valsWithDates.length === _.uniq(valsWithDates.map(v => v.date)).length
+      },
       'Valuations must all be on different dates'
     )
   }

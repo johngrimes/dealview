@@ -111,7 +111,6 @@ exports[`RealEstateForm should render 1`] = `
     <ValuationsInput
       errors={Array []}
       forceErrorDisplay={true}
-      maxDate={null}
       minDate={"2014-09-10T14:00:00.000Z"}
       name="valuations"
       onChange={[Function]}
@@ -326,7 +325,6 @@ Object {
     "amount": 350000,
     "date": "2014-09-10",
   },
-  "purchaseDate": "2014-09-10",
   "realEstate": Object {
     "address": Object {
       "line1": "5 Sunrise St",
@@ -380,7 +378,6 @@ Object {
     "amount": 520000,
     "date": "2016-05-14",
   },
-  "purchaseDate": "2016-05-14",
   "realEstate": Object {
     "address": Object {
       "line1": "5 Sunrise St",
@@ -392,7 +389,7 @@ Object {
     },
     "name": "5 Sunrise St",
     "notes": "Principal place of residence",
-    "purchaseDate": "2014-09-10",
+    "purchaseDate": "2016-05-14",
     "valuations": Array [
       Object {
         "amount": 705000,
@@ -446,6 +443,7 @@ Object {
     "name": "5 Sunrise St",
     "notes": "Principal place of residence",
     "purchaseDate": "2014-09-10",
+    "saleDate": undefined,
     "valuations": Array [
       Object {
         "amount": 520000,
@@ -470,7 +468,6 @@ Object {
   "sale": Object {
     "amount": 350000,
   },
-  "saleDate": undefined,
 }
 `;
 
@@ -508,6 +505,7 @@ Object {
     "name": "5 Sunrise St",
     "notes": "Principal place of residence",
     "purchaseDate": "2014-09-10",
+    "saleDate": "2016-05-14",
     "valuations": Array [
       Object {
         "amount": 520000,
@@ -532,7 +530,6 @@ Object {
   "sale": Object {
     "date": "2016-05-14",
   },
-  "saleDate": "2016-05-14",
 }
 `;
 

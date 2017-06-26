@@ -33,6 +33,7 @@ export const validRealEstate2: RealEstate = {
   },
   notes: 'Investment property',
   purchaseDate: '2005-05-10',
+  saleDate: '2017-01-01',
   valuations: [
     { date: '2005-05-10', amount: 165000, note: 'Purchase price', type: 'purchase' },
     { date: '2015-09-10', amount: 260000, note: 'Formal valuation', type: 'none' },
