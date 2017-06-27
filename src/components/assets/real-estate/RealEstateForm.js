@@ -140,14 +140,10 @@ class RealEstateForm extends React.Component {
         errors: RealEstateForm.validate(realEstate),
       }
     }, () => {
-      const purchaseVal = _.pick(
-        valuations.find(v => v.type === 'purchase'),
-        [ 'date', 'amount' ]
-      )
-      const saleVal = _.pick(
-        valuations.find(v => v.type === 'sale'),
-        [ 'date', 'amount' ]
-      )
+      let purchaseVal = valuations.find(v => v.type === 'purchase')
+      let saleVal = valuations.find(v => v.type === 'sale')
+      purchaseVal = purchaseVal ? _.pick(purchaseVal, [ 'date', 'amount' ]) : purchaseVal
+      saleVal = saleVal ? _.pick(saleVal, [ 'date', 'amount' ]) : saleVal
       if (purchaseVal) { this.handlePurchaseChange(purchaseVal) }
       if (saleVal) { this.handleSaleChange(saleVal) }
     })

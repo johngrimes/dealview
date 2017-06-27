@@ -10,6 +10,7 @@ import ValuationsInput from 'components/forms/ValuationsInput/ValuationsInput'
 import { AddressEmpty } from 'types/commonTypes'
 import { validRealEstate1, validRealEstate2 } from 'fixtures/realEstate'
 import { DateStorageFormat } from 'types/commonTypes'
+import { RealEstateDefaults } from 'types/assets/realEstate'
 import type { RealEstateErrors } from 'components/assets/real-estate/RealEstateForm'
 
 describe('RealEstateForm', () => {
@@ -149,5 +150,14 @@ describe('purchase and sale', () => {
     const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
     wrapper.find({ name: 'saleAmount' }).prop('onChange')(350000)
     expect(wrapper.state()).toMatchSnapshot()
+  })
+
+  it('should not add empty purchase and sale upon edit of a valuation', () => {
+    const realEstate = RealEstateDefaults
+    const wrapper = shallow(<RealEstateForm realEstate={realEstate} />)
+    wrapper.find(ValuationsInput).prop('onChange')([
+      { amount: 1 },
+    ])
+    expect(wrapper.state('realEstate').valuations).toHaveLength(1)
   })
 })
