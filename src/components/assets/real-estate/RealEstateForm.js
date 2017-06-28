@@ -13,6 +13,7 @@ import DateField from 'components/forms/DateField'
 import * as Validations from 'utils/FormValidation'
 import { RealEstateDefaults } from 'types/assets/realEstate'
 import { DateStorageFormat } from 'types/commonTypes'
+import { updateValuationsWithPurchase, updateValuationsWithSale } from 'types/valuations'
 import type { RealEstate } from 'types/assets/realEstate'
 import type { Address } from 'types/commonTypes'
 import type { AddressErrors } from 'components/forms/AddressField'
@@ -134,32 +135,29 @@ class RealEstateForm extends React.Component {
 
   handleValuationsChange(valuations: Valuations): void {
     this.setState(prevState => {
-      const realEstate = { ...prevState.realEstate, valuations }
+      let purchaseVal = valuations.find(v => v.type === 'purchase')
+      let saleVal = valuations.find(v => v.type === 'sale')
+      let updatedValuations = valuations
+      if (purchaseVal) {
+        purchaseVal = _.pick(purchaseVal, [ 'date', 'amount' ])
+        updatedValuations = updateValuationsWithPurchase(valuations, purchaseVal)
+      }
+      if (saleVal) {
+        saleVal = _.pick(saleVal, [ 'date', 'amount' ])
+        updatedValuations = updateValuationsWithSale(valuations, saleVal)
+      }
+      const realEstate = { ...prevState.realEstate, valuations: updatedValuations }
       return {
         realEstate,
         errors: RealEstateForm.validate(realEstate),
       }
-    }, () => {
-      let purchaseVal = valuations.find(v => v.type === 'purchase')
-      let saleVal = valuations.find(v => v.type === 'sale')
-      purchaseVal = purchaseVal ? _.pick(purchaseVal, [ 'date', 'amount' ]) : purchaseVal
-      saleVal = saleVal ? _.pick(saleVal, [ 'date', 'amount' ]) : saleVal
-      if (purchaseVal) { this.handlePurchaseChange(purchaseVal) }
-      if (saleVal) { this.handleSaleChange(saleVal) }
     })
   }
 
   handlePurchaseChange(purchase: { +date?: string, +amount?: number }): void {
     this.setState(prevState => {
       const updatedPurchase = { ...prevState.purchase, ...purchase }
-      const updatedValuations = prevState.realEstate.valuations
-        .filter(v => v.type !== 'purchase')
-      updatedValuations.push({
-        date: updatedPurchase.date,
-        amount: updatedPurchase.amount,
-        note: 'Purchase amount',
-        type: 'purchase',
-      })
+      const updatedValuations = updateValuationsWithPurchase(prevState.realEstate.valuations, updatedPurchase)
       return {
         ...prevState,
         realEstate: {
@@ -175,14 +173,7 @@ class RealEstateForm extends React.Component {
   handleSaleChange(sale: { +date?: string, +amount?: number }): void {
     this.setState(prevState => {
       const updatedSale = { ...prevState.sale, ...sale }
-      const updatedValuations = prevState.realEstate.valuations
-        .filter(v => v.type !== 'sale')
-      updatedValuations.push({
-        date: updatedSale.date,
-        amount: updatedSale.amount,
-        note: 'Sale amount',
-        type: 'sale',
-      })
+      const updatedValuations = updateValuationsWithSale(prevState.realEstate.valuations, updatedSale)
       return {
         ...prevState,
         realEstate: {
