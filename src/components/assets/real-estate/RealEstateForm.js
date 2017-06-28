@@ -158,14 +158,16 @@ class RealEstateForm extends React.Component {
     this.setState(prevState => {
       const updatedPurchase = { ...prevState.purchase, ...purchase }
       const updatedValuations = updateValuationsWithPurchase(prevState.realEstate.valuations, updatedPurchase)
+      const realEstate = {
+        ...prevState.realEstate,
+        valuations: updatedValuations,
+        purchaseDate: updatedPurchase.date,
+      }
       return {
         ...prevState,
-        realEstate: {
-          ...prevState.realEstate,
-          valuations: updatedValuations,
-          purchaseDate: updatedPurchase.date,
-        },
+        realEstate,
         purchase: updatedPurchase,
+        errors: RealEstateForm.validate(realEstate),
       }
     })
   }
@@ -174,14 +176,16 @@ class RealEstateForm extends React.Component {
     this.setState(prevState => {
       const updatedSale = { ...prevState.sale, ...sale }
       const updatedValuations = updateValuationsWithSale(prevState.realEstate.valuations, updatedSale)
+      const realEstate = {
+        ...prevState.realEstate,
+        valuations: updatedValuations,
+        saleDate: updatedSale.date,
+      }
       return {
         ...prevState,
-        realEstate: {
-          ...prevState.realEstate,
-          valuations: updatedValuations,
-          saleDate: updatedSale.date,
-        },
+        realEstate,
         sale: updatedSale,
+        errors: RealEstateForm.validate(realEstate),
       }
     })
   }

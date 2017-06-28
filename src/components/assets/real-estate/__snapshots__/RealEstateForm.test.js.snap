@@ -371,7 +371,9 @@ Object {
     "purchaseDate": Array [],
     "saleAmount": Array [],
     "saleDate": Array [],
-    "valuations": Array [],
+    "valuations": Array [
+      "Valuations must all be between the purchase and sale dates",
+    ],
   },
   "focusedInput": "name",
   "purchase": Object {
@@ -424,7 +426,10 @@ Object {
     "purchaseDate": Array [],
     "saleAmount": Array [],
     "saleDate": Array [],
-    "valuations": Array [],
+    "valuations": Array [
+      "Valuations must all have dates",
+      "Valuations must all be between the purchase and sale dates",
+    ],
   },
   "focusedInput": "name",
   "purchase": Object {
@@ -485,7 +490,9 @@ Object {
     "purchaseDate": Array [],
     "saleAmount": Array [],
     "saleDate": Array [],
-    "valuations": Array [],
+    "valuations": Array [
+      "Valuations must all have amounts",
+    ],
   },
   "focusedInput": "name",
   "purchase": Object {
