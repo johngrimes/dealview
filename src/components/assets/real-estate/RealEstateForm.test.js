@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-import _ from 'lodash'
 import moment from 'moment'
 
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
@@ -109,7 +108,7 @@ describe('findFirstErrorFieldName', () => {
 
 describe('validation', () => {
   it('should require a purchase validation', () => {
-    const realEstate = _.cloneDeep(validRealEstate1)
+    const realEstate = { ...validRealEstate1 }
     realEstate.valuations = realEstate.valuations.filter(v => v.type !== 'purchase')
     const wrapper = shallow(<RealEstateForm realEstate={realEstate} />)
     expect(wrapper.find(ValuationsInput).prop('errors'))
@@ -117,10 +116,10 @@ describe('validation', () => {
   })
 
   it('should require valuations to be between purchase and sale dates', () => {
-    const realEstate = _.cloneDeep(validRealEstate1)
-    realEstate.valuations.push({
+    const realEstate = { ...validRealEstate1 }
+    realEstate.valuations = realEstate.valuations.concat([{
       date: '2014-09-09', amount: 460000, note: 'Some other valuation', type: 'none',
-    })
+    }])
     const wrapper = shallow(<RealEstateForm realEstate={realEstate} />)
     expect(wrapper.find(ValuationsInput).prop('errors'))
       .toMatchSnapshot()
