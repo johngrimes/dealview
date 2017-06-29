@@ -29,25 +29,31 @@ export const SaleDefault = {
   type: 'sale',
 }
 
-const purchaseFilter = v => v.type === 'purchase'
-const purchaseNegFilter = v => v.type !== 'purchase'
-const saleFilter = v => v.type === 'sale'
-const saleNegFilter = v => v.type !== 'sale'
+export const purchaseFilter = (v: Valuation) => v.type === 'purchase'
+export const purchaseNegFilter = (v: Valuation) => v.type !== 'purchase'
+export const saleFilter = (v: Valuation) => v.type === 'sale'
+export const saleNegFilter = (v: Valuation) => v.type !== 'sale'
 
 export const compareValuationsByDate = (a: Valuation, b: Valuation): number => {
   const [ milliA, milliB ] = [ a, b ].map(v => { return v.date ? moment(v.date, DateStorageFormat).valueOf() : 0 })
   return milliA - milliB
 }
 
+export const updateValuationsWithPurchaseOrSale = (valuations: Valuations, purchaseOrSale: Valuation, type: 'purchase'|'sale'): Valuations => {
+  const found = valuations.find(type === 'purchase' ? purchaseFilter : saleFilter)
+  const updatedPurchaseOrSale = {
+    ...(type === 'purchase' ? PurchaseDefault : SaleDefault),
+    ...found,
+    ...purchaseOrSale,
+  }
+  return valuations.filter(type === 'purchase' ? purchaseNegFilter : saleNegFilter)
+    .concat([updatedPurchaseOrSale])
+}
+
 export const updateValuationsWithPurchase = (valuations: Valuations, purchase: Valuation): Valuations => {
-  const found = valuations.find(purchaseFilter)
-  const updatedPurchase = { ...PurchaseDefault, ...found, ...purchase }
-  return valuations.filter(purchaseNegFilter).concat([updatedPurchase])
+  return updateValuationsWithPurchaseOrSale(valuations, purchase, 'purchase')
 }
 
 export const updateValuationsWithSale = (valuations: Valuations, sale: Valuation): Valuations => {
-  const found = valuations.find(saleFilter)
-  const updatedSale = { ...SaleDefault, ...found, ...sale }
-  return valuations.filter(saleNegFilter).concat([updatedSale])
+  return updateValuationsWithPurchaseOrSale(valuations, sale, 'sale')
 }
-
