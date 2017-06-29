@@ -17,6 +17,8 @@ type Props = {
   +errors?: FieldErrors,
   +forceErrorDisplay?: boolean,
   +focus?: string,
+  +minDate?: Moment,
+  +maxDate?: Moment,
   +onChange?: (value: string) => void,
   +onFocus?: (fieldName: string) => void
 }
@@ -62,7 +64,7 @@ class DateField extends React.Component {
   }
 
   render() {
-    const { name, label, errors, forceErrorDisplay } = this.props
+    const { name, label, errors, forceErrorDisplay, minDate, maxDate } = this.props
     const { value, touched } = this.state
     const labelTag = label ? <label htmlFor={name}>{label}</label> : null
     const errorTags = []
@@ -89,6 +91,7 @@ class DateField extends React.Component {
           selected={selected} showYearDropdown
           autoFocus={this.props.focus === name}
           onFocus={this.handleFocus}
+          minDate={minDate} maxDate={maxDate}
           onChange={(moment) => this.handleChange(moment.format(DateStorageFormat))} />
         {(forceErrorDisplay || touched) && errorTags.length > 0 && <div className='errors'>{errorTags}</div>}
       </div>

@@ -160,4 +160,20 @@ describe('purchase and sale', () => {
     ])
     expect(wrapper.state('realEstate').valuations).toHaveLength(1)
   })
+
+  it('should set minimum on sale date when purchase is present', () => {
+    const expected = moment('2005-05-10', DateStorageFormat).add(1, 'd')
+    const wrapper = shallow(<RealEstateForm realEstate={validRealEstate2} />)
+    expect(
+      wrapper.find({ name: 'saleDate' }).prop('minDate').isSame(expected))
+    .toBe(true)
+  })
+
+  it('should set maximum on purchase date when sale is present', () => {
+    const expected = moment('2017-01-01', DateStorageFormat).subtract(1, 'd')
+    const wrapper = shallow(<RealEstateForm realEstate={validRealEstate2} />)
+    expect(
+      wrapper.find({ name: 'purchaseDate' }).prop('maxDate').isSame(expected))
+    .toBe(true)
+  })
 })

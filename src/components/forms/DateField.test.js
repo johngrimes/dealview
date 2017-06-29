@@ -108,4 +108,40 @@ describe('DateField', () => {
     const wrapper = shallow(<DateField {...props} />)
     expect(wrapper.find(DatePicker).prop('autoFocus')).toBe(true)
   })
+
+  it('should pass minimum date to date picker if set', () => {
+    const minDate = moment('2017-06-29', DateStorageFormat)
+    const props = {
+      name: 'someInput',
+      minDate,
+    }
+    const wrapper = shallow(<DateField {...props} />)
+    expect(wrapper.find(DatePicker).prop('minDate').isSame(minDate)).toBe(true)
+  })
+
+  it('should pass maximum date to date picker if set', () => {
+    const maxDate = moment('2017-06-29', DateStorageFormat)
+    const props = {
+      name: 'someInput',
+      maxDate,
+    }
+    const wrapper = shallow(<DateField {...props} />)
+    expect(wrapper.find(DatePicker).prop('maxDate').isSame(maxDate)).toBe(true)
+  })
+
+  it('should not pass minimum date to date picker if unset', () => {
+    const props = {
+      name: 'someInput',
+    }
+    const wrapper = shallow(<DateField {...props} />)
+    expect(wrapper.find(DatePicker).prop('minDate')).toBe(undefined)
+  })
+
+  it('should not pass maximum date to date picker if unset', () => {
+    const props = {
+      name: 'someInput',
+    }
+    const wrapper = shallow(<DateField {...props} />)
+    expect(wrapper.find(DatePicker).prop('maxDate')).toBe(undefined)
+  })
 })

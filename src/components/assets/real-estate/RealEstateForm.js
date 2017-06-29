@@ -248,6 +248,7 @@ class RealEstateForm extends React.Component {
           <DateField name='purchaseDate' label='Purchase date'
             value={purchase ? purchase.date : undefined} errors={errors.purchaseDate}
             forceErrorDisplay={allErrorsShown}
+            maxDate={maxValuationDate}
             onChange={value => this.handlePurchaseChange({ date: value })}
             onFocus={this.handleFocus} focus={focusedInput} />
           <InputField name='purchaseAmount' label='Purchase amount' type='number' min='1'
@@ -262,6 +263,7 @@ class RealEstateForm extends React.Component {
           <DateField name='saleDate' label='Sale date'
             value={sale ? sale.date : undefined} errors={errors.saleDate}
             forceErrorDisplay={allErrorsShown}
+            minDate={minValuationDate}
             onChange={value => this.handleSaleChange({ date: value })}
             onFocus={this.handleFocus} focus={focusedInput} />
           <InputField name='saleAmount' label='Sale amount' type='number' min='1'
