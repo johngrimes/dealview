@@ -35,10 +35,6 @@
   width: 540px !important;
 }
 
-.valuations-input .valuation-purchase {
-  color: #666;
-}
-
 .valuations-input .delete-valuation-button {
   margin: 0 8px;
   background: transparent url(./delete.svg) no-repeat top left;

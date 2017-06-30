@@ -8,6 +8,10 @@ header, .main {
   box-sizing: border-box;
 }
 
+.main {
+  padding-bottom: 20px;
+}
+
 .primary-menu {
 	background-color: #666;
 }
