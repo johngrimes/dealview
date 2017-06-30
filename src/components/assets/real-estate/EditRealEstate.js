@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
@@ -20,7 +21,8 @@ type Props = {
     status: ObjectStoreStatus,
     object: RealEstate
   },
-  dispatch: any
+  dispatch: any,
+  history: any,
 }
 
 export class EditRealEstate extends React.Component {
@@ -48,6 +50,7 @@ export class EditRealEstate extends React.Component {
 
   handleSubmit(realEstate: RealEstate): void {
     this.props.dispatch(putRealEstate(realEstate))
+    this.props.history.push('/portfolio/assets')
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -75,4 +78,4 @@ const mapStateToProps = (state: GlobalState, ownProps: Props) => {
   }
 }
 
-export default connect(mapStateToProps)(EditRealEstate)
+export default connect(mapStateToProps)(withRouter(EditRealEstate))

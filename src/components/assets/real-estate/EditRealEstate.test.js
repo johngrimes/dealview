@@ -50,6 +50,7 @@ describe('EditRealEstate', () => {
 
   it('should save Real Estate when handleSubmit is called', () => {
     const dispatch = jest.fn()
+    const history = { push: jest.fn() }
     const props = {
       id: '73',
       realEstate: {
@@ -57,6 +58,7 @@ describe('EditRealEstate', () => {
         object: validRealEstateWithId1,
       },
       dispatch,
+      history,
     }
     const realEstateActions = require('actions/realEstate')
     realEstateActions.putRealEstate = jest.fn()
@@ -65,5 +67,24 @@ describe('EditRealEstate', () => {
     handleSubmit(validRealEstateWithId1)
     expect(dispatch).toHaveBeenCalled()
     expect(realEstateActions.putRealEstate).toHaveBeenCalledWith(validRealEstateWithId1)
+  })
+
+  it('should redirect to assets listing when handleSubmit is called', () => {
+    jest.mock('../../../actions/realEstate')
+    const dispatch = jest.fn()
+    const history = { push: jest.fn() }
+    const props = {
+      id: '73',
+      realEstate: {
+        status: 'loaded',
+        object: validRealEstateWithId1,
+      },
+      dispatch,
+      history,
+    }
+    const wrapper = shallow(<EditRealEstate {...props} />)
+    const handleSubmit = wrapper.find(RealEstateForm).prop('onSubmit')
+    handleSubmit(validRealEstateWithId1)
+    expect(history.push).toHaveBeenCalledWith('/portfolio/assets')
   })
 })

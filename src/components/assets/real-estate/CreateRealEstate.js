@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
@@ -12,7 +13,8 @@ import type { BreadcrumbTrail } from 'components/Breadcrumbs/Breadcrumbs'
 import './CreateRealEstate.css'
 
 type Props = {
-  dispatch: any
+  dispatch: any,
+  history: any,
 }
 
 export class CreateRealEstate extends React.Component {
@@ -36,6 +38,7 @@ export class CreateRealEstate extends React.Component {
 
   handleSubmit(realEstate: RealEstate): void {
     this.props.dispatch(putRealEstate(realEstate))
+    this.props.history.push('/portfolio/assets')
   }
 
   render() {
@@ -48,4 +51,4 @@ export class CreateRealEstate extends React.Component {
   }
 }
 
-export default connect()(CreateRealEstate)
+export default connect()(withRouter(CreateRealEstate))
