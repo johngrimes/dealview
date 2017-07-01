@@ -9,11 +9,11 @@ const objectStore = 'Asset'
 
 type PutAssetRequestAction = {
   +type: 'PUT_ASSET_REQUEST',
-  +asset: Asset,
+  +object: Asset,
 }
 type PutAssetSuccessAction = {
   +type: 'PUT_ASSET_SUCCESS',
-  +asset: AssetWithId
+  +object: AssetWithId
 }
 type PutAssetFailureAction = {
   +type: 'PUT_ASSET_FAILURE',
@@ -38,7 +38,7 @@ type LoadAssetsRequestAction = {
 }
 type LoadAssetsSuccessAction = {
   +type: 'LOAD_ASSETS_SUCCESS',
-  +assets: AssetMap
+  +objects: AssetMap
 }
 type LoadAssetsFailureAction = {
   +type: 'LOAD_ASSETS_FAILURE',
@@ -58,14 +58,14 @@ export type AssetAction = PutAssetRequestAction
 export const putAssetRequest = (asset: Asset): PutAssetRequestAction => {
   return {
     type: 'PUT_ASSET_REQUEST',
-    asset,
+    object: asset,
   }
 }
 
 export const putAssetSuccess = (asset: AssetWithId): PutAssetSuccessAction => {
   return {
     type: 'PUT_ASSET_SUCCESS',
-    asset,
+    object: asset,
   }
 }
 
@@ -104,7 +104,7 @@ export const loadAssetsRequest = (): LoadAssetsRequestAction => {
 export const loadAssetsSuccess = (assets: AssetMap): LoadAssetsSuccessAction => {
   return {
     type: 'LOAD_ASSETS_SUCCESS',
-    assets,
+    objects: assets,
   }
 }
 

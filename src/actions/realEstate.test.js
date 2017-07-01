@@ -20,11 +20,11 @@ describe('putRealEstate', () => {
     return expect(thunk(dispatch)).resolves.toEqual({ some: 'realEstate' }).then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_REAL_ESTATE_REQUEST',
-        realEstate: { some: 'realEstate' },
+        object: { some: 'realEstate' },
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_REAL_ESTATE_SUCCESS',
-        realEstate: { some: 'realEstate' },
+        object: { some: 'realEstate' },
       })
     })
   })
@@ -41,7 +41,7 @@ describe('putRealEstate', () => {
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_REAL_ESTATE_REQUEST',
-        realEstate: { some: 'realEstate' },
+        object: { some: 'realEstate' },
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_REAL_ESTATE_FAILURE',
@@ -113,7 +113,7 @@ describe('loadRealEstate', () => {
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'LOAD_REAL_ESTATE_SUCCESS',
-        realEstate: [{ some: 'thing' }],
+        objects: [{ some: 'thing' }],
       })
     })
   })

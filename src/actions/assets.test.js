@@ -15,14 +15,14 @@ describe('putAsset', () => {
     return expect(thunk(dispatch)).resolves.toEqual({ some: 'thing' }).then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_ASSET_REQUEST',
-        asset: { some: 'thing' },
+        object: { some: 'thing' },
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'INVALIDATE_BALANCE_SHEET',
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_ASSET_SUCCESS',
-        asset: { some: 'thing' },
+        object: { some: 'thing' },
       })
     })
   })
@@ -37,7 +37,7 @@ describe('putAsset', () => {
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_ASSET_REQUEST',
-        asset: { some: 'thing' },
+        object: { some: 'thing' },
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'PUT_ASSET_FAILURE',
@@ -112,7 +112,7 @@ describe('loadAssets', () => {
       })
       expect(dispatch).toHaveBeenCalledWith({
         type: 'LOAD_ASSETS_SUCCESS',
-        assets: [{ some: 'thing' }],
+        objects: [{ some: 'thing' }],
       })
     })
   })

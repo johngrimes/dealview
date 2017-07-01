@@ -10,11 +10,11 @@ const objectStore = 'Asset.RealEstate'
 
 type PutRealEstateRequestAction = {
   +type: 'PUT_REAL_ESTATE_REQUEST',
-  +realEstate: RealEstate,
+  +object: RealEstate,
 }
 type PutRealEstateSuccessAction = {
   +type: 'PUT_REAL_ESTATE_SUCCESS',
-  +realEstate: RealEstateWithId,
+  +object: RealEstateWithId,
 }
 type PutRealEstateFailureAction = {
   +type: 'PUT_REAL_ESTATE_FAILURE',
@@ -39,7 +39,7 @@ type LoadRealEstateRequestAction = {
 }
 type LoadRealEstateSuccessAction = {
   +type: 'LOAD_REAL_ESTATE_SUCCESS',
-  +realEstate: RealEstateMap,
+  +objects: RealEstateMap,
 }
 type LoadRealEstateFailureAction = {
   +type: 'LOAD_REAL_ESTATE_FAILURE',
@@ -59,14 +59,14 @@ export type RealEstateAction = PutRealEstateRequestAction
 export const putRealEstateRequest = (realEstate: RealEstate): PutRealEstateRequestAction => {
   return {
     type: 'PUT_REAL_ESTATE_REQUEST',
-    realEstate,
+    object: realEstate,
   }
 }
 
 export const putRealEstateSuccess = (realEstate: RealEstateWithId): PutRealEstateSuccessAction => {
   return {
     type: 'PUT_REAL_ESTATE_SUCCESS',
-    realEstate,
+    object: realEstate,
   }
 }
 
@@ -105,7 +105,7 @@ export const loadRealEstateRequest = (): LoadRealEstateRequestAction => {
 export const loadRealEstateSuccess = (realEstate: RealEstateMap): LoadRealEstateSuccessAction => {
   return {
     type: 'LOAD_REAL_ESTATE_SUCCESS',
-    realEstate,
+    objects: realEstate,
   }
 }
 

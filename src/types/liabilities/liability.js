@@ -1,7 +1,7 @@
 // @flow
 
 export type Liability = {
-  +type: 'ResidentialHomeLoan',
+  +type: 'Loan',
   +instanceId: string,
   +name: string,
   +startDate: string,
