@@ -7,7 +7,7 @@ import { withRouter } from 'react-router'
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
 import NotFound from 'components/NotFound/NotFound'
-import { putRealEstate, loadRealEstate } from 'actions/realEstate'
+import RealEstateActions from 'actions/realEstate'
 import type { RealEstate } from 'types/assets/realEstate'
 import type { GlobalState } from 'store'
 import type { ObjectStoreStatus } from 'store'
@@ -32,7 +32,7 @@ export class EditRealEstate extends React.Component {
   constructor(props: Props) {
     super(props)
     if (this.props.realEstate.status === 'uninitialised') {
-      this.props.dispatch(loadRealEstate())
+      this.props.dispatch(RealEstateActions.loadRealEstate())
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -49,13 +49,13 @@ export class EditRealEstate extends React.Component {
   }
 
   handleSubmit(realEstate: RealEstate): void {
-    this.props.dispatch(putRealEstate(realEstate))
+    this.props.dispatch(RealEstateActions.putRealEstate(realEstate))
     this.props.history.push('/portfolio/assets')
   }
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.realEstate.status === 'uninitialised') {
-      this.props.dispatch(loadRealEstate())
+      this.props.dispatch(RealEstateActions.loadRealEstate())
     }
   }
 

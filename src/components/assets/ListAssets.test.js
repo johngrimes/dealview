@@ -6,7 +6,6 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { validAssetWithId1, validAssetWithId2 } from 'fixtures/asset'
-import { loadAssets } from 'actions/assets'
 
 describe('ListAssets', () => {
   it('should render some Assets', () => {
@@ -26,7 +25,7 @@ describe('ListAssets', () => {
 
   it('should load Assets if uninitialised', () => {
     const dispatch = jest.fn()
-    const assetActions = require('actions/assets')
+    const assetActions = require('actions/assets').default
     assetActions.loadAssets = jest.fn()
     const props = {
       assets: {
@@ -37,6 +36,6 @@ describe('ListAssets', () => {
     }
     shallow(<ListAssets {...props} />)
     expect(dispatch).toHaveBeenCalled()
-    expect(loadAssets).toHaveBeenCalled()
+    expect(assetActions.loadAssets).toHaveBeenCalled()
   })
 })

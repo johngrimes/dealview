@@ -1,10 +1,10 @@
 // @flow
 
 import _ from 'lodash'
-import type { Reducer, State, Action } from 'redux'
+import type { Reducer, State } from 'redux'
 
 import type { ObjectMap } from 'types/commonTypes'
-// import type { AssetAction } from 'actions/assets'
+import type { ObjectAction } from 'actions/objects'
 
 export type ObjectStoreState = {
   +status: 'uninitialised'|'loading'|'loaded'|'error',
@@ -16,7 +16,7 @@ export const InitialObjectStoreState: ObjectStoreState = {
   objects: {},
 }
 
-export const createObjectsReducer = (name: string, pluralName: string): Reducer<State, Action> => {
+export const createObjectsReducer = (name: string, pluralName: string): Reducer<State, ObjectAction> => {
   return (state = InitialObjectStoreState, action) => {
     switch (action.type) {
       case `PUT_${name}_REQUEST`:

@@ -9,7 +9,7 @@ describe('putAsset', () => {
     jest.mock('../db/db', () => ({
       putObject: () => new Promise(resolve => resolve({ some: 'thing' })),
     }))
-    const AssetActions = require('actions/assets')
+    const AssetActions = require('actions/assets').default
     const thunk = AssetActions.putAsset({ some: 'thing' })
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).resolves.toEqual({ some: 'thing' }).then(() => {
@@ -31,7 +31,7 @@ describe('putAsset', () => {
     jest.mock('../db/db', () => ({
       putObject: () => new Promise((resolve, reject) => reject('Some error')),
     }))
-    const AssetActions = require('actions/assets')
+    const AssetActions = require('actions/assets').default
     const thunk = AssetActions.putAsset({ some: 'thing' })
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
@@ -56,7 +56,7 @@ describe('deleteAsset', () => {
     jest.mock('../db/db', () => ({
       deleteObject: () => new Promise(resolve => resolve('someKey')),
     }))
-    const AssetActions = require('actions/assets')
+    const AssetActions = require('actions/assets').default
     const thunk = AssetActions.deleteAsset('someKey')
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).resolves.toEqual('someKey').then(() => {
@@ -78,7 +78,7 @@ describe('deleteAsset', () => {
     jest.mock('../db/db', () => ({
       deleteObject: () => new Promise((resolve, reject) => reject('Some error')),
     }))
-    const AssetActions = require('actions/assets')
+    const AssetActions = require('actions/assets').default
     const thunk = AssetActions.deleteAsset('someKey')
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
@@ -103,7 +103,7 @@ describe('loadAssets', () => {
     jest.mock('../db/db', () => ({
       getAllObjects: () => new Promise(resolve => resolve([{ some: 'thing' }])),
     }))
-    const AssetActions = require('actions/assets')
+    const AssetActions = require('actions/assets').default
     const thunk = AssetActions.loadAssets()
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).resolves.toEqual([{ some: 'thing' }]).then(() => {
@@ -121,7 +121,7 @@ describe('loadAssets', () => {
     jest.mock('../db/db', () => ({
       getAllObjects: () => new Promise((resolve, reject) => reject('Some error')),
     }))
-    const AssetActions = require('actions/assets')
+    const AssetActions = require('actions/assets').default
     const thunk = AssetActions.loadAssets()
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {

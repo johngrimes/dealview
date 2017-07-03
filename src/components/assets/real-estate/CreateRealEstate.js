@@ -6,7 +6,7 @@ import { withRouter } from 'react-router'
 
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
-import { putRealEstate } from 'actions/realEstate'
+import RealEstateActions from 'actions/realEstate'
 import type { RealEstate } from 'types/assets/realEstate'
 import type { BreadcrumbTrail } from 'components/Breadcrumbs/Breadcrumbs'
 
@@ -37,7 +37,7 @@ export class CreateRealEstate extends React.Component {
   }
 
   handleSubmit(realEstate: RealEstate): void {
-    this.props.dispatch(putRealEstate(realEstate))
+    this.props.dispatch(RealEstateActions.putRealEstate(realEstate))
     this.props.history.push('/portfolio/assets')
   }
 

@@ -5,6 +5,7 @@ import type { Dispatch } from 'redux'
 export type Thunk = (dispatch: Dispatch) => any
 
 export type ObjectMap = { [id: string]: Object }
+export type ObjectWithId = Object & { +id: string }
 
 export type Address = {
   +line1: string,

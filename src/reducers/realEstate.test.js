@@ -1,7 +1,7 @@
 /* global expect */
 
 import RealEstateReducer from 'reducers/realEstate'
-import * as RealEstateActions from 'actions/realEstate'
+import RealEstateActions from 'actions/realEstate'
 import { validRealEstateWithId1, validRealEstateWithId2 } from 'fixtures/realEstate'
 
 describe('RealEstateReducer', () => {

@@ -17,7 +17,7 @@ describe('CreateRealEstate', () => {
   it('should put Real Estate when handleSubmit is called', () => {
     const dispatch = jest.fn()
     const history = { push: jest.fn() }
-    const realEstateActions = require('actions/realEstate')
+    const realEstateActions = require('actions/realEstate').default
     realEstateActions.putRealEstate = jest.fn()
     const wrapper = shallow(<CreateRealEstate dispatch={dispatch} history={history} />)
     const handleSubmit = wrapper.find(RealEstateForm).prop('onSubmit')

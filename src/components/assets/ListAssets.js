@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
-import { loadAssets } from 'actions/assets'
+import RealEstateActions from 'actions/assets'
 import { getValuationAtDate } from 'types/assets/asset'
 import { formatDollars } from 'types/commonTypes'
 import type { GlobalState } from 'store'
@@ -26,7 +26,7 @@ export class ListAssets extends React.Component {
   constructor(props: Props) {
     super(props)
     if (this.props.assets.status === 'uninitialised') {
-      this.props.dispatch(loadAssets())
+      this.props.dispatch(RealEstateActions.loadAssets())
     }
   }
 
@@ -39,7 +39,7 @@ export class ListAssets extends React.Component {
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.assets.status === 'uninitialised') {
-      this.props.dispatch(loadAssets())
+      this.props.dispatch(RealEstateActions.loadAssets())
     }
   }
 

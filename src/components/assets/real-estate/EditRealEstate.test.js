@@ -34,7 +34,7 @@ describe('EditRealEstate', () => {
 
   it('should load Real Estate if uninitialised', () => {
     const dispatch = jest.fn()
-    const realEstateActions = require('actions/realEstate')
+    const realEstateActions = require('actions/realEstate').default
     realEstateActions.loadRealEstate = jest.fn()
     const props = {
       id: '73',
@@ -60,7 +60,7 @@ describe('EditRealEstate', () => {
       dispatch,
       history,
     }
-    const realEstateActions = require('actions/realEstate')
+    const realEstateActions = require('actions/realEstate').default
     realEstateActions.putRealEstate = jest.fn()
     const wrapper = shallow(<EditRealEstate {...props} />)
     const handleSubmit = wrapper.find(RealEstateForm).prop('onSubmit')

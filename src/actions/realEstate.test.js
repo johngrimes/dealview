@@ -14,7 +14,7 @@ describe('putRealEstate', () => {
     jest.mock('../types/assets/realEstate', () => ({
       realEstateToAsset: () => ({ some: 'asset' }),
     }))
-    const RealEstateActions = require('actions/realEstate')
+    const RealEstateActions = require('actions/realEstate').default
     const thunk = RealEstateActions.putRealEstate({ some: 'realEstate' })
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).resolves.toEqual({ some: 'realEstate' }).then(() => {
@@ -35,7 +35,7 @@ describe('putRealEstate', () => {
         ? new Promise((resolve, reject) => reject('Some error'))
         : new Promise(resolve => resolve({ some: 'asset' })),
     }))
-    const RealEstateActions = require('actions/realEstate')
+    const RealEstateActions = require('actions/realEstate').default
     const thunk = RealEstateActions.putRealEstate({ some: 'realEstate' })
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
@@ -60,7 +60,7 @@ describe('deleteRealEstate', () => {
     jest.mock('../db/db', () => ({
       deleteObject: () => new Promise(resolve => resolve('someKey')),
     }))
-    const RealEstateActions = require('actions/realEstate')
+    const RealEstateActions = require('actions/realEstate').default
     const thunk = RealEstateActions.deleteRealEstate('someKey')
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).resolves.toEqual('someKey').then(() => {
@@ -79,7 +79,7 @@ describe('deleteRealEstate', () => {
     jest.mock('../db/db', () => ({
       deleteObject: () => new Promise((resolve, reject) => reject('Some error')),
     }))
-    const RealEstateActions = require('actions/realEstate')
+    const RealEstateActions = require('actions/realEstate').default
     const thunk = RealEstateActions.deleteRealEstate('someKey')
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {
@@ -104,7 +104,7 @@ describe('loadRealEstate', () => {
     jest.mock('../db/db', () => ({
       getAllObjects: () => new Promise(resolve => resolve([{ some: 'thing' }])),
     }))
-    const RealEstateActions = require('actions/realEstate')
+    const RealEstateActions = require('actions/realEstate').default
     const thunk = RealEstateActions.loadRealEstate()
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).resolves.toEqual([{ some: 'thing' }]).then(() => {
@@ -122,7 +122,7 @@ describe('loadRealEstate', () => {
     jest.mock('../db/db', () => ({
       getAllObjects: () => new Promise((resolve, reject) => reject('Some error')),
     }))
-    const RealEstateActions = require('actions/realEstate')
+    const RealEstateActions = require('actions/realEstate').default
     const thunk = RealEstateActions.loadRealEstate()
     const dispatch = jest.fn()
     return expect(thunk(dispatch)).rejects.toEqual('Some error').then(() => {

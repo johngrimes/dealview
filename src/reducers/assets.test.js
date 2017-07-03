@@ -1,7 +1,7 @@
 /* global expect */
 
 import AssetsReducer from 'reducers/assets'
-import * as AssetActions from 'actions/assets'
+import AssetActions from 'actions/assets'
 import { validAssetWithId1, validAssetWithId2 } from 'fixtures/asset'
 
 describe('AssetsReducer', () => {
