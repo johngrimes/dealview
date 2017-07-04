@@ -8,11 +8,13 @@ import type { Store } from 'redux'
 import combinedReducer from 'reducers/combined'
 import type { AssetState } from 'reducers/assets/assets'
 import type { RealEstateState } from 'reducers/assets/realEstate'
+import type { LiabilityState } from 'reducers/liabilities/liabilities'
 import type { BalanceSheetState } from 'reducers/balanceSheet'
 
 export type GlobalState = {
   +assets: AssetState,
   +realEstate: RealEstateState,
+  +liabilities: LiabilityState,
   +balanceSheet: BalanceSheetState
 }
 

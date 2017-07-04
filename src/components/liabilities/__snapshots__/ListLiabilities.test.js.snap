@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListLiabilities should render some Liabilities 1`] = `
+<div
+  className="list-liabilities"
+>
+  <Breadcrumbs
+    breadcrumbs={
+      Array [
+        Object {
+          "display": "Portfolio",
+          "path": "/portfolio",
+        },
+        Object {
+          "display": "Liabilities",
+          "path": "/portfolio/liabilities",
+        },
+      ]
+    }
+  />
+  <p>
+    <Link
+      replace={false}
+      to="/portfolio/liabilities/new"
+    >
+      New Liability
+    </Link>
+  </p>
+  <ol
+    className="liabilities"
+  >
+    <li
+      className="liability"
+    >
+      <Link
+        className="liability-name"
+        replace={false}
+        to="/portfolio/liabilities/loans/345"
+      >
+        5SS Reno Loan
+      </Link>
+    </li>
+    <li
+      className="liability"
+    >
+      <Link
+        className="liability-name"
+        replace={false}
+        to="/portfolio/liabilities/loans/832"
+      >
+        Briggs Primary
+      </Link>
+    </li>
+  </ol>
+</div>
+`;
