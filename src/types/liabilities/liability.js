@@ -2,7 +2,6 @@
 
 export type Liability = {
   +type: 'Loan',
-  +instanceId: string,
   +name: string,
   +startDate: string,
   +endDate: string

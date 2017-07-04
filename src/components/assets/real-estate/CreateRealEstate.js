@@ -6,7 +6,7 @@ import { withRouter } from 'react-router'
 
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
-import RealEstateActions from 'actions/realEstate'
+import RealEstateActions from 'actions/assets/realEstate'
 import type { RealEstate } from 'types/assets/realEstate'
 import type { BreadcrumbTrail } from 'components/Breadcrumbs/Breadcrumbs'
 

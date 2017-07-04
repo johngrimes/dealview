@@ -18,9 +18,10 @@ export const getDatabase = (): Promise<IDBDatabase> => {
     request.onupgradeneeded = event => {
       const db = event.target.result
       if (!event.oldVersion || event.oldVersion < 1) {
-        db.createObjectStore('Asset.RealEstate', { keyPath: 'id' })
-        db.createObjectStore('Event', { keyPath: 'id' })
         db.createObjectStore('Asset', { keyPath: 'id' })
+        db.createObjectStore('Asset.RealEstate', { keyPath: 'id' })
+        db.createObjectStore('Liability', { keyPath: 'id' })
+        db.createObjectStore('Liability.Loan', { keyPath: 'id' })
         db.createObjectStore('BalanceSheet')
       }
     }

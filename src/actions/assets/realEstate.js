@@ -1,7 +1,7 @@
 // @flow
 
 import { putObject, deleteObject, getAllObjects } from 'db/db'
-import AssetActions from 'actions/assets'
+import AssetActions from 'actions/assets/assets'
 import { realEstateToAsset } from 'types/assets/realEstate'
 import { createObjectActions } from 'actions/objects'
 import type { RealEstate } from 'types/assets/realEstate'

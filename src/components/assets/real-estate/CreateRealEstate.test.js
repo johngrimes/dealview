@@ -17,7 +17,7 @@ describe('CreateRealEstate', () => {
   it('should put Real Estate when handleSubmit is called', () => {
     const dispatch = jest.fn()
     const history = { push: jest.fn() }
-    const realEstateActions = require('actions/realEstate').default
+    const realEstateActions = require('actions/assets/realEstate').default
     realEstateActions.putRealEstate = jest.fn()
     const wrapper = shallow(<CreateRealEstate dispatch={dispatch} history={history} />)
     const handleSubmit = wrapper.find(RealEstateForm).prop('onSubmit')
@@ -27,7 +27,7 @@ describe('CreateRealEstate', () => {
   })
 
   it('should redirect to assets listing when handleSubmit is called', () => {
-    jest.mock('../../../actions/realEstate')
+    jest.mock('../../../actions/assets/realEstate')
     const dispatch = jest.fn()
     const history = { push: jest.fn() }
     const wrapper = shallow(<CreateRealEstate dispatch={dispatch} history={history} />)

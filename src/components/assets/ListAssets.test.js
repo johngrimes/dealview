@@ -25,7 +25,7 @@ describe('ListAssets', () => {
 
   it('should load Assets if uninitialised', () => {
     const dispatch = jest.fn()
-    const assetActions = require('actions/assets').default
+    const assetActions = require('actions/assets/assets').default
     assetActions.loadAssets = jest.fn()
     const props = {
       assets: {

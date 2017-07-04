@@ -6,8 +6,8 @@ import { createLogger } from 'redux-logger'
 import type { Store } from 'redux'
 
 import combinedReducer from 'reducers/combined'
-import type { AssetState } from 'reducers/assets'
-import type { RealEstateState } from 'reducers/realEstate'
+import type { AssetState } from 'reducers/assets/assets'
+import type { RealEstateState } from 'reducers/assets/realEstate'
 import type { BalanceSheetState } from 'reducers/balanceSheet'
 
 export type GlobalState = {

@@ -10,7 +10,7 @@ import DateSlider from 'components/DateSlider/DateSlider'
 import { validBalanceSheet1 } from 'fixtures/balanceSheet'
 import { DateStorageFormat } from 'types/commonTypes'
 import { InitialBalanceSheetState } from 'reducers/balanceSheet'
-import { InitialAssetState } from 'reducers/assets'
+import { InitialAssetState } from 'reducers/assets/assets'
 
 describe('Portfolio', () => {
   const props = {

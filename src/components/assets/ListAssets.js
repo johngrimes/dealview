@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs'
-import RealEstateActions from 'actions/assets'
+import RealEstateActions from 'actions/assets/assets'
 import { getValuationAtDate } from 'types/assets/asset'
 import { formatDollars } from 'types/commonTypes'
 import type { GlobalState } from 'store'
-import type { AssetState } from 'reducers/assets'
+import type { AssetState } from 'reducers/assets/assets'
 import type { BreadcrumbTrail } from 'components/Breadcrumbs/Breadcrumbs'
 
 type Props = {

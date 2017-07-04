@@ -34,7 +34,7 @@ describe('EditRealEstate', () => {
 
   it('should load Real Estate if uninitialised', () => {
     const dispatch = jest.fn()
-    const realEstateActions = require('actions/realEstate').default
+    const realEstateActions = require('actions/assets/realEstate').default
     realEstateActions.loadRealEstate = jest.fn()
     const props = {
       id: '73',
@@ -60,7 +60,7 @@ describe('EditRealEstate', () => {
       dispatch,
       history,
     }
-    const realEstateActions = require('actions/realEstate').default
+    const realEstateActions = require('actions/assets/realEstate').default
     realEstateActions.putRealEstate = jest.fn()
     const wrapper = shallow(<EditRealEstate {...props} />)
     const handleSubmit = wrapper.find(RealEstateForm).prop('onSubmit')
@@ -70,7 +70,7 @@ describe('EditRealEstate', () => {
   })
 
   it('should redirect to assets listing when handleSubmit is called', () => {
-    jest.mock('../../../actions/realEstate')
+    jest.mock('../../../actions/assets/realEstate')
     const dispatch = jest.fn()
     const history = { push: jest.fn() }
     const props = {
