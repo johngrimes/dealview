@@ -45,6 +45,7 @@ class App extends React.Component {
               <Route exact path='/portfolio/assets/real-estate/new' component={CreateRealEstate} />
               <Route exact path='/portfolio/assets/real-estate/:id'
                 render={({ match, location }) => <EditRealEstate id={match.params.id} location={location} />} />
+              <Route exact path='/portfolio/liabilities/new' render={() => <Link to='/portfolio/liabilities/loans/new'>New Loan</Link>} />
               <Route exact path='/portfolio/liabilities' component={ListLiabilities} />
 
               <Route exact path='/cash-flow' component={CashFlow} />
