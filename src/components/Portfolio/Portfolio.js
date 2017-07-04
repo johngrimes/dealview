@@ -80,7 +80,7 @@ export class Portfolio extends React.Component {
         <Breadcrumbs breadcrumbs={this.breadcrumbs()} />
         <div className='slider-container'>
           <DateSlider dates={dates} selected={this.state.date}
-            initialised={this.props.balanceSheet.status === 'loaded'}
+            initialised={this.props.balanceSheet.status === 'loaded' && dates.length > 0}
             className='date-slider' onChange={this.handleDateChange} />
         </div>
         <div className='balance-sheet'>
