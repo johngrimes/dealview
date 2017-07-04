@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createObjectsReducer should update state upon delete success 1`] = `
+Object {
+  "objects": Object {},
+  "status": "loaded",
+}
+`;
+
+exports[`createObjectsReducer should update state upon failure 1`] = `
+Object {
+  "error": "Something borked",
+  "objects": Object {
+    "xyz123": Object {
+      "aspectA": "foo",
+      "aspectB": "bar",
+      "id": "xyz123",
+    },
+  },
+  "status": "error",
+}
+`;
+
+exports[`createObjectsReducer should update state upon failure 2`] = `
+Object {
+  "error": "Flatlined",
+  "objects": Object {
+    "xyz123": Object {
+      "aspectA": "foo",
+      "aspectB": "bar",
+      "id": "xyz123",
+    },
+  },
+  "status": "error",
+}
+`;
+
+exports[`createObjectsReducer should update state upon failure 3`] = `
+Object {
+  "error": "No rabbits to be found",
+  "objects": Object {
+    "xyz123": Object {
+      "aspectA": "foo",
+      "aspectB": "bar",
+      "id": "xyz123",
+    },
+  },
+  "status": "error",
+}
+`;
+
+exports[`createObjectsReducer should update state upon load success 1`] = `
+Object {
+  "objects": Object {
+    "abc789": Object {
+      "aspectA": "grate",
+      "aspectB": "pad",
+      "id": "abc789",
+    },
+    "xyz123": Object {
+      "aspectA": "foo",
+      "aspectB": "bar",
+      "id": "xyz123",
+    },
+  },
+  "status": "loaded",
+}
+`;
+
+exports[`createObjectsReducer should update state upon put success 1`] = `
+Object {
+  "objects": Object {
+    "abc789": Object {
+      "aspectA": "grate",
+      "aspectB": "pad",
+      "id": "abc789",
+    },
+    "xyz123": Object {
+      "aspectA": "foo",
+      "aspectB": "bar",
+      "id": "xyz123",
+    },
+  },
+  "status": "loaded",
+}
+`;
+
+exports[`createObjectsReducer should update state upon request 1`] = `
+Object {
+  "objects": Object {
+    "xyz123": Object {
+      "aspectA": "foo",
+      "aspectB": "bar",
+      "id": "xyz123",
+    },
+  },
+  "status": "loading",
+}
+`;
+
+exports[`createObjectsReducer should update state upon request 2`] = `
+Object {
+  "objects": Object {
+    "xyz123": Object {
+      "aspectA": "foo",
+      "aspectB": "bar",
+      "id": "xyz123",
+    },
+  },
+  "status": "loading",
+}
+`;
+
+exports[`createObjectsReducer should update state upon request 3`] = `
+Object {
+  "objects": Object {
+    "xyz123": Object {
+      "aspectA": "foo",
+      "aspectB": "bar",
+      "id": "xyz123",
+    },
+  },
+  "status": "loading",
+}
+`;
