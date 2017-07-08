@@ -25,9 +25,14 @@ exports[`EditLoan should render an existing Loan 1`] = `
   <LoanForm
     loan={
       Object {
+        "compoundingPeriod": "daily",
         "endDate": "2039-09-10",
+        "establishmentFees": 1500,
         "id": "345",
+        "lengthInYears": 25,
         "name": "5SS Reno Loan",
+        "principal": 500000,
+        "repaymentType": "principalAndInterest",
         "startDate": "2014-09-10",
       }
     }
