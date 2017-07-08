@@ -6,11 +6,9 @@ import moment from 'moment'
 
 import RealEstateForm from 'components/assets/real-estate/RealEstateForm'
 import ValuationsInput from 'components/forms/ValuationsInput/ValuationsInput'
-import { AddressEmpty } from 'types/commonTypes'
 import { validRealEstate1, validRealEstate2 } from 'fixtures/realEstate'
 import { DateStorageFormat } from 'types/commonTypes'
 import { RealEstateDefaults } from 'types/assets/realEstate'
-import type { RealEstateErrors } from 'components/assets/real-estate/RealEstateForm'
 
 describe('RealEstateForm', () => {
   it('should render', () => {
@@ -77,32 +75,6 @@ describe('RealEstateForm', () => {
     const wrapper = shallow(<RealEstateForm />)
     wrapper.find('form').simulate('submit', { preventDefault() {} })
     expect(wrapper.state('allErrorsShown')).toEqual(true)
-  })
-})
-
-describe('findFirstErrorFieldName', () => {
-  it('should return the name of the first field with errors', () => {
-    const errors: RealEstateErrors = {
-      name: [],
-      address: AddressEmpty,
-      notes: ['has incorrect grammar in it'],
-    }
-    const result = RealEstateForm.findFirstErrorFieldName(errors)
-    expect(result).toEqual('notes')
-  })
-
-  it('should return a field within a complex input', () => {
-    const errors: RealEstateErrors = {
-      name: [],
-      address: {
-        line1: [],
-        line2: ["is not anywhere I've ever heard of"],
-        line3: [],
-      },
-      notes: [],
-    }
-    const result = RealEstateForm.findFirstErrorFieldName(errors)
-    expect(result).toEqual('address-line2')
   })
 })
 

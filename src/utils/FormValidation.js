@@ -26,6 +26,24 @@ export const areErrorsPresent = (errors: FormErrors): boolean => {
   })
 }
 
+export const findFirstErrorFieldName = (formErrors: FormErrors): string|null => {
+  return (function seek(formErrors, parentComponentName) {
+    let match = null
+    _.some(formErrors, (errors, fieldName) => {
+      if (errors instanceof Array) {
+        if (errors.length > 0) {
+          match = parentComponentName ? parentComponentName + '-' + fieldName : fieldName
+          return true
+        } else return false
+      } else if (errors instanceof Object) {
+        match = seek(errors, fieldName)
+        return (match !== null)
+      }
+    })
+    return match
+  })(formErrors)
+}
+
 //
 // Validates the presence of a set of fields.
 //

@@ -4,7 +4,7 @@ import { combineReducers } from 'redux'
 
 import AssetsReducer from 'reducers/assets/assets'
 import RealEstateReducer from 'reducers/assets/realEstate'
-import LiabilitiesReducer from 'reducers/assets/assets'
+import LiabilitiesReducer from 'reducers/liabilities/liabilities'
 import LoansReducer from 'reducers/liabilities/loans'
 import BalanceSheetReducer from 'reducers/balanceSheet'
 

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateLoan should render 1`] = `
+<div
+  className="create-loan"
+>
+  <Breadcrumbs
+    breadcrumbs={
+      Array [
+        Object {
+          "display": "Portfolio",
+          "path": "/portfolio",
+        },
+        Object {
+          "display": "Liabilities",
+          "path": "/portfolio/liabilities",
+        },
+        Object {
+          "display": "New Loan",
+          "path": "/portfolio/liabilities/loans/new",
+        },
+      ]
+    }
+  />
+  <LoanForm
+    onSubmit={[Function]}
+  />
+</div>
+`;

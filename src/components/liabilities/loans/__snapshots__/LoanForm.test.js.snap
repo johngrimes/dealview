@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoanForm should render 1`] = `
+<form
+  className="loan-form form form-aligned"
+  onSubmit={[Function]}
+>
+  <fieldset>
+    <InputField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Name"
+      name="name"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="text"
+      value="5SS Reno Loan"
+    />
+    <DateField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Start date"
+      name="startDate"
+      onChange={[Function]}
+      onFocus={[Function]}
+      value="2014-09-10"
+    />
+    <DateField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="End date"
+      name="endDate"
+      onChange={[Function]}
+      onFocus={[Function]}
+      value="2039-09-10"
+    />
+  </fieldset>
+  <fieldset>
+    <button
+      className="button button-primary"
+      type="submit"
+    >
+      Submit
+    </button>
+  </fieldset>
+</form>
+`;
+
+exports[`LoanForm should render 2`] = `
+<form
+  className="loan-form form form-aligned"
+  onSubmit={[Function]}
+>
+  <fieldset>
+    <InputField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Name"
+      name="name"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="text"
+      value="Briggs Primary"
+    />
+    <DateField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Start date"
+      name="startDate"
+      onChange={[Function]}
+      onFocus={[Function]}
+      value="2014-05-10"
+    />
+    <DateField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="End date"
+      name="endDate"
+      onChange={[Function]}
+      onFocus={[Function]}
+      value="2029-05-10"
+    />
+  </fieldset>
+  <fieldset>
+    <button
+      className="button button-primary"
+      type="submit"
+    >
+      Submit
+    </button>
+  </fieldset>
+</form>
+`;

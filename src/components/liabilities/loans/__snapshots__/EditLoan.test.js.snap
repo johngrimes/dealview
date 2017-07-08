@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditLoan should render an existing Loan 1`] = `
+<div
+  className="edit-loan"
+>
+  <Breadcrumbs
+    breadcrumbs={
+      Array [
+        Object {
+          "display": "Portfolio",
+          "path": "/portfolio",
+        },
+        Object {
+          "display": "Liabilities",
+          "path": "/portfolio/liabilities",
+        },
+        Object {
+          "display": "5SS Reno Loan",
+          "path": "/portfolio/liabilities/loans/73",
+        },
+      ]
+    }
+  />
+  <LoanForm
+    loan={
+      Object {
+        "endDate": "2039-09-10",
+        "id": "345",
+        "name": "5SS Reno Loan",
+        "startDate": "2014-09-10",
+      }
+    }
+    onSubmit={[Function]}
+  />
+</div>
+`;

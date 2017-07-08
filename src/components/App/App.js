@@ -1,13 +1,15 @@
 // @flow
 
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch, NavLink, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, NavLink, Link, Redirect } from 'react-router-dom'
 
 import Portfolio from 'components/Portfolio/Portfolio'
 import ListAssets from 'components/assets/ListAssets'
 import CreateRealEstate from 'components/assets/real-estate/CreateRealEstate'
 import EditRealEstate from 'components/assets/real-estate/EditRealEstate'
 import ListLiabilities from 'components/liabilities/ListLiabilities'
+import CreateLoan from 'components/liabilities/loans/CreateLoan'
+import EditLoan from 'components/liabilities/loans/EditLoan'
 import CashFlow from 'components/CashFlow'
 import Scenarios from 'components/Scenarios'
 import NotFound from 'components/NotFound/NotFound'
@@ -39,14 +41,18 @@ class App extends React.Component {
           </header>
           <div className='main'>
             <Switch>
+              <Route exact path='/' render={() => <Redirect to='/portfolio' />} />
               <Route exact path='/portfolio' component={Portfolio} />
               <Route exact path='/portfolio/assets' component={ListAssets} />
               <Route exact path='/portfolio/assets/new' render={() => <Link to='/portfolio/assets/real-estate/new'>New Real Estate</Link>} />
               <Route exact path='/portfolio/assets/real-estate/new' component={CreateRealEstate} />
               <Route exact path='/portfolio/assets/real-estate/:id'
                 render={({ match, location }) => <EditRealEstate id={match.params.id} location={location} />} />
-              <Route exact path='/portfolio/liabilities/new' render={() => <Link to='/portfolio/liabilities/loans/new'>New Loan</Link>} />
               <Route exact path='/portfolio/liabilities' component={ListLiabilities} />
+              <Route exact path='/portfolio/liabilities/new' render={() => <Link to='/portfolio/liabilities/loans/new'>New Loan</Link>} />
+              <Route exact path='/portfolio/liabilities/loans/new' component={CreateLoan} />
+              <Route exact path='/portfolio/liabilities/loans/:id'
+                render={({ match, location }) => <EditLoan id={match.params.id} location={location} />} />
 
               <Route exact path='/cash-flow' component={CashFlow} />
 

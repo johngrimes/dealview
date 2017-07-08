@@ -182,7 +182,7 @@ class RealEstateForm extends React.Component {
       () => {
         const { errors, realEstate } = this.state
         if (typeof errors !== 'undefined' && Validations.areErrorsPresent(errors)) {
-          const firstErrorFieldName = RealEstateForm.findFirstErrorFieldName(errors)
+          const firstErrorFieldName = Validations.findFirstErrorFieldName(errors)
           firstErrorFieldName
             ? this.setState(() => ({ allErrorsShown: true, focusedInput: firstErrorFieldName }))
             : this.setState(() => ({ allErrorsShown: true }))
@@ -317,24 +317,6 @@ class RealEstateForm extends React.Component {
       ),
       'Valuations must all be between the purchase and sale dates'
     )
-  }
-
-  static findFirstErrorFieldName(realEstateErrors: RealEstateErrors): string|null {
-    return (function seek(realEstateErrors, parentComponentName) {
-      let match = null
-      _.some(realEstateErrors, (errors, fieldName) => {
-        if (errors instanceof Array) {
-          if (errors.length > 0) {
-            match = parentComponentName ? parentComponentName + '-' + fieldName : fieldName
-            return true
-          } else return false
-        } else if (errors instanceof Object) {
-          match = seek(errors, fieldName)
-          return (match !== null)
-        }
-      })
-      return match
-    })(realEstateErrors)
   }
 }
 

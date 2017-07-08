@@ -12,6 +12,12 @@ export type LoanWithId = Loan & { +id: string }
 
 export type LoanMap = { +[id: string]: LoanWithId }
 
+export const LoanDefaults = {
+  name: '',
+  startDate: '',
+  endDate: '',
+}
+
 export const loanToLiability = (loan: Loan): Liability => {
   const liability = {}
   liability.type = 'Loan'

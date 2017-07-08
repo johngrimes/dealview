@@ -30,6 +30,36 @@ describe('areErrorsPresent', () => {
   })
 })
 
+describe('findFirstErrorFieldName', () => {
+  it('should return the name of the first field with errors', () => {
+    const errors = {
+      name: [],
+      address: {
+        line1: [],
+        line2: [],
+        line3: [],
+      },
+      notes: ['has incorrect grammar in it'],
+    }
+    const result = Validation.findFirstErrorFieldName(errors)
+    expect(result).toEqual('notes')
+  })
+
+  it('should return a field within a complex input', () => {
+    const errors = {
+      name: [],
+      address: {
+        line1: [],
+        line2: ["is not anywhere I've ever heard of"],
+        line3: [],
+      },
+      notes: [],
+    }
+    const result = Validation.findFirstErrorFieldName(errors)
+    expect(result).toEqual('address-line2')
+  })
+})
+
 describe('required', () => {
   it('should return an error for a blank string', () => {
     expect(Validation.required('')).toMatchSnapshot()
