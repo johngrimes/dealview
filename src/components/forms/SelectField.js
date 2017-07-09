@@ -74,9 +74,9 @@ class SelectField extends React.Component {
     const { value, touched } = this.state
     const optionTags = options.map(option => {
       const props = {
+        key: option[1],
         label: option[0],
         value: option[1],
-        selected: option[1] === value,
       }
       return <option {...props} />
     })
@@ -93,7 +93,7 @@ class SelectField extends React.Component {
       ? 'with-errors'
       : ''
     const props = {
-      name, className,
+      name, className, value,
       onChange: this.handleChange,
       onFocus: this.handleFocus,
       ref: input => this.ref = input,
