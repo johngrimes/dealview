@@ -19,11 +19,21 @@ type LoanErrors = {
   +name: FieldErrors,
   +startDate: FieldErrors,
   +endDate: FieldErrors,
+  +principal: FieldErrors,
+  +compoundingPeriod: FieldErrors,
+  +lengthInYears: FieldErrors,
+  +establishmentFees: FieldErrors,
+  +repaymentType: FieldErrors,
 }
 const LoanErrorDefaults = {
   name: [],
   startDate: [],
   endDate: [],
+  principal: [],
+  compoundingPeriod: [],
+  lengthInYears: [],
+  establishmentFees: [],
+  repaymentType: [],
 }
 
 type Props = {
@@ -131,6 +141,12 @@ class LoanForm extends React.Component {
             value={loan.endDate} errors={errors.endDate}
             forceErrorDisplay={allErrorsShown}
             onChange={value => this.handleChange('endDate', value)}
+            onFocus={this.handleFocus} focus={focusedInput} />
+          <InputField name='principal' type='number'
+            min='0' label='Principal amount'
+            value={loan.principal ? loan.principal.toString() : undefined}
+            errors={errors.principal} forceErrorDisplay={allErrorsShown}
+            onChange={value => this.handleChange('principal', value)}
             onFocus={this.handleFocus} focus={focusedInput} />
         </fieldset>
         <fieldset>

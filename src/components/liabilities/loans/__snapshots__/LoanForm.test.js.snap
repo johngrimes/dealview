@@ -37,6 +37,18 @@ exports[`LoanForm should render 1`] = `
       onFocus={[Function]}
       value="2039-09-10"
     />
+    <InputField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Principal amount"
+      min="0"
+      name="principal"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="number"
+      value="500000"
+    />
   </fieldset>
   <fieldset>
     <button
@@ -85,6 +97,18 @@ exports[`LoanForm should render 2`] = `
       onChange={[Function]}
       onFocus={[Function]}
       value="2029-05-10"
+    />
+    <InputField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Principal amount"
+      min="0"
+      name="principal"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="number"
+      value="150000"
     />
   </fieldset>
   <fieldset>
