@@ -155,6 +155,24 @@ class LoanForm extends React.Component {
             forceErrorDisplay={allErrorsShown}
             onChange={value => this.handleChange('compoundingPeriod', value)}
             onFocus={this.handleFocus} focus={focusedInput} />
+          <InputField name='lengthInYears' type='number'
+            min='0' label='Length in years'
+            value={loan.lengthInYears ? loan.lengthInYears.toString() : undefined}
+            errors={errors.lengthInYears} forceErrorDisplay={allErrorsShown}
+            onChange={value => this.handleChange('lengthInYears', value)}
+            onFocus={this.handleFocus} focus={focusedInput} />
+          <InputField name='establishmentFees' type='number'
+            min='0' label='Establishment fees'
+            value={loan.establishmentFees ? loan.establishmentFees.toString() : undefined}
+            errors={errors.establishmentFees} forceErrorDisplay={allErrorsShown}
+            onChange={value => this.handleChange('establishmentFees', value)}
+            onFocus={this.handleFocus} focus={focusedInput} />
+          <SelectField name='repaymentType' label='Repayment type'
+            options={[ [ 'Daily', 'daily' ], [ 'Monthly', 'monthly' ] ]}
+            value={loan.repaymentType} errors={errors.repaymentType}
+            forceErrorDisplay={allErrorsShown}
+            onChange={value => this.handleChange('repaymentType', value)}
+            onFocus={this.handleFocus} focus={focusedInput} />
         </fieldset>
         <fieldset>
           <button type='submit' className='button button-primary'>Submit</button>

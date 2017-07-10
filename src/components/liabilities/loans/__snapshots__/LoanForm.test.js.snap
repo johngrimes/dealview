@@ -71,6 +71,52 @@ exports[`LoanForm should render 1`] = `
       }
       value="daily"
     />
+    <InputField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Length in years"
+      min="0"
+      name="lengthInYears"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="number"
+      value="25"
+    />
+    <InputField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Establishment fees"
+      min="0"
+      name="establishmentFees"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="number"
+      value="1500"
+    />
+    <SelectField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Repayment type"
+      name="repaymentType"
+      onChange={[Function]}
+      onFocus={[Function]}
+      options={
+        Array [
+          Array [
+            "Daily",
+            "daily",
+          ],
+          Array [
+            "Monthly",
+            "monthly",
+          ],
+        ]
+      }
+      value="principalAndInterest"
+    />
   </fieldset>
   <fieldset>
     <button
@@ -153,6 +199,51 @@ exports[`LoanForm should render 2`] = `
         ]
       }
       value="monthly"
+    />
+    <InputField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Length in years"
+      min="0"
+      name="lengthInYears"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="number"
+      value="30"
+    />
+    <InputField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Establishment fees"
+      min="0"
+      name="establishmentFees"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="number"
+    />
+    <SelectField
+      errors={Array []}
+      focus="name"
+      forceErrorDisplay={true}
+      label="Repayment type"
+      name="repaymentType"
+      onChange={[Function]}
+      onFocus={[Function]}
+      options={
+        Array [
+          Array [
+            "Daily",
+            "daily",
+          ],
+          Array [
+            "Monthly",
+            "monthly",
+          ],
+        ]
+      }
+      value="interestOnly"
     />
   </fieldset>
   <fieldset>
