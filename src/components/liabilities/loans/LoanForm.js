@@ -5,6 +5,7 @@ import React from 'react'
 import InputField from 'components/forms/InputField'
 import HiddenField from 'components/forms/HiddenField'
 import DateField from 'components/forms/DateField'
+import SelectField from 'components/forms/SelectField'
 import * as Validations from 'utils/FormValidation'
 import { LoanDefaults } from 'types/liabilities/loan'
 import { findFirstErrorFieldName } from 'utils/FormValidation'
@@ -147,6 +148,12 @@ class LoanForm extends React.Component {
             value={loan.principal ? loan.principal.toString() : undefined}
             errors={errors.principal} forceErrorDisplay={allErrorsShown}
             onChange={value => this.handleChange('principal', value)}
+            onFocus={this.handleFocus} focus={focusedInput} />
+          <SelectField name='compoundingPeriod' label='Compounding Period'
+            options={[ [ 'Daily', 'daily' ], [ 'Monthly', 'monthly' ] ]}
+            value={loan.compoundingPeriod} errors={errors.compoundingPeriod}
+            forceErrorDisplay={allErrorsShown}
+            onChange={value => this.handleChange('compoundingPeriod', value)}
             onFocus={this.handleFocus} focus={focusedInput} />
         </fieldset>
         <fieldset>
