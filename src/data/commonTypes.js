@@ -10,6 +10,9 @@ export const AddressDefaults = {
 export const DateDisplayFormat = 'D MMM YYYY'
 export const DateStorageFormat = 'YYYY-MM-DD'
 
+export const parseNumber = string =>
+  typeof string === 'string' ? parseInt(string) : undefined
+
 export const formatNumber = number => {
   if (typeof number !== 'number') return undefined
   const numString = number.toString()
@@ -24,9 +27,13 @@ export const formatDollars = number =>
   typeof number === 'number' ? '$' + formatNumber(number) : undefined
 
 export const unformatNumber = string => {
-  return string ? parseInt(string.replace(/,/, ''), 10) : undefined
+  return typeof string === 'string'
+    ? parseInt(string.replace(/,/g, ''), 10)
+    : undefined
 }
 
 export const unformatDollars = string => {
-  return string ? unformatNumber(string.slice(1)) : undefined
+  return typeof string === 'string'
+    ? unformatNumber(string.replace(/\$/g, ''))
+    : undefined
 }

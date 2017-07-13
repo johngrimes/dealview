@@ -1,13 +1,17 @@
 import React from 'react'
 
 import InputField from './InputField.js'
-import { formatDollars, unformatDollars } from '../data/commonTypes.js'
+import {
+  parseNumber,
+  formatDollars,
+  unformatDollars,
+} from '../data/commonTypes.js'
 
 class CurrencyField extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: props.value,
+      value: parseNumber(props.value),
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -23,8 +27,8 @@ class CurrencyField extends React.Component {
     )
   }
 
-  componentWillReceiveProps(props) {
-    this.setState(() => ({ value: props.value }))
+  componentWillReceiveProps(nextProps) {
+    this.setState(() => ({ value: parseNumber(nextProps.value) }))
   }
 
   render() {
