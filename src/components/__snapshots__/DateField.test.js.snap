@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateField should be tolerant of an empty value prop 1`] = `
+<div
+  className="control-group"
+>
+  <label
+    htmlFor="someDate"
+  >
+    Some Date
+  </label>
+  <div
+    className="date-picker"
+  >
+    <t
+      allowSameDay={false}
+      autoFocus={false}
+      className=""
+      dateFormat="D MMM YYYY"
+      dateFormatCalendar="MMMM YYYY"
+      disabled={false}
+      disabledKeyboardNavigation={false}
+      dropdownMode="scroll"
+      monthsShown={1}
+      name="someDate"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClickOutside={[Function]}
+      onFocus={[Function]}
+      onMonthChange={[Function]}
+      onSelect={[Function]}
+      showYearDropdown={true}
+      utcOffset={600}
+      withPortal={false}
+    />
+  </div>
+</div>
+`;
+
+exports[`DateField should be tolerant of an undefined value prop 1`] = `
+<div
+  className="control-group"
+>
+  <label
+    htmlFor="someDate"
+  >
+    Some Date
+  </label>
+  <div
+    className="date-picker"
+  >
+    <t
+      allowSameDay={false}
+      autoFocus={false}
+      className=""
+      dateFormat="D MMM YYYY"
+      dateFormatCalendar="MMMM YYYY"
+      disabled={false}
+      disabledKeyboardNavigation={false}
+      dropdownMode="scroll"
+      monthsShown={1}
+      name="someDate"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClickOutside={[Function]}
+      onFocus={[Function]}
+      onMonthChange={[Function]}
+      onSelect={[Function]}
+      showYearDropdown={true}
+      utcOffset={600}
+      withPortal={false}
+    />
+  </div>
+</div>
+`;
+
+exports[`DateField should display errors if touched 1`] = `
+<div
+  className="control-group"
+>
+  <label
+    htmlFor="someDate"
+  >
+    Some Date
+  </label>
+  <div
+    className="date-picker"
+  >
+    <t
+      allowSameDay={false}
+      autoFocus={false}
+      className=""
+      dateFormat="D MMM YYYY"
+      dateFormatCalendar="MMMM YYYY"
+      disabled={false}
+      disabledKeyboardNavigation={false}
+      dropdownMode="scroll"
+      monthsShown={1}
+      name="someDate"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClickOutside={[Function]}
+      onFocus={[Function]}
+      onMonthChange={[Function]}
+      onSelect={[Function]}
+      selected={"1981-07-25T14:00:00.000Z"}
+      showYearDropdown={true}
+      utcOffset={600}
+      withPortal={false}
+    />
+  </div>
+</div>
+`;
+
+exports[`DateField should render 1`] = `
+<div
+  className="control-group"
+>
+  <label
+    htmlFor="someDate"
+  >
+    Some Date
+  </label>
+  <div
+    className="date-picker"
+  >
+    <t
+      allowSameDay={false}
+      autoFocus={false}
+      className=""
+      dateFormat="D MMM YYYY"
+      dateFormatCalendar="MMMM YYYY"
+      disabled={false}
+      disabledKeyboardNavigation={false}
+      dropdownMode="scroll"
+      monthsShown={1}
+      name="someDate"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClickOutside={[Function]}
+      onFocus={[Function]}
+      onMonthChange={[Function]}
+      onSelect={[Function]}
+      selected={"1981-07-25T14:00:00.000Z"}
+      showYearDropdown={true}
+      utcOffset={600}
+      withPortal={false}
+    />
+  </div>
+</div>
+`;

@@ -1,92 +1,37 @@
-// @flow
-
-import type { ObjectMap, ObjectWithId } from 'types/commonTypes'
-
-type PutObjectRequestAction = {
-  +type: string,
-  +object: Object,
-}
-type PutObjectSuccessAction = {
-  +type: string,
-  +object: ObjectWithId,
-}
-type PutObjectFailureAction = {
-  +type: string,
-  +error?: string,
-}
-
-type DeleteObjectRequestAction = {
-  +type: string,
-  +id: string,
-}
-type DeleteObjectSuccessAction = {
-  +type: string,
-  +id: string,
-}
-type DeleteObjectFailureAction = {
-  +type: string,
-  +error?: string,
-}
-
-type LoadObjectsRequestAction = {
-  +type: string,
-}
-type LoadObjectsSuccessAction = {
-  +type: string,
-  +objects: ObjectMap,
-}
-type LoadObjectsFailureAction = {
-  +type: string,
-  +error?: string
-}
-
-export type ObjectAction = PutObjectRequestAction
-                         | PutObjectSuccessAction
-                         | PutObjectFailureAction
-                         | DeleteObjectRequestAction
-                         | DeleteObjectRequestAction
-                         | DeleteObjectFailureAction
-                         | LoadObjectsRequestAction
-                         | LoadObjectsSuccessAction
-                         | LoadObjectsFailureAction
-
-export type ObjectActions = { +[string]: (any) => ObjectAction }
-
-export const createObjectActions = (name: string, pluralName: string,
-                                    nameTitled: string, pluralNameTitled: string): ObjectActions => {
+export const createObjectActions = (name, pluralName, nameTitled, pluralNameTitled) => {
   return {
-    [`put${nameTitled}Request`]: (object: Object): PutObjectRequestAction => ({
+    [`put${nameTitled}Request`]: object => ({
       type: `PUT_${name}_REQUEST`,
       object,
     }),
-    [`put${nameTitled}Success`]: (object: ObjectWithId): PutObjectSuccessAction => ({
+    [`put${nameTitled}Success`]: object => ({
       type: `PUT_${name}_SUCCESS`,
       object,
     }),
-    [`put${nameTitled}Failure`]: (error?: string): PutObjectFailureAction => ({
+    [`put${nameTitled}Failure`]: error => ({
       type: `PUT_${name}_FAILURE`,
       error,
     }),
-    [`delete${nameTitled}Request`]: (id: string): DeleteObjectRequestAction => ({
+    [`delete${nameTitled}Request`]: id => ({
       type: `DELETE_${name}_REQUEST`,
       id,
     }),
-    [`delete${nameTitled}Success`]: (id: string): DeleteObjectSuccessAction => ({
+    [`delete${nameTitled}Success`]: id => ({
       type: `DELETE_${name}_SUCCESS`,
       id,
     }),
-    [`delete${nameTitled}Failure`]: (error?: string): DeleteObjectFailureAction => ({
+    [`delete${nameTitled}Failure`]: error => ({
       type: `DELETE_${name}_FAILURE`,
       error,
     }),
-    [`load${pluralNameTitled}Request`]: (): LoadObjectsRequestAction => ({
+    [`load${pluralNameTitled}Request`]: () => ({
       type: `LOAD_${pluralName}_REQUEST`,
     }),
-    [`load${pluralNameTitled}Success`]: (objects: ObjectMap): LoadObjectsSuccessAction => ({
+    [`load${pluralNameTitled}Success`]: objects => ({
       type: `LOAD_${pluralName}_SUCCESS`,
       objects,
     }),
-    [`load${pluralNameTitled}Failure`]: (error?: string): LoadObjectsFailureAction => ({
+    [`load${pluralNameTitled}Failure`]: error => ({
       type: `LOAD_${pluralName}_FAILURE`,
       error,
     }),

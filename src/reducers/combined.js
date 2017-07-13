@@ -1,12 +1,10 @@
-// @flow
-
 import { combineReducers } from 'redux'
 
-import AssetsReducer from 'reducers/assets/assets'
-import RealEstateReducer from 'reducers/assets/realEstate'
-import LiabilitiesReducer from 'reducers/liabilities/liabilities'
-import LoansReducer from 'reducers/liabilities/loans'
-import BalanceSheetReducer from 'reducers/balanceSheet'
+import AssetsReducer from './assets.js'
+import RealEstateReducer from './realEstate.js'
+import LiabilitiesReducer from './liabilities.js'
+import LoansReducer from './loans.js'
+import BalanceSheetReducer from './balanceSheet.js'
 
 export default combineReducers({
   assets: AssetsReducer,

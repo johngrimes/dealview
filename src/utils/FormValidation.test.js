@@ -1,6 +1,4 @@
-/* global expect */
-
-import * as Validation from 'utils/FormValidation'
+import * as Validation from './formValidation'
 
 describe('areErrorsPresent', () => {
   it('should return false for empty FormErrors object', () => {

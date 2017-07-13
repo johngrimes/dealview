@@ -1,6 +1,4 @@
-/* global expect */
-
-import { createObjectsReducer } from 'reducers/objects'
+import { createObjectsReducer } from './objects.js'
 
 describe('createObjectsReducer', () => {
   const validObject1 = {

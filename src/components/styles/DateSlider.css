@@ -1,0 +1,57 @@
+.slider {
+  clear: both;
+  margin: 34px 0 40px;
+  height: 8px;
+  background: linear-gradient(#aaa, #ddd);
+  display: block;
+  border-radius: 6px;
+}
+
+.handle {
+  background: linear-gradient(#129fea, #216ba5);
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 5px 1px #aaa;
+  position: relative;
+  top: -6px;
+}
+
+.date-tag {
+  background: transparent url('../images/date-tag.svg') no-repeat top left;
+  width: 76px;
+  background-size: 76px;
+  font-size: 13px;
+  text-align: center;
+  height: 30px;
+}
+
+.start-date, .end-date {
+  margin-top: 10px;
+  margin-bottom: -6px;
+  position: relative;
+}
+
+.start-date {
+  float: left;
+  left: -36px;
+}
+
+.end-date {
+  float: right;
+  left: 36px;
+}
+
+.selected-date {
+  background: transparent url('../images/date-tag-sel.svg') no-repeat top left;
+  line-height: 28px;
+  position: relative;
+  left: -28px;
+  top: 21px;
+}
+
+.date-slider-uninitialised .date-tag,
+.date-slider-uninitialised .handle {
+  display: none;
+}

@@ -1,12 +1,8 @@
-// @flow
-
 import React from 'react'
 
 class Scenarios extends React.Component {
   render() {
-    return (
-      <div className='scenarios' />
-    )
+    return <div className='scenarios' />
   }
 }
 

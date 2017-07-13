@@ -1,23 +1,10 @@
-// @flow
-
-import type { Reducer, State, Action } from 'redux'
-
-import type { BalanceSheetOverTime } from 'types/balanceSheet'
-import type { BalanceSheetAction } from 'actions/balanceSheet'
-
-export type BalanceSheetState = {
-  +status: 'uninitialised'|'loading'|'loaded'|'error',
-  +fresh: boolean,
-  +error?: string,
-  +balanceSheet: BalanceSheetOverTime
-}
-export const InitialBalanceSheetState: BalanceSheetState = {
+export const InitialBalanceSheetState = {
   status: 'uninitialised',
   fresh: true,
   balanceSheet: {},
 }
 
-const BalanceSheetReducer: Reducer<State, Action> = (state = InitialBalanceSheetState, action: BalanceSheetAction) => {
+const BalanceSheetReducer = (state = InitialBalanceSheetState, action) => {
   switch (action.type) {
     case 'LOAD_BALANCE_SHEET_REQUEST':
     case 'UPDATE_BALANCE_SHEET_REQUEST':

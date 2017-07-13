@@ -1,19 +1,19 @@
-// @flow
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import type { Store } from 'redux'
 
-import configureStore from 'store'
-import { InitialAssetState } from 'reducers/assets/assets'
-import { InitialRealEstateState } from 'reducers/assets/realEstate'
-import { InitialLiabilityState } from 'reducers/liabilities/liabilities'
-import { InitialLoanState } from 'reducers/liabilities/loans'
-import { InitialBalanceSheetState } from 'reducers/balanceSheet'
-import App from 'components/App/App'
+import configureStore from './store.js'
+import { InitialAssetState } from './reducers/assets.js'
+import { InitialRealEstateState } from './reducers/realEstate.js'
+import { InitialLiabilityState } from './reducers/liabilities.js'
+import { InitialLoanState } from './reducers/loans.js'
+import { InitialBalanceSheetState } from './reducers/balanceSheet.js'
+import App from './components/App.js'
+import registerServiceWorker from './utils/registerServiceWorker.js'
 
-const store: Store = configureStore({
+import './styles/base.css'
+
+const store = configureStore({
   assets: InitialAssetState,
   realEstate: InitialRealEstateState,
   liabilities: InitialLiabilityState,
@@ -27,3 +27,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 )
+
+registerServiceWorker()
