@@ -21,7 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "test-all": "jest --env=jsdom",
+    "test-all": "CI=true react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "lint": "eslint src test",
     "loc": "sloc --exclude \".*\\.(css|svg|test.js)\" src"
