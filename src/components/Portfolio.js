@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import Breadcrumbs from './Breadcrumbs.js'
 import DateSlider from './DateSlider.js'
@@ -12,15 +13,18 @@ import './styles/Portfolio.css'
 
 export class Portfolio extends React.Component {
   constructor(props) {
+    const { assets, liabilities, balanceSheet, dispatch } = props
     super(props)
     this.state = {}
-    if (this.props.balanceSheet.fresh === false) {
-      this.props.dispatch(updateBalanceSheet(this.props.assets.objects, {}, '2017-05-28', '2027-05-28'))
-    } else if (this.props.balanceSheet.status === 'uninitialised') {
-      this.props.dispatch(loadBalanceSheet())
+    if (balanceSheet.fresh === false) {
+      dispatch(updateBalanceSheet(assets.objects, liabilities.objects, '2017-05-28', '2027-05-28'))
+    } else if (balanceSheet.status === 'uninitialised') {
+      dispatch(loadBalanceSheet())
     } else {
+      const date = Portfolio.defaultDateSelection(balanceSheet.balanceSheet)
       this.state = {
-        date: Portfolio.defaultDateSelection(this.props.balanceSheet.balanceSheet),
+        date,
+        balanceSheetAtDate: balanceSheet.balanceSheet[date],
       }
     }
 
@@ -32,24 +36,25 @@ export class Portfolio extends React.Component {
   }
 
   handleDateChange(date) {
-    this.setState(() => ({ date }))
+    this.setState(() => ({
+      date,
+      balanceSheetAtDate: this.props.balanceSheet.balanceSheet[date],
+    }))
   }
 
   componentWillReceiveProps(props) {
+    let updatedState = _.pick(this.state, 'date')
     if (props.balanceSheet.status === 'loaded' && !this.state.date) {
-      this.setState(() => ({
-        date: Portfolio.defaultDateSelection(props.balanceSheet.balanceSheet),
-      }))
+      updatedState = { ...updatedState, date: Portfolio.defaultDateSelection(props.balanceSheet.balanceSheet) }
     }
+    updatedState = { ...updatedState, balanceSheetAtDate: props.balanceSheet.balanceSheet[updatedState.date] }
+    this.setState(() => updatedState)
   }
 
   render() {
-    const balanceSheet =
-      this.state.date && typeof this.props.balanceSheet.balanceSheet === 'object'
-        ? this.props.balanceSheet.balanceSheet[this.state.date]
-        : undefined
-    const dates =
-      typeof this.props.balanceSheet.balanceSheet === 'object' ? Object.keys(this.props.balanceSheet.balanceSheet) : []
+    const { balanceSheet } = this.props
+    const { date, balanceSheetAtDate } = this.state
+    const dates = typeof balanceSheet.balanceSheet === 'object' ? Object.keys(balanceSheet.balanceSheet) : []
 
     return (
       <div className='portfolio'>
@@ -57,8 +62,8 @@ export class Portfolio extends React.Component {
         <div className='slider-container'>
           <DateSlider
             dates={dates}
-            selected={this.state.date}
-            initialised={this.props.balanceSheet.status === 'loaded' && dates.length > 0}
+            selected={date}
+            initialised={balanceSheet.status === 'loaded' && dates.length > 0}
             className='date-slider'
             onChange={this.handleDateChange}
           />
@@ -67,19 +72,19 @@ export class Portfolio extends React.Component {
           <div className='assets'>
             <Link to='/portfolio/assets'>Assets</Link>
             <span className='assets-total'>
-              {balanceSheet ? formatDollars(balanceSheet.totalAssets) : '?'}
+              {balanceSheetAtDate ? formatDollars(balanceSheetAtDate.totalAssets) : '?'}
             </span>
           </div>
           <div className='liabilities'>
             <Link to='/portfolio/liabilities'>Liabilities</Link>
-            <span className='assets-total'>
-              {balanceSheet ? formatDollars(balanceSheet.totalLiabilities) : '?'}
+            <span className='liabilities-total'>
+              {balanceSheetAtDate ? formatDollars(balanceSheetAtDate.totalLiabilities) : '?'}
             </span>
           </div>
           <div className='equity'>
             <span>Equity</span>
             <span className='equity-total'>
-              {balanceSheet ? formatDollars(balanceSheet.equity) : '?'}
+              {balanceSheetAtDate ? formatDollars(balanceSheetAtDate.equity) : '?'}
             </span>
           </div>
         </div>
@@ -95,9 +100,12 @@ export class Portfolio extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  assets: state.assets,
-  balanceSheet: state.balanceSheet,
-})
+const mapStateToProps = state => {
+  return {
+    assets: state.assets,
+    liabilities: state.liabilities,
+    balanceSheet: state.balanceSheet,
+  }
+}
 
 export default connect(mapStateToProps)(Portfolio)

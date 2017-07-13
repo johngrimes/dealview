@@ -7,6 +7,7 @@ import { DateStorageFormat } from './commonTypes.js'
 describe('getValuationAtDate', () => {
   const asset = {
     startDate: '2014-05-03',
+    endDate: '2017-05-17',
     valuations: [
       {
         date: '2014-05-03',

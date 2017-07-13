@@ -15,3 +15,8 @@ export const validLiability2: Liability = {
   endDate: '2029-05-10',
 }
 export const validLiabilityWithId2: LiabilityWithId = { ...validLiability2, id: '832' }
+
+export const validLiabilities = {
+  [validLiabilityWithId1.id]: validLiabilityWithId1,
+  [validLiabilityWithId2.id]: validLiabilityWithId2,
+}

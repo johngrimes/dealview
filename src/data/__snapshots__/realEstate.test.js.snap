@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`realEstateToAsset should convert a real estate asset with a sale correctly 1`] = `
+Object {
+  "endDate": "2017-01-01",
+  "name": "38/8 Briggs Rd",
+  "startDate": "2005-05-10",
+  "type": "RealEstate",
+  "valuations": Array [
+    Object {
+      "amount": 165000,
+      "date": "2005-05-10",
+      "note": "Purchase price",
+      "type": "purchase",
+    },
+    Object {
+      "amount": 260000,
+      "date": "2015-09-10",
+      "note": "Formal valuation",
+      "type": "none",
+    },
+  ],
+}
+`;

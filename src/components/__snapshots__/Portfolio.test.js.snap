@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Portfolio should render 1`] = `
+<div
+  className="portfolio"
+>
+  <Breadcrumbs
+    breadcrumbs={
+      Array [
+        Object {
+          "display": "Portfolio",
+          "path": "/portfolio",
+        },
+      ]
+    }
+  />
+  <div
+    className="slider-container"
+  >
+    <DateSlider
+      className="date-slider"
+      dates={
+        Array [
+          "2017-01-01",
+          "2017-01-02",
+        ]
+      }
+      initialised={true}
+      onChange={[Function]}
+      selected="2017-01-01"
+    />
+  </div>
+  <div
+    className="balance-sheet"
+  >
+    <div
+      className="assets"
+    >
+      <Link
+        replace={false}
+        to="/portfolio/assets"
+      >
+        Assets
+      </Link>
+      <span
+        className="assets-total"
+      >
+        $1,000,070
+      </span>
+    </div>
+    <div
+      className="liabilities"
+    >
+      <Link
+        replace={false}
+        to="/portfolio/liabilities"
+      >
+        Liabilities
+      </Link>
+      <span
+        className="liabilities-total"
+      >
+        $845,000
+      </span>
+    </div>
+    <div
+      className="equity"
+    >
+      <span>
+        Equity
+      </span>
+      <span
+        className="equity-total"
+      >
+        $155,070
+      </span>
+    </div>
+  </div>
+</div>
+`;

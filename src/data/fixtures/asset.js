@@ -1,6 +1,4 @@
-import type { Asset, AssetWithId } from 'types/assets/asset'
-
-export const validAsset1: Asset = {
+export const validAsset1 = {
   type: 'RealEstate',
   name: '5 Sunrise St',
   startDate: '2014-09-10',
@@ -9,9 +7,9 @@ export const validAsset1: Asset = {
     { date: '2016-04-15', amount: 705000, note: 'Formal valuation', type: 'none' },
   ],
 }
-export const validAssetWithId1: AssetWithId = { ...validAsset1, id: '98' }
+export const validAssetWithId1 = { ...validAsset1, id: '98' }
 
-export const validAsset2: Asset = {
+export const validAsset2 = {
   type: 'RealEstate',
   name: '38/8 Briggs Road',
   startDate: '2014-05-10',
@@ -20,4 +18,9 @@ export const validAsset2: Asset = {
     { date: '2015-09-10', amount: 260000, note: 'Formal valuation', type: 'none' },
   ],
 }
-export const validAssetWithId2: AssetWithId = { ...validAsset2, id: '99' }
+export const validAssetWithId2 = { ...validAsset2, id: '99' }
+
+export const validAssets = {
+  [validAssetWithId1.id]: validAssetWithId1,
+  [validAssetWithId2.id]: validAssetWithId2,
+}

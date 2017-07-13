@@ -6,6 +6,8 @@ import MockDate from 'mockdate'
 import { Portfolio } from './Portfolio.js'
 import DateSlider from './DateSlider.js'
 import { validBalanceSheet1 } from '../data/fixtures/balanceSheet.js'
+import { validAssets } from '../data/fixtures/asset.js'
+import { validLiabilities } from '../data/fixtures/liability.js'
 import { DateStorageFormat } from '../data/commonTypes.js'
 import { InitialBalanceSheetState } from '../reducers/balanceSheet.js'
 import { InitialAssetState } from '../reducers/assets.js'
@@ -19,12 +21,21 @@ describe('Portfolio', () => {
     },
     assets: {
       status: 'loaded',
-      objects: {},
+      objects: validAssets,
+    },
+    liabilities: {
+      status: 'loaded',
+      objects: validLiabilities,
     },
   }
 
   beforeEach(() => {
     MockDate.set('2017-01-01')
+  })
+
+  it('should render', () => {
+    const wrapper = shallow(<Portfolio {...props} />)
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('should pass correct props to DateSlider', () => {
