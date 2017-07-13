@@ -66,7 +66,8 @@ export const updateBalanceSheet = (assets, liabilities, startDate, endDate) => {
     dispatch(updateBalanceSheetRequest(assets, liabilities, startDate, endDate))
     return new Promise(async (resolve, reject) => {
       try {
-        const worker = new Worker('/static/js/worker.js')
+        const BalanceSheetWorker = require('../data/balanceSheet.worker.js')
+        const worker = new BalanceSheetWorker()
         worker.onmessage = async event => {
           console.log('Balance sheet calc returned:', event.data)
           const savedWithId = await putObject(objectStore, event.data, theOneAndOnlyKey)
@@ -74,7 +75,7 @@ export const updateBalanceSheet = (assets, liabilities, startDate, endDate) => {
           dispatch(updateBalanceSheetSuccess(saved))
           resolve(saved)
         }
-        worker.postMessage([ assets, liabilities, startDate, endDate ])
+        worker.postMessage([ 'updateBalanceSheetRequest', assets, liabilities, startDate, endDate ])
       } catch (error) {
         dispatch(updateBalanceSheetFailure(error.message))
         reject(error)
