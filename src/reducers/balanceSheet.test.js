@@ -1,6 +1,9 @@
 import BalanceSheetReducer from './balanceSheet.js'
 import * as BalanceSheetActions from '../actions/balanceSheet.js'
-import { validBalanceSheet1, validBalanceSheet2 } from '../data/fixtures/balanceSheet.js'
+import {
+  validBalanceSheet1,
+  validBalanceSheet2,
+} from '../data/fixtures/balanceSheet.js'
 
 describe('BalanceSheetReducer', () => {
   const initialState = {
@@ -10,7 +13,10 @@ describe('BalanceSheetReducer', () => {
   }
 
   it('should update state upon request', () => {
-    const actions = [ BalanceSheetActions.updateBalanceSheetRequest, BalanceSheetActions.loadBalanceSheetRequest ]
+    const actions = [
+      BalanceSheetActions.updateBalanceSheetRequest,
+      BalanceSheetActions.loadBalanceSheetRequest,
+    ]
     actions.forEach(action => {
       const nextState = BalanceSheetReducer(initialState, action())
       expect(nextState).toMatchSnapshot()
@@ -18,25 +24,37 @@ describe('BalanceSheetReducer', () => {
   })
 
   it('should update state upon update success', () => {
-    const action = BalanceSheetActions.updateBalanceSheetSuccess(validBalanceSheet2)
+    const action = BalanceSheetActions.updateBalanceSheetSuccess(
+      validBalanceSheet2
+    )
     const nextState = BalanceSheetReducer(initialState, action)
     expect(nextState).toMatchSnapshot()
   })
 
   it('should freshen upon update success', () => {
-    const action = BalanceSheetActions.updateBalanceSheetSuccess(validBalanceSheet2)
-    const nextState = BalanceSheetReducer({ ...initialState, fresh: false }, action)
+    const action = BalanceSheetActions.updateBalanceSheetSuccess(
+      validBalanceSheet2
+    )
+    const nextState = BalanceSheetReducer(
+      { ...initialState, fresh: false },
+      action
+    )
     expect(nextState).toMatchSnapshot()
   })
 
   it('should update state upon load success', () => {
-    const action = BalanceSheetActions.loadBalanceSheetSuccess(validBalanceSheet2)
+    const action = BalanceSheetActions.loadBalanceSheetSuccess(
+      validBalanceSheet2
+    )
     const nextState = BalanceSheetReducer(initialState, action)
     expect(nextState).toMatchSnapshot()
   })
 
   it('should update state upon failure', () => {
-    const actions = [ BalanceSheetActions.updateBalanceSheetFailure, BalanceSheetActions.loadBalanceSheetFailure ]
+    const actions = [
+      BalanceSheetActions.updateBalanceSheetFailure,
+      BalanceSheetActions.loadBalanceSheetFailure,
+    ]
     actions.forEach(action => {
       const nextState = BalanceSheetReducer(initialState, action('Some error'))
       expect(nextState).toMatchSnapshot()

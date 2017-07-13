@@ -4,8 +4,16 @@ import moment from 'moment'
 import { DateStorageFormat } from './commonTypes.js'
 import { getValuationAtDate } from './asset.js'
 
-export const balanceSheetOverTime = (assets, liabilities, startDate, endDate) => {
-  return Object.assign({}, ...calcBalanceSheet(assets, liabilities, startDate, endDate))
+export const balanceSheetOverTime = (
+  assets,
+  liabilities,
+  startDate,
+  endDate
+) => {
+  return Object.assign(
+    {},
+    ...calcBalanceSheet(assets, liabilities, startDate, endDate)
+  )
 }
 
 function * calcBalanceSheet(assets, liabilities, date, endDate) {

@@ -16,16 +16,18 @@ describe('putLoan', () => {
     const LoanActions = require('../actions/loans.js').default
     const thunk = LoanActions.putLoan({ some: 'loan' })
     const dispatch = jest.fn()
-    return expect(thunk(dispatch)).resolves.toEqual({ some: 'loan' }).then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_LOAN_REQUEST',
-        object: { some: 'loan' },
+    return expect(thunk(dispatch)).resolves
+      .toEqual({ some: 'loan' })
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'PUT_LOAN_REQUEST',
+          object: { some: 'loan' },
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'PUT_LOAN_SUCCESS',
+          object: { some: 'loan' },
+        })
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_LOAN_SUCCESS',
-        object: { some: 'loan' },
-      })
-    })
   })
 
   it('should dispatch correct actions on failure to save Loan', () => {
@@ -38,16 +40,18 @@ describe('putLoan', () => {
     const LoanActions = require('../actions/loans.js').default
     const thunk = LoanActions.putLoan({ some: 'loan' })
     const dispatch = jest.fn()
-    return expect(thunk(dispatch)).rejects.toEqual(new Error('Some error')).then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_LOAN_REQUEST',
-        object: { some: 'loan' },
+    return expect(thunk(dispatch)).rejects
+      .toEqual(new Error('Some error'))
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'PUT_LOAN_REQUEST',
+          object: { some: 'loan' },
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'PUT_LOAN_FAILURE',
+          error: 'Some error',
+        })
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_LOAN_FAILURE',
-        error: 'Some error',
-      })
-    })
   })
 })
 
@@ -77,21 +81,24 @@ describe('deleteLoan', () => {
 
   it('should dispatch correct actions on failure', () => {
     jest.mock('../data/db.js', () => ({
-      deleteObject: () => new Promise((resolve, reject) => reject(new Error('Some error'))),
+      deleteObject: () =>
+        new Promise((resolve, reject) => reject(new Error('Some error'))),
     }))
     const LoanActions = require('../actions/loans.js').default
     const thunk = LoanActions.deleteLoan('someKey')
     const dispatch = jest.fn()
-    return expect(thunk(dispatch)).rejects.toEqual(new Error('Some error')).then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'DELETE_LOAN_REQUEST',
-        id: 'someKey',
+    return expect(thunk(dispatch)).rejects
+      .toEqual(new Error('Some error'))
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'DELETE_LOAN_REQUEST',
+          id: 'someKey',
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'DELETE_LOAN_FAILURE',
+          error: 'Some error',
+        })
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'DELETE_LOAN_FAILURE',
-        error: 'Some error',
-      })
-    })
   })
 })
 
@@ -107,32 +114,37 @@ describe('loadLoans', () => {
     const LoanActions = require('../actions/loans.js').default
     const thunk = LoanActions.loadLoans()
     const dispatch = jest.fn()
-    return expect(thunk(dispatch)).resolves.toEqual([{ some: 'thing' }]).then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'LOAD_LOANS_REQUEST',
+    return expect(thunk(dispatch)).resolves
+      .toEqual([{ some: 'thing' }])
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'LOAD_LOANS_REQUEST',
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'LOAD_LOANS_SUCCESS',
+          objects: [{ some: 'thing' }],
+        })
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'LOAD_LOANS_SUCCESS',
-        objects: [{ some: 'thing' }],
-      })
-    })
   })
 
   it('should dispatch correct actions on failure', () => {
     jest.mock('../data/db.js', () => ({
-      getAllObjects: () => new Promise((resolve, reject) => reject(new Error('Some error'))),
+      getAllObjects: () =>
+        new Promise((resolve, reject) => reject(new Error('Some error'))),
     }))
     const LoanActions = require('../actions/loans.js').default
     const thunk = LoanActions.loadLoans()
     const dispatch = jest.fn()
-    return expect(thunk(dispatch)).rejects.toEqual(new Error('Some error')).then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'LOAD_LOANS_REQUEST',
+    return expect(thunk(dispatch)).rejects
+      .toEqual(new Error('Some error'))
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'LOAD_LOANS_REQUEST',
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'LOAD_LOANS_FAILURE',
+          error: 'Some error',
+        })
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'LOAD_LOANS_FAILURE',
-        error: 'Some error',
-      })
-    })
   })
 })

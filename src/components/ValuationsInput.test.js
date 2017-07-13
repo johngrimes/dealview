@@ -92,7 +92,9 @@ describe('ValuationsInput', () => {
       onChange: jest.fn(),
     }
     const wrapper = shallow(<ValuationsInput {...props} />)
-    wrapper.find('input[name="valuations-note-0"]').prop('onChange')({ target: { value: 'Initial robbery' } })
+    wrapper.find('input[name="valuations-note-0"]').prop('onChange')({
+      target: { value: 'Initial robbery' },
+    })
     expect(props.onChange).toHaveBeenCalledWith(
       valuations.map((val, i) => {
         return i === 0 ? { ...val, note: 'Initial robbery' } : val
@@ -107,7 +109,9 @@ describe('ValuationsInput', () => {
       onFocus: jest.fn(),
     }
     const wrapper = shallow(<ValuationsInput {...props} />)
-    wrapper.find('input[name="valuations-note-1"]').prop('onFocus')({ target: { name: 'valuations-note-1' } })
+    wrapper.find('input[name="valuations-note-1"]').prop('onFocus')({
+      target: { name: 'valuations-note-1' },
+    })
     expect(props.onFocus).toHaveBeenCalledWith('valuations-note-1')
   })
 
@@ -129,7 +133,10 @@ describe('ValuationsInput', () => {
         valuations,
       }
       const wrapper = mount(<ValuationsInput {...props} />)
-      const spy = jest.spyOn(wrapper.find(`input[name="valuations-${field}-0"]`).getNode(), 'focus')
+      const spy = jest.spyOn(
+        wrapper.find(`input[name="valuations-${field}-0"]`).getNode(),
+        'focus'
+      )
       wrapper.setProps({ focus: `valuations-${field}-0` })
       expect(spy).toHaveBeenCalled()
     })

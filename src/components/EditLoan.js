@@ -45,7 +45,10 @@ export class EditLoan extends React.Component {
       ? <NotFound />
       : <div className='edit-loan'>
           <Breadcrumbs breadcrumbs={this.breadcrumbs()} />
-          <LoanForm loan={this.props.loan.object} onSubmit={this.handleSubmit} />
+          <LoanForm
+            loan={this.props.loan.object}
+            onSubmit={this.handleSubmit}
+          />
         </div>
   }
 }

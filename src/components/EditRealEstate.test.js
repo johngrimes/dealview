@@ -27,7 +27,9 @@ describe('EditRealEstate', () => {
       },
     }
     const wrapper = shallow(<EditRealEstate {...props} />)
-    expect(wrapper.find(RealEstateForm).prop('realEstate')).toBe(validRealEstateWithId1)
+    expect(wrapper.find(RealEstateForm).prop('realEstate')).toBe(
+      validRealEstateWithId1
+    )
   })
 
   it('should load Real Estate if uninitialised', () => {
@@ -64,7 +66,9 @@ describe('EditRealEstate', () => {
     const handleSubmit = wrapper.find(RealEstateForm).prop('onSubmit')
     handleSubmit(validRealEstateWithId1)
     expect(dispatch).toHaveBeenCalled()
-    expect(realEstateActions.putRealEstate).toHaveBeenCalledWith(validRealEstateWithId1)
+    expect(realEstateActions.putRealEstate).toHaveBeenCalledWith(
+      validRealEstateWithId1
+    )
   })
 
   it('should redirect to assets listing when handleSubmit is called', () => {

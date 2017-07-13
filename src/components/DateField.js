@@ -40,7 +40,14 @@ class DateField extends React.Component {
   }
 
   render() {
-    const { name, label, errors, forceErrorDisplay, minDate, maxDate } = this.props
+    const {
+      name,
+      label,
+      errors,
+      forceErrorDisplay,
+      minDate,
+      maxDate,
+    } = this.props
     const { value, touched } = this.state
 
     const labelTag = label
@@ -80,7 +87,8 @@ class DateField extends React.Component {
             onFocus={this.handleFocus}
             minDate={minDate}
             maxDate={maxDate}
-            onChange={moment => this.handleChange(moment.format(DateStorageFormat))}
+            onChange={moment =>
+              this.handleChange(moment.format(DateStorageFormat))}
           />
         </div>
         {(forceErrorDisplay || touched) &&

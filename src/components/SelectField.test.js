@@ -32,7 +32,10 @@ describe('SelectField', () => {
     }
     const wrapper = shallow(<SelectField {...props} />)
     return new Promise(resolve =>
-      wrapper.setState(() => ({ value: 'something', touched: true }), () => resolve())
+      wrapper.setState(
+        () => ({ value: 'something', touched: true }),
+        () => resolve()
+      )
     ).then(() => {
       expect(wrapper.find('.error')).toHaveLength(2)
       expect(wrapper).toMatchSnapshot()

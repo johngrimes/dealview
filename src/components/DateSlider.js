@@ -39,7 +39,11 @@ class DateSlider extends React.Component {
     const { dates, className, initialised } = this.props
     const { selected, selectedIndex } = this.state
     return (
-      <div className={initialised ? 'date-slider' : 'date-slider date-slider-uninitialised'}>
+      <div
+        className={
+          initialised ? 'date-slider' : 'date-slider date-slider-uninitialised'
+        }
+      >
         <div className='date-tag start-date'>
           {dates[0]}
         </div>

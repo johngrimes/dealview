@@ -57,8 +57,13 @@ describe('AddressField', () => {
       onChange: jest.fn(),
     }
     const wrapper = shallow(<AddressField {...props} />)
-    wrapper.find('input[name="someInput-line3"]').prop('onChange')({ target: { value: 'something' } })
-    expect(props.onChange).toHaveBeenCalledWith({ ...validAddress1, line3: 'something' })
+    wrapper.find('input[name="someInput-line3"]').prop('onChange')({
+      target: { value: 'something' },
+    })
+    expect(props.onChange).toHaveBeenCalledWith({
+      ...validAddress1,
+      line3: 'something',
+    })
   })
 
   it('should call onFocus when the input is focused', () => {
@@ -68,7 +73,9 @@ describe('AddressField', () => {
       onFocus: jest.fn(),
     }
     const wrapper = shallow(<AddressField {...props} />)
-    wrapper.find('input[name="someInput-locality"]').prop('onFocus')({ target: { name: 'someInput-locality' } })
+    wrapper.find('input[name="someInput-locality"]').prop('onFocus')({
+      target: { name: 'someInput-locality' },
+    })
     expect(props.onFocus).toHaveBeenCalledWith('someInput-locality')
   })
 
@@ -78,7 +85,10 @@ describe('AddressField', () => {
       address: validAddress1,
     }
     const wrapper = mount(<AddressField {...props} />)
-    const spy = jest.spyOn(wrapper.find('input[name="someInput-line1"]').getNode(), 'focus')
+    const spy = jest.spyOn(
+      wrapper.find('input[name="someInput-line1"]').getNode(),
+      'focus'
+    )
     wrapper.setProps({ focus: 'someInput-line1' })
     expect(spy).toHaveBeenCalled()
   })

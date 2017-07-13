@@ -4,7 +4,12 @@ import { putObject, deleteObject, getAllObjects } from '../data/db.js'
 
 const objectStore = 'Liability'
 
-const actions = createObjectActions('LIABILITY', 'LIABILITIES', 'Liability', 'Liabilities')
+const actions = createObjectActions(
+  'LIABILITY',
+  'LIABILITIES',
+  'Liability',
+  'Liabilities'
+)
 
 const putLiability = liability => {
   return dispatch => {

@@ -1,4 +1,9 @@
-export const createObjectActions = (name, pluralName, nameTitled, pluralNameTitled) => {
+export const createObjectActions = (
+  name,
+  pluralName,
+  nameTitled,
+  pluralNameTitled
+) => {
   return {
     [`put${nameTitled}Request`]: object => ({
       type: `PUT_${name}_REQUEST`,

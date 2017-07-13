@@ -21,7 +21,8 @@ export class EditRealEstate extends React.Component {
 
   breadcrumbs() {
     const { id, realEstate: { object: realEstate } } = this.props
-    const realEstateName = typeof realEstate === 'undefined' ? id : realEstate.name
+    const realEstateName =
+      typeof realEstate === 'undefined' ? id : realEstate.name
     return [
       { display: 'Portfolio', path: '/portfolio' },
       { display: 'Assets', path: '/portfolio/assets' },
@@ -45,7 +46,10 @@ export class EditRealEstate extends React.Component {
       ? <NotFound />
       : <div className='edit-real-estate'>
           <Breadcrumbs breadcrumbs={this.breadcrumbs()} />
-          <RealEstateForm realEstate={this.props.realEstate.object} onSubmit={this.handleSubmit} />
+          <RealEstateForm
+            realEstate={this.props.realEstate.object}
+            onSubmit={this.handleSubmit}
+          />
         </div>
   }
 }

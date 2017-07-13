@@ -15,7 +15,9 @@ export const areErrorsPresent = errors => {
     } else if (value instanceof Object) {
       return areErrorsPresent(value)
     } else {
-      console.error('Value encountered in form errors object that is not Array or Object')
+      console.error(
+        'Value encountered in form errors object that is not Array or Object'
+      )
     }
   })
 }
@@ -26,7 +28,9 @@ export const findFirstErrorFieldName = formErrors => {
     _.some(formErrors, (errors, fieldName) => {
       if (errors instanceof Array) {
         if (errors.length > 0) {
-          match = parentComponentName ? parentComponentName + '-' + fieldName : fieldName
+          match = parentComponentName
+            ? parentComponentName + '-' + fieldName
+            : fieldName
           return true
         } else return false
       } else if (errors instanceof Object) {
@@ -47,15 +51,28 @@ export const required = value => validate(value, v => !!v, "can't be blank")
 // Validates that a set of fields have values with a minimum length.
 //
 export const minLength = (value, min) =>
-  validate(value, v => !v || v.length >= min, `must be at least ${min} characters`)
+  validate(
+    value,
+    v => !v || v.length >= min,
+    `must be at least ${min} characters`
+  )
 
 //
 // Validates that a set of fields have values with a maximum length.
 //
 export const maxLength = (value, max) =>
-  validate(value, v => !v || v.length <= max, `must be at most ${max} characters`)
+  validate(
+    value,
+    v => !v || v.length <= max,
+    `must be at most ${max} characters`
+  )
 
 //
 // Validates that a set of fields have values with an exact length.
 //
-export const isLength = (value, is) => validate(value, v => !v || v.length === is, `must be exactly ${is} characters`)
+export const isLength = (value, is) =>
+  validate(
+    value,
+    v => !v || v.length === is,
+    `must be exactly ${is} characters`
+  )

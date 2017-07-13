@@ -71,7 +71,9 @@ describe('TextAreaField', () => {
       onChange: jest.fn(),
     }
     const wrapper = shallow(<TextAreaField {...props} />)
-    wrapper.find('textarea').prop('onChange')({ target: { value: 'something' } })
+    wrapper.find('textarea').prop('onChange')({
+      target: { value: 'something' },
+    })
     expect(props.onChange).toHaveBeenCalledWith('something')
   })
 

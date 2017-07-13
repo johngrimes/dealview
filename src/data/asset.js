@@ -6,7 +6,10 @@ import { compareValuationsByDate } from './valuations.js'
 export const getValuationAtDate = (asset, date) => {
   const queryDate = date
   const startDate = moment(asset.startDate, DateStorageFormat)
-  const endDate = typeof asset.endDate === 'string' ? moment(asset.endDate, DateStorageFormat) : undefined
+  const endDate =
+    typeof asset.endDate === 'string'
+      ? moment(asset.endDate, DateStorageFormat)
+      : undefined
   if (
     typeof asset.valuations === 'undefined' ||
     asset.valuations.length === 0 ||
@@ -15,11 +18,14 @@ export const getValuationAtDate = (asset, date) => {
   ) {
     return 0
   }
-  const sortedValuations = asset.valuations.slice().sort(compareValuationsByDate)
+  const sortedValuations = asset.valuations
+    .slice()
+    .sort(compareValuationsByDate)
   const idxFuture = sortedValuations.findIndex(v => {
     return moment(v.date, DateStorageFormat).valueOf() > queryDate.valueOf()
   })
-  const slicedValuations = idxFuture === -1 ? sortedValuations : sortedValuations.slice(0, idxFuture)
+  const slicedValuations =
+    idxFuture === -1 ? sortedValuations : sortedValuations.slice(0, idxFuture)
   const amount =
     typeof slicedValuations[slicedValuations.length - 1] === 'undefined'
       ? 0

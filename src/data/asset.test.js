@@ -28,31 +28,49 @@ describe('getValuationAtDate', () => {
   }
 
   it('should get the correct valuation', () => {
-    let valuation = getValuationAtDate(asset, moment('2017-05-03', DateStorageFormat))
+    let valuation = getValuationAtDate(
+      asset,
+      moment('2017-05-03', DateStorageFormat)
+    )
     expect(valuation).toEqual(705000)
-    valuation = getValuationAtDate(asset, moment('2014-06-03', DateStorageFormat))
+    valuation = getValuationAtDate(
+      asset,
+      moment('2014-06-03', DateStorageFormat)
+    )
     expect(valuation).toEqual(520000)
   })
 
   it('should recognise a valuation on the day it is effective', () => {
-    const valuation = getValuationAtDate(asset, moment('2014-07-03', DateStorageFormat))
+    const valuation = getValuationAtDate(
+      asset,
+      moment('2014-07-03', DateStorageFormat)
+    )
     expect(valuation).toEqual(705000)
   })
 
   it('should return zero if selected date is before start date', () => {
-    const valuation = getValuationAtDate(asset, moment('1988-04-13', DateStorageFormat))
+    const valuation = getValuationAtDate(
+      asset,
+      moment('1988-04-13', DateStorageFormat)
+    )
     expect(valuation).toEqual(0)
   })
 
   it('should return zero if selected date is after end date', () => {
     const assetWithEndDate = { ...asset, endDate: '2019-02-05' }
-    const valuation = getValuationAtDate(assetWithEndDate, moment('2025-01-01', DateStorageFormat))
+    const valuation = getValuationAtDate(
+      assetWithEndDate,
+      moment('2025-01-01', DateStorageFormat)
+    )
     expect(valuation).toEqual(0)
   })
 
   it('should return zero if there are no valuations', () => {
     const assetWithoutValuations = _.omit(asset, 'valuations')
-    const valuation = getValuationAtDate(assetWithoutValuations, moment('2017-05-03'))
+    const valuation = getValuationAtDate(
+      assetWithoutValuations,
+      moment('2017-05-03')
+    )
     expect(valuation).toEqual(0)
   })
 
@@ -71,7 +89,10 @@ describe('getValuationAtDate', () => {
         },
       ],
     }
-    const valuation = getValuationAtDate(asset, moment('2017-05-05', DateStorageFormat))
+    const valuation = getValuationAtDate(
+      asset,
+      moment('2017-05-05', DateStorageFormat)
+    )
     expect(valuation).toEqual(0)
   })
 })

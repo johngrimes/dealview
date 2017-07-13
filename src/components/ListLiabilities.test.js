@@ -2,7 +2,10 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { ListLiabilities } from './ListLiabilities.js'
-import { validLiabilityWithId1, validLiabilityWithId2 } from '../data/fixtures/liability.js'
+import {
+  validLiabilityWithId1,
+  validLiabilityWithId2,
+} from '../data/fixtures/liability.js'
 
 describe('ListLiabilities', () => {
   it('should render some Liabilities', () => {
@@ -16,7 +19,9 @@ describe('ListLiabilities', () => {
       },
     }
     const wrapper = shallow(<ListLiabilities {...props} />)
-    expect(wrapper.find('.liability').length).toBe(Object.keys(props.liabilities).length)
+    expect(wrapper.find('.liability').length).toBe(
+      Object.keys(props.liabilities).length
+    )
     expect(wrapper).toMatchSnapshot()
   })
 

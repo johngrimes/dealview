@@ -16,7 +16,9 @@ describe('CreateLoan', () => {
     const history = { push: jest.fn() }
     const loanActions = require('../actions/loans.js').default
     loanActions.putLoan = jest.fn()
-    const wrapper = shallow(<CreateLoan dispatch={dispatch} history={history} />)
+    const wrapper = shallow(
+      <CreateLoan dispatch={dispatch} history={history} />
+    )
     const handleSubmit = wrapper.find(LoanForm).prop('onSubmit')
     handleSubmit(validLoan1)
     expect(dispatch).toHaveBeenCalled()
@@ -27,7 +29,9 @@ describe('CreateLoan', () => {
     jest.mock('../actions/loans.js')
     const dispatch = jest.fn()
     const history = { push: jest.fn() }
-    const wrapper = shallow(<CreateLoan dispatch={dispatch} history={history} />)
+    const wrapper = shallow(
+      <CreateLoan dispatch={dispatch} history={history} />
+    )
     const handleSubmit = wrapper.find(LoanForm).prop('onSubmit')
     handleSubmit(validLoan1)
     expect(history.push).toHaveBeenCalledWith('/portfolio/liabilities')

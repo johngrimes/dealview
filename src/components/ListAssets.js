@@ -18,7 +18,10 @@ export class ListAssets extends React.Component {
   }
 
   breadcrumbs() {
-    return [ { display: 'Portfolio', path: '/portfolio' }, { display: 'Assets', path: '/portfolio/assets' } ]
+    return [
+      { display: 'Portfolio', path: '/portfolio' },
+      { display: 'Assets', path: '/portfolio/assets' },
+    ]
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,7 +41,10 @@ export class ListAssets extends React.Component {
             </div>
       return (
         <li key={k} className='asset'>
-          <Link className='asset-name' to={`/portfolio/assets/real-estate/${v.id}`}>
+          <Link
+            className='asset-name'
+            to={`/portfolio/assets/real-estate/${v.id}`}
+          >
             {v.name}
           </Link>
           {lastValuationTag}

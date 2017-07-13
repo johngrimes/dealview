@@ -6,7 +6,10 @@ import _ from 'lodash'
 
 import Breadcrumbs from './Breadcrumbs.js'
 import DateSlider from './DateSlider.js'
-import { loadBalanceSheet, updateBalanceSheet } from '../actions/balanceSheet.js'
+import {
+  loadBalanceSheet,
+  updateBalanceSheet,
+} from '../actions/balanceSheet.js'
 import { DateStorageFormat, formatDollars } from '../data/commonTypes.js'
 
 import './styles/Portfolio.css'
@@ -17,7 +20,14 @@ export class Portfolio extends React.Component {
     super(props)
     this.state = {}
     if (balanceSheet.fresh === false) {
-      dispatch(updateBalanceSheet(assets.objects, liabilities.objects, '2017-05-28', '2027-05-28'))
+      dispatch(
+        updateBalanceSheet(
+          assets.objects,
+          liabilities.objects,
+          '2017-05-28',
+          '2027-05-28'
+        )
+      )
     } else if (balanceSheet.status === 'uninitialised') {
       dispatch(loadBalanceSheet())
     } else {
@@ -45,16 +55,25 @@ export class Portfolio extends React.Component {
   componentWillReceiveProps(props) {
     let updatedState = _.pick(this.state, 'date')
     if (props.balanceSheet.status === 'loaded' && !this.state.date) {
-      updatedState = { ...updatedState, date: Portfolio.defaultDateSelection(props.balanceSheet.balanceSheet) }
+      updatedState = {
+        ...updatedState,
+        date: Portfolio.defaultDateSelection(props.balanceSheet.balanceSheet),
+      }
     }
-    updatedState = { ...updatedState, balanceSheetAtDate: props.balanceSheet.balanceSheet[updatedState.date] }
+    updatedState = {
+      ...updatedState,
+      balanceSheetAtDate: props.balanceSheet.balanceSheet[updatedState.date],
+    }
     this.setState(() => updatedState)
   }
 
   render() {
     const { balanceSheet } = this.props
     const { date, balanceSheetAtDate } = this.state
-    const dates = typeof balanceSheet.balanceSheet === 'object' ? Object.keys(balanceSheet.balanceSheet) : []
+    const dates =
+      typeof balanceSheet.balanceSheet === 'object'
+        ? Object.keys(balanceSheet.balanceSheet)
+        : []
 
     return (
       <div className='portfolio'>
@@ -72,19 +91,25 @@ export class Portfolio extends React.Component {
           <div className='assets'>
             <Link to='/portfolio/assets'>Assets</Link>
             <span className='assets-total'>
-              {balanceSheetAtDate ? formatDollars(balanceSheetAtDate.totalAssets) : '?'}
+              {balanceSheetAtDate
+                ? formatDollars(balanceSheetAtDate.totalAssets)
+                : '?'}
             </span>
           </div>
           <div className='liabilities'>
             <Link to='/portfolio/liabilities'>Liabilities</Link>
             <span className='liabilities-total'>
-              {balanceSheetAtDate ? formatDollars(balanceSheetAtDate.totalLiabilities) : '?'}
+              {balanceSheetAtDate
+                ? formatDollars(balanceSheetAtDate.totalLiabilities)
+                : '?'}
             </span>
           </div>
           <div className='equity'>
             <span>Equity</span>
             <span className='equity-total'>
-              {balanceSheetAtDate ? formatDollars(balanceSheetAtDate.equity) : '?'}
+              {balanceSheetAtDate
+                ? formatDollars(balanceSheetAtDate.equity)
+                : '?'}
             </span>
           </div>
         </div>
@@ -96,7 +121,9 @@ export class Portfolio extends React.Component {
     const today = moment().format(DateStorageFormat)
     const dates = Object.keys(balanceSheet)
     const todayIndex = dates.indexOf(today)
-    return todayIndex !== -1 ? dates[todayIndex] : dates[Math.floor(dates.length / 2)]
+    return todayIndex !== -1
+      ? dates[todayIndex]
+      : dates[Math.floor(dates.length / 2)]
   }
 }
 

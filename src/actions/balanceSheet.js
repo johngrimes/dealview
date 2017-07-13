@@ -5,7 +5,12 @@ import { putObject, getObject } from '../data/db.js'
 const objectStore = 'BalanceSheet'
 const theOneAndOnlyKey = 'BalanceSheet'
 
-export const calculateBalanceSheet = (assets, liabilities, startDate, endDate) => {
+export const calculateBalanceSheet = (
+  assets,
+  liabilities,
+  startDate,
+  endDate
+) => {
   return {
     task: 'CALCULATE_BALANCE_SHEET',
     assets,
@@ -33,7 +38,12 @@ export const loadBalanceSheetFailure = error => {
   }
 }
 
-export const updateBalanceSheetRequest = (assets, liabilities, startDate, endDate) => {
+export const updateBalanceSheetRequest = (
+  assets,
+  liabilities,
+  startDate,
+  endDate
+) => {
   return {
     type: 'UPDATE_BALANCE_SHEET_REQUEST',
     assets,
@@ -70,12 +80,22 @@ export const updateBalanceSheet = (assets, liabilities, startDate, endDate) => {
         const worker = new BalanceSheetWorker()
         worker.onmessage = async event => {
           console.log('Balance sheet calc returned:', event.data)
-          const savedWithId = await putObject(objectStore, event.data, theOneAndOnlyKey)
+          const savedWithId = await putObject(
+            objectStore,
+            event.data,
+            theOneAndOnlyKey
+          )
           const saved = _.omit(savedWithId, 'id')
           dispatch(updateBalanceSheetSuccess(saved))
           resolve(saved)
         }
-        worker.postMessage([ 'updateBalanceSheetRequest', assets, liabilities, startDate, endDate ])
+        worker.postMessage([
+          'updateBalanceSheetRequest',
+          assets,
+          liabilities,
+          startDate,
+          endDate,
+        ])
       } catch (error) {
         dispatch(updateBalanceSheetFailure(error.message))
         reject(error)
@@ -89,7 +109,10 @@ export const loadBalanceSheet = () => {
     dispatch(loadBalanceSheetRequest())
     return new Promise(async (resolve, reject) => {
       try {
-        const balanceSheetWithId = await getObject(objectStore, theOneAndOnlyKey)
+        const balanceSheetWithId = await getObject(
+          objectStore,
+          theOneAndOnlyKey
+        )
         const balanceSheet = _.omit(balanceSheetWithId, 'id')
         dispatch(loadBalanceSheetSuccess(balanceSheet))
         resolve(balanceSheet)

@@ -5,7 +5,10 @@ import _ from 'lodash'
 
 import HiddenField from './HiddenField.js'
 import { DateDisplayFormat, DateStorageFormat } from '../data/commonTypes.js'
-import { ValuationDefault, compareValuationsByDate } from '../data/valuations.js'
+import {
+  ValuationDefault,
+  compareValuationsByDate,
+} from '../data/valuations.js'
 import * as Validations from '../utils/formValidation.js'
 
 import './styles/ValuationsInput.css'
@@ -49,7 +52,9 @@ class ValuationsInput extends React.Component {
   }
 
   handleAddValuation() {
-    const updatedValuations = this.state.valuations ? this.state.valuations.concat([ValuationDefault]) : []
+    const updatedValuations = this.state.valuations
+      ? this.state.valuations.concat([ValuationDefault])
+      : []
     this.setState(
       () => ({ valuations: updatedValuations }),
       () => {
@@ -85,7 +90,10 @@ class ValuationsInput extends React.Component {
   }
 
   handleBlur(event) {
-    if (event.relatedTarget && !event.relatedTarget.name.match(`^${this.props.name}`)) {
+    if (
+      event.relatedTarget &&
+      !event.relatedTarget.name.match(`^${this.props.name}`)
+    ) {
       this.setState(prevState => ({
         valuations: prevState.valuations.sort(compareValuationsByDate),
       }))
@@ -115,17 +123,31 @@ class ValuationsInput extends React.Component {
         ? []
         : this.state.valuations.map((v, i) => {
           return (
-              <tr key={i} className={v.type && v.type !== 'none' ? `valuation valuation-${v.type}` : 'valuation'}>
+              <tr
+                key={i}
+                className={
+                  v.type && v.type !== 'none'
+                    ? `valuation valuation-${v.type}`
+                    : 'valuation'
+                }
+              >
                 <td className='valuations-date'>
                   <DatePicker
                     name={`valuations-date-${i}`}
                     dateFormat={DateDisplayFormat}
-                    selected={v.date ? moment(v.date, DateStorageFormat) : undefined}
+                    selected={
+                      v.date ? moment(v.date, DateStorageFormat) : undefined
+                    }
                     showYearDropdown
                     minDate={v.type !== 'purchase' ? minDate : undefined}
                     maxDate={v.type !== 'sale' ? maxDate : undefined}
                     autoFocus={this.props.focus === `valuations-date-${i}`}
-                    onChange={moment => this.handleChange(i, 'date', moment.format(DateStorageFormat))}
+                    onChange={moment =>
+                      this.handleChange(
+                        i,
+                        'date',
+                        moment.format(DateStorageFormat)
+                      )}
                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
                   />
@@ -137,8 +159,14 @@ class ValuationsInput extends React.Component {
                     min='1'
                     value={v.amount ? v.amount.toString() : ''}
                     placeholder='Value'
-                    onChange={event => this.handleChange(i, 'amount', parseInt(event.target.value, 10))}
-                    ref={input => (this._refs[`valuations-amount-${i}`] = input)}
+                    onChange={event =>
+                      this.handleChange(
+                        i,
+                        'amount',
+                        parseInt(event.target.value, 10)
+                      )}
+                    ref={input =>
+                      (this._refs[`valuations-amount-${i}`] = input)}
                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
                   />
@@ -149,12 +177,17 @@ class ValuationsInput extends React.Component {
                     type='text'
                     value={v.note}
                     placeholder='Note'
-                    onChange={event => this.handleChange(i, 'note', event.target.value)}
+                    onChange={event =>
+                      this.handleChange(i, 'note', event.target.value)}
                     ref={input => (this._refs[`valuations-note-${i}`] = input)}
                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
                   />
-                  <HiddenField name={`valuations-type-${i}`} type='hidden' value={v.type} />
+                  <HiddenField
+                    name={`valuations-type-${i}`}
+                    type='hidden'
+                    value={v.type}
+                  />
                 </td>
                 <td className='valuations-delete'>
                   <button
@@ -189,7 +222,11 @@ class ValuationsInput extends React.Component {
           <div className='errors'>
             {errorTags}
           </div>}
-        <button className='button add-valuation-button' type='button' onClick={this.handleAddValuation}>
+        <button
+          className='button add-valuation-button'
+          type='button'
+          onClick={this.handleAddValuation}
+        >
           +&nbsp;&nbsp;Add
         </button>
       </div>
@@ -204,11 +241,19 @@ class ValuationsInput extends React.Component {
   }
 
   static valuationsHaveDates(valuations) {
-    return Validations.validate(valuations, vals => vals.every(v => v.date), 'Valuations must all have dates')
+    return Validations.validate(
+      valuations,
+      vals => vals.every(v => v.date),
+      'Valuations must all have dates'
+    )
   }
 
   static valuationsHaveAmounts(valuations) {
-    return Validations.validate(valuations, vals => vals.every(v => v.amount), 'Valuations must all have amounts')
+    return Validations.validate(
+      valuations,
+      vals => vals.every(v => v.amount),
+      'Valuations must all have amounts'
+    )
   }
 
   static valuationsDontShareDates(valuations) {
@@ -216,7 +261,9 @@ class ValuationsInput extends React.Component {
       valuations,
       vals => {
         const valsWithDates = vals.filter(v => v.date)
-        return valsWithDates.length === _.uniq(valsWithDates.map(v => v.date)).length
+        return (
+          valsWithDates.length === _.uniq(valsWithDates.map(v => v.date)).length
+        )
       },
       'Valuations must all be on different dates'
     )

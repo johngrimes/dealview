@@ -66,8 +66,13 @@ class LoanForm extends React.Component {
       () => ({ errors: LoanForm.validate(this.state.loan) }),
       () => {
         const { errors, loan } = this.state
-        if (typeof errors !== 'undefined' && Validations.areErrorsPresent(errors)) {
-          const firstErrorFieldName = Validations.findFirstErrorFieldName(errors)
+        if (
+          typeof errors !== 'undefined' &&
+          Validations.areErrorsPresent(errors)
+        ) {
+          const firstErrorFieldName = Validations.findFirstErrorFieldName(
+            errors
+          )
           firstErrorFieldName
             ? this.setState(() => ({
               allErrorsShown: true,
@@ -93,10 +98,16 @@ class LoanForm extends React.Component {
   render() {
     const { loan, allErrorsShown, focusedInput } = this.state
     const errors = this.state.errors === undefined ? {} : this.state.errors
-    const idField = typeof loan.id === 'string' ? <HiddenField name='id' value={loan.id} /> : null
+    const idField =
+      typeof loan.id === 'string'
+        ? <HiddenField name='id' value={loan.id} />
+        : null
 
     return (
-      <form className='loan-form form form-aligned' onSubmit={this.handleSubmit}>
+      <form
+        className='loan-form form form-aligned'
+        onSubmit={this.handleSubmit}
+      >
         <fieldset>
           {idField}
           <InputField
@@ -156,7 +167,9 @@ class LoanForm extends React.Component {
             type='number'
             min='0'
             label='Length in years'
-            value={loan.lengthInYears ? loan.lengthInYears.toString() : undefined}
+            value={
+              loan.lengthInYears ? loan.lengthInYears.toString() : undefined
+            }
             errors={errors.lengthInYears}
             forceErrorDisplay={allErrorsShown}
             onChange={value => this.handleChange('lengthInYears', value)}
@@ -168,7 +181,11 @@ class LoanForm extends React.Component {
             type='number'
             min='0'
             label='Establishment fees'
-            value={loan.establishmentFees ? loan.establishmentFees.toString() : undefined}
+            value={
+              loan.establishmentFees
+                ? loan.establishmentFees.toString()
+                : undefined
+            }
             errors={errors.establishmentFees}
             forceErrorDisplay={allErrorsShown}
             onChange={value => this.handleChange('establishmentFees', value)}

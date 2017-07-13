@@ -15,7 +15,10 @@ export class ListLiabilities extends React.Component {
   }
 
   breadcrumbs() {
-    return [ { display: 'Portfolio', path: '/portfolio' }, { display: 'Liabilities', path: '/portfolio/liabilities' } ]
+    return [
+      { display: 'Portfolio', path: '/portfolio' },
+      { display: 'Liabilities', path: '/portfolio/liabilities' },
+    ]
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,7 +30,10 @@ export class ListLiabilities extends React.Component {
   render() {
     const liabilities = _.map(this.props.liabilities.objects, (v, k) =>
       <li key={k} className='liability'>
-        <Link className='liability-name' to={`/portfolio/liabilities/loans/${v.id}`}>
+        <Link
+          className='liability-name'
+          to={`/portfolio/liabilities/loans/${v.id}`}
+        >
           {v.name}
         </Link>
       </li>

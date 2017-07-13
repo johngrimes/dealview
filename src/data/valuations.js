@@ -30,14 +30,22 @@ export const compareValuationsByDate = (a, b) => {
   return milliA - milliB
 }
 
-export const updateValuationsWithPurchaseOrSale = (valuations, purchaseOrSale, type) => {
-  const found = valuations.find(type === 'purchase' ? purchaseFilter : saleFilter)
+export const updateValuationsWithPurchaseOrSale = (
+  valuations,
+  purchaseOrSale,
+  type
+) => {
+  const found = valuations.find(
+    type === 'purchase' ? purchaseFilter : saleFilter
+  )
   const updatedPurchaseOrSale = {
     ...(type === 'purchase' ? PurchaseDefault : SaleDefault),
     ...found,
     ...purchaseOrSale,
   }
-  return valuations.filter(type === 'purchase' ? purchaseNegFilter : saleNegFilter).concat([updatedPurchaseOrSale])
+  return valuations
+    .filter(type === 'purchase' ? purchaseNegFilter : saleNegFilter)
+    .concat([updatedPurchaseOrSale])
 }
 
 export const updateValuationsWithPurchase = (valuations, purchase) =>

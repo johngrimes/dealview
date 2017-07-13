@@ -48,7 +48,15 @@ class InputField extends React.Component {
   }
 
   render() {
-    const { name, type, label, placeholder, min, errors, forceErrorDisplay } = this.props
+    const {
+      name,
+      type,
+      label,
+      placeholder,
+      min,
+      errors,
+      forceErrorDisplay,
+    } = this.props
     const { touched } = this.state
     const value = this.state.value ? this.state.value : ''
     const labelTag = label

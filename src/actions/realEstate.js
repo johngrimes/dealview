@@ -5,7 +5,12 @@ import { realEstateToAsset } from '../data/realEstate.js'
 
 const objectStore = 'Asset.RealEstate'
 
-const actions = createObjectActions('REAL_ESTATE', 'REAL_ESTATE', 'RealEstate', 'RealEstate')
+const actions = createObjectActions(
+  'REAL_ESTATE',
+  'REAL_ESTATE',
+  'RealEstate',
+  'RealEstate'
+)
 
 const putRealEstate = realEstate => {
   return dispatch => {

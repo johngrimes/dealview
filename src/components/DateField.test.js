@@ -84,7 +84,9 @@ describe('DateField', () => {
       onChange: jest.fn(),
     }
     const wrapper = shallow(<DateField {...props} />)
-    wrapper.find(DatePicker).prop('onChange')(moment('2014-09-25', DateStorageFormat))
+    wrapper.find(DatePicker).prop('onChange')(
+      moment('2014-09-25', DateStorageFormat)
+    )
     expect(props.onChange).toHaveBeenCalledWith('2014-09-25')
   })
 

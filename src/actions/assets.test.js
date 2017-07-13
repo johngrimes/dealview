@@ -10,38 +10,43 @@ describe('putAsset', () => {
     const AssetActions = require('../actions/assets.js').default
     const thunk = AssetActions.putAsset({ some: 'thing' })
     const dispatch = jest.fn()
-    return expect(thunk(dispatch)).resolves.toEqual({ some: 'thing' }).then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_ASSET_REQUEST',
-        object: { some: 'thing' },
+    return expect(thunk(dispatch)).resolves
+      .toEqual({ some: 'thing' })
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'PUT_ASSET_REQUEST',
+          object: { some: 'thing' },
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'INVALIDATE_BALANCE_SHEET',
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'PUT_ASSET_SUCCESS',
+          object: { some: 'thing' },
+        })
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'INVALIDATE_BALANCE_SHEET',
-      })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_ASSET_SUCCESS',
-        object: { some: 'thing' },
-      })
-    })
   })
 
   it('should dispatch correct actions on failure', () => {
     jest.mock('../data/db.js', () => ({
-      putObject: () => new Promise((resolve, reject) => reject(new Error('Some error'))),
+      putObject: () =>
+        new Promise((resolve, reject) => reject(new Error('Some error'))),
     }))
     const AssetActions = require('../actions/assets.js').default
     const thunk = AssetActions.putAsset({ some: 'thing' })
     const dispatch = jest.fn()
-    return expect(thunk(dispatch)).rejects.toEqual(new Error('Some error')).then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_ASSET_REQUEST',
-        object: { some: 'thing' },
+    return expect(thunk(dispatch)).rejects
+      .toEqual(new Error('Some error'))
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'PUT_ASSET_REQUEST',
+          object: { some: 'thing' },
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'PUT_ASSET_FAILURE',
+          error: 'Some error',
+        })
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'PUT_ASSET_FAILURE',
-        error: 'Some error',
-      })
-    })
   })
 })
 
@@ -74,21 +79,24 @@ describe('deleteAsset', () => {
 
   it('should dispatch correct actions on failure', () => {
     jest.mock('../data/db.js', () => ({
-      deleteObject: () => new Promise((resolve, reject) => reject(new Error('Some error'))),
+      deleteObject: () =>
+        new Promise((resolve, reject) => reject(new Error('Some error'))),
     }))
     const AssetActions = require('../actions/assets.js').default
     const thunk = AssetActions.deleteAsset('someKey')
     const dispatch = jest.fn()
-    return expect(thunk(dispatch)).rejects.toEqual(new Error('Some error')).then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'DELETE_ASSET_REQUEST',
-        id: 'someKey',
+    return expect(thunk(dispatch)).rejects
+      .toEqual(new Error('Some error'))
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'DELETE_ASSET_REQUEST',
+          id: 'someKey',
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'DELETE_ASSET_FAILURE',
+          error: 'Some error',
+        })
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'DELETE_ASSET_FAILURE',
-        error: 'Some error',
-      })
-    })
   })
 })
 
@@ -104,32 +112,37 @@ describe('loadAssets', () => {
     const AssetActions = require('../actions/assets.js').default
     const thunk = AssetActions.loadAssets()
     const dispatch = jest.fn()
-    return expect(thunk(dispatch)).resolves.toEqual([{ some: 'thing' }]).then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'LOAD_ASSETS_REQUEST',
+    return expect(thunk(dispatch)).resolves
+      .toEqual([{ some: 'thing' }])
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'LOAD_ASSETS_REQUEST',
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'LOAD_ASSETS_SUCCESS',
+          objects: [{ some: 'thing' }],
+        })
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'LOAD_ASSETS_SUCCESS',
-        objects: [{ some: 'thing' }],
-      })
-    })
   })
 
   it('should dispatch correct actions on failure', () => {
     jest.mock('../data/db.js', () => ({
-      getAllObjects: () => new Promise((resolve, reject) => reject(new Error('Some error'))),
+      getAllObjects: () =>
+        new Promise((resolve, reject) => reject(new Error('Some error'))),
     }))
     const AssetActions = require('../actions/assets.js').default
     const thunk = AssetActions.loadAssets()
     const dispatch = jest.fn()
-    return expect(thunk(dispatch)).rejects.toEqual(new Error('Some error')).then(() => {
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'LOAD_ASSETS_REQUEST',
+    return expect(thunk(dispatch)).rejects
+      .toEqual(new Error('Some error'))
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'LOAD_ASSETS_REQUEST',
+        })
+        expect(dispatch).toHaveBeenCalledWith({
+          type: 'LOAD_ASSETS_FAILURE',
+          error: 'Some error',
+        })
       })
-      expect(dispatch).toHaveBeenCalledWith({
-        type: 'LOAD_ASSETS_FAILURE',
-        error: 'Some error',
-      })
-    })
   })
 })
