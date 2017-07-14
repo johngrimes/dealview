@@ -7,6 +7,8 @@ import {
   unformatDollars,
 } from '../data/commonTypes.js'
 
+import './styles/CurrencyField.css'
+
 class CurrencyField extends React.Component {
   constructor(props) {
     super(props)
@@ -37,6 +39,7 @@ class CurrencyField extends React.Component {
       ...this.props,
       value,
       type: 'text',
+      className: 'currency',
       onChange: this.handleChange,
     }
 

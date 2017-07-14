@@ -2,6 +2,7 @@
 
 exports[`CurrencyField should render 1`] = `
 <InputField
+  className="currency"
   name="someInput"
   onChange={[Function]}
   type="text"

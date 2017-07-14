@@ -56,6 +56,7 @@ class InputField extends React.Component {
       placeholder,
       min,
       errors,
+      className,
       forceErrorDisplay,
     } = this.props
     const { touched } = this.state
@@ -75,10 +76,11 @@ class InputField extends React.Component {
         )
       )
     }
-    const className = touched && errorTags.length > 0 ? 'with-errors' : ''
+    const classNameWithErrors =
+      touched && errorTags.length > 0 ? className + ' with-errors' : className
     const props = {
       name,
-      className,
+      className: classNameWithErrors,
       type,
       placeholder,
       min,

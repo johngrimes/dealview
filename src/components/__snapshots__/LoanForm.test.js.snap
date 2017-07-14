@@ -81,16 +81,14 @@ exports[`LoanForm should render 1`] = `
       type="number"
       value="25"
     />
-    <InputField
+    <CurrencyField
       errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Establishment fees"
-      min="0"
       name="establishmentFees"
       onChange={[Function]}
       onFocus={[Function]}
-      type="number"
       value="1500"
     />
     <SelectField
@@ -208,16 +206,14 @@ exports[`LoanForm should render 2`] = `
       type="number"
       value="30"
     />
-    <InputField
+    <CurrencyField
       errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Establishment fees"
-      min="0"
       name="establishmentFees"
       onChange={[Function]}
       onFocus={[Function]}
-      type="number"
     />
     <SelectField
       errors={Array []}

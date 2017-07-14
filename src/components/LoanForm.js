@@ -177,10 +177,8 @@ class LoanForm extends React.Component {
             onFocus={this.handleFocus}
             focus={focusedInput}
           />
-          <InputField
+          <CurrencyField
             name='establishmentFees'
-            type='number'
-            min='0'
             label='Establishment fees'
             value={
               loan.establishmentFees

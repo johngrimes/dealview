@@ -66,16 +66,14 @@ exports[`RealEstateForm should render 1`] = `
       onFocus={[Function]}
       value="2014-09-10"
     />
-    <InputField
+    <CurrencyField
       errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Purchase amount"
-      min="1"
       name="purchaseAmount"
       onChange={[Function]}
       onFocus={[Function]}
-      type="number"
       value="520000"
     />
   </fieldset>
@@ -93,16 +91,14 @@ exports[`RealEstateForm should render 1`] = `
       onChange={[Function]}
       onFocus={[Function]}
     />
-    <InputField
+    <CurrencyField
       errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Sale amount"
-      min="1"
       name="saleAmount"
       onChange={[Function]}
       onFocus={[Function]}
-      type="number"
     />
   </fieldset>
   <fieldset>
@@ -215,16 +211,14 @@ exports[`RealEstateForm should render 2`] = `
       onFocus={[Function]}
       value="2005-05-10"
     />
-    <InputField
+    <CurrencyField
       errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Purchase amount"
-      min="1"
       name="purchaseAmount"
       onChange={[Function]}
       onFocus={[Function]}
-      type="number"
       value="165000"
     />
   </fieldset>
@@ -243,16 +237,14 @@ exports[`RealEstateForm should render 2`] = `
       onFocus={[Function]}
       value="2017-01-01"
     />
-    <InputField
+    <CurrencyField
       errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Sale amount"
-      min="1"
       name="saleAmount"
       onChange={[Function]}
       onFocus={[Function]}
-      type="number"
       value="340000"
     />
   </fieldset>

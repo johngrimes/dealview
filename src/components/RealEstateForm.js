@@ -4,6 +4,7 @@ import _ from 'lodash'
 import moment from 'moment'
 
 import InputField from './InputField.js'
+import CurrencyField from './CurrencyField.js'
 import HiddenField from './HiddenField.js'
 import AddressField, { AddressErrorsDefaults } from './AddressField.js'
 import TextAreaField from './TextAreaField.js'
@@ -256,11 +257,9 @@ class RealEstateForm extends React.Component {
             onFocus={this.handleFocus}
             focus={focusedInput}
           />
-          <InputField
+          <CurrencyField
             name='purchaseAmount'
             label='Purchase amount'
-            type='number'
-            min='1'
             value={
               purchase && purchase.amount
                 ? purchase.amount.toString()
@@ -287,11 +286,9 @@ class RealEstateForm extends React.Component {
             onFocus={this.handleFocus}
             focus={focusedInput}
           />
-          <InputField
+          <CurrencyField
             name='saleAmount'
             label='Sale amount'
-            type='number'
-            min='1'
             value={sale && sale.amount ? sale.amount.toString() : undefined}
             errors={errors.saleAmount}
             forceErrorDisplay={allErrorsShown}
