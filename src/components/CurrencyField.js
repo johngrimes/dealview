@@ -44,4 +44,8 @@ class CurrencyField extends React.Component {
   }
 }
 
+CurrencyField.propTypes = {
+  ...InputField.propTypes,
+}
+
 export default CurrencyField

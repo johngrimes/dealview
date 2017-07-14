@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class InputField extends React.Component {
   constructor(props) {
@@ -99,6 +100,17 @@ class InputField extends React.Component {
       </div>
     )
   }
+}
+
+InputField.propTypes = {
+  name: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  min: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
 }
 
 export default InputField
