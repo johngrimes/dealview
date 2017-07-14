@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import _ from 'lodash'
@@ -268,6 +269,25 @@ class ValuationsInput extends React.Component {
       'Valuations must all be on different dates'
     )
   }
+}
+
+ValuationsInput.propTypes = {
+  name: PropTypes.string.isRequired,
+  valuations: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string,
+      amount: PropTypes.number,
+      note: PropTypes.string,
+      type: PropTypes.oneOf([ 'none', 'purchase', 'sale' ]),
+    })
+  ),
+  minDate: PropTypes.instanceOf(moment),
+  maxDate: PropTypes.instanceOf(moment),
+  errors: PropTypes.arrayOf(PropTypes.string),
+  forceErrorDisplay: PropTypes.bool,
+  focus: PropTypes.string,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
 }
 
 export default ValuationsInput

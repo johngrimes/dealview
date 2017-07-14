@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -125,6 +126,17 @@ export class Portfolio extends React.Component {
       ? dates[todayIndex]
       : dates[Math.floor(dates.length / 2)]
   }
+}
+
+Portfolio.propTypes = {
+  assets: PropTypes.shape({
+    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+    objects: PropTypes.objectOf(PropTypes.object),
+  }),
+  balanceSheet: PropTypes.shape({
+    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+    balanceSheet: PropTypes.objectOf(PropTypes.object),
+  }),
 }
 
 const mapStateToProps = state => {

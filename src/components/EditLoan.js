@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
@@ -51,6 +52,14 @@ export class EditLoan extends React.Component {
           />
         </div>
   }
+}
+
+EditLoan.propTypes = {
+  id: PropTypes.string.isRequired,
+  loan: PropTypes.shape({
+    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+    object: PropTypes.object,
+  }),
 }
 
 const mapStateToProps = (state, ownProps) => ({

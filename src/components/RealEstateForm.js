@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
 
@@ -375,6 +376,32 @@ class RealEstateForm extends React.Component {
       'Valuations must all be between the purchase and sale dates'
     )
   }
+}
+
+RealEstateForm.propTypes = {
+  realEstate: PropTypes.shape({
+    name: PropTypes.string,
+    address: PropTypes.shape({
+      line1: PropTypes.string,
+      line2: PropTypes.string,
+      line3: PropTypes.string,
+      locality: PropTypes.string,
+      state: PropTypes.string,
+      postcode: PropTypes.string,
+    }),
+    notes: PropTypes.string,
+    purchaseDate: PropTypes.string,
+    saleDate: PropTypes.string,
+    valuations: PropTypes.arrayOf(
+      PropTypes.shape({
+        date: PropTypes.string,
+        amount: PropTypes.number,
+        note: PropTypes.string,
+        type: PropTypes.oneOf([ 'none', 'purchase', 'sale' ]),
+      })
+    ),
+  }),
+  onSubmit: PropTypes.func,
 }
 
 export default RealEstateForm

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ReactSlider from 'react-slider'
 
 import './styles/DateSlider.css'
@@ -65,6 +66,14 @@ class DateSlider extends React.Component {
       </div>
     )
   }
+}
+
+DateSlider.propTypes = {
+  dates: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selected: PropTypes.string,
+  initialised: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+  onChange: PropTypes.func,
 }
 
 export default DateSlider

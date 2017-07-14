@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class TextAreaField extends React.Component {
   constructor(props) {
@@ -86,6 +87,18 @@ class TextAreaField extends React.Component {
       </div>
     )
   }
+}
+
+TextAreaField.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  errors: PropTypes.arrayOf(PropTypes.string),
+  forceErrorDisplay: PropTypes.bool,
+  focus: PropTypes.string,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
 }
 
 export default TextAreaField

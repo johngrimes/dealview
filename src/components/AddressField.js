@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 import * as Validations from '../utils/formValidation.js'
@@ -174,6 +175,27 @@ class AddressField extends React.Component {
 
     return errors
   }
+}
+
+AddressField.propTypes = {
+  name: PropTypes.string.isRequired,
+  address: PropTypes.shape({
+    line1: PropTypes.string,
+    line2: PropTypes.string,
+    line3: PropTypes.string,
+    locality: PropTypes.string,
+    state: PropTypes.string,
+    postcode: PropTypes.string,
+  }).isRequired,
+  errors: PropTypes.shape({
+    line1: PropTypes.arrayOf(PropTypes.string),
+    line2: PropTypes.arrayOf(PropTypes.string),
+    line3: PropTypes.arrayOf(PropTypes.string),
+  }),
+  forceErrorDisplay: PropTypes.bool,
+  focus: PropTypes.string,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
 }
 
 export default AddressField

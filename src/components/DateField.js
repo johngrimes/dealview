@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
@@ -99,6 +100,19 @@ class DateField extends React.Component {
       </div>
     )
   }
+}
+
+DateField.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([ PropTypes.string, PropTypes.instanceOf(moment) ]),
+  label: PropTypes.string,
+  errors: PropTypes.arrayOf(PropTypes.string),
+  forceErrorDisplay: PropTypes.bool,
+  focus: PropTypes.string,
+  minDate: PropTypes.instanceOf(moment),
+  maxDate: PropTypes.instanceOf(moment),
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
 }
 
 export default DateField

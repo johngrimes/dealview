@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import InputField from './InputField.js'
 import CurrencyField from './CurrencyField.js'
@@ -224,6 +225,20 @@ class LoanForm extends React.Component {
       name,
     }
   }
+}
+
+LoanForm.propTypes = {
+  loan: PropTypes.shape({
+    name: PropTypes.string,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+    principal: PropTypes.number,
+    compoundingPeriod: PropTypes.oneOf([ 'daily', 'monthly' ]),
+    lengthInYears: PropTypes.number,
+    establishmentFees: PropTypes.number,
+    repaymentType: PropTypes.oneOf([ 'principalAndInterest', 'interestOnly' ]),
+  }),
+  onSubmit: PropTypes.func,
 }
 
 export default LoanForm

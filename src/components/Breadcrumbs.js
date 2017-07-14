@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
 
@@ -23,6 +24,15 @@ class Breadcrumbs extends React.Component {
       </div>
     )
   }
+}
+
+Breadcrumbs.propTypes = {
+  breadcrumbs: PropTypes.arrayOf(
+    PropTypes.shape({
+      display: PropTypes.string,
+      path: PropTypes.string,
+    })
+  ),
 }
 
 export default Breadcrumbs

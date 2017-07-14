@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
@@ -52,6 +53,14 @@ export class EditRealEstate extends React.Component {
           />
         </div>
   }
+}
+
+EditRealEstate.propTypes = {
+  id: PropTypes.string.isRequired,
+  realEstate: PropTypes.shape({
+    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+    object: PropTypes.object,
+  }),
 }
 
 const mapStateToProps = (state, ownProps) => {

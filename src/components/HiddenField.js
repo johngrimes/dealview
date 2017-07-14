@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class HiddenField extends React.Component {
   render() {
@@ -6,6 +7,11 @@ class HiddenField extends React.Component {
 
     return <input id={this.props.name} type='hidden' value={value} />
   }
+}
+
+HiddenField.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
 }
 
 export default HiddenField

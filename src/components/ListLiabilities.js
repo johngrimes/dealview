@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
@@ -50,6 +51,13 @@ export class ListLiabilities extends React.Component {
       </div>
     )
   }
+}
+
+ListLiabilities.propTypes = {
+  liabilities: PropTypes.shape({
+    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+    objects: PropTypes.objectOf(PropTypes.object),
+  }),
 }
 
 const mapStateToProps = state => ({ liabilities: state.liabilities })
