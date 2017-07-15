@@ -141,6 +141,18 @@ class LoanForm extends React.Component {
             onFocus={this.handleFocus}
             focus={focusedInput}
           />
+          <InputField
+            name='interestRate'
+            type='number'
+            min='0'
+            label='Interest rate (basis points)'
+            value={loan.interestRate ? loan.interestRate.toString() : undefined}
+            errors={errors.interestRate}
+            forceErrorDisplay={allErrorsShown}
+            onChange={value => this.handleChange('interestRate', value)}
+            onFocus={this.handleFocus}
+            focus={focusedInput}
+          />
           <SelectField
             name='compoundingPeriod'
             label='Compounding period'
@@ -217,6 +229,7 @@ LoanForm.propTypes = {
     startDate: PropTypes.string,
     endDate: PropTypes.string,
     principal: PropTypes.number,
+    interestRate: PropTypes.number,
     compoundingPeriod: PropTypes.oneOf([ 'daily', 'monthly' ]),
     lengthInYears: PropTypes.number,
     establishmentFees: PropTypes.number,

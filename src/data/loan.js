@@ -1,4 +1,5 @@
 export const LoanDefaults = {
+  interestRate: 400,
   compoundingPeriod: 'daily',
   lengthInYears: 25,
   repaymentType: 'principalAndInterest',

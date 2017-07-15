@@ -44,6 +44,16 @@ exports[`LoanForm should render 1`] = `
       onFocus={[Function]}
       value="500000"
     />
+    <InputField
+      focus="name"
+      forceErrorDisplay={true}
+      label="Interest rate (basis points)"
+      min="0"
+      name="interestRate"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="number"
+    />
     <SelectField
       focus="name"
       forceErrorDisplay={true}
@@ -161,6 +171,16 @@ exports[`LoanForm should render 2`] = `
       onChange={[Function]}
       onFocus={[Function]}
       value="150000"
+    />
+    <InputField
+      focus="name"
+      forceErrorDisplay={true}
+      label="Interest rate (basis points)"
+      min="0"
+      name="interestRate"
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="number"
     />
     <SelectField
       focus="name"
