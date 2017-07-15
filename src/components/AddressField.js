@@ -6,12 +6,6 @@ import * as Validations from '../utils/formValidation.js'
 
 import './styles/AddressField.css'
 
-export const AddressErrorsDefaults = {
-  line1: [],
-  line2: [],
-  line3: [],
-}
-
 // Human-readable field labels.
 const AddressLabels = {
   line1: 'Line 1',

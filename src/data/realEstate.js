@@ -1,13 +1,7 @@
 import { AddressDefaults } from './commonTypes.js'
 import { saleNegFilter } from './valuations.js'
 
-export const RealEstateDefaults = {
-  name: '',
-  address: AddressDefaults,
-  notes: '',
-  purchaseDate: '',
-  valuations: [],
-}
+export const RealEstateDefaults = { address: AddressDefaults }
 
 export const realEstateToAsset = realEstate => {
   const asset = {}

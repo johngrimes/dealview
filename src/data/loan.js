@@ -1,11 +1,6 @@
 export const LoanDefaults = {
-  name: '',
-  startDate: '',
-  endDate: '',
-  principal: 0,
   compoundingPeriod: 'daily',
   lengthInYears: 25,
-  establishmentFees: 0,
   repaymentType: 'principalAndInterest',
 }
 

@@ -244,7 +244,7 @@ class ValuationsInput extends React.Component {
   static valuationsHaveDates(valuations) {
     return Validations.validate(
       valuations,
-      vals => vals.every(v => v.date),
+      vals => (Array.isArray(vals) ? vals.every(v => v.date) : true),
       'Valuations must all have dates'
     )
   }
@@ -252,7 +252,7 @@ class ValuationsInput extends React.Component {
   static valuationsHaveAmounts(valuations) {
     return Validations.validate(
       valuations,
-      vals => vals.every(v => v.amount),
+      vals => (Array.isArray(valuations) ? vals.every(v => v.amount) : true),
       'Valuations must all have amounts'
     )
   }
@@ -261,10 +261,15 @@ class ValuationsInput extends React.Component {
     return Validations.validate(
       valuations,
       vals => {
-        const valsWithDates = vals.filter(v => v.date)
-        return (
-          valsWithDates.length === _.uniq(valsWithDates.map(v => v.date)).length
-        )
+        if (Array.isArray(valuations)) {
+          const valsWithDates = vals.filter(v => v.date)
+          return (
+            valsWithDates.length ===
+            _.uniq(valsWithDates.map(v => v.date)).length
+          )
+        } else {
+          return true
+        }
       },
       'Valuations must all be on different dates'
     )

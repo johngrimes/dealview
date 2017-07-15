@@ -6,7 +6,7 @@ import moment from 'moment'
 import InputField from './InputField.js'
 import CurrencyField from './CurrencyField.js'
 import HiddenField from './HiddenField.js'
-import AddressField, { AddressErrorsDefaults } from './AddressField.js'
+import AddressField from './AddressField.js'
 import TextAreaField from './TextAreaField.js'
 import ValuationsInput from './ValuationsInput.js'
 import DateField from './DateField.js'
@@ -25,17 +25,6 @@ import '../styles/forms.css'
 import '../styles/buttons.css'
 import '../styles/tables.css'
 import './styles/RealEstateForm.css'
-
-const RealEstateErrorsDefaults = {
-  name: [],
-  address: AddressErrorsDefaults,
-  notes: [],
-  purchaseDate: [],
-  purchaseAmount: [],
-  saleDate: [],
-  saleAmount: [],
-  valuations: [],
-}
 
 class RealEstateForm extends React.Component {
   constructor(props) {
@@ -336,7 +325,6 @@ class RealEstateForm extends React.Component {
       .concat(RealEstateForm.valuationsWithinPurchaseAndSale(realEstate))
 
     return {
-      ...RealEstateErrorsDefaults,
       name,
       address,
       purchaseDate,
@@ -347,29 +335,36 @@ class RealEstateForm extends React.Component {
   static purchaseValuationPresent(realEstate) {
     return Validations.validate(
       realEstate,
-      re => re.valuations.some(valuation => valuation.type === 'purchase'),
+      re =>
+        Array.isArray(realEstate.valuations)
+          ? re.valuations.some(valuation => valuation.type === 'purchase')
+          : false,
       'There must be a purchase valuation'
     )
   }
 
   static valuationsWithinPurchaseAndSale(realEstate) {
-    const purchaseVal = realEstate.valuations.find(v => v.type === 'purchase')
-    const saleVal = realEstate.valuations.find(v => v.type === 'sale')
-    if (!purchaseVal) {
-      return []
-    }
-
     return Validations.validate(
       realEstate,
-      re =>
-        re.valuations.every(
-          valuation =>
-            [ 'purchase', 'sale' ].includes(valuation.type) ||
-            (saleVal
-              ? valuation.date > purchaseVal.date &&
-                valuation.date < saleVal.date
-              : valuation.date > purchaseVal.date)
-        ),
+      re => {
+        if (Array.isArray(re.valuations)) {
+          const purchaseVal = re.valuations.find(purchaseFilter)
+          const saleVal = re.valuations.find(saleFilter)
+          if (!(purchaseVal && saleVal && purchaseVal.date && saleVal.date)) {
+            return true
+          }
+          return re.valuations.every(
+            valuation =>
+              [ 'purchase', 'sale' ].includes(valuation.type) ||
+              (saleVal
+                ? valuation.date > purchaseVal.date &&
+                  valuation.date < saleVal.date
+                : valuation.date > purchaseVal.date)
+          )
+        } else {
+          return true
+        }
+      },
       'Valuations must all be between the purchase and sale dates'
     )
   }

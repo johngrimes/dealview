@@ -67,7 +67,6 @@ exports[`RealEstateForm should render 1`] = `
       value="2014-09-10"
     />
     <CurrencyField
-      errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Purchase amount"
@@ -82,7 +81,6 @@ exports[`RealEstateForm should render 1`] = `
       Sale
     </legend>
     <DateField
-      errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Sale date"
@@ -92,7 +90,6 @@ exports[`RealEstateForm should render 1`] = `
       onFocus={[Function]}
     />
     <CurrencyField
-      errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Sale amount"
@@ -212,7 +209,6 @@ exports[`RealEstateForm should render 2`] = `
       value="2005-05-10"
     />
     <CurrencyField
-      errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Purchase amount"
@@ -227,7 +223,6 @@ exports[`RealEstateForm should render 2`] = `
       Sale
     </legend>
     <DateField
-      errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Sale date"
@@ -238,7 +233,6 @@ exports[`RealEstateForm should render 2`] = `
       value="2017-01-01"
     />
     <CurrencyField
-      errors={Array []}
       focus="name"
       forceErrorDisplay={true}
       label="Sale amount"
@@ -308,11 +302,7 @@ Object {
       "line3": Array [],
     },
     "name": Array [],
-    "notes": Array [],
-    "purchaseAmount": Array [],
     "purchaseDate": Array [],
-    "saleAmount": Array [],
-    "saleDate": Array [],
     "valuations": Array [],
   },
   "focusedInput": "name",
@@ -361,14 +351,8 @@ Object {
       "line3": Array [],
     },
     "name": Array [],
-    "notes": Array [],
-    "purchaseAmount": Array [],
     "purchaseDate": Array [],
-    "saleAmount": Array [],
-    "saleDate": Array [],
-    "valuations": Array [
-      "Valuations must all be between the purchase and sale dates",
-    ],
+    "valuations": Array [],
   },
   "focusedInput": "name",
   "purchase": Object {
@@ -416,14 +400,9 @@ Object {
       "line3": Array [],
     },
     "name": Array [],
-    "notes": Array [],
-    "purchaseAmount": Array [],
     "purchaseDate": Array [],
-    "saleAmount": Array [],
-    "saleDate": Array [],
     "valuations": Array [
       "Valuations must all have dates",
-      "Valuations must all be between the purchase and sale dates",
     ],
   },
   "focusedInput": "name",
@@ -480,11 +459,7 @@ Object {
       "line3": Array [],
     },
     "name": Array [],
-    "notes": Array [],
-    "purchaseAmount": Array [],
     "purchaseDate": Array [],
-    "saleAmount": Array [],
-    "saleDate": Array [],
     "valuations": Array [
       "Valuations must all have amounts",
     ],

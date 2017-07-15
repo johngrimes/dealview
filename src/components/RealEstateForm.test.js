@@ -105,17 +105,19 @@ describe('validation', () => {
   })
 
   it('should require valuations to be between purchase and sale dates', () => {
-    const realEstate = { ...validRealEstate1 }
+    const realEstate = { ...validRealEstate2 }
     realEstate.valuations = realEstate.valuations.concat([
       {
-        date: '2014-09-09',
+        date: '2018-09-09',
         amount: 460000,
         note: 'Some other valuation',
         type: 'none',
       },
     ])
     const wrapper = shallow(<RealEstateForm realEstate={realEstate} />)
-    expect(wrapper.find(ValuationsInput).prop('errors')).toMatchSnapshot()
+    const errors = wrapper.find(ValuationsInput).prop('errors')
+    expect(errors).toHaveLength(1)
+    expect(errors).toMatchSnapshot()
   })
 })
 
@@ -123,24 +125,46 @@ describe('purchase and sale', () => {
   it('should update state when purchase date is changed', () => {
     const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
     wrapper.find({ name: 'purchaseDate' }).prop('onChange')('2016-05-14')
+    expect(wrapper.state('realEstate').purchaseDate).toBe('2016-05-14')
+    expect(
+      wrapper
+        .state('realEstate')
+        .valuations.find(v => v.type === 'purchase' && v.date === '2016-05-14')
+    ).toBeTruthy()
     expect(wrapper.state()).toMatchSnapshot()
   })
 
   it('should update state when purchase amount is changed', () => {
     const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
     wrapper.find({ name: 'purchaseAmount' }).prop('onChange')(350000)
+    expect(
+      wrapper
+        .state('realEstate')
+        .valuations.find(v => v.type === 'purchase' && v.amount === 350000)
+    ).toBeTruthy()
     expect(wrapper.state()).toMatchSnapshot()
   })
 
   it('should update state when sale date is changed', () => {
     const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
     wrapper.find({ name: 'saleDate' }).prop('onChange')('2016-05-14')
+    expect(wrapper.state('realEstate').saleDate).toBe('2016-05-14')
+    expect(
+      wrapper
+        .state('realEstate')
+        .valuations.find(v => v.type === 'sale' && v.date === '2016-05-14')
+    ).toBeTruthy()
     expect(wrapper.state()).toMatchSnapshot()
   })
 
   it('should update state when sale amount is changed', () => {
     const wrapper = shallow(<RealEstateForm realEstate={validRealEstate1} />)
     wrapper.find({ name: 'saleAmount' }).prop('onChange')(350000)
+    expect(
+      wrapper
+        .state('realEstate')
+        .valuations.find(v => v.type === 'sale' && v.amount === 350000)
+    ).toBeTruthy()
     expect(wrapper.state()).toMatchSnapshot()
   })
 

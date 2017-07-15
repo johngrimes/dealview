@@ -12,17 +12,6 @@ import { LoanDefaults } from '../data/loan.js'
 import '../styles/forms.css'
 import '../styles/buttons.css'
 
-const LoanErrorDefaults = {
-  name: [],
-  startDate: [],
-  endDate: [],
-  principal: [],
-  compoundingPeriod: [],
-  lengthInYears: [],
-  establishmentFees: [],
-  repaymentType: [],
-}
-
 class LoanForm extends React.Component {
   constructor(props) {
     super(props)
@@ -218,10 +207,7 @@ class LoanForm extends React.Component {
       .concat(Validations.minLength(loan.name, 3))
       .concat(Validations.maxLength(loan.name, 100))
 
-    return {
-      ...LoanErrorDefaults,
-      name,
-    }
+    return { name }
   }
 }
 

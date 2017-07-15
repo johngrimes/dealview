@@ -1,11 +1,4 @@
-export const AddressDefaults = {
-  line1: '',
-  line2: '',
-  line3: '',
-  locality: '',
-  state: '',
-  postcode: '',
-}
+export const AddressDefaults = {}
 
 export const DateDisplayFormat = 'D MMM YYYY'
 export const DateStorageFormat = 'YYYY-MM-DD'
