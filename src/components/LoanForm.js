@@ -144,7 +144,7 @@ class LoanForm extends React.Component {
           <InputField
             name='interestRate'
             type='number'
-            min='0'
+            min={0}
             label='Interest rate (basis points)'
             value={loan.interestRate ? loan.interestRate.toString() : undefined}
             errors={errors.interestRate}
@@ -167,7 +167,7 @@ class LoanForm extends React.Component {
           <InputField
             name='lengthInYears'
             type='number'
-            min='0'
+            min={0}
             label='Length in years'
             value={
               loan.lengthInYears ? loan.lengthInYears.toString() : undefined

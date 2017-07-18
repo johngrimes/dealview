@@ -21,12 +21,13 @@ export class Portfolio extends React.Component {
     super(props)
     this.state = {}
     if (balanceSheet.fresh === false) {
+      const today = moment()
       dispatch(
         updateBalanceSheet(
           assets.objects,
           liabilities.objects,
-          '2017-05-28',
-          '2027-05-28'
+          today.format(DateStorageFormat),
+          today.add(10, 'years').format(DateStorageFormat)
         )
       )
     } else if (balanceSheet.status === 'uninitialised') {

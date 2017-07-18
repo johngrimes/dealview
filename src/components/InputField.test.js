@@ -75,7 +75,7 @@ describe('InputField', () => {
     }
     const wrapper = shallow(<InputField {...props} />)
     wrapper.find('input').prop('onChange')({ target: { value: 'something' } })
-    expect(props.onChange).toHaveBeenCalledWith('something')
+    expect(props.onChange).toHaveBeenCalledWith('something', undefined)
   })
 
   it('should call onFocus when the input is focused', () => {

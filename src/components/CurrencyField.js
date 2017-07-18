@@ -24,7 +24,7 @@ class CurrencyField extends React.Component {
     this.setState(
       () => ({ value: raw }),
       () => {
-        if (this.props.onChange) this.props.onChange(raw)
+        if (this.props.onChange) this.props.onChange(raw.toString())
       }
     )
   }

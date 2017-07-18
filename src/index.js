@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 
 import configureStore from './store.js'
 import { InitialAssetState } from './reducers/assets.js'
-import { InitialRealEstateState } from './reducers/realEstate.js'
 import { InitialLiabilityState } from './reducers/liabilities.js'
 import { InitialLoanState } from './reducers/loans.js'
 import { InitialBalanceSheetState } from './reducers/balanceSheet.js'
@@ -15,7 +14,6 @@ import './styles/base.css'
 
 const store = configureStore({
   assets: InitialAssetState,
-  realEstate: InitialRealEstateState,
   liabilities: InitialLiabilityState,
   loans: InitialLoanState,
   balanceSheet: InitialBalanceSheetState,

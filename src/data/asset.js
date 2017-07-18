@@ -1,34 +1,20 @@
 import moment from 'moment'
 
-import { DateStorageFormat } from './commonTypes.js'
-import { compareValuationsByDate } from './valuations.js'
-
 export const getValuationAtDate = (asset, date) => {
-  const queryDate = date
-  const startDate = moment(asset.startDate, DateStorageFormat)
-  const endDate =
-    typeof asset.endDate === 'string'
-      ? moment(asset.endDate, DateStorageFormat)
-      : undefined
+  const now = moment()
+  const startDate = asset.purchaseDate || now
   if (
-    typeof asset.valuations === 'undefined' ||
-    asset.valuations.length === 0 ||
-    queryDate.isBefore(startDate) ||
-    (endDate && queryDate.isAfter(endDate))
+    date.isBefore(startDate) ||
+    (asset.saleDate && date.isAfter(asset.saleDate))
   ) {
     return 0
   }
-  const sortedValuations = asset.valuations
-    .slice()
-    .sort(compareValuationsByDate)
-  const idxFuture = sortedValuations.findIndex(v => {
-    return moment(v.date, DateStorageFormat).valueOf() > queryDate.valueOf()
-  })
-  const slicedValuations =
-    idxFuture === -1 ? sortedValuations : sortedValuations.slice(0, idxFuture)
-  const amount =
-    typeof slicedValuations[slicedValuations.length - 1] === 'undefined'
-      ? 0
-      : slicedValuations[slicedValuations.length - 1].amount
-  return typeof amount === 'number' ? amount : 0
+  const daysSinceStart = Math.floor(
+    moment.duration(date.diff(startDate)).asDays()
+  )
+  const startValue = asset.purchaseAmount
+    ? parseInt(asset.purchaseAmount, 10)
+    : parseInt(asset.currentValue, 10)
+  const forecastGrowth = parseInt(asset.forecastGrowth, 10) / 10000 / 365
+  return Math.round(startValue * Math.pow(1 + forecastGrowth, daysSinceStart))
 }

@@ -6,6 +6,7 @@ class InputField extends React.Component {
     super(props)
     this.state = {
       value: props.value,
+      checked: props.checked,
       touched: false,
     }
 
@@ -16,9 +17,11 @@ class InputField extends React.Component {
   handleChange(event) {
     const target = event.target
     this.setState(
-      () => ({ value: target.value, touched: true }),
+      () => ({ value: target.value, checked: target.checked, touched: true }),
       () => {
-        if (this.props.onChange) this.props.onChange(target.value)
+        if (this.props.onChange) {
+          this.props.onChange(target.value, target.checked)
+        }
       }
     )
   }
@@ -37,7 +40,7 @@ class InputField extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    this.setState(() => ({ value: props.value }))
+    this.setState(() => ({ value: props.value, checked: props.checked }))
   }
 
   componentDidMount() {
@@ -59,7 +62,7 @@ class InputField extends React.Component {
       className,
       forceErrorDisplay,
     } = this.props
-    const { touched } = this.state
+    const { checked, touched } = this.state
     const value = this.state.value ? this.state.value : ''
     const labelTag = label
       ? <label htmlFor={name}>
@@ -85,6 +88,7 @@ class InputField extends React.Component {
       placeholder,
       min,
       value,
+      checked,
       onChange: this.handleChange,
       onFocus: this.handleFocus,
       ref: input => (this.ref = input),
@@ -107,10 +111,34 @@ class InputField extends React.Component {
 InputField.propTypes = {
   name: PropTypes.string.isRequired,
   className: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.oneOf([
+    'hidden',
+    'text',
+    'search',
+    'tel',
+    'url',
+    'email',
+    'password',
+    'date',
+    'month',
+    'week',
+    'time',
+    'datetime-local',
+    'number',
+    'range',
+    'color',
+    'checkbox',
+    'radio',
+    'file',
+    'submit',
+    'image',
+    'reset',
+    'button',
+  ]),
   placeholder: PropTypes.string,
-  min: PropTypes.string,
+  min: PropTypes.number,
   value: PropTypes.string,
+  checked: PropTypes.bool,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
 }

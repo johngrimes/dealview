@@ -2,13 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
-import RealEstateForm from './RealEstateForm.js'
+import AssetForm from './AssetForm.js'
 import Breadcrumbs from './Breadcrumbs.js'
-import RealEstateActions from '../actions/realEstate.js'
+import AssetActions from '../actions/assets.js'
 
-import './styles/CreateRealEstate.css'
+import './styles/CreateAsset.css'
 
-export class CreateRealEstate extends React.Component {
+export class CreateAsset extends React.Component {
   constructor(props) {
     super(props)
 
@@ -20,25 +20,25 @@ export class CreateRealEstate extends React.Component {
       { display: 'Portfolio', path: '/portfolio' },
       { display: 'Assets', path: '/portfolio/assets' },
       {
-        display: 'New Real Estate Asset',
-        path: '/portfolio/assets/real-estate/new',
+        display: 'New Asset',
+        path: '/portfolio/assets/new',
       },
     ]
   }
 
   handleSubmit(realEstate) {
-    this.props.dispatch(RealEstateActions.putRealEstate(realEstate))
+    this.props.dispatch(AssetActions.putAsset(realEstate))
     this.props.history.push('/portfolio/assets')
   }
 
   render() {
     return (
-      <div className='create-real-estate'>
+      <div className='create-asset'>
         <Breadcrumbs breadcrumbs={this.breadcrumbs()} />
-        <RealEstateForm onSubmit={this.handleSubmit} />
+        <AssetForm onSubmit={this.handleSubmit} />
       </div>
     )
   }
 }
 
-export default connect()(withRouter(CreateRealEstate))
+export default connect()(withRouter(CreateAsset))

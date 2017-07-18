@@ -10,8 +10,8 @@ import {
 
 import Portfolio from './Portfolio.js'
 import ListAssets from './ListAssets.js'
-import CreateRealEstate from './CreateRealEstate.js'
-import EditRealEstate from './EditRealEstate.js'
+import CreateAsset from './CreateAsset.js'
+import EditAsset from './EditAsset.js'
 import ListLiabilities from './ListLiabilities.js'
 import CreateLoan from './CreateLoan.js'
 import EditLoan from './EditLoan.js'
@@ -74,21 +74,13 @@ class App extends React.Component {
               <Route
                 exact
                 path='/portfolio/assets/new'
-                render={() =>
-                  <Link to='/portfolio/assets/real-estate/new'>
-                    New Real Estate
-                  </Link>}
+                component={CreateAsset}
               />
               <Route
                 exact
-                path='/portfolio/assets/real-estate/new'
-                component={CreateRealEstate}
-              />
-              <Route
-                exact
-                path='/portfolio/assets/real-estate/:id'
+                path='/portfolio/assets/:id'
                 render={({ match, location }) =>
-                  <EditRealEstate id={match.params.id} location={location} />}
+                  <EditAsset id={match.params.id} location={location} />}
               />
               <Route
                 exact

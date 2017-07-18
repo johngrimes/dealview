@@ -1,46 +1,32 @@
 export const validAsset1 = {
-  type: 'RealEstate',
   name: '5 Sunrise St',
-  startDate: '2014-09-10',
-  valuations: [
-    {
-      date: '2014-09-10',
-      amount: 520000,
-      note: 'Purchase price',
-      type: 'purchase',
-    },
-    {
-      date: '2016-04-15',
-      amount: 705000,
-      note: 'Formal valuation',
-      type: 'none',
-    },
-  ],
+  currentValue: '800000',
+  forecastGrowth: '400',
 }
-export const validAssetWithId1 = { ...validAsset1, id: '98' }
+export const validAssetWithId1 = {
+  ...validAsset1,
+  id: '73',
+}
 
 export const validAsset2 = {
-  type: 'RealEstate',
-  name: '38/8 Briggs Road',
-  startDate: '2014-05-10',
-  valuations: [
-    {
-      date: '2014-05-10',
-      amount: 165000,
-      note: 'Purchase price',
-      type: 'purchase',
-    },
-    {
-      date: '2015-09-10',
-      amount: 260000,
-      note: 'Formal valuation',
-      type: 'none',
-    },
-  ],
+  name: '500 Waterworks Rd',
+  currentValue: '550000',
+  saleDate: '2019-08-25',
+  forecastGrowth: '400',
 }
-export const validAssetWithId2 = { ...validAsset2, id: '99' }
+export const validAssetWithId2 = {
+  ...validAsset2,
+  id: '87',
+}
 
-export const validAssets = {
-  [validAssetWithId1.id]: validAssetWithId1,
-  [validAssetWithId2.id]: validAssetWithId2,
+export const validAsset3 = {
+  name: '38/8 Briggs Rd',
+  purchaseDate: '2021-05-10',
+  purchaseAmount: '370000',
+  saleDate: '2025-01-01',
+  forecastGrowth: '200',
+}
+export const validAssetWithId3 = {
+  ...validAsset3,
+  id: '78',
 }

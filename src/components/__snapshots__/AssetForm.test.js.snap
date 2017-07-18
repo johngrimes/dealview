@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssetForm should require a value in the forecastGrowth field 1`] = `
+<InputField
+  errors={
+    Array [
+      "can't be blank",
+    ]
+  }
+  focus="forecastGrowth"
+  forceErrorDisplay={true}
+  label="% per year"
+  min={0}
+  name="forecastGrowth"
+  onChange={[Function]}
+  onFocus={[Function]}
+  type="number"
+/>
+`;
+
+exports[`AssetForm should require a value in the name field 1`] = `
+<InputField
+  errors={
+    Array [
+      "can't be blank",
+    ]
+  }
+  focus="name"
+  forceErrorDisplay={true}
+  label="Name"
+  name="name"
+  onChange={[Function]}
+  onFocus={[Function]}
+  type="text"
+/>
+`;

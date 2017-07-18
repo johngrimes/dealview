@@ -1,0 +1,7 @@
+.create-asset {
+  padding: 0 16px;
+}
+
+.create-asset .breadcrumbs {
+  margin: 0 -16px 16px;
+}

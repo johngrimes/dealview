@@ -9,28 +9,29 @@ describe('CurrencyField', () => {
     name: 'someInput',
   }
 
-  it('should render', () => {
+  it('should render its value correctly', () => {
     const props = {
       ...minProps,
       value: '123456',
     }
     const wrapper = shallow(<CurrencyField {...props} />)
     expect(wrapper).toMatchSnapshot()
+    const fieldWrapper = wrapper.find(InputField).first()
+    expect(fieldWrapper.prop('value')).toBe('$123,456')
   })
 
-  it('should update state on change', () => {
-    const props = { ...minProps }
+  it('should update and notify upon change', () => {
+    const props = { ...minProps, onChange: jest.fn() }
     const wrapper = shallow(<CurrencyField {...props} />)
     wrapper.find(InputField).prop('onChange')('$1,0003')
-    expect(wrapper.state('value')).toBe(10003)
     expect(wrapper.find(InputField).prop('value')).toBe('$10,003')
+    expect(props.onChange).toHaveBeenCalledWith('10003')
   })
 
-  it('should update state on props update', () => {
+  it('should update upon props update', () => {
     const props = { ...minProps }
     const wrapper = shallow(<CurrencyField {...props} />)
     wrapper.setProps({ value: '1250' })
-    expect(wrapper.state('value')).toBe(1250)
     expect(wrapper.find(InputField).prop('value')).toBe('$1,250')
   })
 })

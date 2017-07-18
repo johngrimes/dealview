@@ -42,10 +42,7 @@ export class ListAssets extends React.Component {
             </div>
       return (
         <li key={k} className='asset'>
-          <Link
-            className='asset-name'
-            to={`/portfolio/assets/real-estate/${v.id}`}
-          >
+          <Link className='asset-name' to={`/portfolio/assets/${v.id}`}>
             {v.name}
           </Link>
           {lastValuationTag}

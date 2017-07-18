@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CurrencyField should render 1`] = `
+exports[`CurrencyField should render its value correctly 1`] = `
 <InputField
   className="currency"
   name="someInput"

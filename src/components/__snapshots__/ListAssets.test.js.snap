@@ -35,15 +35,10 @@ exports[`ListAssets should render some Assets 1`] = `
       <Link
         className="asset-name"
         replace={false}
-        to="/portfolio/assets/real-estate/98"
+        to="/portfolio/assets/73"
       >
         5 Sunrise St
       </Link>
-      <div
-        className="asset-last-valuation"
-      >
-        $705,000
-      </div>
     </li>
     <li
       className="asset"
@@ -51,14 +46,14 @@ exports[`ListAssets should render some Assets 1`] = `
       <Link
         className="asset-name"
         replace={false}
-        to="/portfolio/assets/real-estate/99"
+        to="/portfolio/assets/87"
       >
-        38/8 Briggs Road
+        500 Waterworks Rd
       </Link>
       <div
         className="asset-last-valuation"
       >
-        $260,000
+        $550,000
       </div>
     </li>
   </ol>
