@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 
 import Breadcrumbs from './Breadcrumbs.js'
+import BalanceSheetChart from './BalanceSheetChart.js'
 import DateSlider from './DateSlider.js'
 import {
   loadBalanceSheet,
@@ -80,6 +81,7 @@ export class Portfolio extends React.Component {
     return (
       <div className='portfolio'>
         <Breadcrumbs breadcrumbs={this.breadcrumbs()} />
+        <BalanceSheetChart balanceSheet={balanceSheet.balanceSheet} />
         <div className='slider-container'>
           <DateSlider
             dates={dates}

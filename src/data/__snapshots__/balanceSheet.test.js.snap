@@ -3,63 +3,63 @@
 exports[`balanceSheetOverTime should return correct results 1`] = `
 Object {
   "2019-08-20": Object {
-    "equity": 1467408,
-    "totalAssets": 1467408,
+    "equity": 1467086,
+    "totalAssets": 1467086,
     "totalLiabilities": 0,
   },
   "2019-08-21": Object {
-    "equity": 1467568,
-    "totalAssets": 1467568,
+    "equity": 1467247,
+    "totalAssets": 1467247,
     "totalLiabilities": 0,
   },
   "2019-08-24": Object {
-    "equity": 1468051,
-    "totalAssets": 1468051,
+    "equity": 1467729,
+    "totalAssets": 1467729,
     "totalLiabilities": 0,
   },
   "2019-08-25": Object {
-    "equity": 1468211,
-    "totalAssets": 1468211,
+    "equity": 1467890,
+    "totalAssets": 1467890,
     "totalLiabilities": 0,
   },
   "2019-08-26": Object {
-    "equity": 870147,
-    "totalAssets": 870147,
+    "equity": 869956,
+    "totalAssets": 869956,
     "totalLiabilities": 0,
   },
   "2021-05-09": Object {
+    "equity": 931320,
+    "totalAssets": 931320,
+    "totalLiabilities": 0,
+  },
+  "2021-05-10": Object {
+    "equity": 931422,
+    "totalAssets": 931422,
+    "totalLiabilities": 0,
+  },
+  "2021-05-11": Object {
     "equity": 931525,
     "totalAssets": 931525,
     "totalLiabilities": 0,
   },
-  "2021-05-10": Object {
-    "equity": 931627,
-    "totalAssets": 931627,
-    "totalLiabilities": 0,
-  },
-  "2021-05-11": Object {
-    "equity": 931729,
-    "totalAssets": 931729,
-    "totalLiabilities": 0,
-  },
   "2024-12-31": Object {
+    "equity": 1077682,
+    "totalAssets": 1077682,
+    "totalLiabilities": 0,
+  },
+  "2025-01-01": Object {
+    "equity": 1077800,
+    "totalAssets": 1077800,
+    "totalLiabilities": 0,
+  },
+  "2025-01-02": Object {
     "equity": 1077919,
     "totalAssets": 1077919,
     "totalLiabilities": 0,
   },
-  "2025-01-01": Object {
-    "equity": 1078037,
-    "totalAssets": 1078037,
-    "totalLiabilities": 0,
-  },
-  "2025-01-02": Object {
-    "equity": 1078155,
-    "totalAssets": 1078155,
-    "totalLiabilities": 0,
-  },
   "2025-01-05": Object {
-    "equity": 1078509,
-    "totalAssets": 1078509,
+    "equity": 1078273,
+    "totalAssets": 1078273,
     "totalLiabilities": 0,
   },
 }
