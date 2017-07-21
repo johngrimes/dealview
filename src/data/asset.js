@@ -1,7 +1,7 @@
 import moment from 'moment'
 
 export const getValuationAtDate = (asset, date) => {
-  const now = moment()
+  const now = moment().startOf('day')
   const startDate = asset.purchaseDate || now
   if (
     date.isBefore(startDate) ||

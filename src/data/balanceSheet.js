@@ -35,5 +35,6 @@ function * calcBalanceSheet(assets, liabilities, date, endDate) {
 const sumAssetValueAtDate = (assets, date) => {
   if (assets.length === 0) return 0
   const { head, tail } = { head: _.head(assets), tail: _.tail(assets) }
-  return getValuationAtDate(head, date) + sumAssetValueAtDate(tail, date)
+  const headResult = getValuationAtDate(head, date)
+  return headResult + sumAssetValueAtDate(tail, date)
 }

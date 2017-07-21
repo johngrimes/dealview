@@ -15,8 +15,8 @@ afterEach(() => {
 describe('getValuationAtDate', () => {
   it('should get the correct valuation', () => {
     const expectedVals = [
-      [ validAsset1, '2019-05-03', 878193 ],
-      [ validAsset2, '2018-11-29', 593590 ],
+      [ validAsset1, '2019-05-03', 878290 ],
+      [ validAsset2, '2018-11-29', 593655 ],
       [ validAsset3, '2024-05-02', 392728 ],
     ]
     for (const val of expectedVals) {

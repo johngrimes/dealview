@@ -105,7 +105,7 @@ class AssetForm extends React.Component {
       typeof asset.id === 'string'
         ? <HiddenField name='id' value={asset.id} />
         : null
-    const today = moment()
+    const today = moment().startOf('day')
 
     return (
       <form

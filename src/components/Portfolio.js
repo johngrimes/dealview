@@ -22,7 +22,7 @@ export class Portfolio extends React.Component {
     super(props)
     this.state = {}
     if (balanceSheet.fresh === false) {
-      const today = moment()
+      const today = moment().startOf('day')
       dispatch(
         updateBalanceSheet(
           assets.objects,
@@ -122,7 +122,7 @@ export class Portfolio extends React.Component {
   }
 
   static defaultDateSelection(balanceSheet) {
-    const today = moment().format(DateStorageFormat)
+    const today = moment().startOf('day').format(DateStorageFormat)
     const dates = Object.keys(balanceSheet)
     const todayIndex = dates.indexOf(today)
     return todayIndex !== -1

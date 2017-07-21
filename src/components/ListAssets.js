@@ -33,7 +33,7 @@ export class ListAssets extends React.Component {
 
   render() {
     const assets = _.map(this.props.assets.objects, (v, k) => {
-      const lastValuation = getValuationAtDate(v, moment())
+      const lastValuation = getValuationAtDate(v, moment().startOf('day'))
       const lastValuationTag =
         lastValuation === 0
           ? null

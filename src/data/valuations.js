@@ -3,7 +3,7 @@ import moment from 'moment'
 import { DateStorageFormat } from './commonTypes.js'
 
 export const ValuationDefault = {
-  date: moment().format(DateStorageFormat),
+  date: moment().startOf('day').format(DateStorageFormat),
   note: '',
   type: 'none',
 }
