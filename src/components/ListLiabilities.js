@@ -8,6 +8,13 @@ import Breadcrumbs from './Breadcrumbs.js'
 import LiabilityActions from '../actions/liabilities.js'
 
 export class ListLiabilities extends React.Component {
+  static propTypes = {
+    liabilities: PropTypes.shape({
+      status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+      objects: PropTypes.objectOf(PropTypes.object),
+    }),
+  }
+
   constructor(props) {
     super(props)
     if (this.props.liabilities.status === 'uninitialised') {
@@ -51,13 +58,6 @@ export class ListLiabilities extends React.Component {
       </div>
     )
   }
-}
-
-ListLiabilities.propTypes = {
-  liabilities: PropTypes.shape({
-    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
-    objects: PropTypes.objectOf(PropTypes.object),
-  }),
 }
 
 const mapStateToProps = state => ({ liabilities: state.liabilities })

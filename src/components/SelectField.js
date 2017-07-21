@@ -2,6 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class SelectField extends React.Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    options: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+    value: PropTypes.string,
+    label: PropTypes.string,
+    errors: PropTypes.arrayOf(PropTypes.string),
+    forceErrorDisplay: PropTypes.bool,
+    focus: PropTypes.string,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -97,18 +109,6 @@ class SelectField extends React.Component {
       </div>
     )
   }
-}
-
-SelectField.propTypes = {
-  name: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
-  value: PropTypes.string,
-  label: PropTypes.string,
-  errors: PropTypes.arrayOf(PropTypes.string),
-  forceErrorDisplay: PropTypes.bool,
-  focus: PropTypes.string,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
 }
 
 export default SelectField

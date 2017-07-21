@@ -6,6 +6,15 @@ import _ from 'lodash'
 import './styles/Breadcrumbs.css'
 
 class Breadcrumbs extends React.Component {
+  static propTypes = {
+    breadcrumbs: PropTypes.arrayOf(
+      PropTypes.shape({
+        display: PropTypes.string,
+        path: PropTypes.string,
+      })
+    ),
+  }
+
   render() {
     const breadcrumbLinks = _.map(this.props.breadcrumbs, (breadcrumb, i) => {
       return (
@@ -24,15 +33,6 @@ class Breadcrumbs extends React.Component {
       </div>
     )
   }
-}
-
-Breadcrumbs.propTypes = {
-  breadcrumbs: PropTypes.arrayOf(
-    PropTypes.shape({
-      display: PropTypes.string,
-      path: PropTypes.string,
-    })
-  ),
 }
 
 export default Breadcrumbs

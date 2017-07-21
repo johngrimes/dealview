@@ -11,6 +11,14 @@ import LoanActions from '../actions/loans.js'
 import './styles/EditLoan.css'
 
 export class EditLoan extends React.Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    loan: PropTypes.shape({
+      status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+      object: PropTypes.object,
+    }),
+  }
+
   constructor(props) {
     super(props)
     if (this.props.loan.status === 'uninitialised') {
@@ -52,14 +60,6 @@ export class EditLoan extends React.Component {
           />
         </div>
   }
-}
-
-EditLoan.propTypes = {
-  id: PropTypes.string.isRequired,
-  loan: PropTypes.shape({
-    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
-    object: PropTypes.object,
-  }),
 }
 
 const mapStateToProps = (state, ownProps) => ({

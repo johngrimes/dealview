@@ -2,6 +2,41 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class InputField extends React.Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    type: PropTypes.oneOf([
+      'hidden',
+      'text',
+      'search',
+      'tel',
+      'url',
+      'email',
+      'password',
+      'date',
+      'month',
+      'week',
+      'time',
+      'datetime-local',
+      'number',
+      'range',
+      'color',
+      'checkbox',
+      'radio',
+      'file',
+      'submit',
+      'image',
+      'reset',
+      'button',
+    ]),
+    placeholder: PropTypes.string,
+    min: PropTypes.number,
+    value: PropTypes.string,
+    checked: PropTypes.bool,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -106,41 +141,6 @@ class InputField extends React.Component {
       </div>
     )
   }
-}
-
-InputField.propTypes = {
-  name: PropTypes.string.isRequired,
-  className: PropTypes.string,
-  type: PropTypes.oneOf([
-    'hidden',
-    'text',
-    'search',
-    'tel',
-    'url',
-    'email',
-    'password',
-    'date',
-    'month',
-    'week',
-    'time',
-    'datetime-local',
-    'number',
-    'range',
-    'color',
-    'checkbox',
-    'radio',
-    'file',
-    'submit',
-    'image',
-    'reset',
-    'button',
-  ]),
-  placeholder: PropTypes.string,
-  min: PropTypes.number,
-  value: PropTypes.string,
-  checked: PropTypes.bool,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
 }
 
 export default InputField

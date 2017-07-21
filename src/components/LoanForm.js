@@ -13,6 +13,21 @@ import '../styles/forms.css'
 import '../styles/buttons.css'
 
 class LoanForm extends React.Component {
+  static propTypes = {
+    loan: PropTypes.shape({
+      name: PropTypes.string,
+      startDate: PropTypes.string,
+      endDate: PropTypes.string,
+      principal: PropTypes.number,
+      interestRate: PropTypes.number,
+      compoundingPeriod: PropTypes.oneOf([ 'daily', 'monthly' ]),
+      lengthInYears: PropTypes.number,
+      establishmentFees: PropTypes.number,
+      repaymentType: PropTypes.oneOf([ 'principalAndInterest', 'interestOnly' ]),
+    }),
+    onSubmit: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -221,21 +236,6 @@ class LoanForm extends React.Component {
 
     return { name }
   }
-}
-
-LoanForm.propTypes = {
-  loan: PropTypes.shape({
-    name: PropTypes.string,
-    startDate: PropTypes.string,
-    endDate: PropTypes.string,
-    principal: PropTypes.number,
-    interestRate: PropTypes.number,
-    compoundingPeriod: PropTypes.oneOf([ 'daily', 'monthly' ]),
-    lengthInYears: PropTypes.number,
-    establishmentFees: PropTypes.number,
-    repaymentType: PropTypes.oneOf([ 'principalAndInterest', 'interestOnly' ]),
-  }),
-  onSubmit: PropTypes.func,
 }
 
 export default LoanForm

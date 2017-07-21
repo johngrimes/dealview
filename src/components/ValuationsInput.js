@@ -16,6 +16,25 @@ import './styles/ValuationsInput.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 class ValuationsInput extends React.Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    valuations: PropTypes.arrayOf(
+      PropTypes.shape({
+        date: PropTypes.string,
+        amount: PropTypes.number,
+        note: PropTypes.string,
+        type: PropTypes.oneOf([ 'none', 'purchase', 'sale' ]),
+      })
+    ),
+    minDate: PropTypes.instanceOf(moment),
+    maxDate: PropTypes.instanceOf(moment),
+    errors: PropTypes.arrayOf(PropTypes.string),
+    forceErrorDisplay: PropTypes.bool,
+    focus: PropTypes.string,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
     const valuations = this.props.valuations
@@ -274,25 +293,6 @@ class ValuationsInput extends React.Component {
       'Valuations must all be on different dates'
     )
   }
-}
-
-ValuationsInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  valuations: PropTypes.arrayOf(
-    PropTypes.shape({
-      date: PropTypes.string,
-      amount: PropTypes.number,
-      note: PropTypes.string,
-      type: PropTypes.oneOf([ 'none', 'purchase', 'sale' ]),
-    })
-  ),
-  minDate: PropTypes.instanceOf(moment),
-  maxDate: PropTypes.instanceOf(moment),
-  errors: PropTypes.arrayOf(PropTypes.string),
-  forceErrorDisplay: PropTypes.bool,
-  focus: PropTypes.string,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
 }
 
 export default ValuationsInput

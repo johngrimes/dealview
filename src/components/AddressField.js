@@ -17,6 +17,27 @@ const AddressLabels = {
 }
 
 class AddressField extends React.Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    address: PropTypes.shape({
+      line1: PropTypes.string,
+      line2: PropTypes.string,
+      line3: PropTypes.string,
+      locality: PropTypes.string,
+      state: PropTypes.string,
+      postcode: PropTypes.string,
+    }).isRequired,
+    errors: PropTypes.shape({
+      line1: PropTypes.arrayOf(PropTypes.string),
+      line2: PropTypes.arrayOf(PropTypes.string),
+      line3: PropTypes.arrayOf(PropTypes.string),
+    }),
+    forceErrorDisplay: PropTypes.bool,
+    focus: PropTypes.string,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -169,27 +190,6 @@ class AddressField extends React.Component {
 
     return errors
   }
-}
-
-AddressField.propTypes = {
-  name: PropTypes.string.isRequired,
-  address: PropTypes.shape({
-    line1: PropTypes.string,
-    line2: PropTypes.string,
-    line3: PropTypes.string,
-    locality: PropTypes.string,
-    state: PropTypes.string,
-    postcode: PropTypes.string,
-  }).isRequired,
-  errors: PropTypes.shape({
-    line1: PropTypes.arrayOf(PropTypes.string),
-    line2: PropTypes.arrayOf(PropTypes.string),
-    line3: PropTypes.arrayOf(PropTypes.string),
-  }),
-  forceErrorDisplay: PropTypes.bool,
-  focus: PropTypes.string,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
 }
 
 export default AddressField

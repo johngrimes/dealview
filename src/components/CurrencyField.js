@@ -10,6 +10,10 @@ import {
 import './styles/CurrencyField.css'
 
 class CurrencyField extends React.Component {
+  static propTypes = {
+    ...InputField.propTypes,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -45,10 +49,6 @@ class CurrencyField extends React.Component {
 
     return <InputField {...props} />
   }
-}
-
-CurrencyField.propTypes = {
-  ...InputField.propTypes,
 }
 
 export default CurrencyField

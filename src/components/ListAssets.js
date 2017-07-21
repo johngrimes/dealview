@@ -11,6 +11,13 @@ import { getValuationAtDate } from '../data/asset.js'
 import { formatDollars } from '../data/commonTypes.js'
 
 export class ListAssets extends React.Component {
+  static propTypes = {
+    assets: PropTypes.shape({
+      status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+      objects: PropTypes.objectOf(PropTypes.object),
+    }),
+  }
+
   constructor(props) {
     super(props)
     if (this.props.assets.status === 'uninitialised') {
@@ -61,13 +68,6 @@ export class ListAssets extends React.Component {
       </div>
     )
   }
-}
-
-ListAssets.propTypes = {
-  assets: PropTypes.shape({
-    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
-    objects: PropTypes.objectOf(PropTypes.object),
-  }),
 }
 
 const mapStateToProps = state => ({ assets: state.assets })

@@ -11,6 +11,14 @@ import AssetActions from '../actions/assets.js'
 import './styles/EditAsset.css'
 
 export class EditAsset extends React.Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    asset: PropTypes.shape({
+      status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+      object: PropTypes.object,
+    }),
+  }
+
   constructor(props) {
     super(props)
     if (this.props.asset.status === 'uninitialised') {
@@ -52,14 +60,6 @@ export class EditAsset extends React.Component {
           />
         </div>
   }
-}
-
-EditAsset.propTypes = {
-  id: PropTypes.string.isRequired,
-  asset: PropTypes.shape({
-    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
-    object: PropTypes.object,
-  }),
 }
 
 const mapStateToProps = (state, ownProps) => {

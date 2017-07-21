@@ -14,6 +14,18 @@ import '../styles/buttons.css'
 import '../styles/tables.css'
 
 class AssetForm extends React.Component {
+  static propTypes = {
+    asset: PropTypes.shape({
+      name: PropTypes.string,
+      currentValue: PropTypes.string,
+      purchaseDate: PropTypes.string,
+      purchaseAmount: PropTypes.string,
+      saleDate: PropTypes.string,
+      forecastGrowth: PropTypes.string,
+    }),
+    onSubmit: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -222,18 +234,6 @@ class AssetForm extends React.Component {
 
     return { name, forecastGrowth }
   }
-}
-
-AssetForm.propTypes = {
-  asset: PropTypes.shape({
-    name: PropTypes.string,
-    currentValue: PropTypes.string,
-    purchaseDate: PropTypes.string,
-    purchaseAmount: PropTypes.string,
-    saleDate: PropTypes.string,
-    forecastGrowth: PropTypes.string,
-  }),
-  onSubmit: PropTypes.func,
 }
 
 export default AssetForm

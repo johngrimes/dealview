@@ -17,6 +17,17 @@ import { DateStorageFormat, formatDollars } from '../data/commonTypes.js'
 import './styles/Portfolio.css'
 
 export class Portfolio extends React.Component {
+  static propTypes = {
+    assets: PropTypes.shape({
+      status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+      objects: PropTypes.objectOf(PropTypes.object),
+    }),
+    balanceSheet: PropTypes.shape({
+      status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+      balanceSheet: PropTypes.objectOf(PropTypes.object),
+    }),
+  }
+
   constructor(props) {
     const { assets, liabilities, balanceSheet, dispatch } = props
     super(props)
@@ -129,17 +140,6 @@ export class Portfolio extends React.Component {
       ? dates[todayIndex]
       : dates[Math.floor(dates.length / 2)]
   }
-}
-
-Portfolio.propTypes = {
-  assets: PropTypes.shape({
-    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
-    objects: PropTypes.objectOf(PropTypes.object),
-  }),
-  balanceSheet: PropTypes.shape({
-    status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
-    balanceSheet: PropTypes.objectOf(PropTypes.object),
-  }),
 }
 
 const mapStateToProps = state => {
