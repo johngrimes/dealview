@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
+import flatMap from 'lodash.flatmap'
 
 import * as Validations from '../utils/formValidation.js'
 
@@ -96,7 +96,7 @@ class AddressField extends React.Component {
     const address = this.state.address ? this.state.address : {}
 
     // Create an array from any address field errors.
-    const errorTags = _.flatMap(errors, (fieldErrors, fieldName) => {
+    const errorTags = flatMap(errors, (fieldErrors, fieldName) => {
       return forceErrorDisplay || touched.includes(fieldName)
         ? fieldErrors.map((msg, i) => {
           const labelledMessage = AddressLabels[fieldName] + ' ' + msg

@@ -9,7 +9,10 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from 'recharts'
-import _ from 'lodash'
+import keys from 'lodash.keys'
+import filter from 'lodash.filter'
+import pick from 'lodash.pick'
+import map from 'lodash.map'
 import moment from 'moment'
 
 import {
@@ -30,11 +33,11 @@ class BalanceSheetChart extends React.Component {
 
   processedData() {
     const data = this.props.balanceSheet
-    const dates = _.keys(data)
+    const dates = keys(data)
     const interval = Math.ceil(dates.length / 200) // TODO: Convert 100 into a prop
-    const filteredDates = _.filter(dates, (_, i) => i % interval === 0)
-    const filteredData = _.pick(data, filteredDates)
-    return _.map(filteredData, (v, k) => ({
+    const filteredDates = filter(dates, (_, i) => i % interval === 0)
+    const filteredData = pick(data, filteredDates)
+    return map(filteredData, (v, k) => ({
       Assets: v.totalAssets,
       Liabilities: v.totalLiabilities,
       Equity: v.equity,

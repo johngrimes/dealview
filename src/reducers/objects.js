@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import omit from 'lodash.omit'
 
 export const InitialObjectStoreState = {
   status: 'uninitialised',
@@ -25,7 +25,7 @@ export const createObjectsReducer = (name, pluralName) => {
         return {
           ...state,
           status: 'loaded',
-          objects: _.omit(state.objects, action.id),
+          objects: omit(state.objects, action.id),
         }
       case `LOAD_${pluralName}_SUCCESS`:
         return {

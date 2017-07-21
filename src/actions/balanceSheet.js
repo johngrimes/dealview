@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import omit from 'lodash.omit'
 
 import { putObject, getObject } from '../data/db.js'
 
@@ -85,7 +85,7 @@ export const updateBalanceSheet = (assets, liabilities, startDate, endDate) => {
             event.data,
             theOneAndOnlyKey
           )
-          const saved = _.omit(savedWithId, 'id')
+          const saved = omit(savedWithId, 'id')
           dispatch(updateBalanceSheetSuccess(saved))
           resolve(saved)
         }
@@ -113,7 +113,7 @@ export const loadBalanceSheet = () => {
           objectStore,
           theOneAndOnlyKey
         )
-        const balanceSheet = _.omit(balanceSheetWithId, 'id')
+        const balanceSheet = omit(balanceSheetWithId, 'id')
         dispatch(loadBalanceSheetSuccess(balanceSheet))
         resolve(balanceSheet)
       } catch (error) {

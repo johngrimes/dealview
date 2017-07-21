@@ -1,5 +1,5 @@
 import moment from 'moment'
-import _ from 'lodash'
+import pick from 'lodash.pick'
 
 import { balanceSheetOverTime } from './balanceSheet.js'
 import { DateStorageFormat } from './commonTypes.js'
@@ -20,7 +20,7 @@ describe('balanceSheetOverTime', () => {
       moment('2019-08-20', DateStorageFormat),
       moment('2025-01-05', DateStorageFormat)
     )
-    const prunedResult = _.pick(
+    const prunedResult = pick(
       result,
       '2019-08-20',
       '2019-08-21',

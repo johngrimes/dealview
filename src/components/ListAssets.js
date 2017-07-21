@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import _ from 'lodash'
+import map from 'lodash.map'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
@@ -39,7 +39,7 @@ export class ListAssets extends React.Component {
   }
 
   render() {
-    const assets = _.map(this.props.assets.objects, (v, k) => {
+    const assets = map(this.props.assets.objects, (v, k) => {
       const lastValuation = getValuationAtDate(v, moment().startOf('day'))
       const lastValuationTag =
         lastValuation === 0

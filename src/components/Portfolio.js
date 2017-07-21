@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import _ from 'lodash'
+import pick from 'lodash.pick'
 
 import Breadcrumbs from './Breadcrumbs.js'
 import BalanceSheetChart from './BalanceSheetChart.js'
@@ -67,7 +67,7 @@ export class Portfolio extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    let updatedState = _.pick(this.state, 'date')
+    let updatedState = pick(this.state, 'date')
     if (props.balanceSheet.status === 'loaded' && !this.state.date) {
       updatedState = {
         ...updatedState,

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
-import _ from 'lodash'
+import uniq from 'lodash.uniq'
 
 import HiddenField from './HiddenField.js'
 import { DateDisplayFormat, DateStorageFormat } from '../data/commonTypes.js'
@@ -283,8 +283,7 @@ class ValuationsInput extends React.Component {
         if (Array.isArray(valuations)) {
           const valsWithDates = vals.filter(v => v.date)
           return (
-            valsWithDates.length ===
-            _.uniq(valsWithDates.map(v => v.date)).length
+            valsWithDates.length === uniq(valsWithDates.map(v => v.date)).length
           )
         } else {
           return true

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactSlider from 'react-slider'
-import _ from 'lodash'
+import throttle from 'lodash.throttle'
 
 import './styles/DateSlider.css'
 
@@ -36,7 +36,7 @@ class DateSlider extends React.Component {
       }
     )
   }
-  handleChange = _.throttle(this.handleChangeUnthrottled, 100)
+  handleChange = throttle(this.handleChangeUnthrottled, 100)
 
   componentWillReceiveProps(props) {
     const selectedIndex = props.dates.indexOf(props.selected)

@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import some from 'lodash.some'
 
 //
 // Validates a set of fields, using a supplied validator function.
@@ -9,7 +9,7 @@ export const validate = (value, validator, message) => {
 }
 
 export const areErrorsPresent = errors => {
-  return _.some(errors, value => {
+  return some(errors, value => {
     if (value instanceof Array) {
       return value.length > 0
     } else if (value instanceof Object) {
@@ -25,7 +25,7 @@ export const areErrorsPresent = errors => {
 export const findFirstErrorFieldName = formErrors => {
   return (function seek(formErrors, parentComponentName) {
     let match = null
-    _.some(formErrors, (errors, fieldName) => {
+    some(formErrors, (errors, fieldName) => {
       if (errors instanceof Array) {
         if (errors.length > 0) {
           match = parentComponentName

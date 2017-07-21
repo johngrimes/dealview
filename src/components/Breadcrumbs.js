@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import _ from 'lodash'
+import map from 'lodash.map'
 
 import './styles/Breadcrumbs.css'
 
@@ -16,7 +16,7 @@ class Breadcrumbs extends React.Component {
   }
 
   render() {
-    const breadcrumbLinks = _.map(this.props.breadcrumbs, (breadcrumb, i) => {
+    const breadcrumbLinks = map(this.props.breadcrumbs, (breadcrumb, i) => {
       return (
         <li className='breadcrumbs-item' key={i}>
           <Link className='breadcrumbs-link' to={breadcrumb.path}>

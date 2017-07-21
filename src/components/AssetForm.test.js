@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import _ from 'lodash'
+import omit from 'lodash.omit'
 import MockDate from 'mockdate'
 
 import AssetForm from './AssetForm.js'
@@ -73,7 +73,7 @@ describe('AssetForm', () => {
     wrapper.find({ name: 'current' }).prop('onChange')(null, true)
     wrapper.find('form').prop('onSubmit')({ preventDefault: jest.fn() })
     expect(props.onSubmit).toHaveBeenCalledWith(
-      _.omit(props.asset, 'purchaseDate', 'purchaseAmount')
+      omit(props.asset, 'purchaseDate', 'purchaseAmount')
     )
   })
 

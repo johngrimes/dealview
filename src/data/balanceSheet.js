@@ -1,4 +1,6 @@
-import _ from 'lodash'
+import values from 'lodash.values'
+import arrayHead from 'lodash.head'
+import arrayTail from 'lodash.tail'
 import moment from 'moment'
 
 import { DateStorageFormat } from './commonTypes.js'
@@ -19,7 +21,7 @@ export const balanceSheetOverTime = (
 function * calcBalanceSheet(assets, liabilities, date, endDate) {
   let nextDate = date
   while (!nextDate.isAfter(endDate)) {
-    const totalAssets = sumAssetValueAtDate(_.values(assets), nextDate)
+    const totalAssets = sumAssetValueAtDate(values(assets), nextDate)
     const totalLiabilities = 0 // sumLiabilityValueAtDate(liabilities, date)
     yield {
       [nextDate.format(DateStorageFormat)]: {
@@ -34,7 +36,7 @@ function * calcBalanceSheet(assets, liabilities, date, endDate) {
 
 const sumAssetValueAtDate = (assets, date) => {
   if (assets.length === 0) return 0
-  const { head, tail } = { head: _.head(assets), tail: _.tail(assets) }
+  const { head, tail } = { head: arrayHead(assets), tail: arrayTail(assets) }
   const headResult = getValuationAtDate(head, date)
   return headResult + sumAssetValueAtDate(tail, date)
 }

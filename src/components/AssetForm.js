@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import _ from 'lodash'
+import omit from 'lodash.omit'
 
 import InputField from './InputField.js'
 import CurrencyField from './CurrencyField.js'
@@ -66,8 +66,8 @@ class AssetForm extends React.Component {
     this.setState(prevState => ({
       current: value,
       asset: value
-        ? _.omit(prevState.asset, 'purchaseDate', 'purchaseAmount')
-        : _.omit(prevState.asset, 'currentValue'),
+        ? omit(prevState.asset, 'purchaseDate', 'purchaseAmount')
+        : omit(prevState.asset, 'currentValue'),
     }))
   }
 

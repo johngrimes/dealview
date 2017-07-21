@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import _ from 'lodash'
+import map from 'lodash.map'
 import { Link } from 'react-router-dom'
 
 import Breadcrumbs from './Breadcrumbs.js'
@@ -36,7 +36,7 @@ export class ListLiabilities extends React.Component {
   }
 
   render() {
-    const liabilities = _.map(this.props.liabilities.objects, (v, k) =>
+    const liabilities = map(this.props.liabilities.objects, (v, k) =>
       <li key={k} className='liability'>
         <Link
           className='liability-name'
