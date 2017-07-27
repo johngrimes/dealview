@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import omit from 'lodash.omit'
 
 import InputField from './InputField.js'
 import CurrencyField from './CurrencyField.js'
@@ -16,14 +17,14 @@ class LoanForm extends React.Component {
   static propTypes = {
     loan: PropTypes.shape({
       name: PropTypes.string,
+      currentBalance: PropTypes.number,
       startDate: PropTypes.string,
-      endDate: PropTypes.string,
       principal: PropTypes.number,
-      interestRate: PropTypes.number,
-      compoundingPeriod: PropTypes.oneOf([ 'daily', 'monthly' ]),
-      lengthInYears: PropTypes.number,
       establishmentFees: PropTypes.number,
+      interestRate: PropTypes.number,
       repaymentType: PropTypes.oneOf([ 'principalAndInterest', 'interestOnly' ]),
+      compoundingPeriod: PropTypes.oneOf([ 'daily', 'monthly' ]),
+      endDate: PropTypes.string,
     }),
     onSubmit: PropTypes.func,
   }
@@ -32,6 +33,7 @@ class LoanForm extends React.Component {
     super(props)
     this.state = {
       loan: LoanDefaults,
+      current: true,
       allErrorsShown: false,
       focusedInput: 'name',
     }
@@ -41,7 +43,8 @@ class LoanForm extends React.Component {
       this.state = {
         ...this.state,
         loan,
-        errors: LoanForm.validate(loan),
+        current: !!loan.currentBalance,
+        errors: LoanForm.validate(loan, this.state.current),
         allErrorsShown: true,
       }
     }
@@ -56,9 +59,18 @@ class LoanForm extends React.Component {
       const loan = { ...prevState.loan, [fieldName]: value }
       return {
         loan,
-        errors: LoanForm.validate(loan),
+        errors: LoanForm.validate(loan, prevState.current),
       }
     })
+  }
+
+  handleChangeCurrent(value) {
+    this.setState(prevState => ({
+      current: value,
+      loan: value
+        ? omit(prevState.loan, 'startDate', 'principal', 'establishmentFees')
+        : omit(prevState.loan, 'currentValue'),
+    }))
   }
 
   handleFocus(fieldName): void {
@@ -68,7 +80,9 @@ class LoanForm extends React.Component {
   handleSubmit(event): boolean {
     event.preventDefault()
     this.setState(
-      () => ({ errors: LoanForm.validate(this.state.loan) }),
+      prevState => ({
+        errors: LoanForm.validate(prevState.loan, prevState.current),
+      }),
       () => {
         const { errors, loan } = this.state
         if (
@@ -101,7 +115,7 @@ class LoanForm extends React.Component {
   }
 
   render() {
-    const { loan, allErrorsShown, focusedInput } = this.state
+    const { loan, current, allErrorsShown, focusedInput } = this.state
     const errors = this.state.errors === undefined ? {} : this.state.errors
     const idField =
       typeof loan.id === 'string'
@@ -114,6 +128,7 @@ class LoanForm extends React.Component {
         onSubmit={this.handleSubmit}
       >
         <fieldset>
+          <legend>General details</legend>
           {idField}
           <InputField
             name='name'
@@ -126,33 +141,85 @@ class LoanForm extends React.Component {
             onFocus={this.handleFocus}
             focus={focusedInput}
           />
-          <DateField
-            name='startDate'
-            label='Start date'
-            value={loan.startDate}
-            errors={errors.startDate}
-            forceErrorDisplay={allErrorsShown}
-            onChange={value => this.handleChange('startDate', value)}
-            onFocus={this.handleFocus}
-            focus={focusedInput}
+        </fieldset>
+        <fieldset>
+          <InputField
+            name='current'
+            type='checkbox'
+            label='This loan is current'
+            checked={current}
+            onChange={(_, c) => this.handleChangeCurrent(c)}
           />
-          <DateField
-            name='endDate'
-            label='End date'
-            value={loan.endDate}
-            errors={errors.endDate}
+        </fieldset>
+        {current
+          ? <fieldset>
+              <legend>Current balance</legend>
+              <CurrencyField
+                name='currentBalance'
+                label='Current balance'
+                value={
+                  loan.currentBalance
+                    ? loan.currentBalance.toString()
+                    : undefined
+                }
+                errors={errors.currentBalance}
+                forceErrorDisplay={allErrorsShown}
+                onChange={value => this.handleChange('currentBalance', value)}
+                onFocus={this.handleFocus}
+                focus={focusedInput}
+              />
+            </fieldset>
+          : <fieldset>
+              <legend>Future loan establishment</legend>
+              <DateField
+                name='startDate'
+                label='Start date'
+                value={loan.startDate}
+                errors={errors.startDate}
+                forceErrorDisplay={allErrorsShown}
+                onChange={value => this.handleChange('startDate', value)}
+                onFocus={this.handleFocus}
+                focus={focusedInput}
+              />
+              <CurrencyField
+                name='principal'
+                label='Principal amount'
+                value={loan.principal ? loan.principal.toString() : undefined}
+                errors={errors.principal}
+                forceErrorDisplay={allErrorsShown}
+                onChange={value => this.handleChange('principal', value)}
+                onFocus={this.handleFocus}
+                focus={focusedInput}
+              />
+              <CurrencyField
+                name='establishmentFees'
+                label='Establishment fees'
+                value={
+                  loan.establishmentFees
+                    ? loan.establishmentFees.toString()
+                    : undefined
+                }
+                errors={errors.establishmentFees}
+                forceErrorDisplay={allErrorsShown}
+                onChange={value =>
+                  this.handleChange('establishmentFees', value)}
+                onFocus={this.handleFocus}
+                focus={focusedInput}
+              />
+            </fieldset>}
+        <fieldset>
+          <legend>Repayments</legend>
+          <SelectField
+            name='repaymentType'
+            label='Repayment type'
+            options={[
+              [ 'Principal and interest', 'principalAndInterest' ],
+              [ 'Interest only', 'interestOnly' ],
+            ]}
+            value={loan.repaymentType}
+            errors={errors.repaymentType}
             forceErrorDisplay={allErrorsShown}
-            onChange={value => this.handleChange('endDate', value)}
-            onFocus={this.handleFocus}
-            focus={focusedInput}
-          />
-          <CurrencyField
-            name='principal'
-            label='Principal amount'
-            value={loan.principal ? loan.principal.toString() : undefined}
-            errors={errors.principal}
-            forceErrorDisplay={allErrorsShown}
-            onChange={value => this.handleChange('principal', value)}
+            onChange={value => this.handleChange('repaymentType', value)}
             onFocus={this.handleFocus}
             focus={focusedInput}
           />
@@ -179,42 +246,16 @@ class LoanForm extends React.Component {
             onFocus={this.handleFocus}
             focus={focusedInput}
           />
-          <InputField
-            name='lengthInYears'
-            type='number'
-            min={0}
-            label='Length in years'
-            value={
-              loan.lengthInYears ? loan.lengthInYears.toString() : undefined
-            }
-            errors={errors.lengthInYears}
+        </fieldset>
+        <fieldset>
+          <legend>Closure</legend>
+          <DateField
+            name='endDate'
+            label='End date'
+            value={loan.endDate}
+            errors={errors.endDate}
             forceErrorDisplay={allErrorsShown}
-            onChange={value => this.handleChange('lengthInYears', value)}
-            onFocus={this.handleFocus}
-            focus={focusedInput}
-          />
-          <CurrencyField
-            name='establishmentFees'
-            label='Establishment fees'
-            value={
-              loan.establishmentFees
-                ? loan.establishmentFees.toString()
-                : undefined
-            }
-            errors={errors.establishmentFees}
-            forceErrorDisplay={allErrorsShown}
-            onChange={value => this.handleChange('establishmentFees', value)}
-            onFocus={this.handleFocus}
-            focus={focusedInput}
-          />
-          <SelectField
-            name='repaymentType'
-            label='Repayment type'
-            options={[ [ 'Daily', 'daily' ], [ 'Monthly', 'monthly' ] ]}
-            value={loan.repaymentType}
-            errors={errors.repaymentType}
-            forceErrorDisplay={allErrorsShown}
-            onChange={value => this.handleChange('repaymentType', value)}
+            onChange={value => this.handleChange('endDate', value)}
             onFocus={this.handleFocus}
             focus={focusedInput}
           />
@@ -228,13 +269,23 @@ class LoanForm extends React.Component {
     )
   }
 
-  static validate(loan) {
+  static validate(loan, current) {
     const name = []
       .concat(Validations.required(loan.name))
       .concat(Validations.minLength(loan.name, 3))
       .concat(Validations.maxLength(loan.name, 100))
 
-    return { name }
+    let [ currentBalance, startDate, principal ] = [ [], [], [], [] ]
+    if (current) {
+      currentBalance = currentBalance.concat(
+        Validations.required(loan.currentBalance)
+      )
+    } else {
+      startDate = startDate.concat(Validations.required(loan.startDate))
+      principal = principal.concat(Validations.required(loan.principal))
+    }
+
+    return { name, currentBalance, startDate, principal }
   }
 }
 

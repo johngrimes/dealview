@@ -52,11 +52,9 @@ class BalanceSheetChart extends React.Component {
         <ResponsiveContainer width='100%' height={200}>
           <AreaChart data={data}>
             <Area type='monotone' dataKey='Assets' />
+            <Area type='monotone' dataKey='Liabilities' fill='red' />
             <XAxis dataKey='Date' />
-            <YAxis
-              dataKey='Assets'
-              tickFormatter={tick => formatDollars(tick)}
-            />
+            <YAxis tickFormatter={tick => formatDollars(tick)} />
             <CartesianGrid strokeDasharray='3 3' />
             <Tooltip formatter={x => formatDollars(x)} />
           </AreaChart>

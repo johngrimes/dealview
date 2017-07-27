@@ -26,14 +26,12 @@ exports[`EditLoan should render an existing Loan 1`] = `
     loan={
       Object {
         "compoundingPeriod": "daily",
+        "currentBalance": 500000,
         "endDate": "2039-09-10",
-        "establishmentFees": 1500,
         "id": "345",
-        "lengthInYears": 25,
+        "interestRate": 400,
         "name": "5SS Reno Loan",
-        "principal": 500000,
         "repaymentType": "principalAndInterest",
-        "startDate": "2014-09-10",
       }
     }
     onSubmit={[Function]}

@@ -5,6 +5,7 @@ import moment from 'moment'
 
 import { DateStorageFormat } from './commonTypes.js'
 import { getValuationAtDate } from './asset.js'
+import { getBalanceAtDate } from './loan.js'
 
 export const balanceSheetOverTime = (
   assets,
@@ -18,11 +19,11 @@ export const balanceSheetOverTime = (
   )
 }
 
-function * calcBalanceSheet(assets, liabilities, date, endDate) {
+function * calcBalanceSheet(assets, loans, date, endDate) {
   let nextDate = date
   while (!nextDate.isAfter(endDate)) {
     const totalAssets = sumAssetValueAtDate(values(assets), nextDate)
-    const totalLiabilities = 0 // sumLiabilityValueAtDate(liabilities, date)
+    const totalLiabilities = sumLoanBalanceAtDate(values(loans), nextDate)
     yield {
       [nextDate.format(DateStorageFormat)]: {
         totalAssets,
@@ -39,4 +40,11 @@ const sumAssetValueAtDate = (assets, date) => {
   const { head, tail } = { head: arrayHead(assets), tail: arrayTail(assets) }
   const headResult = getValuationAtDate(head, date)
   return headResult + sumAssetValueAtDate(tail, date)
+}
+
+const sumLoanBalanceAtDate = (loans, date) => {
+  if (loans.length === 0) return 0
+  const { head, tail } = { head: arrayHead(loans), tail: arrayTail(loans) }
+  const headResult = getBalanceAtDate(head, date)
+  return headResult + sumLoanBalanceAtDate(tail, date)
 }

@@ -4,19 +4,23 @@ import pick from 'lodash.pick'
 import { balanceSheetOverTime } from './balanceSheet.js'
 import { DateStorageFormat } from './commonTypes.js'
 import { validAssetWithId1, validAssetWithId2 } from './fixtures/asset.js'
+import { validLoanWithId1, validLoanWithId2 } from './fixtures/loan.js'
 
 describe('balanceSheetOverTime', () => {
   const assets = {
     [validAssetWithId1.id]: validAssetWithId1,
     [validAssetWithId2.id]: validAssetWithId2,
   }
-  const liabilities = {}
+  const loans = {
+    [validLoanWithId1.id]: validLoanWithId1,
+    [validLoanWithId2.id]: validLoanWithId2,
+  }
 
   it('should return correct results', () => {
     window.onmessage = () => {}
     const result = balanceSheetOverTime(
       assets,
-      liabilities,
+      loans,
       moment('2019-08-20', DateStorageFormat),
       moment('2025-01-05', DateStorageFormat)
     )

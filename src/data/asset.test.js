@@ -38,7 +38,7 @@ describe('getValuationAtDate', () => {
     expect(valuation).toEqual(0)
   })
 
-  it('should return zero if selected date is before today', () => {
+  it('should return zero if selected date is before purchase date', () => {
     const asset = { ...validAsset3 }
     const valuation = getValuationAtDate(
       asset,

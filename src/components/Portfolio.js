@@ -22,6 +22,10 @@ export class Portfolio extends React.Component {
       status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
       objects: PropTypes.objectOf(PropTypes.object),
     }),
+    loans: PropTypes.shape({
+      status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
+      objects: PropTypes.objectOf(PropTypes.object),
+    }),
     balanceSheet: PropTypes.shape({
       status: PropTypes.oneOf([ 'uninitialised', 'loading', 'loaded', 'error' ]),
       balanceSheet: PropTypes.objectOf(PropTypes.object),
@@ -29,7 +33,7 @@ export class Portfolio extends React.Component {
   }
 
   constructor(props) {
-    const { assets, liabilities, balanceSheet, dispatch } = props
+    const { assets, loans, balanceSheet, dispatch } = props
     super(props)
     this.state = {}
     if (balanceSheet.fresh === false) {
@@ -37,7 +41,7 @@ export class Portfolio extends React.Component {
       dispatch(
         updateBalanceSheet(
           assets.objects,
-          liabilities.objects,
+          loans.objects,
           today.format(DateStorageFormat),
           today.add(10, 'years').format(DateStorageFormat)
         )
@@ -145,7 +149,7 @@ export class Portfolio extends React.Component {
 const mapStateToProps = state => {
   return {
     assets: state.assets,
-    liabilities: state.liabilities,
+    loans: state.loans,
     balanceSheet: state.balanceSheet,
   }
 }
